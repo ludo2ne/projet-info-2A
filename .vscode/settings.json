@@ -1,0 +1,17 @@
+{
+    "python.analysis.extraPaths": [
+        "./business_object",
+        "./service",
+        "./dao"
+    ],
+	
+    "terminal.integrated.env.windows": {
+        "PYTHONPATH": "${workspaceFolder}/src",
+    },
+	
+	"terminal.integrated.env.linux": {
+		"PYTHONPATH": "${workspaceFolder}/src",
+	},
+	
+	"python.languageServer": "Jedi"
+}
