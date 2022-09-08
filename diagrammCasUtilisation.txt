@@ -1,0 +1,63 @@
+@startuml
+
+left to right direction
+actor "Utilisateur" as u
+
+package Administrateur{
+actor "Organisateur" as o
+}
+
+package Intervenant_joueur{
+actor "Maître_jeu" as mj
+actor "Joueur" as j
+}
+
+rectangle Système{
+  usecase "S'inscrire" as 1
+  usecase "S'authentifier" as 2
+  usecase "Créer personnage" as 4
+  usecase "Choisir personnage" as 5
+  usecase "Choisir une table" as 6
+  usecase "Se désister" as 7
+  usecase "Voir sommaire participation" as 8
+  usecase "Voir sommaire" as 8bis
+  usecase "Se deconnecter" as 9
+  usecase "Voir message" as 10
+  usecase "Déplacer joueur" as 11
+  usecase "Supprimer joueur" as 12
+  usecase "Ajouter/Supprimer table" as 13
+  usecase "Indiquer sénarios" as 14
+
+  usecase "Choisir rôle mj/j" as 3
+  usecase "Le notifier" as 15
+
+}
+
+u --> 1
+u --> 2
+
+2 ..> 3
+
+o --> 8bis
+o --> 12
+o --> 11
+o --> 9
+o --> 13
+
+12 ..> 15
+
+mj --> 9
+mj --> 10
+mj --> 6
+mj --> 14
+mj --> 8
+mj --> 7
+
+j --> 9
+j --> 4
+j --> 5
+j --> 10
+j --> 8
+j --> 7
+
+@enduml
