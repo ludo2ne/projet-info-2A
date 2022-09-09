@@ -6,13 +6,12 @@ Licence : Domaine public
 Version : 1.0
 '''
 
-
 from business_object.joueur import Joueur
 
 
 class JoueurDao:
     '''
-    Classe contenant les méthodes de service de Joueur
+    Classe contenant les méthodes de dao de Joueur
     '''
 
     def creer(joueur):
@@ -34,7 +33,7 @@ class JoueurDao:
                     "prenom": joueur.prenom})
                 res = cursor.fetchone()
         '''
-        print("Joueur " + joueur.prenom + " " + joueur.nom + " créé")
+        print("Joueur " + joueur.prenom + " " + joueur.nom + " créé en bdd")
 
     def lister_tous():
         '''

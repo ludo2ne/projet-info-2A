@@ -25,6 +25,20 @@ class JoueurService:
             nom du joueur
         prenom : str
             prenom du joueur
+
+        Returns
+        -------
+        Joueur : le joueur créé
         '''
         nouveau_joueur = Joueur(nom, prenom)
         JoueurDao.creer(nouveau_joueur)
+        return nouveau_joueur
+
+    def lister_tous(self):
+        '''Service pour lister tous les joueurs
+
+        Returns
+        -------
+        liste[Joueur]
+        '''
+        return JoueurDao.lister_tous()

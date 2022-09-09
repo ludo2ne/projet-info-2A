@@ -18,7 +18,7 @@ class Joueur:
         identifiant
     '''
 
-    def __init__(self, nom, couleur):
+    def __init__(self, nom, prenom):
         '''Constructeur de l'objet
         L'id est généré automatiquement lors de l'insert en bdd'
 
@@ -29,5 +29,5 @@ class Joueur:
         prenom : str
             prenom du joueur
         '''
-        self.couleur = couleur
         self.nom = nom
+        self.prenom = prenom

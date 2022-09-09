@@ -20,4 +20,4 @@ class LancementAppli:
         choix = 1
         if choix == 1:
             # TODO questionnaire
-            JoueurService.creer(nom, prenom)
+            JoueurService().creer(nom, prenom)
