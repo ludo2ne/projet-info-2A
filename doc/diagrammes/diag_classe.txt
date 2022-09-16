@@ -61,7 +61,7 @@ class Jeu{
 +liste_table : list[id_table]
 }
 
-class Table{
+class TableJeu{
 +joueur_intervenant : list[id_intervenant]
 +id_maitre_jeu : int
 +scenario : str
