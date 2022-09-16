@@ -8,27 +8,30 @@ package INTERVENANT{
 class Intervenant{
 
 +se_connecter() : none
-+s'inscrire() : none
++s_inscrire() : none
 }
 
 
 class Administrateur{
 +id_admin : str
 
-+se_connecter() : none
++se_deconnecter() : none
 +supprimer_table() : none
 +deplacer_joueur() : none
 +supprimer_joueur_mj() : none
-+vue_sommaire
++vue_sommaire() : none
 }
  
 
 class Intervenant_joueur{
-+id_intervenant : str
-+langue_parlé : list[str]
++ nom : str
++ prenom : str
++ mail : str
 
-+se_connecter() : none
-+s'inscrire_j_mj() : none 
++se_deconnecter() : none
++s_inscrire(Table) : none 
++se_desister(Table) : none
++consulter_tables() : none
 +consulter_tables_ou_on_joue() : none
 }
 
@@ -37,15 +40,13 @@ class Joueur{
 +id_joueur : str
 +perso : list[Personnage]
 
-+se_desister() : none
 +créer_perso() : none
 }
 
 class Maître_jeu{
-+id_maître_jeu : str
++id_maitre_jeu : str
 
-+se_desister() : none
-+afficher_liste_joueur() : none (et leur perso)
++afficher_liste_joueur(Table) : none (et leur perso)
 +affecter_scenario() : none
 }
 
@@ -56,13 +57,14 @@ class Maître_jeu{
 Package jeu{
 
 class Jeu{
-+horraire : time
++horaire : time
 +liste_table : list[id_table]
 }
 
 class Table{
 +joueur_intervenant : list[id_intervenant]
-+mj_id : id_maître_jeu
++id_maitre_jeu : int
++scenario : str
 +joueur : list[id_joueur]
 }
 
@@ -71,6 +73,7 @@ class Personnage{
 +id_perso : str
 +index : int
 +description : str
++langues_parlées : list[str]
 }
 
 }
