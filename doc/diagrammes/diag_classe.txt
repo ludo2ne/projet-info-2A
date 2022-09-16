@@ -1,13 +1,11 @@
 'à coller ici : https://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000
 
 @startuml
-!theme superhero-outline
 
 
 package INTERVENANT{
 
 class Intervenant{
-+id_intervenant : str
 
 +se_connecter() : none
 +s'inscrire() : none
@@ -15,12 +13,13 @@ class Intervenant{
 
 
 class Administrateur{
-+id_intervenant : str
++id_admin : str
 
 +se_connecter() : none
 +supprimer_table() : none
 +deplacer_joueur() : none
 +supprimer_joueur_mj() : none
++vue_sommaire
 }
  
 
@@ -35,17 +34,15 @@ class Intervenant_joueur{
 
 
 class Joueur{
-+id_intervenant : str
 +id_joueur : str
-+id_table : str
++perso : list[Personnage]
 
 +se_desister() : none
++créer_perso() : none
 }
 
 class Maître_jeu{
-+id_intervenant : str
 +id_maître_jeu : str
-+id_table : str
 
 +se_desister() : none
 +afficher_liste_joueur() : none (et leur perso)
@@ -69,7 +66,14 @@ class Table{
 +joueur : list[id_joueur]
 }
 
+class Personnage{
++nom : str
++id_perso : str
++index : int
++description : str
+}
 
+}
 
 
 Intervenant <|-- Administrateur
