@@ -1,50 +1,31 @@
+'à coller ici : https://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000
+
 @startuml
 
 
 package INTERVENANT{
 
-class Intervenant{
-
-+se_connecter() : none
-+s'inscrire() : none
-}
 
 
 class Administrateur{
 +id_admin : str
-
-+se_connecter() : none
-+supprimer_table() : none
-+deplacer_joueur() : none
-+supprimer_joueur_mj() : none
-+vue_sommaire
 }
- 
 
-class Intervenant_joueur{
-+id_intervenant : str
-+langue_parlé : list[str]
-
-+se_connecter() : none
-+s'inscrire_j_mj() : none 
-+consulter_tables_ou_on_joue() : none
-}
 
 
 class Joueur{
 +id_joueur : str
++ nom : str
++ prenom : str
++ mail : str
 +perso : list[Personnage]
-
-+se_desister() : none
-+créer_perso() : none
 }
 
 class Maître_jeu{
 +id_maître_jeu : str
-
-+se_desister() : none
-+afficher_liste_joueur() : none (et leur perso)
-+affecter_scenario() : none
++ nom : str
++ prenom : str
++ mail : str
 }
 
 }
@@ -54,11 +35,11 @@ class Maître_jeu{
 Package jeu{
 
 class Jeu{
-+horraire : time
++horaire : time
 +liste_table : list[id_table]
 }
 
-class Table{
+class TableJeu{
 +joueur_intervenant : list[id_intervenant]
 +mj_id : id_maître_jeu
 +joueur : list[id_joueur]
@@ -75,12 +56,8 @@ class Personnage{
 
 
 Joueur "1" -- "1,2,3" Personnage : possède >
-Table "1" -- "1" Maître_jeu : contient >
-Table "1" -- "1,...,*" Joueur : contient >
-Jeu "1" o-- "1,...,*" Table : contient >
+TableJeu "1" -- "1" Maître_jeu : contient >
+TableJeu "1" -- "1,...,*" Joueur : contient >
+Jeu "1" o-- "1,...,*" TableJeu : contient >
 
-Intervenant <|-- Administrateur
-Intervenant <|-- Intervenant_joueur
-Intervenant_joueur <|-- Joueur
-Intervenant_joueur <|-- Maître_jeu
 @enduml
