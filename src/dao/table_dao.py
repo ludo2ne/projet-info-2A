@@ -28,15 +28,13 @@ class TableDao(metaclass=Singleton):
 
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
-                requete = "INSERT INTO jdr.table_jeu VALUES (%(numero)s);", {
-                    "numero": table.numero}
-                print(requete)
                 cursor.execute(
-                    "INSERT INTO jdr.table_jeu VALUES "
-                    "(%(numero)s);", {"numero": table.numero})
+                    "INSERT INTO jdr.table_jeu(numero) VALUES "
+                    "(%(numero)s) RETURNING id_table;", {"numero": table.numero})
+                print(cursor.description)
                 res = cursor.fetchone()
         if res:
-            attack.id = res['id_attack']
+            table.id = res['id_table']
             created = True
         return created
 
