@@ -23,24 +23,19 @@ class Administrateur{
 }
  
 
-class Intervenant_joueur{
+
+class Joueur{
 + nom : str
 + prenom : str
 + mail : str
-
-+se_deconnecter() : none
-+s_inscrire(Table) : none 
-+se_desister(Table) : none
-+consulter_tables() : none
-+consulter_tables_ou_on_joue() : none
-}
-
-
-class Joueur{
 +id_joueur : str
 +perso : list[Personnage]
 
 +créer_perso() : none
++se_deconnecter() : none
++s_inscrire(Table) : none 
++se_desister(Table) : none
++consulter_tables_ou_on_joue() : none
 }
 
 class Maître_jeu{
@@ -80,7 +75,6 @@ class Personnage{
 
 
 Intervenant <|-- Administrateur
-Intervenant <|-- Intervenant_joueur
-Intervenant_joueur <|-- Joueur
-Intervenant_joueur <|-- Maître_jeu
+Intervenant <|-- Joueur 
+Joueur <|-- Maître_jeu
 @enduml
