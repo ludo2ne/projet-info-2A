@@ -1,0 +1,63 @@
+'à coller ici : https://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000
+
+@startuml
+
+
+package INTERVENANT{
+
+
+
+class Administrateur{
++id_admin : str
+}
+
+
+
+class Joueur{
++id_joueur : str
++ nom : str
++ prenom : str
++ mail : str
++perso : list[Personnage]
+}
+
+class Maître_jeu{
++id_maître_jeu : str
++ nom : str
++ prenom : str
++ mail : str
+}
+
+}
+
+
+
+Package jeu{
+
+class Jeu{
++horaire : time
++liste_table : list[id_table]
+}
+
+class TableJeu{
++joueur_intervenant : list[id_intervenant]
++mj_id : id_maître_jeu
++joueur : list[id_joueur]
+}
+
+class Personnage{
++nom : str
++id_perso : str
++index : int
++description : str
+}
+
+}
+
+
+Joueur "1" -- "1,2,3" Personnage : possède >
+TableJeu "1" -- "1" Maître_jeu : contient >
+TableJeu "1" -- "1,...,*" Joueur : contient >
+Jeu "1" o-- "1,...,*" TableJeu : contient >
+
+@enduml
