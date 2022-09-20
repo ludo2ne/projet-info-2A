@@ -7,17 +7,35 @@ Version : 1.0
 '''
 
 
+from utils.singleton import Singleton
 from service.joueur_service import JoueurService
+from view.accueil_vue import AccueilVue
 
 
-class LancementAppli:
+class LancementAppli(metaclass=Singleton):
     '''
     Classe de lancement de l'application
     '''
 
-    def __init__(self):
-        # TODO choix = 1 : s'inscrire ou 2 : se connecter
-        choix = 1
-        if choix == 1:
-            # TODO questionnaire
-            JoueurService().creer(nom, prenom)
+    def lancer(self):
+
+        vue_courante = AccueilVue()
+
+        while vue_courante:
+            try:
+                # Affichage du menu
+                vue_courante.display_header()
+
+                # Affichage des choix possibles
+                vue_courante = vue_courante.make_choice()
+            except:
+                print("Une erreur est survenue, retour au menu principal")
+                vue_courante = AccueilVue()
+
+        # Lorsque l on quitte l application
+        print("---------------------------------")
+        print("Au revoir")
+
+
+if __name__ == '__main__':
+    LancementAppli().lancer()

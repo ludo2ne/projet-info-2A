@@ -16,7 +16,7 @@ class JoueurService:
     Classe contenant les méthodes de service de Joueur
     '''
 
-    def creer_joueur(self, nom, prenom):
+    def creer(self, nom, prenom):
         '''Service de création d'un joueur
 
         Parameters
@@ -30,10 +30,13 @@ class JoueurService:
         -------
         Joueur : le joueur créé
         '''
+        print("Service de création de joueur")
+
         joueur_dao = JoueurDao()
 
         nouveau_joueur = Joueur(nom, prenom)
         joueur_dao.creer(nouveau_joueur)
+
         return nouveau_joueur
 
     def lister_tous(self):

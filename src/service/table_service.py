@@ -32,7 +32,7 @@ class TableService:
         table_dao.creer(nouvelle_table)
 
     def ajouter_joueur(self, table, joueur) -> bool:
-        '''Service d'ajout d'un joueur à une table'
+        '''Ajout d'un joueur à une table s'il y a de la place
 
         Parameters
         ----------

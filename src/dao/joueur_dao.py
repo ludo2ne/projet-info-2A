@@ -6,15 +6,20 @@ Licence : Domaine public
 Version : 1.0
 '''
 
+from typing import List, Optional
+
+from dao.db_connection import DBConnection
+from utils.singleton import Singleton
+
 from business_object.joueur import Joueur
 
 
-class JoueurDao:
+class JoueurDao(metaclass=Singleton):
     '''
     Classe contenant les méthodes de dao de Joueur
     '''
 
-    def creer(joueur):
+    def creer(self, joueur) -> bool:
         '''Creation d'un joueur dans la base de données
 
         Parameters
@@ -22,20 +27,23 @@ class JoueurDao:
         joueur : Joueur
         '''
 
-        '''
-        TODO requête d'insertion en bdd
+        print("Sauvegarde d'un joueur en BDD")
+
+        created = False
+
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "INSERT INTO joueur (id, nom, prenom)"\
-                    " VALUES (%(joueur_sequence.nextval())s, %(nom)s, %(prenom)s,
-                    {"nom": joueur.nom,
-                    "prenom": joueur.prenom})
+                    "INSERT INTO jdr.joueur(nom, prenom) VALUES "
+                    "(%(nom)s,%(prenom)s) RETURNING id_joueur;", {"nom": joueur.nom, "prenom": joueur.prenom})
+                print(cursor.description)
                 res = cursor.fetchone()
-        '''
-        print("Joueur " + joueur.prenom + " " + joueur.nom + " créé en bdd")
+        if res:
+            joueur.id = res['id_joueur']
+            created = True
+        return created
 
-    def lister_tous():
+    def lister_tous(self):
         '''
         Liste de tous les joueurs
         '''
