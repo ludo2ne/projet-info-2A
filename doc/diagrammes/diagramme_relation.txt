@@ -5,14 +5,6 @@
 
 package INTERVENANT{
 
-
-
-class Administrateur{
-+id_admin : str
-}
-
-
-
 class Joueur{
 +id_joueur : str
 + nom : str
@@ -21,12 +13,6 @@ class Joueur{
 +perso : list[Personnage]
 }
 
-class Maître_jeu{
-+id_maître_jeu : str
-+ nom : str
-+ prenom : str
-+ mail : str
-}
 
 }
 
@@ -56,7 +42,6 @@ class Personnage{
 
 
 Joueur "1" -- "1,2,3" Personnage : possède >
-TableJeu "1" -- "1" Maître_jeu : contient >
 TableJeu "1" -- "1,...,*" Joueur : contient >
 Jeu "1" o-- "1,...,*" TableJeu : contient >
 
