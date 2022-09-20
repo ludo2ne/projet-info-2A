@@ -26,5 +26,31 @@ class TableService:
         prenom : str
             prenom du joueur
         '''
+        table_dao = TableDao()
+
         nouvelle_table = Table(numero)
-        TableDao.creer(nouvelle_table)
+        table_dao.creer(nouvelle_table)
+
+    def ajouter_joueur(self, table, joueur) -> bool:
+        '''Service d'ajout d'un joueur à une table'
+
+        Parameters
+        ----------
+        table : Table
+            la table sur laquelle on ajoute le joueur
+        joueur : Joueur
+            Joueur à ajouter
+        '''
+        table_dao = TableDao()
+        success = False
+
+        nombre_actuel_joueurs = table_dao.get_nb_joueurs(table)
+
+        if nombre_actuel_joueurs <= table.nb_joueurs_max:
+            success = table_dao.ajouter_joueur(table, joueur)
+        else:
+            print("Impossible d'ajouter de nouveaux joueurs à la table")
+            print("Nombre de joueurs maximum : " + table.nb_joueurs_max)
+            print("Nombre de joueurs actuellement : " + nombre_actuel_joueurs)
+
+        return success

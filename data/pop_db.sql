@@ -14,4 +14,6 @@ INSERT INTO jdr.table_joueur(id_table, id_joueur) VALUES
 (1, 1),
 (1, 3),
 (1, 4),
-(2, 1);
+(2, 1),
+(1001,1001),
+(1001,1002);

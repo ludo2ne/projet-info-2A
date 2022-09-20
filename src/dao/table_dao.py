@@ -18,13 +18,14 @@ class TableDao(metaclass=Singleton):
     '''
 
     def creer(self, table) -> bool:
-        '''Creation d'un joueur dans la base de données
+        '''Création d'une table dans la base de données
 
         Parameters
         ----------
         table : Table
+            la table à créer
         '''
-        created = False
+        inserted = False
 
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
@@ -35,11 +36,40 @@ class TableDao(metaclass=Singleton):
                 res = cursor.fetchone()
         if res:
             table.id = res['id_table']
-            created = True
-        return created
+            inserted = True
+        return inserted
 
-    def ajouter_joueur(self, joueur):
+    def ajouter_joueur(self, table, joueur):
+        '''Ajoute un joueur à une table        
+
+        Parameters
+        ----------
+        table : Table
+            table sur laquelle ajouter le joueur
+        joueur : Joueur
+            joueur à ajouter
         '''
-        Ajoute un joueur à une table
+        inserted = False
+
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "INSERT INTO jdr.table_joueur(id_table, id_joueur) VALUES "
+                    "(%(id_table)s, %(id_joueur)s) RETURNING id_table;", {"id_table": table.id, "id_joueur": joueur.id})
+                print(cursor.description)
+                res = cursor.fetchone()
+        if res:
+            inserted = True
+        return inserted
+
+    def nombre_joueurs_assis(self, table) -> int:
+        '''Nombre de joueurs assis actuellement à la table
         '''
-        print("INSERT INTO table_joueurs VALUES...")
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT count(1) FROM jdr.table_joueur WHERE id_table = "
+                    "%(id_table)s;", {"id_table": table.id})
+                print(cursor.description)
+                nb_joueurs = cursor.fetchone() TODO
+        return nb_joueurs

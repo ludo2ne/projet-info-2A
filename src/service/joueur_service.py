@@ -30,8 +30,10 @@ class JoueurService:
         -------
         Joueur : le joueur créé
         '''
+        joueur_dao = JoueurDao()
+
         nouveau_joueur = Joueur(nom, prenom)
-        JoueurDao.creer(nouveau_joueur)
+        joueur_dao.creer(nouveau_joueur)
         return nouveau_joueur
 
     def lister_tous(self):
