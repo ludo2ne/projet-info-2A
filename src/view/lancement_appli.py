@@ -1,7 +1,7 @@
 '''
 Module lancement_appli
 Auteurs : L.Deneuville, J-F.Parriaud, J.Torres, H.Wispelaere, B.Zhang
-Date    : 06/09/2022
+Date    : 20/09/2022
 Licence : Domaine public
 Version : 1.0
 '''
@@ -20,16 +20,21 @@ class LancementAppli(metaclass=Singleton):
     def lancer(self):
 
         vue_courante = AccueilVue()
+        nb_erreurs = 0
 
         while vue_courante:
+            if nb_erreurs > 100:
+                print("Le programme recense trop d'erreurs et va s'arrêter")
+                break
             try:
                 # Affichage du menu
-                vue_courante.display_header()
+                vue_courante.afficher()
 
                 # Affichage des choix possibles
-                vue_courante = vue_courante.make_choice()
+                vue_courante = vue_courante.choisir_menu()
             except:
                 print("Une erreur est survenue, retour au menu principal")
+                nb_erreurs += 1
                 vue_courante = AccueilVue()
 
         # Lorsque l on quitte l application

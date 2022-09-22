@@ -1,8 +1,18 @@
+'''
+Module creer_joueur_vue
+Auteurs : L.Deneuville, J-F.Parriaud, J.Torres, H.Wispelaere, B.Zhang
+Date    : 20/09/2022
+Licence : Domaine public
+Version : 1.0
+'''
+
+
 from InquirerPy import prompt
+from view.vue_abstraite import VueAbstraite
 from service.joueur_service import JoueurService
 
 
-class CreerJoueurVue():
+class CreerJoueurVue(VueAbstraite):
     def __init__(self, ):
         self.questions = [
             {
@@ -17,14 +27,10 @@ class CreerJoueurVue():
             }
         ]
 
-    def clear_console(self) -> None:
-        for i in range(0, 20):
-            print("")
+    def afficher(self):
+        self.nettoyer_console()
 
-    def display_header(self):
-        self.clear_console()
-
-    def make_choice(self):
+    def choisir_menu(self):
 
         answers = prompt(self.questions)
 
