@@ -18,7 +18,7 @@ class CreerJoueurVue():
         ]
 
     def clear_console(self) -> None:
-        for i in range(0, 50):
+        for i in range(0, 20):
             print("")
 
     def display_header(self):
@@ -36,7 +36,7 @@ class CreerJoueurVue():
         if not joueur:
             print("La création du joueur a échoué")
         else:
-            print("Le joueur {} {} a bien été créé .".format(
+            print("Le joueur {} {} a bien été créé".format(
                 joueur.prenom, joueur.nom))
 
         from view.accueil_vue import AccueilVue

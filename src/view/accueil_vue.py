@@ -21,7 +21,7 @@ class AccueilVue():
         ]
 
     def clear_console(self) -> None:
-        for i in range(0, 50):
+        for i in range(0, 20):
             print("")
 
     def display_header(self) -> None:
@@ -33,6 +33,7 @@ class AccueilVue():
             pass
         elif reponse["choix"] == "Se connecter":
             # TODO
+            print("Fonctionalité non implémentée")
             pass
         elif reponse["choix"] == "Créer un compte Joueur":
             return CreerJoueurVue()

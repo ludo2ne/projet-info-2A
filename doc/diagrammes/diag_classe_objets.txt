@@ -1,0 +1,59 @@
+'à coller ici : https://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000
+
+@startuml
+
+class Administrateur{
++id_admin : str
+
+__init__()
+}
+ 
+
+
+class Joueur{
++ id_joueur : int
++ pseudo : str
++ nom : str
++ prenom : str
++ mail : str
++ personnages : list[Personnage]
+
+__init__()
+}
+
+class Maître_jeu{
+__init__()
+}
+
+
+
+
+
+class TableJeu{
++ id_table : int
++ scenario : str
++ debut_jeu : time
++ fin_jeu : time
++ id_maitre_jeu : int
++ joueurs : list[Joueur]
+
+__init__()
+}
+
+class Personnage{
++ id_personnage : int
++ nom : str
++ classe : str
++ niveau : int
++ competences : list[str]
++ langues_parlées : list[str]
+
+__init__()
+}
+
+
+TableJeu o-- Joueur
+Personnage --* Joueur
+
+Joueur <|-- Maître_jeu
+@enduml

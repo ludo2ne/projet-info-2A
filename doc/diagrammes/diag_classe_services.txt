@@ -1,0 +1,56 @@
+'à coller ici : https://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000
+
+@startuml
+
+class AdministrateurService{
++ __init__()
++ creer_table(Table) ; bool
++ supprimer_table(Table) : bool
++ supprimer_joueur(Joueur) : bool
++ deplacer_joueur(Joueur, Table) : bool
++ voir_sommaire() : none
++ se_deconnecter() : none
+
+}
+ 
+
+class JoueurService{
++ __init__()
++ creer(Joueur) : bool
++ supprimer(Joueur) : bool
++ creer_personnage(Personnage) : bool
++ supprimer_personnage(Personnage) : bool
++ lister_personnages(Joueur) : list[Personnage]
++ voir_tables(Joueur) : none
++ rejoindre_table(Table, Personnage) : bool
++ quitter_table(Table) : bool
++ se_deconnecter() : none
+}
+
+
+class MaîtreJeuService{
++ __init__()
++ gerer_table(Table, scenario) : bool
++ resilier_table(Table) : bool
++ voir_joueur(Table) : none
+}
+
+
+class PersonnageService{
++ __init__()
++ creer(Personnage) : bool
++ supprimer(Personnage) : bool
++ importer_info_api() : none
+}
+
+
+
+class TableJeuService{
++ __init__()
++ creer(Table) : bool
++ supprimer(Table) : bool
+}
+
+
+
+@enduml
