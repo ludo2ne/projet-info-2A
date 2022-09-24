@@ -3,46 +3,61 @@
 @startuml
 
 
-package INTERVENANT{
 
-class Joueur{
-+id_joueur : str
+class joueur{
++ id_joueur : int
++ pseudo : str
 + nom : str
 + prenom : str
 + mail : str
-+perso : list[Personnage]
 }
 
 
+class personnage{
++ id_personnage : int
++ id_joueur : int
++ nom : str
++ classe : str
++ niveau : int
 }
 
 
 
-Package jeu{
-
-class Jeu{
-+horaire : time
-+liste_table : list[id_table]
-}
-
-class TableJeu{
-+joueur_intervenant : list[id_intervenant]
-+mj_id : id_maître_jeu
-+joueur : list[id_joueur]
-}
-
-class Personnage{
-+nom : str
-+id_perso : str
-+index : int
-+description : str
-}
-
+class sceance{
++ id_sceance : int
++ description : str
++ debut : time
++ fin : time
 }
 
 
-Joueur "1" -- "1,2,3" Personnage : possède >
-TableJeu "1" -- "1,...,*" Joueur : contient >
-Jeu "1" o-- "1,...,*" TableJeu : contient >
+class table_jeu{
++ id_table : int
++ id_sceance : int
++ id_maitre_jeu : int
++ scenario : str
+}
+
+
+class table_personnage{
++ id_table : int
++ id_personnage : int
+}
+
+
+
+class message{
++ id_joueur : int
++ date_creation : time
++ message : str
++ lu : bool
+}
+
+
+joueur "1" -- "1,2,3" personnage : possède >
+table_jeu "1" -- "*" table_personnage
+table_personnage "*" -- "1" personnage
+sceance "1" o-- "1..*" table_jeu : contient >
+joueur "1" -- "*" message
 
 @enduml

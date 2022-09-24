@@ -8,7 +8,7 @@ class AdministrateurService{
 + supprimer_table(Table) : bool
 + supprimer_joueur(Joueur) : bool
 + deplacer_joueur(Joueur, Table) : bool
-+ voir_sommaire() : none
++ voir_programme_complet() : none
 + se_deconnecter() : none
 
 }

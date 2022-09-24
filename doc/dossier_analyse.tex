@@ -1,0 +1,331 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{awesomebox}
+\usepackage{tcolorbox}
+\usepackage{pifont}
+\usepackage[top=1.5cm,bottom=1.5cm,margin=2.5cm]{geometry}
+
+
+\graphicspath{{Images/}} %le chemin vers les images
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\begin{document}
+
+
+%-------------------------------------------------------------------------------
+% Page de garde
+%-------------------------------------------------------------------------------
+
+\begin{titlepage}
+\begin{center}
+
+
+\textsc{{\LARGE Ecole nationale de la statistique \\et de l'analyse de l'information}} \\ %Nom de l'école
+\vspace{5mm}
+\includegraphics[width=0.4\textwidth]{ensai_logo}\\[2 cm] %logo de l'école
+
+%\textsc{\LARGE Projet de traitement de données }\\[0.5cm] % Nom de cours
+
+
+% Title
+\HRule \\[0.4cm]
+{ \huge \bfseries Projet de Traitement de Données}\\[0.4cm]
+
+\HRule \\[1cm]
+
+{\Large 2ème Année}\\ [2cm]
+
+% Auteur(s) et Superviseur(s)
+
+\begin{flushleft} \Large
+\emph{Etudiants :}\\
+Ludovic \textsc{Deneuville} \\
+Jean-François \textsc{Parriaud} \\
+Jason \textsc{Torres} \\
+Hugo \textsc{Wispelaere} \\
+Banruo \textsc{Zhang} \\
+\end{flushleft}
+
+\begin{flushright} \Large
+\emph{Professeur:} \\
+Rémi \textsc{Pépin} \\
+\emph{Encadrant:} \\
+Cyriel \textsc{Mallart} \\
+\end{flushright}
+
+
+\vfill
+{\large 2022 - 2023}
+\end{center}
+\end{titlepage} 
+
+
+%-------------------------------------------------------------------------------
+% Table des matieres
+%-------------------------------------------------------------------------------
+
+\renewcommand{\contentsname}{Sommaire}
+\tableofcontents
+\newpage
+
+
+%-------------------------------------------------------------------------------
+% Introduction
+%-------------------------------------------------------------------------------
+
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+
+Les participants à un événement se divisent en deux catégories: les intervenants et le public. Dans le cadre d'une conférence, le nombre d'intervenants est fixé par avance et n'est pas destiné à évoluer, sauf cas de force majeure. Le nombre de personnes dans le public, quant à lui, se gère de façon relativement linéaire (inscriptions, désistements éventuels). Il est indépendant du nombre d'intervenants et il n'est pas nécessaire de gérer sa répartition.\\
+
+L'organisation d'une convention est différente. En effet les intervenants ne sont pas engagés mais volontaires. Ils doivent pouvoir s'inscrire ou se désister librement et chaque intervenant a la charge de quelques membres du public. Par conséquent, le public ne peut s'inscrire qu'à condition qu'il y ait des intervenants pour les encadrer, ce qui signifie qu'il faut pouvoir gérer son effectif et sa répartition. Le but de notre application est de faciliter l'organisation d'une telle convention. \\
+
+
+
+\newpage
+
+%-------------------------------------------------------------------------------
+% Section 1
+%-------------------------------------------------------------------------------
+
+\section{Analyse du besoin}
+
+\subsection{Cahier des charges}
+Notre application devra être utilisable aussi bien par les organisateurs de la convention que par les intervenants et le public.  \\
+
+La convention que notre application doit permettre de gérer se déroule sur un week-end et comporte quatre plages horaires, chacune correspondant à une demi-journée. Elle est dédiée aux jeux de rôle, aussi les intervenants seront par la suite appelés "Maîtres du Jeu" ou MJ. Le public venant quant à lui pour jouer, ses membres seront appelés "Joueurs".\\ 
+
+
+L'application permettra aux personnes le désirant de s'inscrire en tant que Maîtres du Jeu. Ceux-ci auront la possibilité, pour chaque demi-journée, de choisir une table  et de définir le scénario proposé à cette table, offrant ainsi la possibilité de s'inscrire à cette table à quatre joueurs. Ils pourront aussi visualiser les profils des joueurs inscrits à leur table, afin de mieux préparer leur intervention. En outre, ils auront aussi la possibilité de voir un sommaire de leur participation. Enfin, si nécessaire, ils pourront se désister, entraînant une notification aux organisateurs. Les organisateurs auront alors la charge d'affecter les joueurs à une autre table dans la mesure du possible, ou d'annuler leur participation à cette demi-journée si nécessaire.\\
+
+L'application permettra à quiconque le souhaite, y compris les Maîtres du jeu, de s'inscrire en tant que joueur. Les joueurs auront accès à plusieurs fonctionnalités. La première d'entre elles sera la création de personnages, dans une limite de trois, via une API à l'adresse \href{https://www.dnd5eapi.co/}{https://www.dnd5eapi.co/}. La détention de personnages autorisera le choix d'une table de jeu par demi-journée. Afin de pouvoir faire un choix éclairé, les joueurs pourront visualiser, pour chaque table ouverte et disponible, le scénario proposé et ainsi choisir le personnage adéquat. Les joueurs pourront aussi visualiser un sommaire de leur participation et, le cas échéant, se désister d'une table, ce qui sera automatiquement notifié aux organisateurs.\\
+
+Enfin, les organisateurs auront un profil spécifique, permettant de visualiser un sommaire global de l'activité sur la convention. L'envoi automatique de notification lors de désistement de joueur ou de Maître du Jeu leur permettra d'être toujours avertis des changements intervenus. Ils seront en mesure de modifier ou supprimer la participation d'un Maître du jeu ou d'un joueur, entraînant une notification aux personnes concernées.\\
+
+Un système sommaire d'accès par identifiant sera mis en place, par souci de simplicité. Il permettra à la fois de différencier les statuts des protagonistes et de cloisonner les profils individuels. Il sera toujours possible par la suite de mettre en place un système plus sécurisé avec mot de passe. \\
+
+
+
+\subsection{Fonctionnalités attendues}
+
+détailler diagramme de cas d'utilisation
+
+
+
+\subsection{Organisation d'équipe}
+
+Gantt + blabla + outils utilisés
+@Ludo
+
+
+%exemple insertion image
+\begin{figure}[H]
+    \caption{\textbf{Classe du paquet \texttt{pipeline}}}
+    \label{UML_classe_pipeline}
+    \centering
+    \includegraphics[height=0.12\textheight]{UML_diagrammes/UML_classe_pipeline.png}
+\end{figure}
+
+
+
+
+
+
+
+%-------------------------------------------------------------------------------
+% Section 2
+%-------------------------------------------------------------------------------
+
+\newpage
+\section{Conception}
+
+\subsection{Modélisation}
+
+L'application sera découpée en trois couches :
+\begin{itemize}
+    \item \texttt{Couche de Présentation} : elle contiendra les classes qui gèrent l'interface avec l'utilisateur,
+    \item \texttt{Couche de Service} : elle regroupe les classes qui contiennent les procédures métier,
+    \item \texttt{Couche DAO} : ensemble de classes permettant d'accéder à la base de données.
+\end{itemize}
+
+\bigbreak
+
+Les objets métier seront regroupés dans un package nommée business\_objects.
+
+
+\subsection{Les objets métier}
+
+Afin de modéliser notre application, nous avons listé les objets dont nous avions besoin (voir diagramme ci-dessous).
+
+
+
+\subsection{La couche Vue}
+
+Les classes de la couche vue sont des classes d'interface avec l'utilisateur. Elles affichent les fonctionnalités disponibles. La modélisation de ces classes est ainsi semblable au diagramme de cas d'utilisation présenté précédemment.
+
+\bigbreak
+
+Lorsque l'application se lance, l'utilisateur va être dirigé vers la vue \texttt{AccueilVue}. Il aura la possibilité de créer un compte, se connecter ou de quitter. Ensuite selon le choix effectué, l'utilisateur sera dirigé vers une nouvelle vue. Tant que la personne n'a pas choisi de quitter l'application, elle va naviguer de vues en vues. Dans la majorité des cas, une vue devra appeler des services. Ceux-ci effectueront les traitements métier demandé.
+
+
+
+\subsection{La couche Service}
+
+
+% Diagrammes de classes
+
+
+\subsection{Couche DAO et base de données}
+
+% Diagramme de base de données
+
+
+
+
+\newpage
+
+
+
+
+%-------------------------------------------------------------------------------
+% Conclusion
+%-------------------------------------------------------------------------------
+
+% PAS DE CONCLUSION...
+
+% \section*{Conclusion}
+% \addcontentsline{toc}{section}{Conclusion}
+
+
+%-------------------------------------------------------------------------------
+% Annexes
+%-------------------------------------------------------------------------------
+
+
+\newpage
+\addcontentsline{toc}{section}{Annexes}
+\appendix  % On passe aux annexes
+\section*{Annexe 1 - Diagramme de classe UML}
+
+
+ggg
+
+
+
+\newpage
+
+\section*{Annexe 2 - Utilisation de Git sur notre projet}
+
+Git est un logiciel de gestion de versions. Il facilite, pour chaque développeur, la synchronisation entre le dépôt local (le code qui est sur notre ordinateur) et le dépôt distant sur GitHub (le code commun). Il est ainsi beaucoup plus simple de travailler sur un même projet et d'éviter les décalages de versions. Dans le cadre de notre projet, nous utiliserons les fonctionnalités basiques de Git. Nous avons mis en place le protocole ci-dessous.
+
+\bigbreak
+
+Notre dépôt est organisé avec les dossiers suivants :
+\begin{itemize}
+    \item src : contient les fichiers python
+    \item doc : fichiers de documentation (cahier des charges, diagrammes UML...)
+    \item donnees : contient des fichiers de données, des fichiers tests et un dossier \texttt{exports} où seront générés tous les exports. 
+\end{itemize}
+
+
+\subsection*{Avant de commencer à coder}
+
+\begin{itemize}
+    \item Dans Visual Studio Code, j'ouvre un terminal Git Bash
+    \item Menu View > Terminal (ou CTRL+ù)
+    \item je clique sur la petite flèche vers le bas à coté du +, puis sur Git Bash
+    \item Normalement je suis placé directement dans le bon dossier et dans la console s'affiche : 
+\end{itemize}
+
+
+\noindent
+\verb"idxxxx yyyyyy /p/projet-info-sources/Projet-info (main)" \\
+\verb"git pull      # permet de mettre à jour le dépôt local avec le dépôt distant"
+
+
+
+
+\subsection*{Je code}
+
+\begin{itemize}
+    \item je crée/modifie/supprime des fichiers python (ou autre)
+    \item je teste que ça fonctionne bien
+    \item une fois que j'ai un morceau de code qui fonctionne, je crée un \textbf{commit} (point de sauvegarde)
+    \item il est très important de faire régulièrement un commit dès que quelque chose fonctionne bien. Cela évitera de perdre beaucoup de temps si ensuite par une action malheureuse, le code ne fonctionnait plus du tout. Dans ce cas, un simple retour arrière au dernier commit et l'on peut repartir sur de bonnes bases
+\end{itemize}
+
+\noindent
+\verb"git add .    # permet d'ajouter tous les nouveaux fichiers créés" \\
+\verb"git status   # pour voir les changements en cours" \\
+\verb"git commit -am «~message explicite~»     # Pour créer un commit" \\
+
+\bigbreak
+
+Si par la suite je fais une erreur, il est facile de revenir en arrière (au dernier commit) :\\
+\verb"git reset --hard" 
+
+\bigbreak
+
+Attention cette commande supprime toutes les modifications effectuées depuis le dernier commit. Par sécurité, je crée une copie du dossier \textbf{Projet-info} avant de lancer la commande.
+
+
+
+\subsection*{Je partage mon travail}
+
+\begin{itemize}
+    \item Si personne n'a poussé du code entre temps, tout va bien, je vais pouvoir faire un \textbf{push}
+    \item Par contre si le dépôt distant a été modifié, je dois synchroniser mon dépôt local avec les mises à jour effectuées sur le dépôt distant par d'autres membres de l'équipe
+    \item Si vous n'avez pas touché aux mêmes fichiers, Git va effectuer la fusion tout seul lors du \textbf{git pull}
+    \item Si vous avez touché au même fichier, ça se complique un peu. Git va dire qu'il n'a pas réussi de fusion automatique (\textit{CONFLICT (content): Merge conflict - Automatic merge failed}). Il faut ouvrir les fichiers en conflit et ceci apparaît : 
+\end{itemize}
+
+
+\noindent
+\verb"<<<<<<< HEAD" \\
+\verb"« Les modifications que j'ai faites »" \\
+\verb"=======" \\
+\verb"« Les modifications faites par un autre membre de l'équipe »" \\
+\verb">>>>>>>" \\
+
+\begin{itemize}
+    \item je modifie le fichier pour choisir quelle modification je garde
+    \item je teste et je vérifie que tout est ok
+    \item je recrée un commit \verb"git commit -am « merge manuel »"
+    \item et enfin, je peux faire \verb"git push"
+\end{itemize}
+
+\noindent
+\verb"git pull           # pour récupérer les éventuelles modifications du dépôt distant" \\
+\verb"git status         # pour voir s'il n'y a pas de conflits" \\
+\verb"git push           # pousser son code vers le dépôt distant" \\
+
+
+
+\subsection*{Commandes Git : ce qu'il faut retenir}
+
+\noindent
+\verb"git status               # Voir ce qui est en cours" \\
+\verb"git pull                 # Copier dépôt distant vers dépôt local" \\
+\verb"git push                 # Copier dépôt local vers dépôt distant" \\
+\verb"git add .                # Avant un commit pour que git identifie les nouveaux fichiers" \\
+\verb"git commit -am « message » # Créer un point de sauvegarde" \\
+\verb"git diff                 # Avant de faire un commit, voir les différences" \\
+
+
+
+
+
+
+
+
+\end{document}
+
