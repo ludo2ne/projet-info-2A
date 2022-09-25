@@ -33,7 +33,7 @@ CREATE TABLE jdr.joueur(
     pseudo text UNIQUE,
     nom text NOT NULL,
     prenom text NOT NULL,
-    mail text NOT NULL
+    mail text
 );
 
 -----------------------------------------------------

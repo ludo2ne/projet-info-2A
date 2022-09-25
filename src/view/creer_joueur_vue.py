@@ -17,13 +17,18 @@ class CreerJoueurVue(VueAbstraite):
         self.questions = [
             {
                 "type": "input",
+                "name": "pseudo",
+                "message": "Entrez votre pseudo :"
+            },
+            {
+                "type": "input",
                 "name": "nom",
-                "message": "Entrez le nom de l'utilisateur :"
+                "message": "Entrez votre nom :"
             },
             {
                 "type": "input",
                 "name": "prenom",
-                "message": "Entrez le prénom de l'utilisateur :"
+                "message": "Entrez votre prénom :"
             }
         ]
 
@@ -35,8 +40,8 @@ class CreerJoueurVue(VueAbstraite):
         answers = prompt(self.questions)
 
         # On appelle le service de creation de joueur
-        joueur = JoueurService().creer(
-            answers["nom"], answers["prenom"])
+        joueur = JoueurService().creer(answers["pseudo"],
+                                       answers["nom"], answers["prenom"], mail=None)
 
         # On récupère le mesage à afficher (succès ou échec)
         if not joueur:
