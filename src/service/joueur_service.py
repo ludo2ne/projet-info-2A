@@ -9,6 +9,7 @@ Version : 1.0
 
 from business_object.joueur import Joueur
 from dao.joueur_dao import JoueurDao
+from dao.table_jeu_dao import TableJeuDao
 
 
 class JoueurService:
@@ -16,15 +17,19 @@ class JoueurService:
     Classe contenant les méthodes de service de Joueur
     '''
 
-    def creer(self, nom, prenom):
+    def creer(self, pseudo, nom, prenom, mail):
         '''Service de création d'un joueur
 
         Parameters
         ----------
+        pseudo : str
+            pseudo du joueur
         nom : str
             nom du joueur
         prenom : str
             prenom du joueur
+        mail : str
+            mail du joueur
 
         Returns
         -------
@@ -34,10 +39,39 @@ class JoueurService:
 
         joueur_dao = JoueurDao()
 
-        nouveau_joueur = Joueur(nom, prenom)
+        nouveau_joueur = Joueur(pseudo, nom, prenom, mail)
         joueur_dao.creer(nouveau_joueur)
 
         return nouveau_joueur
+
+    def rejoindre_table(self, table, joueur, personnage) -> bool:
+        '''Rejoindre une table s'il y a de la place
+
+        Parameters
+        ----------
+        table : Table
+            la table sur laquelle on ajoute le joueur
+        joueur : Joueur
+            Joueur à ajouter
+        personnage : Personnage
+            Personnage choisi par le joueur
+        '''
+        table_jeu_dao = TableJeuDao()
+        success = False
+
+        # TODO verifier que le joueur est libre a cet horaire
+
+        # y a t il encore de la place a la table
+        nb_joueurs_table = table_jeu_dao.get_nb_joueurs(table)
+
+        if nb_joueurs_table <= table.nb_joueurs_max:
+            success = joueur_dao.ajouter_joueur(table, joueur, personnage)
+        else:
+            print("Impossible d'ajouter de nouveaux joueurs à la table")
+            print("Nombre de joueurs maximum : " + table.nb_joueurs_max)
+            print("Nombre de joueurs actuellement : " + nombre_actuel_joueurs)
+
+        return success
 
     def lister_tous(self):
         '''Service pour lister tous les joueurs

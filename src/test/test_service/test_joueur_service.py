@@ -1,23 +1,23 @@
 import unittest
+import time
 
 from service.joueur_service import JoueurService
 
 
 class TestJoueurService(unittest.TestCase):
-    ''' Test de la classe ImporterCSV 
-        Classe de la couche service
-    '''
 
     def test_creer_joueur(self):
         # GIVEN
-        nom, prenom = "Javel", "Aude"
+        pseudo, nom, prenom, mail = "ella" + \
+            time.strftime("%M%S"), "Danloss", "Ella", "ella.danloss@wanadoo.fr"
 
         # WHEN
-        nouveau_joueur = JoueurService().creer_joueur(nom, prenom)
+        nouveau_joueur = JoueurService().creer(pseudo, nom, prenom, mail)
 
         # THEN
-        self.assertEqual("Javel", nouveau_joueur.nom)
-        self.assertEqual("Aude", nouveau_joueur.prenom)
+        self.assertEqual("Danloss", nouveau_joueur.nom)
+        self.assertEqual("Ella", nouveau_joueur.prenom)
+        self.assertEqual("ella.danloss@wanadoo.fr", nouveau_joueur.mail)
 
 
 if __name__ == '__main__':

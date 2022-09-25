@@ -10,6 +10,8 @@ Version : 1.0
 class Joueur:
     '''Attributes
     ----------
+    pseudo : str
+        pseudo du joueur
     nom : str
         nom du joueur
     prenom : str
@@ -18,16 +20,12 @@ class Joueur:
         identifiant
     '''
 
-    def __init__(self, nom, prenom):
+    def __init__(self, pseudo, nom, prenom, mail, id=None):
         '''Constructeur de l'objet
-        L'id est généré automatiquement lors de l'insert en bdd'
-
-        Parameters
-        ----------
-        nom : str
-            nom du joueur
-        prenom : str
-            prenom du joueur
         '''
+        self.pseudo = pseudo
         self.nom = nom
         self.prenom = prenom
+        self.mail = mail
+        self.id = id
+        self.liste_personnage = []

@@ -6,13 +6,13 @@ Licence : Domaine public
 Version : 1.0
 '''
 
-from business_object.table import Table
+from business_object.table_jeu import TableJeu
 from typing import List, Optional
 from dao.db_connection import DBConnection
 from utils.singleton import Singleton
 
 
-class TableDao(metaclass=Singleton):
+class TableJeuDao(metaclass=Singleton):
     '''
     Classe contenant les méthodes de service de Joueur
     '''
@@ -22,8 +22,8 @@ class TableDao(metaclass=Singleton):
 
         Parameters
         ----------
-        table : Table
-            la table à créer
+        table : TableJeu
+            la table de jeu à créer
         '''
         inserted = False
 
@@ -39,28 +39,35 @@ class TableDao(metaclass=Singleton):
             inserted = True
         return inserted
 
-    def ajouter_joueur(self, table, joueur):
-        '''Ajoute un joueur à une table        
-
-        Parameters
-        ----------
-        table : Table
-            table sur laquelle ajouter le joueur
-        joueur : Joueur
-            joueur à ajouter
+    def trouver_par_id(self, id_table) -> int:
+        '''Obtenir une table à partir de son id_table
         '''
-        inserted = False
-
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "INSERT INTO jdr.table_joueur(id_table, id_joueur) VALUES "
-                    "(%(id_table)s, %(id_joueur)s) RETURNING id_table;", {"id_table": table.id, "id_joueur": joueur.id})
+                    "SELECT * FROM jdr.table WHERE id_table = "
+                    "%(id_table)s;", {"id_table": id_table})
                 print(cursor.description)
                 res = cursor.fetchone()
+
+        table = None
         if res:
-            inserted = True
-        return inserted
+
+            # TODO trouver mj
+
+            table = TableJeu(id_table=res['id_table'],
+                             numero=res['numero'],
+                             scenario=res['scenario'])
+
+            table.liste_personnages = lister_personnages(table)
+
+        return table
+
+    def lister_personnages(self, table):
+        '''retourne la liste des personnages de la table
+        '''
+        # TODO
+        return null
 
     def nombre_joueurs_assis(self, table) -> int:
         '''Nombre de joueurs assis actuellement à la table
@@ -71,5 +78,7 @@ class TableDao(metaclass=Singleton):
                     "SELECT count(1) FROM jdr.table_joueur WHERE id_table = "
                     "%(id_table)s;", {"id_table": table.id})
                 print(cursor.description)
-                nb_joueurs = cursor.fetchone() TODO
+                res = cursor.fetchone()
+
+        nb_joueurs = res['count']
         return nb_joueurs

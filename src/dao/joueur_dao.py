@@ -26,25 +26,73 @@ class JoueurDao(metaclass=Singleton):
         ----------
         joueur : Joueur
         '''
-
-        print("Sauvegarde d'un joueur en BDD")
-
-        created = False
+        print("Création d'un joueur en BDD")
 
         with DBConnection().connection as connection:
             with connection.cursor() as cursor:
                 cursor.execute(
-                    "INSERT INTO jdr.joueur(nom, prenom) VALUES "
-                    "(%(nom)s,%(prenom)s) RETURNING id_joueur;", {"nom": joueur.nom, "prenom": joueur.prenom})
+                    "INSERT INTO jdr.joueur(pseudo, nom, prenom, mail) VALUES "
+                    "(%(pseudo)s,%(nom)s,%(prenom)s,%(mail)s) RETURNING id_joueur;",
+                    {"pseudo": joueur.pseudo,
+                     "nom": joueur.nom,
+                     "prenom": joueur.prenom,
+                     "mail": joueur.mail})
                 print(cursor.description)
                 res = cursor.fetchone()
+
+        created = False
         if res:
             joueur.id = res['id_joueur']
             created = True
         return created
 
-    def lister_tous(self):
+    def trouver_par_id(self, id_joueur) -> Joueur:
+        '''trouver un joueur grace à son id
         '''
-        Liste de tous les joueurs
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT * FROM jdr.joueur "
+                    " WHERE id_joueur = %(id_joueur)s;",
+                    {"id_joueur": id_joueur})
+                print(cursor.description)
+                res = cursor.fetchone()
+
+        joueur = None
+        if res:
+            joueur = Joueur(id_joueur=res['id_joueur'],
+                            pseudo=res['pseudo'],
+                            nom=res['nom'],
+                            prenom=res['prenom'],
+                            mail=res['mail'])
+
+            # TODO
+            # joueur.liste_personnage = lister_personnages(joueur)
+
+        return table
+
+    def rejoindre_table(self, table, joueur, personnage):
+        '''Ajoute un joueur à une table        
+
+        Parameters
+        ----------
+        table : Table
+            table sur laquelle ajouter le joueur
+        joueur : Joueur
+            joueur à ajouter
+        personnage : Personnage
+            personnage choisi par le joueur
         '''
-        print("SELECT * FROM joueur")
+        inserted = False
+
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "INSERT INTO jdr.table_joueur(id_table, id_joueur, id_personnage) VALUES "
+                    "(%(id_table)s, %(id_joueur)s, %(id_personnage)s) RETURNING id_table;",
+                    {"id_table": table.id, "id_joueur": joueur.id, "id_personnage": personnage.id})
+                print(cursor.description)
+                res = cursor.fetchone()
+        if res:
+            inserted = True
+        return inserted
