@@ -19,7 +19,7 @@ class LancementAppli(metaclass=Singleton):
 
     def lancer(self):
 
-        vue_courante = AccueilVue()
+        vue_courante = AccueilVue("Bienvenue à la conférence de JDR")
         nb_erreurs = 0
 
         while vue_courante:
@@ -33,9 +33,9 @@ class LancementAppli(metaclass=Singleton):
                 # Affichage des choix possibles
                 vue_courante = vue_courante.choisir_menu()
             except:
-                print("Une erreur est survenue, retour au menu principal")
                 nb_erreurs += 1
-                vue_courante = AccueilVue()
+                vue_courante = AccueilVue(
+                    "Une erreur est survenue, retour au menu principal")
 
         # Lorsque l on quitte l application
         print("---------------------------------")

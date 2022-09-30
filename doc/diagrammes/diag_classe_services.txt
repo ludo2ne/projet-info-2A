@@ -9,7 +9,6 @@ class AdministrateurService{
 + supprimer_joueur(Joueur) : bool
 + deplacer_joueur(Joueur, Table) : bool
 + voir_programme_complet() : none
-+ se_deconnecter() : none
 
 }
  
@@ -24,7 +23,6 @@ class JoueurService{
 + voir_tables(Joueur) : none
 + rejoindre_table(Table, Personnage) : bool
 + quitter_table(Table) : bool
-+ se_deconnecter() : none
 }
 
 

@@ -10,6 +10,7 @@
 \usepackage{enumitem}
 \usepackage{awesomebox}
 \usepackage{tcolorbox}
+\usepackage{xcolor}
 \usepackage{pifont}
 \usepackage[top=1.5cm,bottom=1.5cm,margin=2.5cm]{geometry}
 
@@ -38,7 +39,7 @@
 
 % Title
 \HRule \\[0.4cm]
-{ \huge \bfseries Projet de Traitement de Données}\\[0.4cm]
+{ \huge \bfseries Projet informatique \\ \ \\ Dossier d'analyse}\\[0.4cm]
 
 \HRule \\[1cm]
 
@@ -85,7 +86,7 @@ Cyriel \textsc{Mallart} \\
 \section*{Introduction}
 \addcontentsline{toc}{section}{Introduction}
 
-Les participants à un événement se divisent en deux catégories: les intervenants et le public. Dans le cadre d'une conférence, le nombre d'intervenants est fixé par avance et n'est pas destiné à évoluer, sauf cas de force majeure. Le nombre de personnes dans le public, quant à lui, se gère de façon relativement linéaire (inscriptions, désistements éventuels). Il est indépendant du nombre d'intervenants et il n'est pas nécessaire de gérer sa répartition.\\
+Les participants à un événement se divisent en deux catégories: les intervenants et le public. Dans le cadre d'une conférence, le nombre d'intervenants (les conférenciers) est fixé par avance et n'est pas destiné à évoluer, sauf cas de force majeure. Le nombre de personnes dans le public (l'auditoire) se gère de façon relativement linéaire (inscriptions, désistements éventuels). Il est indépendant du nombre d'intervenants et il n'est pas nécessaire de gérer sa répartition.\\
 
 L'organisation d'une convention est différente. En effet les intervenants ne sont pas engagés mais volontaires. Ils doivent pouvoir s'inscrire ou se désister librement et chaque intervenant a la charge de quelques membres du public. Par conséquent, le public ne peut s'inscrire qu'à condition qu'il y ait des intervenants pour les encadrer, ce qui signifie qu'il faut pouvoir gérer son effectif et sa répartition. Le but de notre application est de faciliter l'organisation d'une telle convention. \\
 
@@ -104,12 +105,17 @@ Notre application devra être utilisable aussi bien par les organisateurs de la 
 
 La convention que notre application doit permettre de gérer se déroule sur un week-end et comporte quatre plages horaires, chacune correspondant à une demi-journée. Elle est dédiée aux jeux de rôle, aussi les intervenants seront par la suite appelés "Maîtres du Jeu" ou MJ. Le public venant quant à lui pour jouer, ses membres seront appelés "Joueurs".\\ 
 
+L'application permettra à quiconque le souhaite de s'inscrire en tant que Joueur. Les Joueurs auront accès à plusieurs fonctionnalités. La première d'entre elles sera la création de personnages, dans une limite de trois, via une API à l'adresse \textcolor{blue}{\href{https://www.dnd5eapi.co/}{https://www.dnd5eapi.co/}}. La détention de personnages autorisera le choix d'une table de jeu par demi-journée. Afin de pouvoir faire un choix éclairé, les Joueurs pourront visualiser, pour chaque table ouverte et disponible, le scénario proposé et ainsi choisir le personnage adéquat. Les Joueurs pourront aussi visualiser un sommaire de leur participation et, le cas échéant, se désister d'une table, ce qui sera automatiquement notifié aux organisateurs.\\
 
-L'application permettra aux personnes le désirant de s'inscrire en tant que Maîtres du Jeu. Ceux-ci auront la possibilité, pour chaque demi-journée, de choisir une table  et de définir le scénario proposé à cette table, offrant ainsi la possibilité de s'inscrire à cette table à quatre joueurs. Ils pourront aussi visualiser les profils des joueurs inscrits à leur table, afin de mieux préparer leur intervention. En outre, ils auront aussi la possibilité de voir un sommaire de leur participation. Enfin, si nécessaire, ils pourront se désister, entraînant une notification aux organisateurs. Les organisateurs auront alors la charge d'affecter les joueurs à une autre table dans la mesure du possible, ou d'annuler leur participation à cette demi-journée si nécessaire.\\
+L'application permettra aux Joueurs le désirant de s'inscrire en tant que Maîtres du Jeu. Ceux-ci auront la possibilité, pour chaque demi-journée, de choisir une table  et de définir le scénario proposé à cette table, offrant ainsi à quatre Joueurs la possibilité de s'inscrire à cette table. Ils pourront aussi visualiser les profils des Joueurs inscrits à leur table, afin de mieux préparer leur intervention. En outre, ils auront aussi la possibilité de voir un sommaire de leur participation. Enfin, si nécessaire, ils pourront se désister, entraînant une notification aux organisateurs. Les organisateurs auront alors la charge d'affecter les Joueurs à une autre table dans la mesure du possible, ou d'annuler leur participation à cette demi-journée si nécessaire.\\
 
-L'application permettra à quiconque le souhaite, y compris les Maîtres du jeu, de s'inscrire en tant que joueur. Les joueurs auront accès à plusieurs fonctionnalités. La première d'entre elles sera la création de personnages, dans une limite de trois, via une API à l'adresse \href{https://www.dnd5eapi.co/}{https://www.dnd5eapi.co/}. La détention de personnages autorisera le choix d'une table de jeu par demi-journée. Afin de pouvoir faire un choix éclairé, les joueurs pourront visualiser, pour chaque table ouverte et disponible, le scénario proposé et ainsi choisir le personnage adéquat. Les joueurs pourront aussi visualiser un sommaire de leur participation et, le cas échéant, se désister d'une table, ce qui sera automatiquement notifié aux organisateurs.\\
+\indent Il a été envisagé de différencier totalement les profils Joueur et Maître du Jeu, en leur attribuant des comptes séparés pour une même personne physique. Cela présentait deux inconvénients:
+\begin{itemize}
+\item{compliquer la gestion des erreurs humaines. En effet, une même personne ne peut pas physiquement participer à deux tables en même temps. Pour chaque compte nous pourrons avoir accès à une liste des tables auxquelles la personne participe. Avoir les comptes Joueur et Maître du Jeu joints signifie la présence d'une unique liste de tables à vérifier. Des comptes séparés auraient entraîné la création de deux listes séparées et, par conséquent, la nécessité de systématiquement vérifier si un compte Maître du Jeu est détenu par une personne ayant aussi un compte Joueur et vice-versa.}
+\item{compliquer l'utilisation de l'application pour une personne désirant être à la fois Maître du Jeu et Joueur. En effet, cette personne aurait dû systématiquement se déconnecter et s'authentifier pour passer d'un compte à l'autre.\\}
+\end{itemize}
 
-Enfin, les organisateurs auront un profil spécifique, permettant de visualiser un sommaire global de l'activité sur la convention. L'envoi automatique de notification lors de désistement de joueur ou de Maître du Jeu leur permettra d'être toujours avertis des changements intervenus. Ils seront en mesure de modifier ou supprimer la participation d'un Maître du jeu ou d'un joueur, entraînant une notification aux personnes concernées.\\
+Enfin, les organisateurs auront un profil spécifique, permettant de visualiser un sommaire global de l'activité sur la convention. L'envoi automatique de notification lors de désistement de Joueurs ou de Maîtres du Jeu leur permettra d'être toujours avertis des changements intervenus. Ils seront en mesure de modifier ou supprimer la participation d'un Maître du jeu ou d'un Joueur, entraînant une notification aux personnes concernées.\\
 
 Un système sommaire d'accès par identifiant sera mis en place, par souci de simplicité. Il permettra à la fois de différencier les statuts des protagonistes et de cloisonner les profils individuels. Il sera toujours possible par la suite de mettre en place un système plus sécurisé avec mot de passe. \\
 
@@ -117,25 +123,96 @@ Un système sommaire d'accès par identifiant sera mis en place, par souci de si
 
 \subsection{Fonctionnalités attendues}
 
-détailler diagramme de cas d'utilisation
+Le diagramme de cas d'utilisation est montré en figure \ref{UML_classe_pipeline}. \\
 
+On désigne par «~Utilisateur~» toute personne lançant l'application. Un Utilisateur, lorsqu'il lance le programme a trois actions à sa disposition~:
+\begin{itemize}
+    \item{S'inscrire~: l'Utilisateur peut se créer un compte Joueur. Il devra alors donner quelques renseignements sur son identité (nom, prénom, mail, pseudo...) avant de se voir attribuer un identifiant.}
+    \item{S'authentifier~: Si l'Utilisateur possède déjà un compte avec un profil Joueur ou Organisateur, il devra indiquer son pseudo pour avoir accès aux fonctionnalités liées à son profil. Dans le cadre de ce projet aucun mot de passe n'est nécessaire pour se connecter.}
+    \item{Quitter~:  Fermer l'application.\\}
+\end{itemize}
+
+Les organisateurs ont le choix entre les cinq actions suivantes~:
+\begin{itemize}
+    \item {Déplacer joueur~: lorsque plusieurs tables comptent un trop faible nombre de Joueurs, ou lorsqu'un Maître du Jeu s'est désisté, l'organisateur peut placer les Joueurs sur d'autres tables. Dans ce cas, le Joueur est notifié de ce changement par un message qui s'affichera lors de sa prochaine connexion.}
+    \item{Supprimer joueur~: dans le même cas de figure que précédemment, l'organisateur peut annuler la participation du Joueur sur une demi-journée. Cela donne aussi lieu à notification.}
+    \item{Ajouter/supprimer table~: si de nombreuses tables sont complètes, les organisateurs ont la possibilité de créer de nouvelles tables. À l'inverse ils peuvent supprimer une table. pour être supprimée, une table doit être vide, c'est à dire que les organisateurs doivent éventuellement exclure au préalable les Joueurs et le Maître du Jeu assis à cette table.}
+    \item{Voir programme complet~: l'organisateur peut visualiser sur l'ensemble de la conférence la liste de toutes les tables, avec le scénario, les identités du Maître du Jeu et des Joueurs.}
+    \item{Se déconnecter~: l'organisateur met fin à sa session et redevient Utilisateur du point de vue de l'application.\\}
+\end{itemize}
+
+Les Joueurs ont le choix entre six actions~:
+\begin{itemize}
+    \item {Se déconnecter~: le Joueur met fin à sa session et redevient Utilisateur du point de vue de l'application.}
+    \item{Voir messages~: le Joueur a accès aux notifications qui lui ont été envoyées. Par exemple celles qui concernent un changement sur son emploi du temps.}
+    \item{Créer/supprimer personnage~: le Joueur peut créer un personnage via l'API mentionnée précédemment. Il peut aussi supprimer ce personnage dans la base de données.}
+    \item{Rejoindre/quitter table~: le Joueur peut choisir de jouer sur une table. Il pourra alors visualiser les tables ouvertes par les Maîtres du Jeu et les scénarios proposés et indiquera le personnage qu'il incarnera sur cette table. Il peut aussi quitter une table sur laquelle il s'était auparavant inscrit.}
+    \item{Voir programme~: le Joueur peut visualiser toutes les tables auxquelles il participe, sur l'ensemble de la conférence.}
+    \item{Devenir maître du jeu: le Joueur peut s'inscrire en tant que Maître du Jeu.\\}
+\end{itemize}
+
+Un Joueur inscrit comme Maître du Jeu accède à deux fonctionnalités supplémentaires:
+\begin{itemize}
+    \item{Gérer une table~: il pourra voir les tables disponibles mais non ouvertes par un autre Maître du Jeu, en choisir une, et indiquer le scénario qu'il prévoit pour cette table, avec éventuellement des recommandations concernant les niveaux des personnages des Joueurs.}
+    \item{Voir joueurs d'une table~: il aura accès aux informations concernant les Joueurs des tables sur lesquelles il officie, ainsi que leurs personnages.\\}
+\end{itemize}
+
+\begin{figure}[H]
+    \caption{\textbf{Diagramme de cas d'utilisation}}
+    \label{UML_classe_pipeline}
+    \centering
+    \includegraphics[height=0.9\textheight]{UML_diagrammes/diag_cas_utilisation.png}
+\end{figure}
 
 
 \subsection{Organisation d'équipe}
 
-Gantt + blabla + outils utilisés
-@Ludo
+Lors du démarrage de notre projet, nous avons évoqué plusieurs sujets importants pour une organisation d'équipe efficace et une bonne entente. Le premier sujet évoqué concerne les règles de vie dans notre équipe. Chacun des membres devra respecter les autres, communiquer, être solidaire, être force de proposition, anticiper et ne pas travailler à la dernière minute.
 
 
-%exemple insertion image
+\bigbreak
+
+Ensuite nous avons parlé de la liste de nos compétences et appétences par rapport aux besoins sur ce projet (connaissances en informatique, python, base de données, rédaction...). Ainsi nous nous sommes répartis les rôles suivants:
+\begin{itemize}
+    \item{Chef de projet~: Suivi du projet, organisation, vérification que chacun sait ce qu’il doit faire}
+    \item{Responsable de la communication~: s'occupe de la communication avec les intervenants externes}
+    \item{Maître du temps~: s’assure que les délais sont bien respectés}
+    \item{Expert technique~: Assiste les développeurs en cas de problème technique}
+    \item{Rédacteur en chef~: Valide les rapports, s'occupe de la mise en forme, corrige les fautes}
+\end{itemize}
+
+Nous avons également convenu que tous les membres de l'équipe participeront au développement du code.
+
+\bigbreak
+
+Nous allons utiliser divers outils pour répondre à des besoins concernant différents aspects de ce projet :
+\begin{itemize}
+    \item{Suivi et communication~: \href{https://hackmd.io/CMTCDVW6Spe2PHXOhdKTRQ}{hackMd}, Discord}
+    \item{Analyse~: PlantUML}
+    \item{Développement~: python (sur Visual Studio Code), PostgreSQL DBeaver, fastApi}
+    \item{Gestion de version~: Git, GitHub}
+    \item{Rédaction~: LateX}
+\end{itemize}
+
+
+\bigbreak
+
+Le diagramme de Gantt relatif à l'organisation de notre équipe est montré en figure \ref{UML_gantt}.\\
+
+La première strate concerne les Livrables, c-a-d les échéances à respecter. Par exemple, le présent dossier d'analyse est à rendre le 8 Octobre.\\
+
+La seconde strate concerne les Rendez-Vous, qui incluent les séances supervisées et les réunions in situ, nommées "Team meeting". Ces dernières permettent de faire le point entre nous sur des tâches clés qui auront un fort impact sur le développement de l'application après que chacun ait pris le temps d'y réfléchir séparément. Elles dépendent de l'avancement du projet et sont fixées à courte échéance. Entre temps, la communication du groupe s'opère via la plate-forme Discord, sur laquelle un serveur dédié à notre projet a été mis en place.\\
+
 \begin{figure}[H]
-    \caption{\textbf{Classe du paquet \texttt{pipeline}}}
-    \label{UML_classe_pipeline}
+    \caption{\textbf{Diagramme de Gantt}}
+    \label{UML_gantt}
     \centering
-    \includegraphics[height=0.12\textheight]{UML_diagrammes/UML_classe_pipeline.png}
+    \includegraphics[height=0.5\textheight]{UML_diagrammes/DiagGantt.png}
 \end{figure}
 
+La troisième strate illustre les différentes phases du projet. Les six premières semaines sont consacrées à l'étude et à la conception du projet, incluant la réalisation des diagrammes présentés dans ce dossier et la documentation. Pendant ce temps, les cours et TP nécessaires à la réalisation concrète de l'application (Programmation Orientée Objet, Webservices, Git) peuvent avoir lieu. La phase de développement, incluant le codage de l'application et la mise en place de la base de données, se déroulera ensuite sur une période d'environ six semaines. Lorsque cette phase sera bien avancée, la rédaction d'un rapport final pourra débuter, suivie par la préparation de la présentation de notre travail lors de la soutenance.\\
 
+La dernière strate montre les tâches concrètes à réaliser et est complétée au fur et à mesure.\\
 
 
 
@@ -159,14 +236,7 @@ L'application sera découpée en trois couches :
 
 \bigbreak
 
-Les objets métier seront regroupés dans un package nommée business\_objects.
-
-
-\subsection{Les objets métier}
-
-Afin de modéliser notre application, nous avons listé les objets dont nous avions besoin (voir diagramme ci-dessous).
-
-
+Les objets métier seront regroupés dans un package nommé business\_objects.
 
 \subsection{La couche Vue}
 
@@ -174,17 +244,74 @@ Les classes de la couche vue sont des classes d'interface avec l'utilisateur. El
 
 \bigbreak
 
-Lorsque l'application se lance, l'utilisateur va être dirigé vers la vue \texttt{AccueilVue}. Il aura la possibilité de créer un compte, se connecter ou de quitter. Ensuite selon le choix effectué, l'utilisateur sera dirigé vers une nouvelle vue. Tant que la personne n'a pas choisi de quitter l'application, elle va naviguer de vues en vues. Dans la majorité des cas, une vue devra appeler des services. Ceux-ci effectueront les traitements métier demandé.
+Lorsque l'application se lance, l'utilisateur va être dirigé vers la vue \texttt{AccueilVue}. Il aura la possibilité de se créer un compte, de se connecter ou de quitter. Ensuite selon le choix effectué, l'utilisateur sera dirigé vers une nouvelle vue. Tant que la personne n'a pas choisi de quitter l'application, elle va naviguer de vue en vue. Dans la majorité des cas, une vue devra appeler des services. Ceux-ci effectueront les traitements métier demandés.
+
+
+\subsection{Les objets métier}
+
+Afin de modéliser notre application, nous avons listé les objets dont nous avions besoin (voir diagramme ci-dessous).
+
+
+\textcolor{red}{TODO : décrire pourquoi on a choisi tel objet, tel attribut}
 
 
 
 \subsection{La couche Service}
 
+La couche service est le coeur de notre application. Elle contient toutes les méthodes qui permettent de répondre aux besoins des utilisateurs.
 
-% Diagrammes de classes
+
+
+\textcolor{red}{TODO : décrire les méthodes des classes Service}
+
+
+\bigbreak
+
+
+La classe \texttt{OrganisateurService} possède les trois méthodes suivantes :
+\begin{itemize}[label=\ding{109}, font=\small]
+    \item \texttt{creer\_table()}~: 
+    \item \texttt{supprimer\_table()}~: 
+    \item \texttt{supprimer\_joueur()}~: 
+    \item \texttt{deplacer\_joueur()}~: 
+    \item \texttt{voir\_programme\_complet()}~: 
+\end{itemize}
+
+\bigbreak
+
+La classe \texttt{JoueurService} possède les trois méthodes suivantes :
+\begin{itemize}[label=\ding{109}, font=\small]
+    \item \texttt{creer()}~: 
+    \item \texttt{supprimer()}~: 
+    \item \texttt{creer\_personnage()}~: 
+    \item \texttt{supprimer\_personnage()}~: 
+    \item \texttt{lister\_personnage()}~: 
+    \item \texttt{voir\_tables()}~: 
+    \item \texttt{rejoindre\_table()}~: 
+    \item \texttt{quitter\_table()}~: 
+\end{itemize}
+
+
+\bigbreak
+
+
+La classe \texttt{MaitreJeuService} possède les méthodes suivantes :
+
+\begin{itemize}[label=\ding{109}, font=\small]
+    \item \texttt{gerer\_table()}~: elle prend trois paramètres : un numéro de séance, une \texttt{TableJeu} et une chaîne de caractères contenant la description du scénario. En premier lieu, une vérification est faite sur la disponibilité du maître du jeu. S'il n'est pas disponible, un message d'erreur est retourné. Le paramètre \texttt{TableJeu} est optionnel, s'il n'est pas renseigné, le maître du jeu est affecté aléatoirement à une table vide de la séance. Si tout est valide, la \texttt{TableJeu} choisie est enrichie avec le \texttt{MaitreJeu} et le scénario.
+    
+    \item \texttt{resilier\_table()}~: Cette méthode prend en paramètre un numéro de table. Si le maître du jeu n'est pas en charge de la table choisie, cela renvoie un message d'erreur. Sinon la \texttt{TableJeu} perd son \texttt{MaitreJeu}, son scénario et tous ses \texttt{Joueurs}.
+    
+    \item \texttt{voir\_joueur()}~: elle prend un numéro de table en paramètre et affiche la liste des joueurs de la table, leurs personnages et leurs niveaux si l'utilisateur est bien maître du jeu de la table. Dans le cas contraire, un message d'erreur apparait.
+\end{itemize}
+
+
+
 
 
 \subsection{Couche DAO et base de données}
+
+La couche DAO (Data Access Object) permet de faire le lien entre notre application et la base de données PostrgreSQL sur laquelle sont sauvegardées les données.
 
 % Diagramme de base de données
 
@@ -224,6 +351,9 @@ ggg
 \newpage
 
 \section*{Annexe 2 - Utilisation de Git sur notre projet}
+
+\textcolor{red}{Ludo : je vais supprimer cet annexe mais je laisse pour l'instant si vous voulez voir comment on fonctionne avec Git sur un projet}
+
 
 Git est un logiciel de gestion de versions. Il facilite, pour chaque développeur, la synchronisation entre le dépôt local (le code qui est sur notre ordinateur) et le dépôt distant sur GitHub (le code commun). Il est ainsi beaucoup plus simple de travailler sur un même projet et d'éviter les décalages de versions. Dans le cadre de notre projet, nous utiliserons les fonctionnalités basiques de Git. Nous avons mis en place le protocole ci-dessous.
 

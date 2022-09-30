@@ -45,10 +45,10 @@ class CreerJoueurVue(VueAbstraite):
 
         # On récupère le mesage à afficher (succès ou échec)
         if not joueur:
-            print("La création du joueur a échoué")
+            message = "La création du joueur a échoué"
         else:
-            print("Le joueur {} {} a bien été créé".format(
-                joueur.prenom, joueur.nom))
+            message = "Le joueur {} {} a bien été créé".format(
+                joueur.prenom, joueur.nom)
 
         from view.accueil_vue import AccueilVue
-        return AccueilVue()
+        return AccueilVue(message)

@@ -3,7 +3,6 @@ title: Projet info 2A
 tags: Cours2A
 ---
 
----
 
 :::success
 * **Sujet** : Conférence de jeu de rôle
@@ -29,11 +28,12 @@ gantt
     %% doc : https://mermaid-js.github.io/mermaid/#/./gantt
     dateFormat  YYYY-MM-DD
     axisFormat  %d %b
+    %% todayMarker off
     title       Diagramme de Gantt
-    %%excludes  YYYY-MM-DD and/or sunday and/or weekends 
+    %% excludes  YYYY-MM-DD and/or sunday and/or weekends 
 
     section Livrables
-    Voeux                        :milestone, 2022-08-28, 0d
+    %% Voeux                        :milestone, 2022-08-28, 0d
     Dossier d'analyse            :milestone, 2022-10-08, 0d
     Rapport final                :milestone, 2022-11-26, 0d
     Soutenance                   :milestone, 2022-12-06, 0d
@@ -53,7 +53,7 @@ gantt
     Etude                        :active,      2022-08-30, 10d
     Conception                   :active,      2022-09-05, 25d
     Rapport d'Analyse            :active,      2022-09-20, 20d
-    POC                          :active,      2022-09-15, 10d
+    v0 appli                     :active,      2022-09-15, 10d
     Développement                :active,      2022-10-01, 45d
     Rapport Final                :active,      2022-11-01, 20d
     Présentation                 :active,      2022-11-20, 15d
@@ -61,10 +61,8 @@ gantt
     
     section ToDo
     Diag Cas d'utilisation       :active,      2022-08-30, 15d
-    Diag Classes                 :active,      2022-09-01, 20d
+    Diag Classes                 :active,      2022-09-01, 30d
     Diag BDD                     :active,      2022-09-10, 15d
-    TP Git                       :milestone,   2022-09-16, 0d
-    TP Prog couches              :milestone,   2022-09-16, 0d
     %%Stats univariées retraités   :done,         2021-11-28, 3d
 ```
 
@@ -84,49 +82,57 @@ gantt
 
 
 ### Organisation d'équipe
-* au cours de chaque scéance, lister au fur et à mesure les tâches à faire
-* et se les répartir en fin de scéance
-* Discussions sur Discord
-    * [ ] Rejoindre le serveur  :arrow_right: JF
-* [ ] Création de compte GitHub :arrow_right: Hugo et JF
-    * [ ] puis Rejoindre projet GitHub
-* [ ] Création des dépôts locaux :arrow_right: All
-    * Faire tourner la v0 sur chacun des postes
+
+* Création des dépôts locaux et faire tourner la v0 sur chacun des postes
+    * [x] Banruo et JF
+    * [ ] Hugo et Jason
+* [ ] Vérifier paramétrage VSCode de tout le monde (autopep8)
+* Rédaction du dossier d'analyse
+    * [ ] Expliquer le fonctionnement des commentaires
 * Partages de connaissances
     * [ ] formation à Git
-    * [ ] formation à la programmation en couches
+    * [x] formation à la programmation en couches
 
 ---
 
-### Analyse
+### Répartition de la rédaction
 
-* v0 du dossier d'analyses 
-    * [x] Remplir le Gantt
-    * [x] [initialiser sur overleaf](https://www.overleaf.com/7459989917xsmkkjbfvdqs)
-    * [ ] Commencer rédaction :arrow_right: JF, Banruo
-* Diagrammes
-    * [x] Gantt
-    * [x] Cas utilisation
-    * [ ] Classe Objets métier :arrow_right: Jason
-        * creéer classe Menu
-        * Mj herite de Joueur
-    * [ ] Classe Service
-    * [ ] Classe Dao
-    * [ ] Base de données (Physique) :arrow_right: Jason
-    * [ ] Base de données (Logique) 
+* [ ] intro
+* [ ] cahier des charges
+* [ ] fonctionnalité (diag cas utilisation)
+    * [ ] ajouter Organisateur -> Supprimer un MJ d'une table
+* [ ] organisation équipe :arrow_right: Ludo
+* [ ] couche business_objet :arrow_right: Hugo
+* [ ] couche service :arrow_right: Hugo 1-8 et Ludo 9-16
+* [ ] couche vue (ressemble diag cas utilisation) :arrow_right: Banruo
+* [ ] couche DAO :arrow_right: Jason
 
 ---
 
 ### Développement
 
 * [x] [POC](https://fr.wikipedia.org/wiki/Preuve_de_concept) : faire tourner la v0.0 sur la programmation en couche :arrow_right: Ludo
+* [ ] tuto pour utiliser une BDD postgre sur son poste :arrow_right: Hugo
+
 
 ---
 
 
-### :question: Questions à la tutrice 
+### :question: Questions à la tutrice ou entre nous
 
-* [ ] Est-ce que l'on doit utiliser toutes les caractèristiques des personnages fournies par l'[api](https://www.dnd5eapi.co/) ?
+* [ ] Appels à l'API
+    * lors de la création, le joueur choisit la classe du Personnage
+    * on récupére auprès de l'API plus d'info sur la classe
+        * compétences ==proficiencies== + compétences optionnelles (choix à faire)
+        * équipement ==equipment== + équipement optionnel (choix à faire)
+        * caractéristiques ==features== selon le niveau, ex : "Reckless Attack"
+* Est-ce que l'on doit utiliser toutes les caractèristiques des personnages fournies par l'[api](https://www.dnd5eapi.co/) ?
+    * Non, à minima classe et race
+* [ ] Que se passe-t-il lorsqu'un Maitre du jeu quitte la table ? Les joueurs sont virés de la table ou pas ?
+* Distinction entre joueur et MJ ?
+    * [x] le choix se fait à l'inscription -> ok pour la tutrice
+    * [ ] le joueur a une action ==devenir MJ==
+    * [ ] les organisateurs peuvent promouvoir un joueur en MJ
 
 ---
 
@@ -142,7 +148,7 @@ gantt
 -------------------------------------------
 
 * [x] Initialiser [projet latex sur overleaf](https://www.overleaf.com/7459989917xsmkkjbfvdqs)
-    * [ ] vérifier que tout le monde y a accès
+    * [x] vérifier que tout le monde y a accès
 * [x] Demander exemple à Noël
 
 ### Consignes
@@ -150,12 +156,10 @@ gantt
 * max 15 pages
 * justifier les choix
 * [Diagrammes, voir sur GitHub](https://github.com/ludo2ne/projet-info-2A/tree/main/doc/diagrammes)
-    * [ ] Diag Gantt
+    * Diag Gantt
     * Diag classe
-        * [ ] valider
     * Diag cas utilisation
-        * [ ] valider
-    * [ ] Schéma de BDD
+    * Schéma de BDD
 
 
 ### :arrow_forward: Diagramme de classes
@@ -223,6 +227,7 @@ Ce sont des classes avec uniquement des attributs (pas de méthode) qui représe
 
 ### :arrow_forward: Diagramme de cas d'utilisation
 
+
 :::spoiler v1
 ![](https://i.imgur.com/bqk3Y2B.png)
 :::
@@ -266,7 +271,10 @@ Ce sont des classes avec uniquement des attributs (pas de méthode) qui représe
 # :robot_face: Code 
 -------------------------------------------
 
-* [ ] tester un appel à l'api
+* [ ] tester [un appel à l'api](https://www.dnd5eapi.co/)
+* tests
+    * [ ] voir comment lancer tous les tests
+    * [ ] voir comment tester les dao sans polluer la bdd
 * sans doute besoin de créer un objet Sceance qui correspondrait à une demi-journée
     * utile quand on requête si on veut vérifier qu'un joueur n'est pas déjà occupé à plusieurs tables sur la même demi-journée
     * sinon faut comparer des horaires de tables et c'est chiant...
@@ -360,10 +368,37 @@ SELECT *
 ```
 
 
+Pour créer une connexion vers la base de données ENSAI sur la VM : 
+* cliquer sur icone ==Nouvelle connexion== en haut à gauche sous fichier
+* PostgreSQL puis suivant
+    * Host : sgbd-eleves.domensai.ecole
+    * Port : 5432
+    * Database : idxxxx
+    * Nom d'utilisateur : idxxxx
+    * Mot de passe : idxxxx
+* cliquer sur l'icone ==SQL== 
+    * coller les scripts ci-dessous (à la racine du projet)
+    * à chaque fois cliquer sur la 3e icone orange ==Executer le script SQL==
+        * init_db.sql
+        * pop_db.sql
+* effacer tout
+    * faire ==SELECT * FROM jdr.joueurs;==
+    * puis CTRL+ENTREE
+
+
 
 -------------------------------------------
 # :calendar: Timeline 
 -------------------------------------------
+
+### 2022.09.30 Suivi 3
+
+* Conseil tutrice : se spécialiser en dev (dao, service, vue)
+* Créer une classe de pour garder le pseudo en session
+* Mettre toutes les classes sur un seul diagramme
+* Répartition de la rédaction du rapport
+
+
 
 ### 2022.09.22 Découpage diagramme de classe
 

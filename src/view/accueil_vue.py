@@ -16,12 +16,12 @@ from view.creer_joueur_vue import CreerJoueurVue
 
 class AccueilVue(VueAbstraite):
 
-    def __init__(self) -> None:
+    def __init__(self, message="") -> None:
         self.questions = [
             {
                 "type": "list",
                 "name": "choix",
-                "message": "Bienvenue à la conférence de JDR",
+                "message": "Faites votre choix",
                 "choices": [
                     "Créer un compte Joueur",
                     "Se connecter",
@@ -29,9 +29,12 @@ class AccueilVue(VueAbstraite):
                 ]
             }
         ]
+        self.message = message
 
     def afficher(self) -> None:
         self.nettoyer_console()
+        print(self.message)
+        print()
 
     def choisir_menu(self):
         reponse = prompt(self.questions)
