@@ -1,7 +1,6 @@
 'à coller ici : https://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000
 
 @startuml
-
 class Administrateur{
 + id_admin : int
 + pseudo : str
@@ -28,17 +27,9 @@ __init__()
 
 
 
-class Sceance{
-id_sceance : int
-debut : time
-fin : time
-description : str
-}
-
-
 class TableJeu{
 + id_table : int
-+ sceance : Sceance
++ seance : int
 + scenario : str
 + maitre_jeu : MaitreJeu
 + joueurs : list[Joueur]
@@ -60,9 +51,7 @@ __init__()
 
 TableJeu o-- Joueur
 TableJeu -- MaitreJeu
-TableJeu -- Sceance
 Personnage --* Joueur
 
 Joueur <|-- MaitreJeu
-
 @enduml
