@@ -36,21 +36,5 @@ class MaîtreJeuService{
 }
 
 
-class PersonnageService{
-+ __init__()
-+ creer(Personnage) : bool
-+ supprimer(Personnage) : bool
-+ importer_info_api() : none
-}
-
-
-
-class TableJeuService{
-+ __init__()
-+ creer(Table) : bool
-+ supprimer(Table) : bool
-}
-
-
 
 @enduml
