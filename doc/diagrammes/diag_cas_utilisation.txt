@@ -1,6 +1,7 @@
+@startuml
 'à coller ici : https://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000
 
-@startuml
+
 
 left to right direction
 actor "Utilisateur" as u
@@ -31,6 +32,7 @@ rectangle Système{
   usecase "Choisir scénario" as 14
   usecase "Le notifier" as 15
   usecase "Voir joueurs d'une table" as 16
+  usecase "Déplacer MJ" as 17
 
 }
 
@@ -44,6 +46,8 @@ o --> 12
 12 ..> 15
 o --> 11
 11 ..> 15
+o --> 17
+17 ..> 15
 o --> 9
 o --> 13
 
@@ -61,5 +65,4 @@ j --> 4
 j --> 10
 j --> 8
 j --> 7
-
 @enduml
