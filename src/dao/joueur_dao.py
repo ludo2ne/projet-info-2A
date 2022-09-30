@@ -57,19 +57,45 @@ class JoueurDao(metaclass=Singleton):
                     {"id_joueur": id_joueur})
                 print(cursor.description)
                 res = cursor.fetchone()
-
         joueur = None
         if res:
-            joueur = Joueur(id_joueur=res['id_joueur'],
-                            pseudo=res['pseudo'],
+            joueur = Joueur(pseudo=res['pseudo'],
                             nom=res['nom'],
                             prenom=res['prenom'],
-                            mail=res['mail'])
+                            mail=res['mail'],
+                            id_joueur=res['id_joueur'])
 
             # TODO
             # joueur.liste_personnage = lister_personnages(joueur)
 
-        return table
+        return joueur
+
+    def trouver_par_pseudo(self, pseudo) -> Joueur:
+        '''trouver un joueur grace à son id
+        '''
+        print("INFO : JoueurDao.trouver_par_pseudo({})".format(pseudo))
+
+        with DBConnection().connection as connection:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT * FROM jdr.joueur "
+                    " WHERE pseudo = %(pseudo)s;",
+                    {"pseudo": pseudo})
+                print(cursor.description)
+                res = cursor.fetchone()
+
+        joueur = None
+        if res:
+            joueur = Joueur(pseudo=res["pseudo"],
+                            nom=res["nom"],
+                            prenom=res["prenom"],
+                            mail=res["mail"],
+                            id=res["id_joueur"])
+
+            # TODO
+            # joueur.liste_personnage = lister_personnages(joueur)
+
+        return joueur
 
     def rejoindre_table(self, table, joueur, personnage):
         '''Ajoute un joueur à une table        

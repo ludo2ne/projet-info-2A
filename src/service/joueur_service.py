@@ -56,13 +56,12 @@ class JoueurService:
         personnage : Personnage
             Personnage choisi par le joueur
         '''
-        table_jeu_dao = TableJeuDao()
         success = False
 
         # TODO verifier que le joueur est libre a cet horaire
 
         # y a t il encore de la place a la table
-        nb_joueurs_table = table_jeu_dao.get_nb_joueurs(table)
+        nb_joueurs_table = TableJeuDao().get_nb_joueurs(table)
 
         if nb_joueurs_table <= table.nb_joueurs_max:
             success = joueur_dao.ajouter_joueur(table, joueur, personnage)
@@ -80,4 +79,14 @@ class JoueurService:
         -------
         liste[Joueur]
         '''
-        return JoueurDao.lister_tous()
+        return JoueurDao().lister_tous()
+
+    def trouver_par_pseudo(self, pseudo):
+        '''Trouver un joueur à partir de son pseudo
+
+        Returns
+        -------
+        Joueur
+        '''
+        print("INFO : JoueurService.trouver_par_pseudo({})".format(pseudo))
+        return JoueurDao().trouver_par_pseudo(pseudo)

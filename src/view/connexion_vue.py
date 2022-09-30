@@ -10,45 +10,37 @@ Version : 1.0
 from InquirerPy import prompt
 from view.vue_abstraite import VueAbstraite
 from service.joueur_service import JoueurService
+from view.session import Session
 
 
-class CreerJoueurVue(VueAbstraite):
+class ConnexionVue(VueAbstraite):
     def __init__(self):
         self.questions = [
             {
                 "type": "input",
                 "name": "pseudo",
                 "message": "Entrez votre pseudo :"
-            },
-            {
-                "type": "input",
-                "name": "nom",
-                "message": "Entrez votre nom :"
-            },
-            {
-                "type": "input",
-                "name": "prenom",
-                "message": "Entrez votre prénom :"
             }
         ]
 
     def afficher(self):
         self.nettoyer_console()
+        print("Connexion à l'application")
+        print()
 
     def choisir_menu(self):
 
         answers = prompt(self.questions)
 
         # On appelle le service de creation de joueur
-        joueur = JoueurService().creer(answers["pseudo"],
-                                       answers["nom"], answers["prenom"], mail=None)
+        joueur = JoueurService().trouver_par_pseudo(answers["pseudo"])
 
         # On récupère le mesage à afficher (succès ou échec)
         if not joueur:
-            message = "La création du joueur a échoué"
+            message = "Aucun joueur trouvé avec le pseudo " + answers["pseudo"]
         else:
-            message = "Le joueur {} {} a bien été créé".format(
-                joueur.prenom, joueur.nom)
+            message = "Bienvenue " + answers["pseudo"]
+            Session().user = joueur
 
-        from view.accueil_vue import AccueilVue
-        return AccueilVue(message)
+        from view.joueur_menu_vue import JoueurMenuVue
+        return JoueurMenuVue(message)

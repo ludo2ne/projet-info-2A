@@ -12,6 +12,7 @@ from InquirerPy import prompt
 
 from view.vue_abstraite import VueAbstraite
 from view.creer_joueur_vue import CreerJoueurVue
+from view.connexion_vue import ConnexionVue
 
 
 class AccueilVue(VueAbstraite):
@@ -41,8 +42,6 @@ class AccueilVue(VueAbstraite):
         if reponse["choix"] == "Quitter":
             pass
         elif reponse["choix"] == "Se connecter":
-            # TODO
-            print("Fonctionalité non implémentée")
-            pass
+            return ConnexionVue()
         elif reponse["choix"] == "Créer un compte Joueur":
             return CreerJoueurVue()
