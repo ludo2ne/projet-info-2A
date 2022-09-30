@@ -1,6 +1,7 @@
+@startuml
 'à coller ici : https://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000
 
-@startuml
+
 
 
 
@@ -23,17 +24,10 @@ class personnage{
 
 
 
-class sceance{
-+ id_sceance : int
-+ description : str
-+ debut : time
-+ fin : time
-}
-
 
 class table_jeu{
 + id_table : int
-+ id_sceance : int
++ seance : int
 + id_maitre_jeu : int
 + numero : int
 + scenario : str
@@ -58,7 +52,5 @@ class message{
 joueur "1" -- "1,2,3" personnage : possède >
 table_jeu "1" -- "*" table_personnage
 table_personnage "*" -- "1" personnage
-sceance "1" o-- "1..*" table_jeu : contient >
 joueur "1" -- "*" message
-
 @enduml
