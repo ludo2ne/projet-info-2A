@@ -1,7 +1,7 @@
 'à coller ici : https://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000
 
 @startuml
-package Diagramme_classe_objet {
+package business_objets {
 
 class Administrateur{
 + id_admin : int
@@ -67,7 +67,7 @@ Joueur <|-- MaitreJeu
 }
 
 
-package Diagramme_classe_service {
+package service {
 class AdministrateurService{
 + __init__()
 + creer_table(Table) ; bool
@@ -75,7 +75,6 @@ class AdministrateurService{
 + supprimer_joueur(Joueur) : bool
 + deplacer_joueur(Joueur, Table) : bool
 + voir_programme_complet() : none
-+ se_deconnecter() : none
 
 }
  
@@ -90,7 +89,6 @@ class JoueurService{
 + voir_tables(Joueur) : none
 + rejoindre_table(Table, Personnage) : bool
 + quitter_table(Table) : bool
-+ se_deconnecter() : none
 }
 
 
@@ -102,24 +100,11 @@ class MaîtreJeuService{
 }
 
 
-class PersonnageService{
-+ __init__()
-+ creer(Personnage) : bool
-+ supprimer(Personnage) : bool
-+ importer_info_api() : none
-}
-
-
-
-class TableJeuService{
-+ __init__()
-+ creer(Table) : bool
-+ supprimer(Table) : bool
-}
 
 }
 
-package Diagramme_classe_vue{
+package vue{
+
 class AccueilVue{
 + __init__()
 + creer_joueur(Table) : bool
@@ -160,10 +145,43 @@ class MaîtreJeuVue{
 
 }
 
+
+package dao{
+
+
+class JoueurDao{
++ __init__()
++ creer(Joueur) : bool
++ supprimer(Joueur) : bool
++ trouver_par_pseudo(pseudo) : Joueur
+}
+
+
+class PersonnageDao{
++ __init__()
++ creer(Personnage) : bool
++ supprimer(Personnage) : bool
++ lister_par_joueur(Joueur) : list[Personnage]
+}
+
+class TableJeuDao{
++ __init__()
++ creer(Personnage) : bool
++ supprimer(Personnage) : bool
++ trouver_par_numero(numero) : Table
+}
+
+}
+
+
+
 JoueurVue -- JoueurService
-JoueurVue -- PersonnageService
 AdministrateurVue -- AdministrateurService
 MaîtreJeuVue -- MaîtreJeuService
-AdministrateurVue -- TableJeuService
+JoueurService -- JoueurDao
+JoueurService -- PersonnageDao
+JoueurService -- TableJeuDao
+MaîtreJeuService -- TableJeuDao
+AdministrateurService -- TableJeuDao
 
 @enduml
