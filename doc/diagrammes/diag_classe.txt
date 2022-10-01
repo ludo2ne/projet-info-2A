@@ -166,8 +166,8 @@ class PersonnageDao{
 
 class TableJeuDao{
 + __init__()
-+ creer(Personnage) : bool
-+ supprimer(Personnage) : bool
++ creer(TableJeu) : bool
++ supprimer(TableJeu) : bool
 + trouver_par_numero(numero) : Table
 }
 
