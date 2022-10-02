@@ -33,7 +33,7 @@ rectangle Système{
   usecase "Le notifier" as 15
   usecase "Voir joueurs d'une table" as 16
   usecase "Déplacer MJ" as 17
-
+  usecase "Devenir MJ" as 18
 }
 
 u --> 1
@@ -59,7 +59,7 @@ mj --> 6
 6 ..> 14
 mj --> 16
 
-
+j --> 18
 j --> 9
 j --> 4
 j --> 10
