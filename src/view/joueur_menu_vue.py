@@ -50,5 +50,6 @@ class JoueurMenuVue(VueAbstraite):
         if reponse["choix"] == "Créer un personnage":
             pass
         elif reponse["choix"] == "Se déconnecter":
+            Session().user = None
             from view.accueil_vue import AccueilVue
             return AccueilVue("À bientôt {}".format(utilisateur.pseudo))

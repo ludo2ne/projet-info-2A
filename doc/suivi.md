@@ -69,7 +69,7 @@ gantt
 
 | Date    | Livrables                                                    |
 | ------- | ------------------------------------------------------------ |
-| 16 sept | Avoir une v0 des différents diagrammes
+| 16 sept | ~~Avoir une v0 des différents diagrammes~~
 | 08 oct. | [Dossier d'analyse](https://www.overleaf.com/7459989917xsmkkjbfvdqs) (:hammer_and_wrench:  [correcteur orthographe et grammaire](https://www.scribens.fr/))
 | 26 nov. | Rapport final                                                | 
 
@@ -80,6 +80,36 @@ gantt
 # :construction: Todo 
 -------------------------------------------
 
+
+### :rotating_light: Rédaction du dossier d'analyse
+
+* [ ] Regrouper tous les diagrammes de classe [color=orange][name=Jason] 
+* Introduction 
+    * optionnel : plutôt pour rapport final ?
+* Cahier des charges
+    * [ ] rédaction [color=red][name=JF ?]
+    * [ ] relecture
+* Fonctionnalités
+    * [ ] ajouter Organisateur -> Supprimer un MJ d'une table
+    * [ ] rédaction [color=red][name=JF ?]
+    * [ ] relecture
+* Organisation équipe 
+    * [ ] rédaction  [color=green][name=Ludo]
+    * [ ] relecture 
+* [ ] couche business_objet 
+    * [ ] rédaction [color=purple][name=Hugo]
+    * [ ] relecture
+* [ ] couche service 
+    * [ ] rédaction [color=purple][name=Hugo] 1-8 --- [color=green][name=Ludo] 9-16
+    * [ ] relecture
+* [ ] Couche vue
+    * [ ] rédaction [color=blue][name=Banruo] 
+    * [ ] relecture
+* [ ] couche DAO 
+    * [ ] rédaction [color=orange][name=Jason] 
+    * [ ] relecture 
+
+---
 
 ### Organisation d'équipe
 
@@ -93,19 +123,13 @@ gantt
     * [ ] formation à Git
     * [x] formation à la programmation en couches
 
+
 ---
 
-### Répartition de la rédaction
+### Modifications diagramme
 
-* [ ] intro
-* [ ] cahier des charges
-* [ ] fonctionnalité (diag cas utilisation)
-    * [ ] ajouter Organisateur -> Supprimer un MJ d'une table
-* [ ] organisation équipe :arrow_right: Ludo
-* [ ] couche business_objet :arrow_right: Hugo
-* [ ] couche service :arrow_right: Hugo 1-8 et Ludo 9-16
-* [ ] couche vue (ressemble diag cas utilisation) :arrow_right: Banruo
-* [ ] couche DAO :arrow_right: Jason
+* [ ] Supprimer les méthodes de service se_deconnecter() ? se_deconnecter() = retour à AccueilVue et suppression du compte en session donc pas de service à appeler ?
+
 
 ---
 
@@ -293,10 +317,10 @@ Ce sont des classes avec uniquement des attributs (pas de méthode) qui représe
             * `INSERT INTO joueur...`
 * [ ] AccueilVue.**se_connecter(pseudo)**
     * si pseudo = Admin... sinon
-    * [ ] JoueurService.se_connecter(pseudo)
-        * [ ] JoueurDAO.find_by_pseudo(pseudo)
+    * [x] JoueurService.se_connecter(pseudo)
+        * [x] JoueurDAO.find_by_pseudo(pseudo)
             * `SELECT * FROM joueur WHERE pseudo = ...`
-    * [ ] :warning: trouver un moyen de garder le joueur en "session"
+    * [x] :warning: trouver un moyen de garder le joueur en "session"
 
 ---
 

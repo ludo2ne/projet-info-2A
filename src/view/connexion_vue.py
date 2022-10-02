@@ -38,9 +38,10 @@ class ConnexionVue(VueAbstraite):
         # On récupère le mesage à afficher (succès ou échec)
         if not joueur:
             message = "Aucun joueur trouvé avec le pseudo " + answers["pseudo"]
+            from view.accueil_vue import AccueilVue
+            return AccueilVue(message)
         else:
             message = "Bienvenue " + answers["pseudo"]
             Session().user = joueur
-
-        from view.joueur_menu_vue import JoueurMenuVue
-        return JoueurMenuVue(message)
+            from view.joueur_menu_vue import JoueurMenuVue
+            return JoueurMenuVue(message)

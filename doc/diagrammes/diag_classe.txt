@@ -4,8 +4,8 @@
 package vue{
 
 class VueAbstraite{
-+ message
-+ questions
++ message : str
++ questions : json
 + __init__()
 + afficher() : None
 + choisir_menu() : Vue
@@ -26,11 +26,24 @@ class MaîtreJeuMenuVue{
 class InscriptionVue{
 }
 
+class ConnexionVue{
+}
+
+
+class Session{
+pseudo : str
+}
+
 VueAbstraite <|-- AccueilVue
 VueAbstraite <|-- JoueurMenuVue
 VueAbstraite <|-- AdministrateurMenuVue
 VueAbstraite <|-- MaîtreJeuMenuVue
 VueAbstraite <|-- InscriptionVue
+VueAbstraite <|-- ConnexionVue
+
+Session -- JoueurMenuVue
+Session -- ConnexionVue
+Session -- AdministrateurMenuVue
 
 }
 
