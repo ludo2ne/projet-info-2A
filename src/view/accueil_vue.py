@@ -11,7 +11,7 @@ from typing import Optional
 from InquirerPy import prompt
 
 from view.vue_abstraite import VueAbstraite
-from view.creer_joueur_vue import CreerJoueurVue
+from view.inscription_vue import InscriptionVue
 from view.connexion_vue import ConnexionVue
 
 
@@ -44,4 +44,4 @@ class AccueilVue(VueAbstraite):
         elif reponse["choix"] == "Se connecter":
             return ConnexionVue()
         elif reponse["choix"] == "Créer un compte Joueur":
-            return CreerJoueurVue()
+            return InscriptionVue()

@@ -12,7 +12,7 @@ from view.vue_abstraite import VueAbstraite
 from service.joueur_service import JoueurService
 
 
-class CreerJoueurVue(VueAbstraite):
+class InscriptionVue(VueAbstraite):
     def __init__(self):
         self.questions = [
             {
