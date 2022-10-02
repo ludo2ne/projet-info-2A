@@ -1,14 +1,13 @@
 'à coller ici : https://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000
 
 @startuml
+
 class Administrateur{
 + id_admin : int
 + pseudo : str
 
-__init__()
++__init__()
 }
- 
-
 
 class Joueur{
 + id_joueur : int
@@ -18,39 +17,50 @@ class Joueur{
 + mail : str
 + personnages : list[Personnage]
 
-__init__()
++__init__()
 }
 
 class MaitreJeu{
-__init__()
++__init__()
 }
 
+
+class Seance{
++ id_seance : int
++ debut : time
++ fin : time
++ description : str
+
++__init__()
+}
 
 
 class TableJeu{
 + id_table : int
-+ seance : int
++ seance : Seance
 + scenario : str
 + maitre_jeu : MaitreJeu
 + joueurs : list[Joueur]
 
-__init__()
++__init__()
 }
 
 class Personnage{
 + id_personnage : int
 + nom : str
 + classe : str
++ race : str
 + niveau : int
 + competences : list[str]
 + langues_parlées : list[str]
 
-__init__()
++__init__()
 }
 
 
 TableJeu o-- Joueur
 TableJeu -- MaitreJeu
+TableJeu -- Séance
 Personnage --* Joueur
 
 Joueur <|-- MaitreJeu

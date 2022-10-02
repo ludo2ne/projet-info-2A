@@ -73,11 +73,11 @@ class MaitreJeu{
 }
 
 
-class Séance{
-+id_séance : int
-+debut : time
-+fin : time
-+description : str
+class Seance{
++ id_seance : int
++ debut : time
++ fin : time
++ description : str
 
 +__init__()
 }
@@ -85,7 +85,7 @@ class Séance{
 
 class TableJeu{
 + id_table : int
-+ séance : Séance
++ seance : Seance
 + scenario : str
 + maitre_jeu : MaitreJeu
 + joueurs : list[Joueur]
@@ -97,6 +97,7 @@ class Personnage{
 + id_personnage : int
 + nom : str
 + classe : str
++ race : str
 + niveau : int
 + competences : list[str]
 + langues_parlées : list[str]
@@ -117,25 +118,26 @@ Joueur <|-- MaitreJeu
 package service {
 class AdministrateurService{
 + __init__()
-+ creer_table(TableJeu) ; bool
++ creer_table() : bool
 + supprimer_table(TableJeu) : bool
 + supprimer_joueur(Joueur) : bool
 + deplacer_joueur(Joueur, TableJeu) : bool
-+ voir_programme_complet() : none
-
++ voir_programme_complet() : None
 }
  
 
 class JoueurService{
 + __init__()
-+ creer(Joueur) : bool
-+ supprimer(Joueur) : bool
-+ creer_personnage(Personnage) : bool
++ creer(pseudo, nom, prenom, mail) : Joueur
++ supprimer() : bool
++ creer_personnage(nom, niveau, classe, race) : Personnage
 + supprimer_personnage(Personnage) : bool
-+ lister_personnages(Joueur) : list[Personnage]
-+ voir_tables(Joueur) : none
++ lister_personnages() : list[Personnage]
++ voir_tables_libres() : None
 + rejoindre_table(TableJeu, Personnage) : bool
 + quitter_table(TableJeu) : bool
++ voir_son_programme() : None
++ devenir_mj() : None
 }
 
 
@@ -143,14 +145,10 @@ class MaîtreJeuService{
 + __init__()
 + gerer_table(TableJeu, scenario) : bool
 + resilier_table(TableJeu) : bool
-+ voir_joueur(TableJeu) : none
++ voir_table_geree(TableJeu) : None
 }
 
-
-
 }
-
-
 
 
 package dao{
@@ -176,6 +174,7 @@ class TableJeuDao{
 + creer(TableJeu) : bool
 + supprimer(TableJeu) : bool
 + trouver_par_numero(numero) : TableJeu
++ modifier_mj(MaitreJeu) : bool
 }
 
 }

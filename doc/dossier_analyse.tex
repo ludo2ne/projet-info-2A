@@ -105,9 +105,9 @@ Notre application devra être utilisable aussi bien par les organisateurs de la 
 
 La convention que notre application doit permettre de gérer se déroule sur un week-end et comporte quatre plages horaires, chacune correspondant à une demi-journée. Elle est dédiée aux jeux de rôle, aussi les intervenants seront par la suite appelés "Maîtres du Jeu" ou MJ. Le public venant quant à lui pour jouer, ses membres seront appelés "Joueurs".\\ 
 
-L'application permettra à quiconque le souhaite de s'inscrire en tant que Joueur. Les Joueurs auront accès à plusieurs fonctionnalités. La première d'entre elles sera la création de personnages, dans une limite de trois, via une API à l'adresse \textcolor{blue}{\href{https://www.dnd5eapi.co/}{https://www.dnd5eapi.co/}}. La détention de personnages autorisera le choix d'une table de jeu par demi-journée. Afin de pouvoir faire un choix éclairé, les Joueurs pourront visualiser, pour chaque table ouverte et disponible, le scénario proposé et ainsi choisir le personnage adéquat. Les Joueurs pourront aussi visualiser un sommaire de leur participation et, le cas échéant, se désister d'une table, ce qui sera automatiquement notifié aux organisateurs.\\
+L'application permettra à quiconque le souhaite de s'inscrire en tant que Joueur. Les Joueurs auront accès à plusieurs fonctionnalités. La première d'entre elles sera la création de personnages, dans une limite de trois, via une API à l'adresse \textcolor{blue}{\href{https://www.dnd5eapi.co/}{https://www.dnd5eapi.co/}}. La détention de personnages permettra au Joueur de s'asseoir à une table par demi-journée. Afin de pouvoir faire un choix éclairé, les Joueurs pourront visualiser, pour chaque table ouverte et disponible, le scénario proposé et ainsi choisir le personnage adéquat. Les Joueurs pourront aussi visualiser un sommaire de leur participation et, le cas échéant, se désister d'une table, ce qui sera automatiquement notifié aux organisateurs.\\
 
-L'application permettra aux Joueurs le désirant de s'inscrire en tant que Maîtres du Jeu. Ceux-ci auront la possibilité, pour chaque demi-journée, de choisir une table  et de définir le scénario proposé à cette table, offrant ainsi à quatre Joueurs la possibilité de s'inscrire à cette table. Ils pourront aussi visualiser les profils des Joueurs inscrits à leur table, afin de mieux préparer leur intervention. En outre, ils auront aussi la possibilité de voir un sommaire de leur participation. Enfin, si nécessaire, ils pourront se désister, entraînant une notification aux organisateurs. Les organisateurs auront alors la charge d'affecter les Joueurs à une autre table dans la mesure du possible, ou d'annuler leur participation à cette demi-journée si nécessaire.\\
+L'application permettra aux Joueurs le désirant de s'inscrire en tant que Maîtres du Jeu. Ceux-ci auront la possibilité, pour chaque demi-journée, de choisir une table.  Ils en définiront le scénario proposé, offrant ainsi à quatre Joueurs la possibilité de s'y inscrire. Ils pourront aussi visualiser les profils des Joueurs inscrits à leur table, afin de mieux préparer leur intervention. En outre, ils auront la possibilité de voir un sommaire de leur participation. Enfin, si nécessaire, ils pourront se désister, entraînant une notification aux organisateurs. Les organisateurs auront alors la charge d'affecter les Joueurs à une autre table dans la mesure du possible, ou d'annuler leur participation à cette demi-journée si nécessaire.\\
 
 \indent Il a été envisagé de différencier totalement les profils Joueur et Maître du Jeu, en leur attribuant des comptes séparés pour une même personne physique. Cela présentait deux inconvénients:
 \begin{itemize}
@@ -115,7 +115,7 @@ L'application permettra aux Joueurs le désirant de s'inscrire en tant que Maît
 \item{compliquer l'utilisation de l'application pour une personne désirant être à la fois Maître du Jeu et Joueur. En effet, cette personne aurait dû systématiquement se déconnecter et s'authentifier pour passer d'un compte à l'autre.\\}
 \end{itemize}
 
-Enfin, les organisateurs auront un profil spécifique, permettant de visualiser un sommaire global de l'activité sur la convention. L'envoi automatique de notification lors de désistement de Joueurs ou de Maîtres du Jeu leur permettra d'être toujours avertis des changements intervenus. Ils seront en mesure de modifier ou supprimer la participation d'un Maître du jeu ou d'un Joueur, entraînant une notification aux personnes concernées.\\
+Enfin, les organisateurs auront un profil spécifique, permettant de visualiser un sommaire global de l'activité sur la convention. L'envoi automatique de notifications lors de désistements de Joueurs ou de Maîtres du Jeu leur permettra d'être toujours avertis des changements intervenus. Ils seront en mesure de modifier ou supprimer la participation d'un Maître du jeu ou d'un Joueur, entraînant une notification aux personnes concernées.\\
 
 Un système sommaire d'accès par identifiant sera mis en place, par souci de simplicité. Il permettra à la fois de différencier les statuts des protagonistes et de cloisonner les profils individuels. Il sera toujours possible par la suite de mettre en place un système plus sécurisé avec mot de passe. \\
 
@@ -132,11 +132,12 @@ On désigne par «~Utilisateur~» toute personne lançant l'application. Un Util
     \item{Quitter~:  Fermer l'application.\\}
 \end{itemize}
 
-Les organisateurs ont le choix entre les cinq actions suivantes~:
+Les organisateurs ont le choix entre les six actions suivantes~:
 \begin{itemize}
-    \item {Déplacer joueur~: lorsque plusieurs tables comptent un trop faible nombre de Joueurs, ou lorsqu'un Maître du Jeu s'est désisté, l'organisateur peut placer les Joueurs sur d'autres tables. Dans ce cas, le Joueur est notifié de ce changement par un message qui s'affichera lors de sa prochaine connexion.}
-    \item{Supprimer joueur~: dans le même cas de figure que précédemment, l'organisateur peut annuler la participation du Joueur sur une demi-journée. Cela donne aussi lieu à notification.}
-    \item{Ajouter/supprimer table~: si de nombreuses tables sont complètes, les organisateurs ont la possibilité de créer de nouvelles tables. À l'inverse ils peuvent supprimer une table. pour être supprimée, une table doit être vide, c'est à dire que les organisateurs doivent éventuellement exclure au préalable les Joueurs et le Maître du Jeu assis à cette table.}
+    \item {Déplacer joueur~: lorsque plusieurs tables comptent un trop faible nombre de Joueurs, ou lorsqu'un Maître du Jeu s'est désisté, l'organisateur peut placer les Joueurs sur d'autres tables ou annuler leur participation sur la plage horaire concernée. Dans ce cas, le Joueur est notifié de ce changement par un message qui s'affichera lors de sa prochaine connexion.}
+    \item{Déplacer MJ~: dans le même cas de figure, l'organisateur peut placer un Maître du Jeu sur une autre table ou annuler sa participation sur la plage horaire concernée. Dans ce cas, le Maître du Jeu est notifié de ce changement par un message qui s'affichera lors de sa prochaine connexion.}
+    \item{Supprimer joueur~: les organisateurs ont la possibilité de supprimer le compte d'un Joueur en cas de comportement inapproprié.}
+    \item{Ajouter/supprimer table~: si de nombreuses tables sont complètes, les organisateurs ont la possibilité de créer de nouvelles tables. À l'inverse ils peuvent supprimer une table. Pour être supprimée, une table doit être vide, c'est-à-dire que les organisateurs doivent déplacer au préalable les Joueurs et le Maître du Jeu assis à cette table.}
     \item{Voir programme complet~: l'organisateur peut visualiser sur l'ensemble de la conférence la liste de toutes les tables, avec le scénario, les identités du Maître du Jeu et des Joueurs.}
     \item{Se déconnecter~: l'organisateur met fin à sa session et redevient Utilisateur du point de vue de l'application.\\}
 \end{itemize}
@@ -146,8 +147,8 @@ Les Joueurs ont le choix entre six actions~:
     \item {Se déconnecter~: le Joueur met fin à sa session et redevient Utilisateur du point de vue de l'application.}
     \item{Voir messages~: le Joueur a accès aux notifications qui lui ont été envoyées. Par exemple celles qui concernent un changement sur son emploi du temps.}
     \item{Créer/supprimer personnage~: le Joueur peut créer un personnage via l'API mentionnée précédemment. Il peut aussi supprimer ce personnage dans la base de données.}
-    \item{Rejoindre/quitter table~: le Joueur peut choisir de jouer sur une table. Il pourra alors visualiser les tables ouvertes par les Maîtres du Jeu et les scénarios proposés et indiquera le personnage qu'il incarnera sur cette table. Il peut aussi quitter une table sur laquelle il s'était auparavant inscrit.}
-    \item{Voir programme~: le Joueur peut visualiser toutes les tables auxquelles il participe, sur l'ensemble de la conférence.}
+    \item{Rejoindre/quitter table~: le Joueur peut choisir de participer à une table de jeu. Il pourra alors visualiser les tables ouvertes par les Maîtres du Jeu et les scénarios proposés et indiquera le personnage qu'il incarnera sur cette table. Il peut aussi quitter une table sur laquelle il s'était auparavant inscrit.}
+    \item{Voir programme~: le Joueur peut visualiser toutes les tables de jeu auxquelles il participe, sur l'ensemble de la conférence.}
     \item{Devenir maître du jeu: le Joueur peut s'inscrire en tant que Maître du Jeu.\\}
 \end{itemize}
 
@@ -174,10 +175,10 @@ Lors du démarrage de notre projet, nous avons évoqué plusieurs sujets importa
 
 Ensuite nous avons parlé de la liste de nos compétences et appétences par rapport aux besoins sur ce projet (connaissances en informatique, python, base de données, rédaction...). Ainsi nous nous sommes répartis les rôles suivants:
 \begin{itemize}
-    \item{Chef de projet~: Suivi du projet, organisation, vérification que chacun sait ce qu’il doit faire}
+    \item{Chef de projet~: suivi du projet, organisation, vérification que chacun sait ce qu’il doit faire}
     \item{Responsable de la communication~: s'occupe de la communication avec les intervenants externes}
     \item{Maître du temps~: s’assure que les délais sont bien respectés}
-    \item{Expert technique~: Assiste les développeurs en cas de problème technique}
+    \item{Expert technique~: assiste les développeurs en cas de problème technique}
     \item{Rédacteur en chef~: Valide les rapports, s'occupe de la mise en forme, corrige les fautes}
 \end{itemize}
 
@@ -229,7 +230,7 @@ La dernière strate montre les tâches concrètes à réaliser et est complété
 
 L'application sera découpée en trois couches :
 \begin{itemize}
-    \item \texttt{Couche de Présentation} : elle contiendra les classes qui gèrent l'interface avec l'utilisateur,
+    \item \texttt{Couche de Vue} : elle contiendra les classes qui gèrent l'interface avec l'utilisateur,
     \item \texttt{Couche de Service} : elle regroupe les classes qui contiennent les procédures métier,
     \item \texttt{Couche DAO} : ensemble de classes permettant d'accéder à la base de données.
 \end{itemize}
@@ -244,15 +245,120 @@ Les classes de la couche vue sont des classes d'interface avec l'utilisateur. El
 
 \bigbreak
 
-Lorsque l'application se lance, l'utilisateur va être dirigé vers la vue \texttt{AccueilVue}. Il aura la possibilité de se créer un compte, de se connecter ou de quitter. Ensuite selon le choix effectué, l'utilisateur sera dirigé vers une nouvelle vue. Tant que la personne n'a pas choisi de quitter l'application, elle va naviguer de vue en vue. Dans la majorité des cas, une vue devra appeler des services. Ceux-ci effectueront les traitements métier demandés.
+Lorsque l'application se lance, l'utilisateur va être dirigé vers la vue \texttt{AccueilVue}, et va voir les fonctions suivantes :
+\begin{itemize}[label=\ding{109}, font=\small]
+    \item \texttt{creer\_joueur()}~: la création d'un compte de Joueur passe par la saisie du prénom, du nom, du pseudo et de l'email.
+    \item \texttt{se\_connecter()}~: la connexion s'effectue en saisissant le pseudo.
+    \item \texttt{quitter()}~: elle permet à l'utilisateur de quitter l'application. 
+\end{itemize}
+L'application dirige ensuite l'utilisateur vers une nouvelle vue en fonction du type d'utilisateur connecté et des choix effectués : organisateur à \texttt{AdministrateurVue}, Joueur à \texttt{JoueurVue} et Maître du Jeu à \texttt{MaîtreJeuVue}. Tant que la personne ne choisit pas de quitter l'application, elle navigue entre les vues.
+\bigbreak
+
+\texttt{AdministrateurVue} est la vue vers laquelle l'administrateur est redirigé après s'être connecté, elle a les fonctions suivantes :
+\begin{itemize}[label=\ding{109}, font=\small]
+    \item \texttt{creer\_table()}~: l'administrateur crée une table de jeu et l'application renvoie une confirmation de sa création. 
+    \item \texttt{supprimer\_table()}~: l'administrateur sélectionne une table de jeu à supprimer et l'application renvoie la confirmation de sa suppression.
+    \item \texttt{supprimer\_joueur()}~: l'administrateur sélectionne un Joueur à supprimer de la table à laquelle il appartient et supprime également son compte. L'application renvoie une confirmation de la suppression à l'administarteur et en informe le Joueur.
+    \item \texttt{deplacer\_joueur() }~: l'administrateur sélectionne un Joueur à déployer sur une table spécifique et l'application renvoie une confirmation du déplacement et en avise le Joueur.
+    \item \texttt{voir\_sommaire() }~: elle donne un résumé de toutes les tables de jeu présentes dans le conférence en ce moment, y compris l'identité du scénario, des Maîtres du Jeu et des Joueurs.
+    \item \texttt{se\_deconnecter() }~: l'administrateur se déconnecte et revient à la vue d'accueil \texttt{AccueilVue}.
+\end{itemize}
+\bigbreak
+
+\texttt{JoueurVue} est la vue à laquelle le Joueur accède après s'être connecté et elle lui offre les fonctions suivantes :
+\begin{itemize}[label=\ding{109}, font=\small]
+    \item\texttt{creer\_personnage()}~: le joueur crée un personnage via l'API mentionnée précédemment en suivant la règle de ne pas avoir plus de 3 personnages.
+    \item\texttt{supprimer\_personnage()}~: le joueur supprime un personnage existant.
+    \item\texttt{lister\_personnages()}~: elle donne au joueur un résumé des attributs des personnages qu'il possède.
+    \item\texttt{voir\_programme()}~: le joueur visualise toutes les tables auxquelles il a participé au cours de la session.
+    \item\texttt{voir\_programme()}~: le joueur voit un enregistrement de tous les jeux auxquels il a participé pendant la session, y compris les dates des jeux, les scripts, les personnages participants, etc. \textcolor{red}{A revoir}
+    \item\texttt{rejoindre\_table()}~: À la suite d'informations sur les tables actuellement disponibles, telles que le scénario et les personnages enregistrés sur la table, le joueur sélectionne la table à rejoindre.
+\end{itemize}
+
+
+
+creer\_personnage(Personnage) : bool
++ supprimer\_personnage(Personnage) : bool
++ lister\_personnages(Joueur) : list[Personnage]
++ voir\_programme(Joueur) : none
++ rejoindre\_table(Table, Personnage) : bool
++ quitter\_table(Table) : bool
++ se\_deconnecter() : none
+
+
+
+
+
+
+\textcolor{red}{TODO : décrire la vue JoueurVue}
+
+
+
+
+
+
+\bigbreak
+Dans la majorité des cas, une vue devra appeler des services. Ceux-ci effectueront les traitements métier demandés.
 
 
 \subsection{Les objets métier}
 
-Afin de modéliser notre application, nous avons listé les objets dont nous avions besoin (voir diagramme ci-dessous).
+Afin de modéliser notre application, nous avons listé les objets dont nous avions besoin. Il s’agit de classes objets et comme leur nom l’indique, ces classes ne disposent que d’attributs et pas de méthodes (qui elles se trouvent dans les classes de services). Ainsi les classes objets listées ci-dessous sont des business objects uniquement décrits par leur attributs. Ces business objects seront utilisés par les classes de services et celles de DAO. Les différentes classes objets sont les suivantes:
+
+\bigbreak
+
+\texttt{Administrateur}\\
+Il s’agit d’un modérateur qui n’est pas considéré comme Joueur. Cette classe possède les deux attributs suivants :
+\begin{itemize}[label=\ding{109}, font=\small]
+    \item \texttt{id\_admin}~: int, un administrateur dispose d'un identifiant pour se connecter à son profil d'administrateur et accéder aux différentes vues et services dont il dispose.
+    \item \texttt{pseudo}~: str, comme tout membre de la conférence de jeu de rôle, un administrateur peut avoir un pseudo.
+\end{itemize}
+
+\bigbreak
+
+\texttt{Tablejeu}\\
+Une même table pouvant servir à quatre reprises lors de la convention, nous parlerons de table pour le support physique, et de Table de Jeu pour l'utilisation d'une table sur une plage horaire donnée. Une Table de Jeu possède les cinq attributs suivants :
+\begin{itemize}[label=\ding{109}, font=\small]
+    \item \texttt{id\_table}~: int, chaque table dispose d'un  identifiant unique.
+    \item \texttt{séance}~: int, numéro de la séance sur laquelle la table est utilisée (1 pour le samedi matin, 2 pour le samedi après-midi, 3 pour le dimanche matin et 4 pour le dimanche après-midi). Ainsi une Table de Jeu est caractérisée par le couple (id\_table, séance).
+    \item \texttt{scénario}~: str, scénario choisi par le Maître du Jeu pour animer la Table de Jeu.
+    \item \texttt{maîtrejeu}~: Maîtrejeu, Maître du Jeu qui s'occupe de la Table de Jeu.
+    \item \texttt{joueurs}~: list[Joueur], liste des Joueurs de la Table de Jeu. 
+\end{itemize}
+
+\bigbreak
+
+\texttt{Personnage}\\
+Il s'agit d'un personnage fictif de jeu de rôle que crée un Joueur pour participer à une session de jeu. Cette classe possède les six attributs suivants :
+\begin{itemize}[label=\ding{109}, font=\small]
+    \item \texttt{id\_personnage}~: int, chaque personnage est associé à un identifiant unique.
+    \item \texttt{nom}~: str, nom du personnage.
+    \item \texttt{classe}~: str, fonction ou métier définissant un ensemble de caractéristiques.
+    \item \texttt{niveau}~: int, niveau du personnage.
+    \item \texttt{compétences}~: list[str], liste des compétences dont le personnage dispose.
+    \item \texttt{langues\_parlées}~: list[str], liste des langues parlées par le personnage.
+\end{itemize}
+
+\bigbreak
+
+\texttt{Joueur}\\
+C'est une personne réelle qui participe à la conférence de jeu de rôle. Cette classe possède les six attributs suivants :
+\begin{itemize}[label=\ding{109}, font=\small]
+    \item \texttt{id\_joueur}~: int, un Joueur se connecte à l'aide d'un identifiant qui lui est propre afin d'accéder aux vues et services qui lui sont propres.
+    \item \texttt{pseudo}~: str, à l'instar de l'organisateur, le Joueur dispose d'un pseudo qu'il doit renseigner lors de son inscription.
+    \item \texttt{nom}~: str, son nom propre, qu'il renseigne lors de l'inscription.
+    \item \texttt{prénom}~: str, son prénom, qu'il renseigne lors de l'inscription.
+    \item \texttt{mail}~: str, son adresse mail, qu'il renseigne lors de l'inscription.
+    \item \texttt{personnages}~: list[Personnage], il s'agit de la liste des personnages que le Joueur souhaite potentiellement utiliser lors de la conférence. On limitera le nombre de personnages qu'il peut créer à 3.
+\end{itemize}
+
+\bigbreak
+
+La classe \texttt{Maîtrejeu} est une classe qui hérite des attributs de la classe Joueur. Ce qui différencie un Maître du Jeu d'un Joueur réside dans les fonctionnalités dont ils disposent et les vues de chacun (cf couches vues et services). Aucune différenciation n'est faite au niveau des attributs du Joueur et du Maître du Jeu.
 
 
-\textcolor{red}{TODO : décrire pourquoi on a choisi tel objet, tel attribut}
+
+
 
 
 
@@ -268,27 +374,29 @@ La couche service est le coeur de notre application. Elle contient toutes les m�
 \bigbreak
 
 
-La classe \texttt{OrganisateurService} possède les trois méthodes suivantes :
+La classe \texttt{OrganisateurService} possède les méthodes suivantes :
 \begin{itemize}[label=\ding{109}, font=\small]
-    \item \texttt{creer\_table()}~: 
-    \item \texttt{supprimer\_table()}~: 
-    \item \texttt{supprimer\_joueur()}~: 
-    \item \texttt{deplacer\_joueur()}~: 
+    \item \texttt{créer\_table(num_seance)}~: 
+    \item \texttt{supprimer\_table(TableJeu)}~: 
+    \item \texttt{supprimer\_joueur(Joueur)}~: 
+    \item \texttt{déplacer\_joueur(Joueur, TableJeu)}~: 
     \item \texttt{voir\_programme\_complet()}~: 
 \end{itemize}
 
 \bigbreak
 
-La classe \texttt{JoueurService} possède les trois méthodes suivantes :
+La classe \texttt{JoueurService} possède les méthodes suivantes :
 \begin{itemize}[label=\ding{109}, font=\small]
-    \item \texttt{creer()}~: 
-    \item \texttt{supprimer()}~: 
-    \item \texttt{creer\_personnage()}~: 
-    \item \texttt{supprimer\_personnage()}~: 
-    \item \texttt{lister\_personnage()}~: 
-    \item \texttt{voir\_tables()}~: 
-    \item \texttt{rejoindre\_table()}~: 
-    \item \texttt{quitter\_table()}~: 
+    \item \texttt{créer(pseudo, nom, prenom, mail)}~: 
+    \item \texttt{supprimer(Joueur)}~: 
+    \item \texttt{créer\_personnage(nom, niveau, classe, race)}~: 
+    \item \texttt{supprimer\_personnage(Personnage)}~: 
+    \item \texttt{lister\_personnages()}~: 
+    \item \texttt{voir\_tables\_libres()}~: Cette méthode affiche par séance la liste des tables qu'il est possible de rejoindre.
+    \item \texttt{rejoindre\_table(TableJeu, Personnage)}~: 
+    \item \texttt{quitter\_table(TableJeu)}~: Le joueur est supprimé de la \texttt{TableJeu} en paramètre s'il était effectivement installé à cette table.
+    \item \texttt{voir\_son\_programme()}~:
+    \item \texttt{devenir\_mj()}~:
 \end{itemize}
 
 
@@ -298,11 +406,11 @@ La classe \texttt{JoueurService} possède les trois méthodes suivantes :
 La classe \texttt{MaitreJeuService} possède les méthodes suivantes :
 
 \begin{itemize}[label=\ding{109}, font=\small]
-    \item \texttt{gerer\_table()}~: elle prend trois paramètres : un numéro de séance, une \texttt{TableJeu} et une chaîne de caractères contenant la description du scénario. En premier lieu, une vérification est faite sur la disponibilité du maître du jeu. S'il n'est pas disponible, un message d'erreur est retourné. Le paramètre \texttt{TableJeu} est optionnel, s'il n'est pas renseigné, le maître du jeu est affecté aléatoirement à une table vide de la séance. Si tout est valide, la \texttt{TableJeu} choisie est enrichie avec le \texttt{MaitreJeu} et le scénario.
+    \item \texttt{gérer\_table(num_seance, TableJeu, scenario)}~: elle prend trois paramètres : un numéro de séance, une \texttt{TableJeu} et une chaîne de caractères contenant la description du scénario. En premier lieu, une vérification est faite sur la disponibilité du Maître du Jeu. S'il n'est pas disponible, un message d'erreur est retourné. Le paramètre \texttt{TableJeu} est optionnel~: s'il n'est pas renseigné, le Maître du Jeu est affecté aléatoirement à une table vide de la séance. Si la table est renseignée, le programme s'assure qu'il n'y a pas déjà un Maître du Jeu à cette table. Si tout est valide, la \texttt{TableJeu} choisie est enrichie avec le \texttt{MaitreJeu} et le scénario.
     
-    \item \texttt{resilier\_table()}~: Cette méthode prend en paramètre un numéro de table. Si le maître du jeu n'est pas en charge de la table choisie, cela renvoie un message d'erreur. Sinon la \texttt{TableJeu} perd son \texttt{MaitreJeu}, son scénario et tous ses \texttt{Joueurs}.
+    \item \texttt{résilier\_table(TableJeu)}~: Si le Maître du Jeu n'est pas en charge de la table choisie, cela renvoie un message d'erreur. Sinon la \texttt{TableJeu} perd son \texttt{MaitreJeu}, son scénario et tous ses \texttt{Joueurs}.
     
-    \item \texttt{voir\_joueur()}~: elle prend un numéro de table en paramètre et affiche la liste des joueurs de la table, leurs personnages et leurs niveaux si l'utilisateur est bien maître du jeu de la table. Dans le cas contraire, un message d'erreur apparait.
+    \item \texttt{voir\_table\_geree()}~: elle prend un numéro de table en paramètre et affiche la liste des Joueurs de la table, leurs personnages et leurs niveaux si l'utilisateur est bien Maître du Jeu de la table. Dans le cas contraire, un message d'erreur apparaît.
 \end{itemize}
 
 

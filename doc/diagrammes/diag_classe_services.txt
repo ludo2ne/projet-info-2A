@@ -1,38 +1,36 @@
 'à coller ici : https://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000
 
 @startuml
-
 class AdministrateurService{
 + __init__()
-+ creer_table(Table) ; bool
-+ supprimer_table(Table) : bool
++ creer_table() : bool
++ supprimer_table(TableJeu) : bool
 + supprimer_joueur(Joueur) : bool
-+ deplacer_joueur(Joueur, Table) : bool
++ deplacer_joueur(Joueur, TableJeu) : bool
 + voir_programme_complet() : none
-
 }
  
 
 class JoueurService{
 + __init__()
-+ creer(Joueur) : bool
-+ supprimer(Joueur) : bool
-+ creer_personnage(Personnage) : bool
++ creer(pseudo, nom, prenom, mail) : Joueur
++ supprimer() : bool
++ creer_personnage(nom, niveau, classe, race) : Personnage
 + supprimer_personnage(Personnage) : bool
-+ lister_personnages(Joueur) : list[Personnage]
-+ voir_tables(Joueur) : none
-+ rejoindre_table(Table, Personnage) : bool
-+ quitter_table(Table) : bool
++ lister_personnages() : list[Personnage]
++ voir_tables_libres() : None
++ rejoindre_table(TableJeu, Personnage) : bool
++ quitter_table(TableJeu) : bool
++ voir_son_programme() : None
 }
 
 
 class MaîtreJeuService{
 + __init__()
-+ gerer_table(Table, scenario) : bool
-+ resilier_table(Table) : bool
-+ voir_joueur(Table) : none
++ gerer_table(TableJeu, scenario) : bool
++ resilier_table(TableJeu) : bool
++ voir_table_geree(TableJeu) : None
 }
-
 
 
 @enduml
