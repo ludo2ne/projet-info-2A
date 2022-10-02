@@ -1,6 +1,40 @@
+@startuml
 'à coller ici : https://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000
 
-@startuml
+package vue{
+
+class VueAbstraite{
++ message
++ questions
++ __init__()
++ afficher() : None
++ choisir_menu() : Vue
+}
+
+class AccueilVue{
+} 
+
+class AdministrateurMenuVue{
+} 
+
+class JoueurMenuVue{
+}
+
+class MaîtreJeuMenuVue{
+}
+
+class InscriptionVue{
+}
+
+VueAbstraite <|-- AccueilVue
+VueAbstraite <|-- JoueurMenuVue
+VueAbstraite <|-- AdministrateurMenuVue
+VueAbstraite <|-- MaîtreJeuMenuVue
+VueAbstraite <|-- InscriptionVue
+
+}
+
+
 package business_objets {
 
 class Administrateur{
@@ -70,10 +104,10 @@ Joueur <|-- MaitreJeu
 package service {
 class AdministrateurService{
 + __init__()
-+ creer_table(Table) ; bool
-+ supprimer_table(Table) : bool
++ creer_table(TableJeu) ; bool
++ supprimer_table(TableJeu) : bool
 + supprimer_joueur(Joueur) : bool
-+ deplacer_joueur(Joueur, Table) : bool
++ deplacer_joueur(Joueur, TableJeu) : bool
 + voir_programme_complet() : none
 
 }
@@ -87,63 +121,23 @@ class JoueurService{
 + supprimer_personnage(Personnage) : bool
 + lister_personnages(Joueur) : list[Personnage]
 + voir_tables(Joueur) : none
-+ rejoindre_table(Table, Personnage) : bool
-+ quitter_table(Table) : bool
++ rejoindre_table(TableJeu, Personnage) : bool
++ quitter_table(TableJeu) : bool
 }
 
 
 class MaîtreJeuService{
 + __init__()
-+ gerer_table(Table, scenario) : bool
-+ resilier_table(Table) : bool
-+ voir_joueur(Table) : none
++ gerer_table(TableJeu, scenario) : bool
++ resilier_table(TableJeu) : bool
++ voir_joueur(TableJeu) : none
 }
 
 
 
 }
 
-package vue{
 
-class AccueilVue{
-+ __init__()
-+ creer_joueur(Table) : bool
-+ se_connecter(pseudo) : Admin ou Joueur ?
-+ quitter()
-}
-
-
-class AdministrateurVue{
-+ __init__()
-+ creer_table(Table) : bool
-+ supprimer_table(Table) : bool
-+ supprimer_joueur(Joueur) : bool
-+ deplacer_joueur(Joueur, Table) : bool
-+ voir_sommaire() : none
-+ se_deconnecter() : none
-}
- 
-
-class JoueurVue{
-+ __init__()
-+ creer_personnage(Personnage) : bool
-+ supprimer_personnage(Personnage) : bool
-+ lister_personnages(Joueur) : list[Personnage]
-+ voir_programme(Joueur) : none
-+ rejoindre_table(Table, Personnage) : bool
-+ quitter_table(Table) : bool
-+ se_deconnecter() : none
-}
-
-
-class MaîtreJeuVue{
-+ __init__()
-+ gerer_table(Table, scenario) : bool
-+ resilier_table(Table) : bool
-+ voir_joueur(Table) : none
-}
-
-}
 
 
 package dao{
@@ -168,16 +162,17 @@ class TableJeuDao{
 + __init__()
 + creer(TableJeu) : bool
 + supprimer(TableJeu) : bool
-+ trouver_par_numero(numero) : Table
++ trouver_par_numero(numero) : TableJeu
 }
 
 }
 
 
+InscriptionVue -- JoueurService
+JoueurMenuVue -- JoueurService
+AdministrateurMenuVue -- AdministrateurService
+MaîtreJeuMenuVue -- MaîtreJeuService
 
-JoueurVue -- JoueurService
-AdministrateurVue -- AdministrateurService
-MaîtreJeuVue -- MaîtreJeuService
 JoueurService -- JoueurDao
 JoueurService -- PersonnageDao
 JoueurService -- TableJeuDao
