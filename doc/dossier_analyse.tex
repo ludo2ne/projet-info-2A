@@ -101,11 +101,12 @@ L'organisation d'une convention est différente. En effet les intervenants ne so
 \section{Analyse du besoin}
 
 \subsection{Cahier des charges}
-Notre application devra être utilisable aussi bien par les organisateurs de la convention que par les intervenants et le public.  \\
 
-La convention que notre application doit permettre de gérer se déroule sur un week-end et comporte quatre plages horaires, chacune correspondant à une demi-journée. Elle est dédiée aux jeux de rôle, aussi les intervenants seront par la suite appelés "Maîtres du Jeu" ou MJ. Le public venant quant à lui pour jouer, ses membres seront appelés "Joueurs".\\ 
+L'objectif de ce projet est de développer une application qui permette de gérer le placement des joueurs d'une conférence de jeux de rôles. Cette application devra être utilisable aussi bien par les organisateurs que par les intervenants et le public.  \\
 
-L'application permettra à quiconque le souhaite de s'inscrire en tant que Joueur. Les Joueurs auront accès à plusieurs fonctionnalités. La première d'entre elles sera la création de personnages, dans une limite de trois, via une API à l'adresse \textcolor{blue}{\href{https://www.dnd5eapi.co/}{https://www.dnd5eapi.co/}}. La détention de personnages permettra au Joueur de s'asseoir à une table par demi-journée. Afin de pouvoir faire un choix éclairé, les Joueurs pourront visualiser, pour chaque table ouverte et disponible, le scénario proposé et ainsi choisir le personnage adéquat. Les Joueurs pourront aussi visualiser un sommaire de leur participation et, le cas échéant, se désister d'une table, ce qui sera automatiquement notifié aux organisateurs.\\
+La convention que notre application doit permettre de gérer se déroule sur un week-end et comporte quatre plages horaires, chacune correspondant à une demi-journée. Elle est dédiée aux jeux de rôle, aussi les intervenants seront par la suite appelés «~Maîtres du Jeu~» ou MJ. Le public venant quant à lui pour jouer, ses membres seront appelés «~Joueurs~».\\ 
+
+L'application permettra à quiconque le souhaite de s'inscrire en tant que Joueur. Les Joueurs auront accès à plusieurs fonctionnalités. La première d'entre elles sera la création de personnages, dans une limite de trois. Un appel l'API suivante \textcolor{blue}{\href{https://www.dnd5eapi.co/}{https://www.dnd5eapi.co/}} permettra de compléter les informations sur les personnages. La détention de personnages permettra au Joueur de s'asseoir à une table par demi-journée. Afin de pouvoir faire un choix éclairé, les Joueurs pourront visualiser, pour chaque table ouverte et disponible, le scénario proposé et ainsi choisir le personnage adéquat. Les Joueurs pourront aussi visualiser un sommaire de leur participation et, le cas échéant, se désister d'une table, ce qui sera automatiquement notifié aux organisateurs.\\
 
 L'application permettra aux Joueurs le désirant de s'inscrire en tant que Maîtres du Jeu. Ceux-ci auront la possibilité, pour chaque demi-journée, de choisir une table.  Ils en définiront le scénario proposé, offrant ainsi à quatre Joueurs la possibilité de s'y inscrire. Ils pourront aussi visualiser les profils des Joueurs inscrits à leur table, afin de mieux préparer leur intervention. En outre, ils auront la possibilité de voir un sommaire de leur participation. Enfin, si nécessaire, ils pourront se désister, entraînant une notification aux organisateurs. Les organisateurs auront alors la charge d'affecter les Joueurs à une autre table dans la mesure du possible, ou d'annuler leur participation à cette demi-journée si nécessaire.\\
 
@@ -123,7 +124,7 @@ Un système sommaire d'accès par identifiant sera mis en place, par souci de si
 
 \subsection{Fonctionnalités attendues}
 
-Le diagramme de cas d'utilisation est montré en figure \ref{UML_classe_pipeline}. \\
+Le diagramme de cas d'utilisation est montré ci-après en figure \ref{UML_classe_pipeline}. \\
 
 On désigne par «~Utilisateur~» toute personne lançant l'application. Un Utilisateur, lorsqu'il lance le programme a trois actions à sa disposition~:
 \begin{itemize}
@@ -152,9 +153,10 @@ Les Joueurs ont le choix entre six actions~:
     \item{Devenir maître du jeu: le Joueur peut s'inscrire en tant que Maître du Jeu.\\}
 \end{itemize}
 
-Un Joueur inscrit comme Maître du Jeu accède à deux fonctionnalités supplémentaires:
+Un Joueur inscrit comme Maître du Jeu accède à trois fonctionnalités supplémentaires:
 \begin{itemize}
     \item{Gérer une table~: il pourra voir les tables disponibles mais non ouvertes par un autre Maître du Jeu, en choisir une, et indiquer le scénario qu'il prévoit pour cette table, avec éventuellement des recommandations concernant les niveaux des personnages des Joueurs.}
+    \item{Résilier une table~: il peut également décider que de plus officier en tant que Maître du jeu d'une table.}
     \item{Voir joueurs d'une table~: il aura accès aux informations concernant les Joueurs des tables sur lesquelles il officie, ainsi que leurs personnages.\\}
 \end{itemize}
 
@@ -186,13 +188,12 @@ Nous avons également convenu que tous les membres de l'équipe participeront au
 
 \bigbreak
 
-Nous allons utiliser divers outils pour répondre à des besoins concernant différents aspects de ce projet :
+Nous utiliserons ces outils pour répondre à des besoins concernant différents aspects de ce projet :
 \begin{itemize}
     \item{Suivi et communication~: \href{https://hackmd.io/CMTCDVW6Spe2PHXOhdKTRQ}{hackMd}, Discord}
-    \item{Analyse~: PlantUML}
-    \item{Développement~: python (sur Visual Studio Code), PostgreSQL DBeaver, fastApi}
+    \item{Analyse et Rédaction~: PlantUML, LateX}
+    \item{Développement~: langage Python, Visual Studio Code, bdd PostgreSQL, DBeaver, fastApi}
     \item{Gestion de version~: Git, GitHub}
-    \item{Rédaction~: LateX}
 \end{itemize}
 
 
@@ -208,7 +209,7 @@ La seconde strate concerne les Rendez-Vous, qui incluent les séances supervisé
     \caption{\textbf{Diagramme de Gantt}}
     \label{UML_gantt}
     \centering
-    \includegraphics[height=0.5\textheight]{UML_diagrammes/DiagGantt.png}
+    \includegraphics[height=0.5\textheight]{UML_diagrammes/diag_gantt.png}
 \end{figure}
 
 La troisième strate illustre les différentes phases du projet. Les six premières semaines sont consacrées à l'étude et à la conception du projet, incluant la réalisation des diagrammes présentés dans ce dossier et la documentation. Pendant ce temps, les cours et TP nécessaires à la réalisation concrète de l'application (Programmation Orientée Objet, Webservices, Git) peuvent avoir lieu. La phase de développement, incluant le codage de l'application et la mise en place de la base de données, se déroulera ensuite sur une période d'environ six semaines. Lorsque cette phase sera bien avancée, la rédaction d'un rapport final pourra débuter, suivie par la préparation de la présentation de notre travail lors de la soutenance.\\
@@ -307,49 +308,42 @@ Afin de modéliser notre application, nous avons listé les objets dont nous avi
 
 \bigbreak
 
-\texttt{Administrateur}\\
-Il s’agit d’un modérateur qui n’est pas considéré comme Joueur. Cette classe possède les deux attributs suivants :
-\begin{itemize}[label=\ding{109}, font=\small]
-    \item \texttt{id\_admin}~: int, un administrateur dispose d'un identifiant pour se connecter à son profil d'administrateur et accéder aux différentes vues et services dont il dispose.
-    \item \texttt{pseudo}~: str, comme tout membre de la conférence de jeu de rôle, un administrateur peut avoir un pseudo.
-\end{itemize}
+\begin{itemize}
+    \item \texttt{Administrateur}~: Il s’agit d’un modérateur qui n’est pas considéré comme Joueur. Cette classe possède les deux attributs suivants :
+    \begin{itemize}[label=\ding{109}, font=\small]
+        \item \texttt{id\_admin}~: int, un administrateur dispose d'un identifiant unique.
+        \item \texttt{pseudo}~: str, comme tout membre de la conférence de jeu de rôle, un administrateur dispose d'un pseudo pour se connecter à son profil d'administrateur et accéder aux différentes vues et services dont il dispose.
+    \end{itemize}
 
-\bigbreak
+    \item \texttt{Tablejeu}~: Une même table pouvant servir à quatre reprises lors de la convention, nous parlerons de table pour le support physique, et de Table de Jeu pour l'utilisation d'une table sur une plage horaire donnée. Une Table de Jeu possède les cinq attributs suivants :
+    \begin{itemize}[label=\ding{109}, font=\small]
+        \item \texttt{id\_table}~: int, chaque table dispose d'un  identifiant unique.
+        \item \texttt{séance}~: int, numéro de la séance sur laquelle la table est utilisée (1 pour le samedi matin, 2 pour le samedi après-midi, 3 pour le dimanche matin et 4 pour le dimanche après-midi). Ainsi une Table de Jeu est caractérisée par le couple (id\_table, séance).
+        \item \texttt{scénario}~: str, scénario choisi par le Maître du Jeu pour animer la Table de Jeu.
+        \item \texttt{maîtrejeu}~: MaîtreJeu, Maître du Jeu qui s'occupe de la Table de Jeu.
+        \item \texttt{joueurs}~: list[Joueur], liste des Joueurs de la Table de Jeu. 
+    \end{itemize}
+    
+    \item \texttt{Personnage}~: Il s'agit d'un personnage fictif de jeu de rôle que crée un Joueur pour participer à une session de jeu. Cette classe possède les six attributs suivants :
+    \begin{itemize}[label=\ding{109}, font=\small]
+        \item \texttt{id\_personnage}~: int, chaque personnage est associé à un identifiant unique.
+        \item \texttt{nom}~: str, nom du personnage.
+        \item \texttt{classe}~: str, classe du personnage (Guerrier, Druide, Magicien...)
+        \item \texttt{race}~: str, race du personnage (Humain, Elfe, Nain...).
+        \item \texttt{niveau}~: int, niveau du personnage.
+        \item \texttt{compétences}~: list[str], liste des compétences dont le personnage dispose.
+        \item \texttt{langues\_parlées}~: list[str], liste des langues parlées par le personnage.
+    \end{itemize}
 
-\texttt{Tablejeu}\\
-Une même table pouvant servir à quatre reprises lors de la convention, nous parlerons de table pour le support physique, et de Table de Jeu pour l'utilisation d'une table sur une plage horaire donnée. Une Table de Jeu possède les cinq attributs suivants :
-\begin{itemize}[label=\ding{109}, font=\small]
-    \item \texttt{id\_table}~: int, chaque table dispose d'un  identifiant unique.
-    \item \texttt{séance}~: int, numéro de la séance sur laquelle la table est utilisée (1 pour le samedi matin, 2 pour le samedi après-midi, 3 pour le dimanche matin et 4 pour le dimanche après-midi). Ainsi une Table de Jeu est caractérisée par le couple (id\_table, séance).
-    \item \texttt{scénario}~: str, scénario choisi par le Maître du Jeu pour animer la Table de Jeu.
-    \item \texttt{maîtrejeu}~: Maîtrejeu, Maître du Jeu qui s'occupe de la Table de Jeu.
-    \item \texttt{joueurs}~: list[Joueur], liste des Joueurs de la Table de Jeu. 
-\end{itemize}
-
-\bigbreak
-
-\texttt{Personnage}\\
-Il s'agit d'un personnage fictif de jeu de rôle que crée un Joueur pour participer à une session de jeu. Cette classe possède les six attributs suivants :
-\begin{itemize}[label=\ding{109}, font=\small]
-    \item \texttt{id\_personnage}~: int, chaque personnage est associé à un identifiant unique.
-    \item \texttt{nom}~: str, nom du personnage.
-    \item \texttt{classe}~: str, fonction ou métier définissant un ensemble de caractéristiques.
-    \item \texttt{niveau}~: int, niveau du personnage.
-    \item \texttt{compétences}~: list[str], liste des compétences dont le personnage dispose.
-    \item \texttt{langues\_parlées}~: list[str], liste des langues parlées par le personnage.
-\end{itemize}
-
-\bigbreak
-
-\texttt{Joueur}\\
-C'est une personne réelle qui participe à la conférence de jeu de rôle. Cette classe possède les six attributs suivants :
-\begin{itemize}[label=\ding{109}, font=\small]
-    \item \texttt{id\_joueur}~: int, un Joueur se connecte à l'aide d'un identifiant qui lui est propre afin d'accéder aux vues et services qui lui sont propres.
-    \item \texttt{pseudo}~: str, à l'instar de l'organisateur, le Joueur dispose d'un pseudo qu'il doit renseigner lors de son inscription.
-    \item \texttt{nom}~: str, son nom propre, qu'il renseigne lors de l'inscription.
-    \item \texttt{prénom}~: str, son prénom, qu'il renseigne lors de l'inscription.
-    \item \texttt{mail}~: str, son adresse mail, qu'il renseigne lors de l'inscription.
-    \item \texttt{personnages}~: list[Personnage], il s'agit de la liste des personnages que le Joueur souhaite potentiellement utiliser lors de la conférence. On limitera le nombre de personnages qu'il peut créer à 3.
+    \item \texttt{Joueur}~: C'est une personne réelle qui participe à la conférence de jeu de rôle. Cette classe possède les six attributs suivants :
+    \begin{itemize}[label=\ding{109}, font=\small]
+        \item \texttt{id\_joueur}~: int, identifiant unique du Joueur
+        \item \texttt{pseudo}~: str, pseudo à l'aide duquel le jouer se connecte afin d'accéder aux vues et services qui lui sont propres.
+        \item \texttt{nom}~: str, son nom propre, qu'il renseigne lors de l'inscription.
+        \item \texttt{prénom}~: str, son prénom, qu'il renseigne lors de l'inscription.
+        \item \texttt{mail}~: str, son adresse mail, qu'il renseigne lors de l'inscription.
+        \item \texttt{personnages}~: list[Personnage], il s'agit de la liste des personnages que le Joueur souhaite potentiellement utiliser lors de la conférence. On limitera le nombre de personnages qu'il peut créer à 3.
+    \end{itemize}
 \end{itemize}
 
 \bigbreak
@@ -364,11 +358,9 @@ La classe \texttt{Maîtrejeu} est une classe qui hérite des attributs de la cla
 
 \subsection{La couche Service}
 
-La couche service est le coeur de notre application. Elle contient toutes les méthodes qui permettent de répondre aux besoins des utilisateurs.
+La couche service est le coeur de notre application. Elle contient toutes les méthodes qui permettront ensuite de répondre aux besoins des utilisateurs.
 
 
-
-\textcolor{red}{TODO : décrire les méthodes des classes Service}
 
 
 \bigbreak
@@ -376,10 +368,11 @@ La couche service est le coeur de notre application. Elle contient toutes les m�
 
 La classe \texttt{OrganisateurService} possède les méthodes suivantes :
 \begin{itemize}[label=\ding{109}, font=\small]
-    \item \texttt{créer\_table(num_seance)}~: 
+    \item \texttt{créer\_table(num\_seance)}~: 
     \item \texttt{supprimer\_table(TableJeu)}~: 
     \item \texttt{supprimer\_joueur(Joueur)}~: 
-    \item \texttt{déplacer\_joueur(Joueur, TableJeu)}~: 
+    \item \texttt{déplacer\_joueur(Joueur, TableJeu avant, TableJeu après)}~: 
+    \item \texttt{déplacer\_mj(MaitreJeu, TableJeu avant, TableJeu après)}~: 
     \item \texttt{voir\_programme\_complet()}~: 
 \end{itemize}
 
@@ -391,12 +384,12 @@ La classe \texttt{JoueurService} possède les méthodes suivantes :
     \item \texttt{supprimer(Joueur)}~: 
     \item \texttt{créer\_personnage(nom, niveau, classe, race)}~: 
     \item \texttt{supprimer\_personnage(Personnage)}~: 
-    \item \texttt{lister\_personnages()}~: 
-    \item \texttt{voir\_tables\_libres()}~: Cette méthode affiche par séance la liste des tables qu'il est possible de rejoindre.
-    \item \texttt{rejoindre\_table(TableJeu, Personnage)}~: 
+    \item \texttt{lister\_personnages()}~: elle liste tous les personnages du joueur ainsi que leurs caractéristiques.
+    \item \texttt{voir\_tables\_libres()}~: cette méthode affiche par séance la liste des tables qu'il est possible de rejoindre.
+    \item \texttt{rejoindre\_table(TableJeu, Personnage)}~: après vérification qu'une place est libre à la table de jeu, et que le joueur est lui même libre, cette méthode affecte le personnage à la table.
     \item \texttt{quitter\_table(TableJeu)}~: Le joueur est supprimé de la \texttt{TableJeu} en paramètre s'il était effectivement installé à cette table.
-    \item \texttt{voir\_son\_programme()}~:
-    \item \texttt{devenir\_mj()}~:
+    \item \texttt{voir\_son\_programme()}~: cela liste l'emploi du temps du joueur (tables, scénario, personnage)
+    \item \texttt{devenir\_mj()}~: le joueur devient Maître du Jeu.
 \end{itemize}
 
 
@@ -406,7 +399,7 @@ La classe \texttt{JoueurService} possède les méthodes suivantes :
 La classe \texttt{MaitreJeuService} possède les méthodes suivantes :
 
 \begin{itemize}[label=\ding{109}, font=\small]
-    \item \texttt{gérer\_table(num_seance, TableJeu, scenario)}~: elle prend trois paramètres : un numéro de séance, une \texttt{TableJeu} et une chaîne de caractères contenant la description du scénario. En premier lieu, une vérification est faite sur la disponibilité du Maître du Jeu. S'il n'est pas disponible, un message d'erreur est retourné. Le paramètre \texttt{TableJeu} est optionnel~: s'il n'est pas renseigné, le Maître du Jeu est affecté aléatoirement à une table vide de la séance. Si la table est renseignée, le programme s'assure qu'il n'y a pas déjà un Maître du Jeu à cette table. Si tout est valide, la \texttt{TableJeu} choisie est enrichie avec le \texttt{MaitreJeu} et le scénario.
+    \item \texttt{gérer\_table(num\_seance, TableJeu, scenario)}~: elle prend trois paramètres : un numéro de séance, une \texttt{TableJeu} et une chaîne de caractères contenant la description du scénario. En premier lieu, une vérification est faite sur la disponibilité du Maître du Jeu. S'il n'est pas disponible, un message d'erreur est retourné. Le paramètre \texttt{TableJeu} est optionnel~: s'il n'est pas renseigné, le Maître du Jeu est affecté aléatoirement à une table vide de la séance. Si la table est renseignée, le programme s'assure qu'il n'y a pas déjà un Maître du Jeu à cette table. Si tout est valide, la \texttt{TableJeu} choisie est enrichie avec le \texttt{MaitreJeu} et le scénario.
     
     \item \texttt{résilier\_table(TableJeu)}~: Si le Maître du Jeu n'est pas en charge de la table choisie, cela renvoie un message d'erreur. Sinon la \texttt{TableJeu} perd son \texttt{MaitreJeu}, son scénario et tous ses \texttt{Joueurs}.
     
@@ -426,8 +419,6 @@ La couche DAO (Data Access Object) permet de faire le lien entre notre applicati
 
 
 
-\newpage
-
 
 
 
@@ -445,14 +436,22 @@ La couche DAO (Data Access Object) permet de faire le lien entre notre applicati
 % Annexes
 %-------------------------------------------------------------------------------
 
+\newgeometry{top=0.5cm, bottom=0.1cm}
 
-\newpage
 \addcontentsline{toc}{section}{Annexes}
 \appendix  % On passe aux annexes
 \section*{Annexe 1 - Diagramme de classe UML}
 
 
-ggg
+\begin{figure}[H]
+    \label{UML_classes}
+    \centering
+    \includegraphics[angle=90,height=0.9\textheight]{UML_diagrammes/diag_classes.png}
+\end{figure}
+
+
+\restoregeometry
+
 
 
 

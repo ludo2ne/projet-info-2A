@@ -31,7 +31,8 @@ class ConnexionVue{
 
 
 class Session{
-pseudo : str
++ pseudo : str
++ __init__()
 }
 
 VueAbstraite <|-- AccueilVue
@@ -122,6 +123,7 @@ class AdministrateurService{
 + supprimer_table(TableJeu) : bool
 + supprimer_joueur(Joueur) : bool
 + deplacer_joueur(Joueur, TableJeu) : bool
++ deplacer_mj(MaitreJeu, TableJeu) : bool
 + voir_programme_complet() : None
 }
  
@@ -138,6 +140,7 @@ class JoueurService{
 + quitter_table(TableJeu) : bool
 + voir_son_programme() : None
 + devenir_mj() : None
++ afficher_messages() : None
 }
 
 
@@ -159,6 +162,7 @@ class JoueurDao{
 + creer(Joueur) : bool
 + supprimer(Joueur) : bool
 + trouver_par_pseudo(pseudo) : Joueur
++ lister_messages() : list[str]
 }
 
 
