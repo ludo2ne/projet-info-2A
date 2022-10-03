@@ -13,6 +13,7 @@ from InquirerPy import prompt
 from view.vue_abstraite import VueAbstraite
 from view.inscription_vue import InscriptionVue
 from view.connexion_vue import ConnexionVue
+from utils.reset_database import ResetDatabase
 
 
 class AccueilVue(VueAbstraite):
@@ -26,6 +27,7 @@ class AccueilVue(VueAbstraite):
                 "choices": [
                     "Créer un compte Joueur",
                     "Se connecter",
+                    "Ré-initialiser la base de données",
                     "Quitter"
                 ]
             }
@@ -45,3 +47,7 @@ class AccueilVue(VueAbstraite):
             return ConnexionVue()
         elif reponse["choix"] == "Créer un compte Joueur":
             return InscriptionVue()
+        elif reponse["choix"] == "Ré-initialiser la base de données":
+            succes = ResetDatabase().lancer()
+            message = "Ré-initilisation de la base de données terminée" if succes else None
+            return AccueilVue(message)

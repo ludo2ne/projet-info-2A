@@ -32,7 +32,7 @@ class ConnexionVue(VueAbstraite):
 
         answers = prompt(self.questions)
 
-        # On appelle le service de creation de joueur
+        # On appelle le service pour trouver le joueur
         joueur = JoueurService().trouver_par_pseudo(answers["pseudo"])
 
         # On récupère le mesage à afficher (succès ou échec)

@@ -27,13 +27,17 @@ class TableJeuDao(metaclass=Singleton):
         '''
         inserted = False
 
-        with DBConnection().connection as connection:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    "INSERT INTO jdr.table_jeu(numero) VALUES "
-                    "(%(numero)s) RETURNING id_table;", {"numero": table.numero})
-                print(cursor.description)
-                res = cursor.fetchone()
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "INSERT INTO jdr.table_jeu(numero) VALUES "
+                        "(%(numero)s) RETURNING id_table;", {"numero": table.numero})
+                    res = cursor.fetchone()
+        except Exception as e:
+            print(e)
+            raise
+
         if res:
             table.id = res['id_table']
             inserted = True
@@ -42,13 +46,16 @@ class TableJeuDao(metaclass=Singleton):
     def trouver_par_id(self, id_table) -> int:
         '''Obtenir une table à partir de son id_table
         '''
-        with DBConnection().connection as connection:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    "SELECT * FROM jdr.table WHERE id_table = "
-                    "%(id_table)s;", {"id_table": id_table})
-                print(cursor.description)
-                res = cursor.fetchone()
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT * FROM jdr.table WHERE id_table = "
+                        "%(id_table)s;", {"id_table": id_table})
+                    res = cursor.fetchone()
+        except Exception as e:
+            print(e)
+            raise
 
         table = None
         if res:
@@ -72,13 +79,16 @@ class TableJeuDao(metaclass=Singleton):
     def nombre_joueurs_assis(self, table) -> int:
         '''Nombre de joueurs assis actuellement à la table
         '''
-        with DBConnection().connection as connection:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    "SELECT count(1) FROM jdr.table_joueur WHERE id_table = "
-                    "%(id_table)s;", {"id_table": table.id})
-                print(cursor.description)
-                res = cursor.fetchone()
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT count(1) FROM jdr.table_joueur WHERE id_table = "
+                        "%(id_table)s;", {"id_table": table.id})
+                    res = cursor.fetchone()
+        except Exception as e:
+            print(e)
+            raise
 
         nb_joueurs = res['count']
         return nb_joueurs

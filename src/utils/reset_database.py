@@ -25,10 +25,16 @@ class ResetDatabase(metaclass=Singleton):
         pop_db = open("data/pop_db.sql")
         pop_db_as_string = pop_db.read()
 
-        with DBConnection().connection as connection:
-            with connection.cursor() as cursor:
-                cursor.execute(init_db_as_string)
-                cursor.execute(pop_db_as_string)
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(init_db_as_string)
+                    cursor.execute(pop_db_as_string)
+        except Exception as e:
+            print(e)
+            raise
+
+        return True
 
 
 if __name__ == '__main__':

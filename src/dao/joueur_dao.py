@@ -28,17 +28,20 @@ class JoueurDao(metaclass=Singleton):
         '''
         print("Création d'un joueur en BDD")
 
-        with DBConnection().connection as connection:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    "INSERT INTO jdr.joueur(pseudo, nom, prenom, mail) VALUES "
-                    "(%(pseudo)s,%(nom)s,%(prenom)s,%(mail)s) RETURNING id_joueur;",
-                    {"pseudo": joueur.pseudo,
-                     "nom": joueur.nom,
-                     "prenom": joueur.prenom,
-                     "mail": joueur.mail})
-                print(cursor.description)
-                res = cursor.fetchone()
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "INSERT INTO jdr.joueur(pseudo, nom, prenom, mail) VALUES "
+                        "(%(pseudo)s,%(nom)s,%(prenom)s,%(mail)s) RETURNING id_joueur;",
+                        {"pseudo": joueur.pseudo,
+                         "nom": joueur.nom,
+                         "prenom": joueur.prenom,
+                         "mail": joueur.mail})
+                    res = cursor.fetchone()
+        except Exception as e:
+            print(e)
+            raise
 
         created = False
         if res:
@@ -49,14 +52,18 @@ class JoueurDao(metaclass=Singleton):
     def trouver_par_id(self, id_joueur) -> Joueur:
         '''trouver un joueur grace à son id
         '''
-        with DBConnection().connection as connection:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    "SELECT * FROM jdr.joueur "
-                    " WHERE id_joueur = %(id_joueur)s;",
-                    {"id_joueur": id_joueur})
-                print(cursor.description)
-                res = cursor.fetchone()
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT * FROM jdr.joueur "
+                        " WHERE id_joueur = %(id_joueur)s;",
+                        {"id_joueur": id_joueur})
+                    res = cursor.fetchone()
+        except Exception as e:
+            print(e)
+            raise
+
         joueur = None
         if res:
             joueur = Joueur(pseudo=res['pseudo'],
@@ -75,14 +82,17 @@ class JoueurDao(metaclass=Singleton):
         '''
         print("INFO : JoueurDao.trouver_par_pseudo({})".format(pseudo))
 
-        with DBConnection().connection as connection:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    "SELECT * FROM jdr.joueur "
-                    " WHERE pseudo = %(pseudo)s;",
-                    {"pseudo": pseudo})
-                print(cursor.description)
-                res = cursor.fetchone()
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT * FROM jdr.joueur "
+                        " WHERE pseudo = %(pseudo)s;",
+                        {"pseudo": pseudo})
+                    res = cursor.fetchone()
+        except Exception as e:
+            print(e)
+            raise
 
         joueur = None
         if res:
@@ -111,14 +121,18 @@ class JoueurDao(metaclass=Singleton):
         '''
         inserted = False
 
-        with DBConnection().connection as connection:
-            with connection.cursor() as cursor:
-                cursor.execute(
-                    "INSERT INTO jdr.table_joueur(id_table, id_joueur, id_personnage) VALUES "
-                    "(%(id_table)s, %(id_joueur)s, %(id_personnage)s) RETURNING id_table;",
-                    {"id_table": table.id, "id_joueur": joueur.id, "id_personnage": personnage.id})
-                print(cursor.description)
-                res = cursor.fetchone()
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "INSERT INTO jdr.table_joueur(id_table, id_joueur, id_personnage) VALUES "
+                        "(%(id_table)s, %(id_joueur)s, %(id_personnage)s) RETURNING id_table;",
+                        {"id_table": table.id, "id_joueur": joueur.id, "id_personnage": personnage.id})
+                    res = cursor.fetchone()
+        except Exception as e:
+            print(e)
+            raise
+
         if res:
             inserted = True
         return inserted
