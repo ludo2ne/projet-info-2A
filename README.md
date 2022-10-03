@@ -1,5 +1,13 @@
 # Projet conférence de jeu de rôle
 
+## Utilisation
+
+```bash
+python src/lancement_appli.py            # pour lancer l application
+python src/run_all_tests.py              # pour lancer tous les tests
+```
+
+
 ## Packages requis
 
 ```bash
