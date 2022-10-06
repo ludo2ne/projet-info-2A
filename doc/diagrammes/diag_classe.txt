@@ -1,5 +1,4 @@
 @startuml
-'à coller ici : https://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000
 
 package vue{
 
@@ -43,7 +42,6 @@ VueAbstraite <|-- InscriptionVue
 VueAbstraite <|-- ConnexionVue
 
 Session -- JoueurMenuVue
-Session -- MaîtreJeuMenuVue
 Session -- ConnexionVue
 Session -- AdministrateurMenuVue
 
@@ -76,13 +74,12 @@ class MaitreJeu{
 
 
 
-
 class TableJeu{
 + id_table : int
-+ id_sceance : int
++ seance : int
 + scenario : str
 + maitre_jeu : MaitreJeu
-+ personnages : list[Personnage]
++ joueurs : list[Joueur]
 
 +__init__()
 }
@@ -100,9 +97,9 @@ class Personnage{
 }
 
 
-TableJeu o-- Personnage 
-TableJeu -- MaitreJeu
-Personnage --* Joueur
+TableJeu o-- Joueur : aggrège une liste >
+TableJeu -- MaitreJeu : contient >
+Personnage --o Joueur : aggrège une liste <
 
 Joueur <|-- MaitreJeu
 }
@@ -114,8 +111,8 @@ class AdministrateurService{
 + creer_table() : bool
 + supprimer_table(TableJeu) : bool
 + supprimer_joueur(Joueur) : bool
-+ deplacer_joueur(Joueur, TableJeu_avant, TableJeu_après) : bool
-+ deplacer_mj(MaitreJeu, TableJeu_avant, TableJeu_après) : bool
++ deplacer_joueur(Joueur, TableJeu) : bool
++ deplacer_mj(MaitreJeu, TableJeu) : bool
 + voir_programme_complet() : None
 }
  
@@ -148,19 +145,31 @@ class MaîtreJeuService{
 
 package dao{
 
+class DBconnection{
+- __connection: psycopg2.connect
+
++ connection() : psycopg2.connect
+}
+
+class MessageDao{
++ __init__()
++ créer(str, Joueur) : bool
++ trouver_message_par_joueur(Joueur) : bool
+
+}
 
 class JoueurDao{
 + __init__()
 + creer(Joueur) : bool
 + supprimer(Joueur) : bool
-+ trouver_par_pseudo(pseudo) : Joueur
++ trouver_par_pseudo(pseudo : str) : Joueur
 + lister_messages() : list[str]
 }
 
 
 class PersonnageDao{
 + __init__()
-+ creer(Personnage) : bool
++ creer(Personnage,Joueur) : bool
 + supprimer(Personnage) : bool
 + lister_par_joueur(Joueur) : list[Personnage]
 }
@@ -169,23 +178,42 @@ class TableJeuDao{
 + __init__()
 + creer(TableJeu) : bool
 + supprimer(TableJeu) : bool
-+ trouver_par_numero(numero) : TableJeu
++ trouver_par_numero(id_table : int) : TableJeu
 + modifier_mj(MaitreJeu) : bool
++ ajouter_joueur_table(Joueur, TableJeu) : bool
++ supprimer_joueur_table(Joueur, TableJeu) : bool
 }
 
 }
 
+class Singleton{
+"" méta class ""
+- __instances : Singleton
++ __call__()
+
+}
 
 InscriptionVue -- JoueurService
 JoueurMenuVue -- JoueurService
 AdministrateurMenuVue -- AdministrateurService
 MaîtreJeuMenuVue -- MaîtreJeuService
-MaîtreJeuMenuVue -- JoueurService
 
-JoueurService -- JoueurDao
-JoueurService -- PersonnageDao
-JoueurService -- TableJeuDao
-MaîtreJeuService -- TableJeuDao
-AdministrateurService -- TableJeuDao
+JoueurService --> JoueurDao : gestion joueur >
+JoueurService --> PersonnageDao : gestion/affichage personnage >
+JoueurService --> TableJeuDao : intéraction joueur/table >
+MaîtreJeuService --> TableJeuDao : gestion/affichage >
+AdministrateurService --> TableJeuDao : gestion des personnages/joueurs >
+MaîtreJeuService --> MessageDao : processus de notification >
+AdministrateurService --> MessageDao : processus de notification >
+JoueurService .. MessageDao : affichage message >
+
+
+JoueurDao ..> DBconnection : utilise >
+PersonnageDao ..> DBconnection : utilise >
+TableJeuDao ..> DBconnection : utilise >
+MessageDao ..> DBconnection : utilise >
+
+DBconnection ..|> Singleton : hérite d'une méta classe
+
 
 @enduml
