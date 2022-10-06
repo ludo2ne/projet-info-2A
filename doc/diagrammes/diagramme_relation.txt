@@ -2,21 +2,20 @@
 'à coller ici : https://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000
 
 
-
-
-
 class joueur{
-+ id_joueur : int
++ {static} id_joueur : int
 + pseudo : str
 + nom : str
 + prenom : str
 + mail : str
++ joueur_classique_ou_mj : bool* 
+(*True si classique False si MJ)
 }
 
 
 class personnage{
-+ id_personnage : int
-+ id_joueur : int
++ {static} id_personnage : int
++ #id_joueur : int
 + nom : str
 + classe : str
 + niveau : int
@@ -26,23 +25,24 @@ class personnage{
 
 
 class table_jeu{
-+ id_table : int
-+ seance : int
-+ id_maitre_jeu : int
-+ numero : int
++ {static}id_table : int
++ séance : int
++ #id_joueur : int
 + scenario : str
 }
 
 
 class table_personnage{
-+ id_table : int
-+ id_personnage : int
++ {static} #id_table : int
++ {static} #id_personnage : int
++ séance : int
 }
 
 
 
 class message{
-+ id_joueur : int
++ {static} id_message : int
++ #id_joueur : int
 + date_creation : time
 + message : str
 + lu : bool
