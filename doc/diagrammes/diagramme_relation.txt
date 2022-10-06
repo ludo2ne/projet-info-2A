@@ -18,6 +18,7 @@ class personnage{
 + #id_joueur : int
 + nom : str
 + classe : str
++ race : str
 + niveau : int
 }
 
@@ -26,16 +27,15 @@ class personnage{
 
 class table_jeu{
 + {static}id_table : int
-+ séance : int
-+ #id_joueur : int
++ {static}séance : int
 + scenario : str
 }
 
 
 class table_personnage{
 + {static} #id_table : int
++ {static} #séance : int
 + {static} #id_personnage : int
-+ séance : int
 }
 
 
