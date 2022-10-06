@@ -1,0 +1,36 @@
+' https://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000
+' https://plantuml.com/fr/activity-diagram-legacy
+
+
+@startuml
+
+(*) --> "Lancement Application"
+"Lancement Application" --> "AccueilVue"
+
+"AccueilVue" -->[Créer compte Joueur] "InscriptionVue"
+"AccueilVue" -right->[Quitter] (*)
+"InscriptionVue" -down-> "AccueilVue"
+"AccueilVue" -->[Se connecter] "ConnexionVue"
+
+if "Admin ?" then
+  -->[true] "AdministrateurVue"
+else
+  if "Pseudo valide ?" then
+    if "est MJ ?"
+      -->[True] "MaitreJeuVue"
+    else
+      -->[False] "JoueurMenuVue"
+  else
+    -->[False] "AccueilVue"
+  endif
+endif
+
+
+"JoueurMenuVue" --> "CreerPersonnageVue \n RejoindreTableVue \n ..."
+"AdministrateurVue" --> "CreerTableVue \n SupprimerJoueurVue \n ..."
+
+"AdministrateurVue" -->[Se déconnecter] "AccueilVue"
+"JoueurMenuVue" -left->[Se déconnecter] "AccueilVue"
+
+
+@enduml

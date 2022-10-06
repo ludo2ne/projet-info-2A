@@ -43,6 +43,7 @@ VueAbstraite <|-- InscriptionVue
 VueAbstraite <|-- ConnexionVue
 
 Session -- JoueurMenuVue
+Session -- MaîtreJeuMenuVue
 Session -- ConnexionVue
 Session -- AdministrateurMenuVue
 
@@ -74,22 +75,14 @@ class MaitreJeu{
 }
 
 
-class Seance{
-+ id_seance : int
-+ debut : time
-+ fin : time
-+ description : str
-
-+__init__()
-}
 
 
 class TableJeu{
 + id_table : int
-+ seance : Seance
++ id_sceance : int
 + scenario : str
 + maitre_jeu : MaitreJeu
-+ joueurs : list[Joueur]
++ personnages : list[Personnage]
 
 +__init__()
 }
@@ -107,9 +100,8 @@ class Personnage{
 }
 
 
-TableJeu o-- Joueur
+TableJeu o-- Personnage 
 TableJeu -- MaitreJeu
-TableJeu -- Séance
 Personnage --* Joueur
 
 Joueur <|-- MaitreJeu
@@ -122,8 +114,8 @@ class AdministrateurService{
 + creer_table() : bool
 + supprimer_table(TableJeu) : bool
 + supprimer_joueur(Joueur) : bool
-+ deplacer_joueur(Joueur, TableJeu) : bool
-+ deplacer_mj(MaitreJeu, TableJeu) : bool
++ deplacer_joueur(Joueur, TableJeu_avant, TableJeu_après) : bool
++ deplacer_mj(MaitreJeu, TableJeu_avant, TableJeu_après) : bool
 + voir_programme_complet() : None
 }
  
@@ -188,6 +180,7 @@ InscriptionVue -- JoueurService
 JoueurMenuVue -- JoueurService
 AdministrateurMenuVue -- AdministrateurService
 MaîtreJeuMenuVue -- MaîtreJeuService
+MaîtreJeuMenuVue -- JoueurService
 
 JoueurService -- JoueurDao
 JoueurService -- PersonnageDao
