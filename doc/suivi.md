@@ -18,9 +18,43 @@ tags: Cours2A
 # :dart: Échéances
 -------------------------------------------
 
+
+### :rotating_light: Rédaction du dossier d'analyse
+
 :::danger
-Dossier d'Analyse :clock1: <iframe src="https://free.timeanddate.com/countdown/i83zdl7u/n1264/cf11/cm0/cu2/ct4/cs0/ca0/co0/cr0/ss0/cac009/cpcf00/pcfff/tcfff/fs100/szw256/szh108/iso2022-10-08T23:59:00" allowtransparency="true" frameborder="0" width="130" height="16"></iframe>
+:clock1: <iframe src="https://free.timeanddate.com/countdown/i83zdl7u/n1264/cf11/cm0/cu2/ct4/cs0/ca0/co0/cr0/ss0/cac009/cpcf00/pcfff/tcfff/fs100/szw256/szh108/iso2022-10-08T23:59:00" allowtransparency="true" frameborder="0" width="130" height="16"></iframe>
 :::
+
+* [ ] Regrouper tous les diagrammes de classe [color=orange][name=Jason]
+    * [ ] Validation 
+* Introduction 
+    * optionnel : plutôt pour rapport final ?
+* Cahier des charges
+    * [x] rédaction [color=red][name=JF]
+    * [ ] relecture
+* Fonctionnalités
+    * [x] rédaction [color=red][name=JF]
+    * [x] relecture [color=green][name=Ludo]
+* Organisation équipe 
+    * [x] rédaction  [color=green][name=Ludo]
+    * [ ] relecture 
+* Couche business_objet 
+    * [x] rédaction [color=purple][name=Hugo]
+    * [x] relecture [color=green][name=Ludo]
+* Couche service 
+    * [x] rédaction [color=purple][name=Hugo] 1-8
+    * [x] rédaction [color=green][name=Ludo] 9-16
+    * [ ] relecture
+* Couche vue
+    * [x] rédaction [color=blue][name=Banruo]
+    * [ ] relecture 
+* Couche DAO 
+    * [ ] rédaction [color=orange][name=Jason] 
+    * [ ] relecture 
+* [ ] Validation finale [color=red][name=JF]
+
+
+---
 
 
 ```mermaid
@@ -79,37 +113,6 @@ gantt
 # :construction: Todo 
 -------------------------------------------
 
-
-### :rotating_light: Rédaction du dossier d'analyse
-
-* [ ] Regrouper tous les diagrammes de classe [color=orange][name=Jason] 
-* Introduction 
-    * optionnel : plutôt pour rapport final ?
-* Cahier des charges
-    * [x] rédaction [color=red][name=JF]
-    * [ ] relecture
-* Fonctionnalités
-    * [x] rédaction [color=red][name=JF]
-    * [ ] relecture
-* Organisation équipe 
-    * [x] rédaction  [color=green][name=Ludo]
-    * [ ] relecture 
-* Couche business_objet 
-    * [x] rédaction [color=purple][name=Hugo]
-    * [ ] relecture
-* Couche service 
-    * [ ] rédaction [color=purple][name=Hugo] 1-8
-    * [x] rédaction [color=green][name=Ludo] 9-16
-    * [ ] relecture
-* Couche vue
-    * [ ] rédaction [color=blue][name=Banruo] 
-    * [ ] relecture
-* Couche DAO 
-    * [ ] rédaction [color=orange][name=Jason] 
-    * [ ] relecture 
-
----
-
 ### Organisation d'équipe
 
 * Création des dépôts locaux et faire tourner la v0 sur chacun des postes
@@ -133,7 +136,8 @@ gantt
 * [ ] Se spécialiser dans certaines couches ?
 * [x] Lister quelques fonctionnalités simples pour débuter [color=green][name=Ludo]
 * [ ] tester [un appel à l'api](https://www.dnd5eapi.co/)
-* [ ] voir comment lancer tous les tests
+* [x] voir comment lancer tous les tests -> run_all_tests.py
+* [x] script pour ré-initialiser la bdd -> utils/reset_database.py
 * [ ] voir comment tester les dao sans polluer la bdd
     * avoir un schéma de données tests ?
 
@@ -168,10 +172,6 @@ gantt
 -------------------------------------------
 # :mag_right: Dossier d'Analyse 
 -------------------------------------------
-
-* [x] Initialiser [projet latex sur overleaf](https://www.overleaf.com/7459989917xsmkkjbfvdqs)
-    * [x] vérifier que tout le monde y a accès
-* [x] Demander exemple à Noël
 
 ### Consignes
 

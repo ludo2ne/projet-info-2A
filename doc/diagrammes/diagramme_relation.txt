@@ -8,8 +8,7 @@ class joueur{
 + nom : str
 + prenom : str
 + mail : str
-+ joueur_classique_ou_mj : bool* 
-(*True si classique False si MJ)
++ est_mj : bool
 }
 
 
@@ -28,7 +27,9 @@ class personnage{
 class table_jeu{
 + {static}id_table : int
 + {static}séance : int
++ id_mj : int
 + scenario : str
++ description : str
 }
 
 

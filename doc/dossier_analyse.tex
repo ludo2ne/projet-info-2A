@@ -239,7 +239,11 @@ L'application sera découpée en trois couches :
 
 \bigbreak
 
-Les objets métier seront regroupés dans un package nommé \texttt{business\_objects}.
+Les objets métier seront regroupés dans un package nommé \texttt{business\_objects}. //
+
+L'architecture UML finale de notre programme est disponible en annexe figure \ref{UML_classes}
+
+
 
 \subsection{La couche Vue}
 
@@ -282,8 +286,8 @@ L'administrateur dispose des options suivantes dans la vue \texttt{Administrateu
     \item \texttt{Créer une table de jeu}~: elle crée une nouvelle Table de Jeu, ne conduit pas à d'autres menus et est accompagnée d'un message confirmant que la table a été créée.
     \item \texttt{Supprimer une table de jeu}~: elle demande à l'Administrateur d'entrer un numéro de table et une plage horaire pour supprimer la table et le maintient sur la vue. \texttt{AdministrateurMenuVue} tout en recevant un message indiquant que la suppression est terminée.
     \item \texttt{Supprimer un joueur}~: elle demande à l'Administrateur de saisir un pseudo pour supprimer l'utilisateur et laisse l'Administrateur sur la vue\texttt{AdministrateurMenuVue} avec un message indiquant que la suppression a été réalisée.
-    \item \texttt{Déplacer un joueur}~: l'Administrateur doit saisir tour à tour le pseudo du Joueur à déplacer et le numéro de la table où le Joueur sera placé. L'Administrateur est informé de l'aboutissement du déplacement sur la vue \texttt{AdministrateurMenuVue}. Le Joueur déplacé est également informé.
-    \item \texttt{Déplacer un maître de jeu}~: l'Administrateur doit saisir le pseudo du Maître du Jeu à déplacer et le numéro de la table où le Maître du Jeu sera placé. L'Administrateur est informé par un message de l'achèvement du déplacement sur la vue \texttt{AdministrateurMenuVue},et le Maître du Jeu déplacé est également informé.
+    \item \texttt{Déplacer un joueur}~: l'Administrateur doit saisir tour à tour le pseudo du Joueur à déplacer, le numéro de la table de départ et le numéro de la table d'arrivée. L'Administrateur est informé de l'aboutissement du déplacement sur la vue \texttt{AdministrateurMenuVue}. Le Joueur déplacé est également informé.
+    \item \texttt{Déplacer un maître de jeu}~: l'Administrateur doit saisir le pseudo du Maître du Jeu à déplacer, le numéro de la table de départ et le numéro de la table d'arrivée. L'Administrateur est informé par un message de l'achèvement du déplacement sur la vue \texttt{AdministrateurMenuVue},et le Maître du Jeu déplacé est également informé.
     \item \texttt{Sommaire du programme complet}~: elle donne un résumé de toutes les Tables de Jeu présentes dans la convention en ce moment, y compris l'identité du scénario, des Maîtres du Jeu et des Joueurs. L'Administrateur est toujours sur la vue \texttt{AdministrateurMenuVue}.
     \item \texttt{Se déconnecter}~: l'Administrateur se déconnecte et revient à la vue d'accueil \texttt{AccueilVue} avec un message confirmant la déconnexion.
 \end{itemize}
@@ -307,7 +311,7 @@ L'administrateur dispose des options suivantes dans la vue \texttt{Administrateu
 
 \texttt{MaîtreJeuMenuVue} offre des fonctions à maître de jeu.
 \begin{itemize}[label=\ding{109}, font=\small]
-    \item\texttt{Gérer une table}~: le Maître du Jeu décrit un scénario pour gérer une table de jeu, et le maître de jeu peut laisser un commentaire sur le niveau du personnage du joueur. Ensuite, le Maître du Jeu reçoit un message de confirmation sur la vue \texttt{MaîtreJeuMenuVue} pour gérer la table de jeu.
+    \item\texttt{Gérer une table}~: le Maître du Jeu choisit une séance, décrit un scénario et peut laisser un commentaire sur le niveau requis des personnages. Il est alors affecté en tant que Maître du Jeu a une Table de Jeu libre de la séance s'il y a au moins une table libre.
     \item\texttt{Résilier la table}~: le Maître du Jeu résilie la Table de Jeu à laquelle il est inscrit et reçoit un message sur la vue \texttt{MaîtreJeuMenuVue} confirmant que sa résiliation a été prise en compte.
     \item\texttt{Aperçu des joueurs présents}~: le Maître du Jeu voit sur la vue \texttt{MaîtreJeuMenuVue} les informations concernant tous les joueurs inscrits sur la table qu'il gère ainsi que les informations concernant les personnages qu'ils incarneront.
 \end{itemize}
@@ -428,37 +432,50 @@ La classe \texttt{MaitreJeuService} possède les méthodes suivantes :
 
 \subsection{Couche DAO et base de données}
 
-La \textbf{méthode de persistance} que nous avons choisie est la sauvegarde classique de nos données sur une base de données SQL. Nous utiliserons pour se faire le système de gestion de base de données relationnelle postgreSQL.\\
+La \textbf{méthode de persistance} que nous avons choisie est la sauvegarde de nos données sur une base de données. Nous utiliserons le système de gestion de base de données relationnelle PostgreSQL.\\
 
-La couche \textbf{DAO} (Data Access Object) proposera donc diverses classes et méthodes qui permettront de communiquer avec la couche de persistance. Les classes de notre DAO s'appuieront sur les différentes opérations du \textbf{CRUD} (Create Read Update Delete) et proposeront une liste exhaustive de méthode d'interaction avec la base de données. Parmi celles-ci, il y a la classe DBconnection qui se chargera de gerer les connections à la base de donnée. Afin de ne pas nous retrouver avec des centaines de connections qui compromettraient l'efficacité de notre application, nous avons choisi de conceptualiser cette classe à partir du \textbf{design pattern} Singleton. La classe DBconnection héritera de la méta-classe Singleton qui assurera l'instanciation unique de cette classe.
+La couche \textbf{DAO} (Data Access Object),disponible en annexe en figure \ref{UML_classes}, proposera donc diverses classes et méthodes qui permettront de communiquer avec la couche de persistance. Les classes de notre DAO s'appuieront sur les différentes opérations du \textbf{CRUD} (Create Read Update Delete) et proposeront une liste exhaustive de méthodes d'interactions avec la base de données. Parmi celles-ci, il y a la classe \textbf{DBconnection} qui se chargera de gerer les connexions à la base de données. Afin de ne pas nous retrouver avec des centaines de connections qui compromettraient l'efficacité de notre application, nous avons choisi de conceptualiser cette classe à partir du \textbf{design pattern} Singleton. La classe DBconnection héritera de la méta-classe \textbf{Singleton} qui assurera l'instanciation unique de cette classe.
 
 La couche DAO sera constituée des classes suivantes :
 
 \begin{itemize}
-    \item \texttt{JoueurDao}~: Celle-ci se chargera de la gestion des données liées aux joueurs et au maître joueur
+    \item \texttt{JoueurDao}~: Elle se chargera de la gestion des données liées aux joueurs
     
-    \item \texttt{PersonnageDao}~: Celle-ci se chargera de la gestion des données liées aux personnages occupés par les joueurs
+    \item \texttt{PersonnageDao}~: Celle-ci se chargera de la gestion des données liées aux personnages
     
-    \item \texttt{MessageDao}~: Celle-ci se chargera de la gestion des données liées à la messagerie des joueurs
+    \item \texttt{MessageDao}~: Elle se chargera de la gestion des données liées à la messagerie des joueurs
  
     \item \texttt{TableJeuDao}~: Celle-ci se chargera de la gestion des données liées aux tables de jeu
 
 \end{itemize}
 
-Afin de ne pas compromettre la lisibilité de notre diagramme UML, nous avons omis de rajouter les relations de la classe  \textbf{AdministrateurService} aux classes DAO avec lesquelles elle interagit. En effet, l'administrateur doit être en mesure d'obtenir un affichage complet de l'ensemble des données du jeu. Ainsi, il est lié à toute les classes de la DAO. 
+Afin de ne pas compromettre la lisibilité de notre diagramme UML, nous avons omis de rajouter les relations de la classe  \textbf{AdministrateurService} aux classes DAO avec lesquelles elle interagit. En effet, l'administrateur doit être en mesure d'obtenir un affichage complet de l'ensemble des données du jeu. Ainsi, il est lié à toutes les classes de la DAO.\\
+
+Le diagramme de base de données est présenté dans la figure \ref{UML_bdd}. Celui-ci s'accorde rigoureusement avec les classes de la couche DAO. Notre base de données se compose des tables et relations suivantes (cf \ref{UML_bdd} pour les relation) :  
+
+\begin{itemize}
+    \item \texttt{table\_jeu}~: Cette table de données représente une table de jeu. Clé primaire : (id\_table,séance)
+    
+    \item \texttt{table\_personnage}~: Elle fait le lien entre les tables personnage et table\_jeu. Clé primaire : (id\_table, id\_personnage, séance). Cela permet de dire quels personnages sont joués à une table de jeu.
+    
+    \item \texttt{joueur}~: Cette table de données se chargera de la gestion des données liées aux joueurs. Clé primaire : id\_joueur
+ 
+    \item \texttt{message}~: Cette table contient les messages de notification reçus par les joueurs ou les administrateurs. Clé primaire : id\_message
+    
+    \item \texttt{personnage}~: Elle regroupe les personnages joués par les joueurs. Clé primaire : id\_personnage
+
+\end{itemize}
 
 
+\begin{figure}[H]
+    \caption{\textbf{Diagramme de Base de données}}
+    \label{UML_bdd}
+    \centering
+    \includegraphics[height=0.4\textheight]{UML_diagrammes/diag_bdd.png}
+\end{figure}
 
 
-
-
-
-%\begin{figure}[H]
-%    \caption{\textbf{Tables de la base de données }}
-%    \label{UML_bdd}
-%    \centering
-%    \includegraphics[angle=90,height=0.9\textheight]{UML_diagrammes/diag_relation.png}
-%\end{figure}
+Chaque table se définit par sa clé primaire qui peut être un singleton, couple ou triplet d'attribut, celle-ci permet d'identifier de manière unique chaque enregistrement (observation) d'une table. Nos tables peuvent comporter une ou plusieurs clés étrangères afin d'établir des relations entre les tables comportant des attributs communs.
 
 
 
@@ -483,12 +500,12 @@ Afin de ne pas compromettre la lisibilité de notre diagramme UML, nous avons om
 \appendix  % On passe aux annexes
 \section*{Annexe 1 - Diagramme de classe UML}
 
-
 \begin{figure}[H]
     \label{UML_classes}
     \centering
-    \includegraphics[angle=90,height=0.9\textheight]{UML_diagrammes/diagramme_classe.png}
+    \includegraphics[angle=90,height=0.9\textheight]{UML_diagrammes/diag_classes.png}
 \end{figure}
+
 
 
 \restoregeometry
