@@ -76,10 +76,10 @@ class MaitreJeu{
 
 class TableJeu{
 + id_table : int
-+ seance : int
++ id_seance : int
 + scenario : str
 + maitre_jeu : MaitreJeu
-+ joueurs : list[Joueur]
++ personnages : list[Personnage]
 
 +__init__()
 }
@@ -91,13 +91,13 @@ class Personnage{
 + race : str
 + niveau : int
 + competences : list[str]
-+ langues_parlées : list[str]
++ langues_parlees : list[str]
 
 +__init__()
 }
 
 
-TableJeu o-- Joueur : aggrège une liste >
+TableJeu o-- Personnage : aggrège une liste >
 TableJeu -- MaitreJeu : contient >
 Personnage --o Joueur : aggrège une liste <
 
@@ -108,11 +108,11 @@ Joueur <|-- MaitreJeu
 package service {
 class AdministrateurService{
 + __init__()
-+ creer_table() : bool
++ creer_table(seance : str) : TableJeu
 + supprimer_table(TableJeu) : bool
 + supprimer_joueur(Joueur) : bool
-+ deplacer_joueur(Joueur, TableJeu) : bool
-+ deplacer_mj(MaitreJeu, TableJeu) : bool
++ deplacer_joueur(Joueur, TableJeu_avant, TableJeu_apres) : bool
++ deplacer_mj(MaitreJeu, TableJeu_avant, TableJeu_apres) : bool
 + voir_programme_complet() : None
 }
  
@@ -145,22 +145,16 @@ class MaîtreJeuService{
 
 package dao{
 
-class DBconnection{
-- __connection: psycopg2.connect
-
-+ connection() : psycopg2.connect
-}
-
 class MessageDao{
 + __init__()
-+ créer(str, Joueur) : bool
++ creer(texte : str, Joueur) : bool
 + trouver_message_par_joueur(Joueur) : bool
 
 }
 
 class JoueurDao{
 + __init__()
-+ creer(Joueur) : bool
++ creer(Joueur) : Joueur
 + supprimer(Joueur) : bool
 + trouver_par_pseudo(pseudo : str) : Joueur
 + lister_messages() : list[str]
@@ -169,14 +163,14 @@ class JoueurDao{
 
 class PersonnageDao{
 + __init__()
-+ creer(Personnage,Joueur) : bool
++ creer(Personnage) : Personnage
 + supprimer(Personnage) : bool
 + lister_par_joueur(Joueur) : list[Personnage]
 }
 
 class TableJeuDao{
 + __init__()
-+ creer(TableJeu) : bool
++ creer(TableJeu) : TableJeu
 + supprimer(TableJeu) : bool
 + trouver_par_numero(id_table : int) : TableJeu
 + modifier_mj(MaitreJeu) : bool
@@ -186,12 +180,6 @@ class TableJeuDao{
 
 }
 
-class Singleton{
-"" méta class ""
-- __instances : Singleton
-+ __call__()
-
-}
 
 InscriptionVue -- JoueurService
 JoueurMenuVue -- JoueurService
@@ -206,14 +194,5 @@ AdministrateurService --> TableJeuDao : gestion des personnages/joueurs >
 MaîtreJeuService --> MessageDao : processus de notification >
 AdministrateurService --> MessageDao : processus de notification >
 JoueurService .. MessageDao : affichage message >
-
-
-JoueurDao ..> DBconnection : utilise >
-PersonnageDao ..> DBconnection : utilise >
-TableJeuDao ..> DBconnection : utilise >
-MessageDao ..> DBconnection : utilise >
-
-DBconnection ..|> Singleton : hérite d'une méta classe
-
 
 @enduml
