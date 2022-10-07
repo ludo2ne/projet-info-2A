@@ -145,10 +145,16 @@ class MaîtreJeuService{
 
 package dao{
 
+class DBconnection{
+- __connection: psycopg2.connect
+
++ connection() : psycopg2.connect
+}
+
 class MessageDao{
 + __init__()
 + creer(texte : str, Joueur) : bool
-+ trouver_message_par_joueur(Joueur) : bool
++ lister_par_joueur(Joueur) : list[str]
 
 }
 
@@ -157,7 +163,6 @@ class JoueurDao{
 + creer(Joueur) : Joueur
 + supprimer(Joueur) : bool
 + trouver_par_pseudo(pseudo : str) : Joueur
-+ lister_messages() : list[str]
 }
 
 
@@ -181,6 +186,13 @@ class TableJeuDao{
 }
 
 
+class Singleton{
+"" méta class ""
+- __instances : Singleton
++ __call__()
+}
+
+
 InscriptionVue -- JoueurService
 JoueurMenuVue -- JoueurService
 AdministrateurMenuVue -- AdministrateurService
@@ -194,5 +206,14 @@ AdministrateurService --> TableJeuDao : gestion des personnages/joueurs >
 MaîtreJeuService --> MessageDao : processus de notification >
 AdministrateurService --> MessageDao : processus de notification >
 JoueurService .. MessageDao : affichage message >
+
+
+
+JoueurDao ..> DBconnection : utilise >
+PersonnageDao ..> DBconnection : utilise >
+TableJeuDao ..> DBconnection : utilise >
+MessageDao ..> DBconnection : utilise >
+
+DBconnection ..|> Singleton : hérite d'une méta classe
 
 @enduml

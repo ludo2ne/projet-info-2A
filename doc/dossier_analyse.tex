@@ -15,6 +15,7 @@
 \usepackage[top=1.5cm,bottom=1.5cm,margin=2.5cm]{geometry}
 
 
+
 \graphicspath{{Images/}} %le chemin vers les images
 
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
@@ -245,9 +246,9 @@ Les objets métier seront regroupés dans un package nommé \texttt{business\_ob
 Les classes de la couche de visualisation représentent l'interface par laquelle l'utilisateur peut accéder à l'application, lui donnant ainsi la possibilité d'accéder aux fonctionnalités de l'application. L'interface utilisateur de notre programme sera incluse dans un terminal. Nous intégrerons le package \texttt{InquirerPy} qui offrira quelques fonctionnalités afin d'améliorer l'expérience utilisateur.
 \bigbreak
 
-Les vues héritent toutes de la classe abstraite \texttt{VueAbstraite}. Elle contient les attributs et méthodes suivantes :
+Les vues héritent toutes de la classe abstraite \texttt{VueAbstraite}. Elle contient les attributs et méthodes suivants :
 \begin{itemize}
-    \item \texttt{questions}~: attribut au format json utilisé par le package \texttt{InquirerPy}. Il représente les questions posées à l'utilisateur. Cet attribut porte une question qui, dans certains cas, est un choix entre plusieurs possibilités dans le menu, c'est-à-dire qu'il s'agit d'une question à choix unique (par exemple, dans la Vue de connexion de l'utilisateur : il doit choisir l'une des trois options suivantes : s'inscrire, se connecter et quitter. ). Dans d'autres cas cet attribut contiendra un ensemble de questions auxquelles l'utilisateur devra répondre,  (par exemple dans le cas de la vue correspondant au formulaire d'inscription, l'utilisateur devra entrer son pseudo, nom, prénom...).
+    \item \texttt{questions}~: attribut au format json utilisé par le package \texttt{InquirerPy}. Il représente les questions posées à l'utilisateur. Cet attribut contiendra une question qui, dans certains cas, est un choix entre plusieurs possibilités dans le menu, c'est-à-dire qu'il s'agit d'une question à choix unique (par exemple, dans la Vue de connexion de l'utilisateur : il doit choisir l'une des trois options suivantes : s'inscrire, se connecter et quitter). Dans d'autres cas, cet attribut contiendra un ensemble de questions auxquelles l'utilisateur devra répondre (dans le cas de la vue correspondant au formulaire d'inscription, l'utilisateur devra entrer son pseudo, nom, prénom...).
     \item \texttt{message}~: attribut contenant un message qui s'affichera lorsque la vue sera appelée. Ce message aura été transmis par la vue précédente. Par exemple, l'utilisateur vient de se s'inscrire, il est redirigé vers la vue d'accueil qui affichera un message spécifiant si l'inscription est réussie.
     \item \texttt{afficher()}~: méthode permettant d'afficher des messages lors de l'appel de la vue.
     \item \texttt{choisir\_menu()}~: cette méthode affiche les questions posées à l'utilisateur. Selon la ou les réponses reçues, elle aiguille le programme vers une nouvelle vue.
@@ -255,7 +256,7 @@ Les vues héritent toutes de la classe abstraite \texttt{VueAbstraite}. Elle con
 
 \bigbreak
 
-Lorsque l'application se lance, l'utilisateur va être dirigé vers la vue \texttt{AccueilVue}. Il verra s'afficher le menu suivant~:
+Lorsque l'application se lancera, l'utilisateur sera dirigé vers la vue \texttt{AccueilVue}. Il verra s'afficher le menu suivant~:
 \begin{itemize}[label=\ding{109}, font=\small]
     \item \texttt{Créer un compte Joueur}~: il est envoyé vers \texttt{InscriptionVue}
     \item \texttt{Se connecter}~: il est dirigé vers \texttt{ConnexionVue}
@@ -264,7 +265,7 @@ Lorsque l'application se lance, l'utilisateur va être dirigé vers la vue \text
 
 \bigbreak
 
-La vue \texttt{InscriptionVue} représente un formulaire d'inscription. On demande sous forme de questions de renseigner nom, prénom, pseudo, mail. Une fois toutes les réponses données, le service de création de joueur est appelé et l'utilisateur est dirigé vers la vue \texttt{AccueilVue}. Un message indique si la création de compte Joueur a aboutie. 
+La vue \texttt{InscriptionVue} représente un formulaire d'inscription. On demande sous forme de questions de renseigner nom, prénom, pseudo, mail. Une fois toutes les réponses données, le service de création de joueur est appelé et l'utilisateur est dirigé vers la vue \texttt{AccueilVue}. Un message indique si la création de compte Joueur a abouti. 
 
 La vue \texttt{ConnexionVue} demande simplement à l'utilisateur de saisir son pseudo. Si le pseudo est valide, la personne est orientée vers~:
 \begin{itemize}[label=\ding{109}, font=\small]
@@ -294,9 +295,9 @@ L'administrateur dispose des options suivantes dans la vue \texttt{Administrateu
     \item\texttt{Supprimer un personnage()}~: le Joueur saisit le nom du personnage pour le supprimer et reçoit un message dans la vue \texttt{JoueurMenuVue} indiquant que le personnage a été supprimé.
     \item\texttt{Liste des personnages}~: elle fournit au Joueur un résumé des attributs du personnage qu'il possède et le conserve dans la vue \texttt{JoueurMenuVue}.
     \item\texttt{Sommaire du programme}~: le Joueur voit sur la vue \texttt{JoueurMenuVue} toutes les tables auxquelles il participera pendant la session.
-    \item\texttt{Aperçu des tables de jeu}~: le Joueur voit sur l'écran, pour chaque table, le nombre de Joueurs actuel et le scénario.
-    \item\texttt{rejoindre une table}~: le Joueur sélectionne la table qu'il veut rejoindre et reçoit un message sur la vue indiquant qu'il a rejoint la table. Le Maître du Jeu de la table correspondante reçoit également un message indiquant que le joueur a adhéré.
-    \item\texttt{rejoindre une table}~: le Joueur est présenté avec des choix, chaque choix représentant une table actuellement disponible, indiquant le nombre de joueurs, le scénario et etc. Le joueur fait son choix et reçoit un message sur la vue \texttt{JoueurMenuVue} lui indiquant qu'il a rejoint la table avec succès. Le maître de jeu de la table correspondante reçoit également un message indiquant que le joueur a adhéré. S'il n'y a pas de table que le joueur souhaite rejoindre, il choisit "Je vais y réfléchir" et revient à la vue \texttt{JoueurMenuVue}.
+    \item\texttt{Aperçu des tables de jeu}~: le Joueur voit sur l'écran, pour chaque table, le nombre de Joueurs actuels et le scénario.
+    \item\texttt{Rejoindre une table}~: le Joueur sélectionne la table qu'il veut rejoindre et reçoit un message sur la vue indiquant qu'il a rejoint la table. Le Maître du Jeu de la table correspondante reçoit également un message indiquant que le joueur a adhéré.
+    \item\texttt{Rejoindre une table}~: le Joueur se voit proposer des choix, chaque choix représentant une table actuellement disponible, indiquant le nombre de joueurs, le scénario et etc. Le joueur fait son choix et reçoit un message sur la vue \texttt{JoueurMenuVue} lui indiquant qu'il a rejoint la table avec succès. Le maître de jeu de la table correspondante reçoit également un message indiquant que le joueur a adhéré. S'il n'y a pas de table que le joueur souhaite rejoindre, il choisit "Je vais y réfléchir" et revient à la vue \texttt{JoueurMenuVue}.
     \textcolor{red}{à revoir : 1. maintenir l'option "Aperçu des tables de jeu" ou pas ; 2. quelle version de "rejoindre une table" à garder ?  }
     \item\texttt{Quitter la table}~: le Joueur quitte la table actuelle et reçoit un message de sortie réussie sur la vue \texttt{JoueurMenuVue}. Le Maître du Jeu de cette table reçoit également un message indiquant que le Joueur est parti.
     \item\texttt{Historique des messages}~: le Joueur révise tous les messages reçus depuis cette connexion sur la vue \texttt{JoueurMenuVue}.
@@ -306,9 +307,11 @@ L'administrateur dispose des options suivantes dans la vue \texttt{Administrateu
 
 \texttt{MaîtreJeuMenuVue} offre des fonctions à maître de jeu.
 \begin{itemize}[label=\ding{109}, font=\small]
-    \item\texttt{Gérer une table}~: 
+    \item\texttt{Gérer une table}~: le Maître du Jeu décrit un scénario pour gérer une table de jeu, et le maître de jeu peut laisser un commentaire sur le niveau du personnage du joueur. Ensuite, le Maître du Jeu reçoit un message de confirmation sur la vue \texttt{MaîtreJeuMenuVue} pour gérer la table de jeu.
+    \item\texttt{Résilier la table}~: le Maître du Jeu résilie la Table de Jeu à laquelle il est inscrit et reçoit un message sur la vue \texttt{MaîtreJeuMenuVue} confirmant que sa résiliation a été prise en compte.
+    \item\texttt{Aperçu des joueurs présents}~: le Maître du Jeu voit sur la vue \texttt{MaîtreJeuMenuVue} les informations concernant tous les joueurs inscrits sur la table qu'il gère ainsi que les informations concernant les personnages qu'ils incarneront.
 \end{itemize}
-    \textcolor{red}{MaitreJeu MenuVue }
+
 
 \bigbreak
 Dans la majorité des cas, une vue devra appeler des services. Ceux-ci effectueront les traitements métier demandés.
@@ -382,7 +385,7 @@ La classe \texttt{AdministrateurService} possède les méthodes suivantes :
 \begin{itemize}[label=\ding{109}, font=\small]
     \item \texttt{créer\_table(num\_seance)}~: ajouter une Table de Jeu à la convention.
     \item \texttt{supprimer\_table(TableJeu)}~: supprimer une Table de Jeu.
-    \item \texttt{supprimer\_joueur(Joueur)}~: supprimer le compte d'un joueur.
+    \item \texttt{supprimer\_joueur(Joueur)}~: supprimer le compte d'un Joueur.
     \item \texttt{déplacer\_joueur(Joueur, TableJeu avant, TableJeu après)}~: déplacer un joueur d'une Table de Jeu vers une autre.
     \item \texttt{déplacer\_mj(MaitreJeu, TableJeu avant, TableJeu après)}~: déplacer un Maître du Jeu d'une Table de Jeu vers une autre.
     \item \texttt{voir\_programme\_complet()}~: consulter, pour l'ensemble de la convention, un sommaire des Tables de Jeu, comprenant l'identité du Maître du Jeu, le scénario proposé et l'identité des Joueurs et des Personnages.
@@ -425,7 +428,29 @@ La classe \texttt{MaitreJeuService} possède les méthodes suivantes :
 
 \subsection{Couche DAO et base de données}
 
-La couche DAO (Data Access Object) permet de faire le lien entre notre application et la base de données PostrgreSQL sur laquelle sont sauvegardées les données.
+La \textbf{méthode de persistance} que nous avons choisie est la sauvegarde classique de nos données sur une base de données SQL. Nous utiliserons pour se faire le système de gestion de base de données relationnelle postgreSQL.\\
+
+La couche \textbf{DAO} (Data Access Object) proposera donc diverses classes et méthodes qui permettront de communiquer avec la couche de persistance. Les classes de notre DAO s'appuieront sur les différentes opérations du \textbf{CRUD} (Create Read Update Delete) et proposeront une liste exhaustive de méthode d'interaction avec la base de données. Parmi celles-ci, il y a la classe DBconnection qui se chargera de gerer les connections à la base de donnée. Afin de ne pas nous retrouver avec des centaines de connections qui compromettraient l'efficacité de notre application, nous avons choisi de conceptualiser cette classe à partir du \textbf{design pattern} Singleton. La classe DBconnection héritera de la méta-classe Singleton qui assurera l'instanciation unique de cette classe.
+
+La couche DAO sera constituée des classes suivantes :
+
+\begin{itemize}
+    \item \texttt{JoueurDao}~: Celle-ci se chargera de la gestion des données liées aux joueurs et au maître joueur
+    
+    \item \texttt{PersonnageDao}~: Celle-ci se chargera de la gestion des données liées aux personnages occupés par les joueurs
+    
+    \item \texttt{MessageDao}~: Celle-ci se chargera de la gestion des données liées à la messagerie des joueurs
+ 
+    \item \texttt{TableJeuDao}~: Celle-ci se chargera de la gestion des données liées aux tables de jeu
+
+\end{itemize}
+
+Afin de ne pas compromettre la lisibilité de notre diagramme UML, nous avons omis de rajouter les relations de la classe  \textbf{AdministrateurService} aux classes DAO avec lesquelles elle interagit. En effet, l'administrateur doit être en mesure d'obtenir un affichage complet de l'ensemble des données du jeu. Ainsi, il est lié à toute les classes de la DAO. 
+
+
+
+
+
 
 
 %\begin{figure}[H]
