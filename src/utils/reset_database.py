@@ -1,5 +1,5 @@
 '''
-Module lancement_appli
+Module reset_database
 Auteurs : L.Deneuville, J-F.Parriaud, J.Torres, H.Wispelaere, B.Zhang
 Date    : 20/09/2022
 Licence : Domaine public
@@ -19,10 +19,10 @@ class ResetDatabase(metaclass=Singleton):
     def lancer(self):
         print("Réinitialisation de la base de données")
 
-        init_db = open("data/init_db.sql")
+        init_db = open("data/init_db.sql", encoding="utf-8")
         init_db_as_string = init_db.read()
 
-        pop_db = open("data/pop_db.sql")
+        pop_db = open("data/pop_db.sql", encoding="utf-8")
         pop_db_as_string = pop_db.read()
 
         try:

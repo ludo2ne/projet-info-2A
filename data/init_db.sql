@@ -4,13 +4,13 @@ CREATE SCHEMA jdr;
 -----------------------------------------------------
 -- Sceance
 -----------------------------------------------------
-DROP TABLE IF EXISTS jdr.sceance CASCADE ;
-CREATE TABLE jdr.sceance  (
-    id_sceance serial PRIMARY KEY,
-    description text,
-    debut timestamp,
-    fin timestamp
-);
+--DROP TABLE IF EXISTS jdr.sceance CASCADE ;
+--CREATE TABLE jdr.sceance  (
+--    id_sceance serial PRIMARY KEY,
+--    description text,
+--    debut timestamp,
+--    fin timestamp
+--);
 
 -----------------------------------------------------
 -- Table de jeu
@@ -18,10 +18,10 @@ CREATE TABLE jdr.sceance  (
 DROP TABLE IF EXISTS jdr.table_jeu CASCADE ;
 CREATE TABLE jdr.table_jeu  (
     id_table serial PRIMARY KEY,
-    id_sceance integer,
+    id_seance integer,
     id_maitre_jeu integer,
-    numero integer,
-	scenario text
+	scenario text,
+    infos_complementaires text
 );
 
 -----------------------------------------------------
@@ -33,7 +33,8 @@ CREATE TABLE jdr.joueur(
     pseudo text UNIQUE,
     nom text NOT NULL,
     prenom text NOT NULL,
-    mail text
+    mail text,
+    est_mj boolean
 );
 
 -----------------------------------------------------
@@ -53,9 +54,22 @@ CREATE TABLE jdr.personnage(
 -- Lien entre Table et Joueur 
 -- Permet de connaitre les joueurs et personnages d une table
 -----------------------------------------------------
-DROP TABLE IF EXISTS jdr.table_joueur CASCADE ;
-CREATE TABLE jdr.table_joueur  (
+DROP TABLE IF EXISTS jdr.table_personnage CASCADE ;
+CREATE TABLE jdr.table_personnage  (
     id_table integer NOT NULL,
-    id_joueur integer NOT NULL,
     id_personnage integer NOT NULL
 );
+
+-----------------------------------------------------
+-- Message
+-----------------------------------------------------
+DROP TABLE IF EXISTS jdr.message CASCADE ;
+CREATE TABLE jdr.message  (
+    id_message serial PRIMARY KEY,
+    id_joueur integer NOT NULL,
+    date_creation timestamp,
+    contenu text,
+    lu boolean
+);
+
+
