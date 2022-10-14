@@ -9,9 +9,6 @@ git clone git@github.com:ludo2ne/projet-info-2A.git
 ## Visual Studio Code 
 
 * File > Open Folder > ==projet-info-2A==
-* Settings
-    * Editor: Format On Save -> cocher
-    * Python › Formatting: Autopep8 Path -> autopep8
 
 ## Packages requis
 
@@ -19,6 +16,8 @@ git clone git@github.com:ludo2ne/projet-info-2A.git
 pip install inquirerPy
 pip install requests
 pip install autopep8
+pip install tabulate
+
 pip list
 ```
 

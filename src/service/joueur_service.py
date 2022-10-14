@@ -6,6 +6,7 @@ Licence : Domaine public
 Version : 1.0
 '''
 
+from tabulate import tabulate
 
 from business_object.joueur import Joueur
 from business_object.personnage import Personnage
@@ -105,6 +106,10 @@ class JoueurService:
         '''
         print("Service : Création de personnage")
 
+        # TODO verifier classe et race
+
+        # TODO appel API pour obtenir competences
+
         perso = Personnage(id_personnage=None,
                            nom=nom,
                            classe=classe2,
@@ -129,9 +134,15 @@ class JoueurService:
         joueur = Session().user
 
         personnages = PersonnageDao().lister_par_joueur(joueur)
-        resultat = ""
-        for i in personnages:
-            resultat += i.nom + " " + i.classe + "\n"
+
+        entetes = ["id", "Nom", "Classe",
+                   "Race", "Niveau"]
+        personnages_as_list = [p.as_list() for p in personnages]
+
+        resultat = "Liste des personnages \n" + tabulate(tabular_data=personnages_as_list,
+                                                         headers=entetes,
+                                                         tablefmt="psql",
+                                                         floatfmt=".2f") + "\n"
 
         print("Service : Liste des personnages - Terminé")
 

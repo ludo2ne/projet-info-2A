@@ -35,3 +35,8 @@ class Personnage:
         self.niveau = niveau
         self.competence = competence
         self.langues_parlees = langues_parlees
+
+    def as_list(self):
+        liste = [self.id_personnage, self.nom,
+                 self.classe, self.race, self.niveau]
+        return liste
