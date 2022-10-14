@@ -90,3 +90,8 @@ class JoueurService:
         '''
         print("INFO : JoueurService.trouver_par_pseudo({})".format(pseudo))
         return JoueurDao().trouver_par_pseudo(pseudo)
+
+    def creer_personnage(self, nom, classe, race, niveau):
+        '''
+        '''
+        perso = Personnage(id_perso, nom, classe, race, niveau, competence, langues_parlees))
