@@ -19,11 +19,11 @@ INSERT INTO jdr.joueur(pseudo, nom, prenom, mail) VALUES
 ('calva14','Ptitegoutte', 'Anne', 'Anne.Ptitegoutte@mail.fr');
 
 
-INSERT INTO jdr.personnage(id_joueur, nom, classe) VALUES
-(1, 'Mario', 'Plombier'),
-(2, 'Luigi', 'Magicien'),
-(3, 'Peach', 'Fee'),
-(4, 'Daisy', 'Soigneur');
+INSERT INTO jdr.personnage(id_joueur, nom, classe,race,niveau) VALUES
+(1, 'Mario', 'Plombier','humain',2),
+(2, 'Luigi', 'Magicien','poisson',1),
+(3, 'Peach', 'Fee','elfe',99),
+(4, 'Daisy', 'Soigneur','nain',0);
 
 
 INSERT INTO jdr.table_joueur(id_table, id_joueur, id_personnage) VALUES
