@@ -78,7 +78,7 @@ class JoueurDao(metaclass=Singleton):
         return joueur
 
     def trouver_par_pseudo(self, pseudo) -> Joueur:
-        '''trouver un joueur grace à son id
+        '''trouver un joueur grace à son pseudo
         '''
         print("INFO : JoueurDao.trouver_par_pseudo({})".format(pseudo))
 

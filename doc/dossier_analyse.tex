@@ -109,7 +109,7 @@ Nous nous sommes basés sur le principe d'une convention se déroulant sur un we
 
 L'application permettra à quiconque le souhaite de s'inscrire en tant que Joueur. Les Joueurs auront accès à plusieurs fonctionnalités. La première d'entre elles sera la création de personnages, dans une limite de trois. Un appel à l'API suivante \textcolor{blue}{\href{https://www.dnd5eapi.co/}{https://www.dnd5eapi.co/}} permettra de compléter les informations sur les personnages. La détention de personnages permettra au Joueur de s'asseoir à une table par demi-journée. Afin de pouvoir faire un choix éclairé, les Joueurs pourront visualiser, pour chaque table ouverte et disponible, le scénario proposé et ainsi choisir le personnage adéquat. Les Joueurs pourront aussi visualiser un sommaire de leur participation et, le cas échéant, se désister d'une table, ce qui sera automatiquement notifié aux organisateurs.\\
 
-L'application permettra aux Joueurs le désirant de s'inscrire en tant que Maîtres du Jeu. Ceux-ci auront la possibilité, pour chaque demi-journée, de choisir une table.  Ils en définiront le scénario proposé, offrant ainsi à quatre Joueurs la possibilité de s'y inscrire. Ils pourront aussi visualiser les profils des Joueurs inscrits à leur table, afin de mieux préparer leur intervention. En outre, ils auront la possibilité de voir un sommaire de leur participation. Enfin, si nécessaire, ils pourront se désister, entraînant une notification aux organisateurs. Les organisateurs auront alors la charge d'affecter les Joueurs à une autre table dans la mesure du possible, ou d'annuler leur participation à cette demi-journée si nécessaire.\\
+L'application permettra aux Joueurs le désirant de s'inscrire en tant que Maîtres du Jeu. Ceux-ci auront la possibilité, pour chaque demi-journée, de choisir une table.  Ils en définiront le scénario, offrant ainsi à quatre Joueurs la possibilité de s'y inscrire. Ils pourront aussi visualiser les profils des Joueurs inscrits à leur table, afin de mieux préparer leur intervention. En outre, ils auront la possibilité de voir un sommaire de leur participation. Enfin, si nécessaire, ils pourront se désister, entraînant une notification aux organisateurs. Les organisateurs auront alors la charge d'affecter les Joueurs à une autre table dans la mesure du possible, ou d'annuler leur participation à cette demi-journée si nécessaire.\\
 
 \indent Il a été envisagé de différencier totalement les profils Joueur et Maître du Jeu, en leur attribuant des comptes séparés pour une même personne physique. Cela présentait deux inconvénients:
 \begin{itemize}
@@ -148,7 +148,7 @@ Les Joueurs ont le choix entre sept actions~:
 \begin{itemize}
     \item {Se déconnecter~: le Joueur met fin à sa session et redevient Utilisateur du point de vue de l'application.}
     \item{Voir messages~: le Joueur a accès aux notifications qui lui ont été envoyées. Par exemple celles qui concernent un changement sur son emploi du temps.}
-    \item{Créer/supprimer personnage~: le Joueur peut créer un personnage via l'API mentionnée précédemment. Il peut aussi supprimer ce personnage dans la base de données.}
+    \item{Créer/supprimer personnage~: le Joueur peut créer un personnage via l'API mentionnée précédemment. Il peut aussi supprimer ce personnage.}
     \item{Lister personnages~: le Joueur peut voir les caractéristiques des personnages qu'il possède.}
     \item{Rejoindre/quitter table~: le Joueur peut choisir de participer à une table de jeu. Il pourra alors visualiser les tables ouvertes par les Maîtres du Jeu et les scénarios proposés et indiquera le personnage qu'il incarnera sur cette table. Il peut aussi quitter une table sur laquelle il s'était auparavant inscrit.}
     \item{Voir programme~: le Joueur peut visualiser toutes les tables de jeu auxquelles il participe, sur l'ensemble de la convention.}
@@ -192,7 +192,7 @@ Nous avons également convenu que tous les membres de l'équipe participeront au
 
 Nous utiliserons les outils suivants pour répondre à des besoins concernant différents aspects de ce projet :
 \begin{itemize}
-    \item{Suivi et communication~: \href{https://hackmd.io/CMTCDVW6Spe2PHXOhdKTRQ}{hackMd}, Discord}
+    \item{Suivi et communication~: \href{https://hackmd.io/CMTCDVW6Spe2PHXOhdKTRQ}{HackMd}, Discord}
     \item{Analyse et Rédaction~: PlantUML, LateX}
     \item{Développement~: Python, Visual Studio Code, PostgreSQL, DBeaver, fastApi}
     \item{Gestion de version~: Git, GitHub}
@@ -239,15 +239,13 @@ L'application sera découpée en trois couches :
 
 \bigbreak
 
-Les objets métier seront regroupés dans un package nommé \texttt{business\_objects}. //
-
-L'architecture UML finale de notre programme est disponible en annexe figure \ref{UML_classes}
+Les objets métier seront regroupés dans un package nommé \texttt{business\_objects}. L'architecture UML finale de notre programme est disponible en annexe figure \ref{UML_classes}
 
 
 
 \subsection{La couche Vue}
 
-Les classes de la couche de visualisation représentent l'interface par laquelle l'utilisateur peut accéder à l'application, lui donnant ainsi la possibilité d'accéder aux fonctionnalités de l'application. L'interface utilisateur de notre programme sera incluse dans un terminal. Nous intégrerons le package \texttt{InquirerPy} qui offrira quelques fonctionnalités afin d'améliorer l'expérience utilisateur.
+Les classes de la couche de visualisation représentent l'interface par laquelle l'utilisateur peut accéder à l'application, lui donnant ainsi la possibilité d'accéder aux fonctionnalités. L'interface utilisateur de notre programme sera incluse dans un terminal. Nous intégrerons le package \texttt{InquirerPy} qui offrira des fonctionnalités pour améliorer l'expérience utilisateur.
 \bigbreak
 
 Les vues héritent toutes de la classe abstraite \texttt{VueAbstraite}. Elle contient les attributs et méthodes suivants :
@@ -274,7 +272,6 @@ La vue \texttt{InscriptionVue} représente un formulaire d'inscription. On deman
 La vue \texttt{ConnexionVue} demande simplement à l'utilisateur de saisir son pseudo. Si le pseudo est valide, la personne est orientée vers~:
 \begin{itemize}[label=\ding{109}, font=\small]
     \item \texttt{JoueurMenuVue} si le pseudo est celui d'un Joueur.
-    \item \texttt{MaitreJeuMenuVue} si le pseudo est celui d'un Maître du Jeu.
     \item \texttt{AdministrateurMenuVue} si le pseudo est \texttt{admin}.
 \end{itemize}
 
@@ -283,37 +280,34 @@ Dès que l'utilisateur se connecte, l'objet \texttt{Session} est créé pour sto
 
 L'administrateur dispose des options suivantes dans la vue \texttt{AdministrateurMenuVue}
 \begin{itemize}[label=\ding{109}, font=\small]
-    \item \texttt{Créer une table de jeu}~: elle crée une nouvelle Table de Jeu, ne conduit pas à d'autres menus et est accompagnée d'un message confirmant que la table a été créée.
-    \item \texttt{Supprimer une table de jeu}~: elle demande à l'Administrateur d'entrer un numéro de table et une plage horaire pour supprimer la table et le maintient sur la vue. \texttt{AdministrateurMenuVue} tout en recevant un message indiquant que la suppression est terminée.
+    \item \texttt{Créer une table de jeu}~: elle crée une nouvelle Table de Jeu et est accompagnée d'un message confirmant que la table a été créée.
+    \item \texttt{Supprimer une table de jeu}~: elle demande à l'Administrateur d'entrer un numéro de table pour la supprimer. 
     \item \texttt{Supprimer un joueur}~: elle demande à l'Administrateur de saisir un pseudo pour supprimer l'utilisateur et laisse l'Administrateur sur la vue\texttt{AdministrateurMenuVue} avec un message indiquant que la suppression a été réalisée.
     \item \texttt{Déplacer un joueur}~: l'Administrateur doit saisir tour à tour le pseudo du Joueur à déplacer, le numéro de la table de départ et le numéro de la table d'arrivée. L'Administrateur est informé de l'aboutissement du déplacement sur la vue \texttt{AdministrateurMenuVue}. Le Joueur déplacé est également informé.
-    \item \texttt{Déplacer un maître de jeu}~: l'Administrateur doit saisir le pseudo du Maître du Jeu à déplacer, le numéro de la table de départ et le numéro de la table d'arrivée. L'Administrateur est informé par un message de l'achèvement du déplacement sur la vue \texttt{AdministrateurMenuVue},et le Maître du Jeu déplacé est également informé.
-    \item \texttt{Sommaire du programme complet}~: elle donne un résumé de toutes les Tables de Jeu présentes dans la convention en ce moment, y compris l'identité du scénario, des Maîtres du Jeu et des Joueurs. L'Administrateur est toujours sur la vue \texttt{AdministrateurMenuVue}.
-    \item \texttt{Se déconnecter}~: l'Administrateur se déconnecte et revient à la vue d'accueil \texttt{AccueilVue} avec un message confirmant la déconnexion.
+    \item \texttt{Déplacer un maître de jeu}~: l'Administrateur doit saisir le pseudo du Maître du Jeu à déplacer, le numéro de la table de départ et le numéro de la table d'arrivée. L'Administrateur est informé par un message de l'achèvement du déplacement sur la vue \texttt{AdministrateurMenuVue}, et le Maître du Jeu déplacé est également informé.
+    \item \texttt{Sommaire du programme complet}~: elle donne un résumé de toutes les Tables de Jeu présentes dans la convention en ce moment, y compris pour chacune du scénario, le Maître du Jeu et les Joueurs.
+    \item \texttt{Se déconnecter}~: l'Administrateur se déconnecte et revient à la vue d'accueil \texttt{AccueilVue}.
 \end{itemize}
 \bigbreak
 
 \texttt{JoueurMenuVue} est la vue à laquelle le Joueur accède après s'être connecté, elle lui offre les options suivantes :
 \begin{itemize}[label=\ding{109}, font=\small]
-    \item\texttt{Créer un personnage}~: le joueur crée un personnage via l'API ci-dessus et reçoit un message de création de personnage réussie dans la vue \texttt{JoueurMenuVue}.
-    \item\texttt{Supprimer un personnage()}~: le Joueur saisit le nom du personnage pour le supprimer et reçoit un message dans la vue \texttt{JoueurMenuVue} indiquant que le personnage a été supprimé.
+    \item\texttt{Créer un personnage}~: le joueur crée un personnage et reçoit un message de création de personnage réussie dans la vue \texttt{JoueurMenuVue}.
+    \item\texttt{Supprimer un personnage}~: le Joueur saisit le nom du personnage pour le supprimer et reçoit un message dans la vue \texttt{JoueurMenuVue} indiquant que le personnage a été supprimé.
     \item\texttt{Liste des personnages}~: elle fournit au Joueur un résumé des attributs du personnage qu'il possède et le conserve dans la vue \texttt{JoueurMenuVue}.
-    \item\texttt{Sommaire du programme}~: le Joueur voit sur la vue \texttt{JoueurMenuVue} toutes les tables auxquelles il participera pendant la session.
-    \item\texttt{Aperçu des tables de jeu}~: le Joueur voit sur l'écran, pour chaque table, le nombre de Joueurs actuels et le scénario.
-    \item\texttt{Rejoindre une table}~: le Joueur sélectionne la table qu'il veut rejoindre et reçoit un message sur la vue indiquant qu'il a rejoint la table. Le Maître du Jeu de la table correspondante reçoit également un message indiquant que le joueur a adhéré.
-    \item\texttt{Rejoindre une table}~: le Joueur se voit proposer des choix, chaque choix représentant une table actuellement disponible, indiquant le nombre de joueurs, le scénario et etc. Le joueur fait son choix et reçoit un message sur la vue \texttt{JoueurMenuVue} lui indiquant qu'il a rejoint la table avec succès. Le maître de jeu de la table correspondante reçoit également un message indiquant que le joueur a adhéré. S'il n'y a pas de table que le joueur souhaite rejoindre, il choisit "Je vais y réfléchir" et revient à la vue \texttt{JoueurMenuVue}.
-    \textcolor{red}{à revoir : 1. maintenir l'option "Aperçu des tables de jeu" ou pas ; 2. quelle version de "rejoindre une table" à garder ?  }
-    \item\texttt{Quitter la table}~: le Joueur quitte la table actuelle et reçoit un message de sortie réussie sur la vue \texttt{JoueurMenuVue}. Le Maître du Jeu de cette table reçoit également un message indiquant que le Joueur est parti.
-    \item\texttt{Historique des messages}~: le Joueur révise tous les messages reçus depuis cette connexion sur la vue \texttt{JoueurMenuVue}.
-    \item\texttt{Devenir maître du jeu}~: le Joueur est dirigé vers la vue \texttt{MaîtreJeuMenuVue}.   
+    \item\texttt{Sommaire du programme}~: le Joueur voit sur la vue \texttt{JoueurMenuVue} toutes les tables auxquelles il participera pendant la convention.
+    \item\texttt{Rejoindre une table}~: dans un premier temps, la liste des tables disponibles s'affiche ainsi que le scénario et les personnages déjà présents. Ensuite le Joueur peut sélectionner l'une des tables pour la rejoindre. Enfin il choisit le personnage qu'il souhaite incarner. Le Maître de Jeu de la table correspondante reçoit également un message indiquant que le Joueur a adhéré.
+    \item\texttt{Quitter une table}~: cela affiche la liste des tables où le Joueur participe. Le Joueur saisit ensuite le numéro de la Table de Jeu qu'il souhaite quitter. Le Maître du Jeu de cette table reçoit également un message indiquant que le Joueur est parti.
+    \item\texttt{Voir les messages}~: le Joueur peut consulter tous les messages reçus.
+    \item\texttt{Devenir Maître du Jeu}~: si le Joueur s'est inscrit comme Maître du Jeu, il est dirigé vers la vue \texttt{MaîtreJeuMenuVue}. Sinon il est averti qu'il n'a pas accès à ce menu.
     \item\texttt{Se déconnecter}~: le joueur se déconnecte et revient à la vue \texttt{AccueilVue} avec un message indiquant la confirmation de la déconnexion.
 \end{itemize}
 
-\texttt{MaîtreJeuMenuVue} offre des fonctions à maître de jeu.
+\texttt{MaîtreJeuMenuVue} offre les fonctionnalités suivantes~:
 \begin{itemize}[label=\ding{109}, font=\small]
     \item\texttt{Gérer une table}~: le Maître du Jeu choisit une séance, décrit un scénario et peut laisser un commentaire sur le niveau requis des personnages. Il est alors affecté en tant que Maître du Jeu a une Table de Jeu libre de la séance s'il y a au moins une table libre.
-    \item\texttt{Résilier la table}~: le Maître du Jeu résilie la Table de Jeu à laquelle il est inscrit et reçoit un message sur la vue \texttt{MaîtreJeuMenuVue} confirmant que sa résiliation a été prise en compte.
-    \item\texttt{Aperçu des joueurs présents}~: le Maître du Jeu voit sur la vue \texttt{MaîtreJeuMenuVue} les informations concernant tous les joueurs inscrits sur la table qu'il gère ainsi que les informations concernant les personnages qu'ils incarneront.
+    \item\texttt{Résilier la table}~: le Maître du Jeu sélectionne une table sur laquelle il officie et la résilie. Il reçoit un message sur la vue \texttt{MaîtreJeuMenuVue} confirmant que sa résiliation a été prise en compte.
+    \item\texttt{Aperçu des joueurs présents}~: le Maître du Jeu voit sur la vue \texttt{MaîtreJeuMenuVue} les informations concernant tous les Joueurs inscrits sur les tables qu'il gère ainsi que les informations concernant les personnages qu'ils incarneront.
 \end{itemize}
 
 
@@ -334,13 +328,13 @@ Afin de modéliser notre application, nous avons listé les objets dont nous avi
         \item \texttt{pseudo}~: str, comme tout membre de la convention de jeu de rôle, un Administrateur dispose d'un pseudo pour se connecter à son profil d'administrateur et accéder aux différentes vues et services dont il dispose.
     \end{itemize}
 
-    \item \texttt{TableJeu}~: Une Table de Jeu est à distinguer d'une table réelle. Une même table correspondra à des Tables de Jeux différentes entre la séance du matin et celle de l'après-midi. De plus nous avons choisi de nommer cette classe ainsi plutôt que simplement «~Table~» car ce mot aurait pu poser des problèmes en SQL, où c'est un mot clé. Une Table de Jeu possède les cinq attributs suivants :
+    \item \texttt{TableJeu}~: Une Table de Jeu est à distinguer d'une table réelle. Une même table correspondra à des Tables de Jeu différentes entre la séance du matin et celle de l'après-midi. De plus nous avons choisi de nommer cette classe ainsi plutôt que simplement «~Table~» car ce mot aurait pu poser des problèmes en SQL, où c'est un mot clé. Une Table de Jeu possède les cinq attributs suivants :
     \begin{itemize}[label=\ding{109}, font=\small]
         \item \texttt{id\_table}~: int, chaque table dispose d'un  identifiant unique.
         \item \texttt{id\_seance}~: int, numéro de la séance sur laquelle la table est utilisée (1 pour le samedi matin, 2 pour le samedi après-midi, 3 pour le dimanche matin et 4 pour le dimanche après-midi).
-        \item \texttt{scénario}~: str, scénario choisi par le Maître du Jeu pour animer la Table de Jeu.
-        \item \texttt{maître\_jeu}~: MaîtreJeu, Maître du Jeu qui s'occupe de la Table de Jeu.
-        \item \texttt{personnages}~: list[Personnages], liste des Personnages de la Table de Jeu. Il sera
+        \item \texttt{scenario}~: str, scénario choisi par le Maître du Jeu pour animer la Table de Jeu.
+        \item \texttt{maitre\_jeu}~: MaîtreJeu, Maître du Jeu qui s'occupe de la Table de Jeu.
+        \item \texttt{personnages}~: list[Personnages], liste des Personnages de la Table de Jeu.
     \end{itemize}
     
     \item \texttt{Personnage}~: il s'agit d'un personnage fictif de jeu de rôle que crée un Joueur pour participer à une session de jeu. Cette classe possède les attributs suivants :
@@ -350,7 +344,7 @@ Afin de modéliser notre application, nous avons listé les objets dont nous avi
         \item \texttt{classe}~: str, classe du personnage (Guerrier, Druide, Magicien...)
         \item \texttt{race}~: str, race du personnage (Humain, Elfe, Nain...).
         \item \texttt{niveau}~: int, niveau du personnage.
-        \item \texttt{compétences}~: list[str], liste des compétences dont le personnage dispose.
+        \item \texttt{competences}~: list[str], liste des compétences dont le personnage dispose.
         \item \texttt{langues\_parlées}~: list[str], liste des langues parlées par le personnage.
     \end{itemize}
 
@@ -359,7 +353,7 @@ Afin de modéliser notre application, nous avons listé les objets dont nous avi
         \item \texttt{id\_joueur}~: int, identifiant unique du Joueur
         \item \texttt{pseudo}~: str, pseudo à l'aide duquel le Joueur se connecte afin d'accéder aux vues et services qui lui sont propres.
         \item \texttt{nom}~: str, son nom propre, qu'il renseigne lors de l'inscription.
-        \item \texttt{prénom}~: str, son prénom, qu'il renseigne lors de l'inscription.
+        \item \texttt{prenom}~: str, son prénom, qu'il renseigne lors de l'inscription.
         \item \texttt{mail}~: str, son adresse mail, qu'il renseigne lors de l'inscription.
         \item \texttt{personnages}~: list[Personnage], il s'agit de la liste des personnages que le Joueur souhaite potentiellement utiliser lors de la convention. On limitera le nombre de personnages qu'il peut créer à trois.
     \end{itemize}
@@ -387,11 +381,11 @@ La couche service est le coeur de notre application. Elle contient toutes les m�
 
 La classe \texttt{AdministrateurService} possède les méthodes suivantes :
 \begin{itemize}[label=\ding{109}, font=\small]
-    \item \texttt{créer\_table(num\_seance)}~: ajouter une Table de Jeu à la convention.
+    \item \texttt{creer\_table(num\_seance)}~: ajouter une Table de Jeu à la convention.
     \item \texttt{supprimer\_table(TableJeu)}~: supprimer une Table de Jeu.
     \item \texttt{supprimer\_joueur(Joueur)}~: supprimer le compte d'un Joueur.
-    \item \texttt{déplacer\_joueur(Joueur, TableJeu avant, TableJeu après)}~: déplacer un joueur d'une Table de Jeu vers une autre.
-    \item \texttt{déplacer\_mj(MaitreJeu, TableJeu avant, TableJeu après)}~: déplacer un Maître du Jeu d'une Table de Jeu vers une autre.
+    \item \texttt{deplacer\_joueur(Joueur, TableJeu avant, TableJeu après)}~: déplacer un joueur d'une Table de Jeu vers une autre.
+    \item \texttt{deplacer\_mj(MaitreJeu, TableJeu avant, TableJeu après)}~: déplacer un Maître du Jeu d'une Table de Jeu vers une autre.
     \item \texttt{voir\_programme\_complet()}~: consulter, pour l'ensemble de la convention, un sommaire des Tables de Jeu, comprenant l'identité du Maître du Jeu, le scénario proposé et l'identité des Joueurs et des Personnages.
 \end{itemize}
 
@@ -399,9 +393,9 @@ La classe \texttt{AdministrateurService} possède les méthodes suivantes :
 
 La classe \texttt{JoueurService} possède les méthodes suivantes :
 \begin{itemize}[label=\ding{109}, font=\small]
-    \item \texttt{créer(pseudo, nom, prenom, mail)}~: elle crée un compte Joueur à partir des renseignements indiqués lors de l'inscription.
+    \item \texttt{creer(pseudo, nom, prenom, mail)}~: elle crée un compte Joueur à partir des renseignements indiqués lors de l'inscription.
     \item \texttt{supprimer(Joueur)}~: elle permet à un Joueur de supprimer son propre compte ou à un Administrateur de supprimer un Joueur.
-    \item \texttt{créer\_personnage(nom, niveau, classe, race, compétences, langues parlées)}~: après avoir vérifié que le joueur n'a pas atteint son quota de trois personnages, elle crée un nouveau personnage à partir des caractéristiques choisies via l'API.
+    \item \texttt{creer\_personnage(nom, niveau, classe, race, compétences, langues parlées)}~: après avoir vérifié que le joueur n'a pas atteint son quota de trois personnages, elle crée un nouveau personnage à partir des caractéristiques choisies. Un appel à l'API permettra de compléter ces caractéristiques.
     \item \texttt{supprimer\_personnage(Personnage)}~: elle supprime un personnage appartenant au joueur appelant cette méthode.
     \item \texttt{lister\_personnages()}~: elle liste tous les personnages du joueur ainsi que leurs caractéristiques.
     \item \texttt{voir\_tables\_libres()}~: cette méthode affiche par séance la liste des tables qu'il est possible de rejoindre.
@@ -409,7 +403,7 @@ La classe \texttt{JoueurService} possède les méthodes suivantes :
     \item \texttt{quitter\_table(TableJeu)}~: Le Joueur est supprimé de la \texttt{TableJeu} en paramètre s'il était effectivement installé à cette table.
     \item \texttt{voir\_son\_programme()}~: cela liste l'emploi du temps du Joueur (Tables de Jeu, scénario, personnage)
     \item \texttt{devenir\_mj()}~: le Joueur devient Maître du Jeu.
-    \item \texttt{afficher\_messages()}~: affiche un message au joueur lui indiquant si un changement de table ou autre action menée par l'administrateur a affecté sa participation au jeu de rôle à une table donnée.
+    \item \texttt{afficher\_messages()}~: affiche un message au joueur lui indiquant si un changement de table ou autre action menée par l'administrateur, a affecté sa participation au jeu de rôle à une table donnée.
 \end{itemize}
 
 
@@ -419,9 +413,9 @@ La classe \texttt{JoueurService} possède les méthodes suivantes :
 La classe \texttt{MaitreJeuService} possède les méthodes suivantes :
 
 \begin{itemize}[label=\ding{109}, font=\small]
-    \item \texttt{gérer\_table(num\_seance, TableJeu, scenario)}~: elle prend trois paramètres : un numéro de séance, une \texttt{TableJeu} et une chaîne de caractères contenant la description du scénario. En premier lieu, une vérification est faite sur la disponibilité du Maître du Jeu. S'il n'est pas disponible, un message d'erreur est retourné. Le paramètre \texttt{TableJeu} est optionnel~: s'il n'est pas renseigné, le Maître du Jeu est affecté aléatoirement à une table vide de la séance. Si la table est renseignée, le programme s'assure qu'il n'y a pas déjà un Maître du Jeu à cette table. Si tout est valide, la \texttt{TableJeu} choisie est enrichie avec le \texttt{MaitreJeu} et le scénario.
+    \item \texttt{gerer\_table(num\_seance, TableJeu, scenario)}~: elle prend trois paramètres : un numéro de séance, une \texttt{TableJeu} et une chaîne de caractères contenant la description du scénario. En premier lieu, une vérification est faite sur la disponibilité du Maître du Jeu. S'il n'est pas disponible, un message d'erreur est retourné. Le paramètre \texttt{TableJeu} est optionnel~: s'il n'est pas renseigné, le Maître du Jeu est affecté aléatoirement à une table vide de la séance. Si la table est renseignée, le programme s'assure qu'il n'y a pas déjà un Maître du Jeu à cette table. Si tout est valide, la \texttt{TableJeu} choisie est enrichie avec le \texttt{MaitreJeu} et le scénario.
     
-    \item \texttt{résilier\_table(TableJeu)}~: Si le Maître du Jeu n'est pas en charge de la table choisie, cela renvoie un message d'erreur. Sinon la \texttt{TableJeu} perd son \texttt{MaitreJeu}.
+    \item \texttt{resilier\_table(TableJeu)}~: Si le Maître du Jeu n'est pas en charge de la table choisie, cela renvoie un message d'erreur. Sinon la \texttt{TableJeu} perd son \texttt{MaitreJeu}.
     
     \item \texttt{voir\_table\_geree(TableJeu)}~: elle prend un numéro de table en paramètre et affiche la liste des Joueurs de la table, leurs personnages et leurs niveaux si l'utilisateur est bien Maître du Jeu de la table. Dans le cas contraire, un message d'erreur apparaît.
 \end{itemize}
@@ -434,7 +428,7 @@ La classe \texttt{MaitreJeuService} possède les méthodes suivantes :
 
 La \textbf{méthode de persistance} que nous avons choisie est la sauvegarde de nos données sur une base de données. Nous utiliserons le système de gestion de base de données relationnelle PostgreSQL.\\
 
-La couche \textbf{DAO} (Data Access Object),disponible en annexe en figure \ref{UML_classes}, proposera donc diverses classes et méthodes qui permettront de communiquer avec la couche de persistance. Les classes de notre DAO s'appuieront sur les différentes opérations du \textbf{CRUD} (Create Read Update Delete) et proposeront une liste exhaustive de méthodes d'interactions avec la base de données. Parmi celles-ci, il y a la classe \textbf{DBconnection} qui se chargera de gerer les connexions à la base de données. Afin de ne pas nous retrouver avec des centaines de connections qui compromettraient l'efficacité de notre application, nous avons choisi de conceptualiser cette classe à partir du \textbf{design pattern} Singleton. La classe DBconnection héritera de la méta-classe \textbf{Singleton} qui assurera l'instanciation unique de cette classe.
+La couche \textbf{DAO} (Data Access Object), disponible en annexe en figure \ref{UML_classes}, proposera donc diverses classes et méthodes qui permettront de communiquer avec la couche de persistance. Les classes de notre DAO s'appuieront sur les différentes opérations du \textbf{CRUD} (Create Read Update Delete) et proposeront une liste exhaustive de méthodes d'interactions avec la base de données. Parmi celles-ci, il y a la classe \textbf{DBconnection} qui se chargera de gerer les connexions à la base de données. Afin de ne pas nous retrouver avec des centaines de connections qui compromettraient l'efficacité de notre application, nous avons choisi de conceptualiser cette classe à partir du \textbf{design pattern} Singleton. La classe DBconnection héritera de la méta-classe \textbf{Singleton} qui assurera l'instanciation unique de cette classe.
 
 La couche DAO sera constituée des classes suivantes :
 
@@ -454,15 +448,15 @@ Afin de ne pas compromettre la lisibilité de notre diagramme UML, nous avons om
 Le diagramme de base de données est présenté dans la figure \ref{UML_bdd}. Celui-ci s'accorde rigoureusement avec les classes de la couche DAO. Notre base de données se compose des tables et relations suivantes (cf \ref{UML_bdd} pour les relation) :  
 
 \begin{itemize}
-    \item \texttt{table\_jeu}~: Cette table de données représente une table de jeu. Clé primaire : (id\_table,séance)
+    \item \texttt{table\_jeu}~: Cette table de données représente une table de jeu. Clé primaire~: (\texttt{id\_table, séance})
     
-    \item \texttt{table\_personnage}~: Elle fait le lien entre les tables personnage et table\_jeu. Clé primaire : (id\_table, id\_personnage, séance). Cela permet de dire quels personnages sont joués à une table de jeu.
+    \item \texttt{table\_personnage}~: Elle fait le lien entre les tables \texttt{personnage} et \texttt{table\_jeu}. Clé primaire~: (\texttt{id\_table, id\_personnage, seance}). Cela permet de dire quels personnages sont joués à une Table de Jeu.
     
-    \item \texttt{joueur}~: Cette table de données se chargera de la gestion des données liées aux joueurs. Clé primaire : id\_joueur
+    \item \texttt{joueur}~: Cette table de données se chargera de la gestion des données liées aux joueurs. Clé primaire~: \texttt{id\_joueur}
  
-    \item \texttt{message}~: Cette table contient les messages de notification reçus par les joueurs ou les administrateurs. Clé primaire : id\_message
+    \item \texttt{message}~: Cette table contient les messages de notification reçus par les joueurs ou les administrateurs. Clé primaire~: \texttt{id\_message}
     
-    \item \texttt{personnage}~: Elle regroupe les personnages joués par les joueurs. Clé primaire : id\_personnage
+    \item \texttt{personnage}~: Elle regroupe les personnages joués par les joueurs. Clé primaire~: \texttt{id\_personnage}
 
 \end{itemize}
 
@@ -475,7 +469,7 @@ Le diagramme de base de données est présenté dans la figure \ref{UML_bdd}. Ce
 \end{figure}
 
 
-Chaque table se définit par sa clé primaire qui peut être un singleton, couple ou triplet d'attribut, celle-ci permet d'identifier de manière unique chaque enregistrement (observation) d'une table. Nos tables peuvent comporter une ou plusieurs clés étrangères afin d'établir des relations entre les tables comportant des attributs communs.
+Chaque table se définit par sa clé primaire qui peut être un singleton, couple ou triplet d'attributs. Cette clé permet d'identifier de manière unique chaque enregistrement (observation) d'une table. Nos tables peuvent comporter une ou plusieurs clés étrangères afin d'établir des relations entre les tables comportant des attributs communs.
 
 
 
