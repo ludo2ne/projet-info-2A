@@ -20,12 +20,12 @@ class Joueur:
         identifiant
     '''
 
-    def __init__(self, pseudo, nom, prenom, mail, id=None, liste_personnage=[]):
+    def __init__(self, pseudo, nom, prenom, mail, id_joueur=None, liste_personnage=[]):
         '''Constructeur de l'objet
         '''
+        self.id_joueur = id_joueur
         self.pseudo = pseudo
         self.nom = nom
         self.prenom = prenom
         self.mail = mail
-        self.id = id
         self.liste_personnage = liste_personnage
