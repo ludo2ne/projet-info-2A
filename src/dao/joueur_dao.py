@@ -12,6 +12,7 @@ from dao.db_connection import DBConnection
 from utils.singleton import Singleton
 
 from business_object.joueur import Joueur
+from business_object.personnage import Personnage
 
 
 class JoueurDao(metaclass=Singleton):
@@ -100,9 +101,8 @@ class JoueurDao(metaclass=Singleton):
                             nom=res["nom"],
                             prenom=res["prenom"],
                             mail=res["mail"],
-                            id=res["id_joueur"])
+                            id_joueur=res["id_joueur"])
 
-            # TODO
             # joueur.liste_personnage = lister_personnages(joueur)
 
         return joueur
@@ -136,3 +136,36 @@ class JoueurDao(metaclass=Singleton):
         if res:
             inserted = True
         return inserted
+
+    def lister_personnages(self, joueur):
+        '''lister des personnages d'une utilisateur
+        '''
+        print("INFO : JoueurDao.lister_peronnage()")
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT * FROM jdr.personnage "
+                        " WHERE id_joueur = %(id)s;",
+                        {"id": joueur.id_joueur})
+                    res = cursor.fetchall()
+        except Exception as e:
+            print(e)
+            raise
+
+        print(res)
+        perso1 = None
+        personnages = []
+        if res:
+            for row in res:
+                print(row)
+                perso1 = Personnage(id_personnage=row["id_personnage"],
+                                    nom=row["nom"],
+                                    classe=row["classe"],
+                                    race=row["race"],
+                                    niveau=row["niveau"])
+                personnages.append(perso1)
+        print("2")
+
+        return personnages

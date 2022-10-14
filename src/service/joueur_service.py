@@ -10,6 +10,7 @@ Version : 1.0
 from business_object.joueur import Joueur
 from dao.joueur_dao import JoueurDao
 from dao.table_jeu_dao import TableJeuDao
+from view.session import Session
 
 
 class JoueurService:
@@ -90,3 +91,17 @@ class JoueurService:
         '''
         print("INFO : JoueurService.trouver_par_pseudo({})".format(pseudo))
         return JoueurDao().trouver_par_pseudo(pseudo)
+
+    def lister_personnages(self):
+        '''Lister les personnages d'une utilisateur
+
+        Returns
+        -------
+        '''
+        joueur = Session().user
+
+        personnages = JoueurDao().lister_personnages(joueur)
+        resultat = ""
+        for i in personnages:
+            resultat += i.nom + " " + i.classe + "\n"
+        return resultat
