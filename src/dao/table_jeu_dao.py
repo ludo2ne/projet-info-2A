@@ -96,8 +96,8 @@ class TableJeuDao(metaclass=Singleton):
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "SELECT count(1) FROM jdr.table_joueur WHERE id_table = "
-                        "%(id_table)s;", {"id_table": table.id})
+                        "SELECT count(1) FROM jdr.table_personnage WHERE id_table = "
+                        "%(id_table)s;", {"id_table": table.id_table})
                     res = cursor.fetchone()
         except Exception as e:
             print(e)

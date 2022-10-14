@@ -9,24 +9,20 @@ from dao.table_jeu_dao import TableJeuDao
 class TestTableJeuDao(unittest.TestCase):
     def test_create_table_ok(self):
         # GIVEN
-        table_jeu_dao = TableJeuDao()
-        table = TableJeu(numero=12)
+        table = TableJeu(id_table=None, id_seance=1)
 
         # WHEN
-        created = table_jeu_dao.creer(table)
+        created = TableJeuDao().creer(table)
 
         # THEN
         self.assertTrue(created)
-        self.assertIsNotNone(table.id)
 
     def test_nombre_joueurs_assis(self):
         # GIVEN
-        table_jeu_dao = TableJeuDao()
-        table = TableJeu(numero=1000)
-        table.id = 1
+        table = TableJeu(id_table=1, id_seance=1)
 
         # WHEN
-        nb_joueurs = table_jeu_dao.nombre_joueurs_assis(table)
+        nb_joueurs = TableJeuDao().nombre_joueurs_assis(table)
         print("Nombre de joueurs assis : " + str(nb_joueurs))
 
         # THEN
