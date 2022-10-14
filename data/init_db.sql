@@ -44,7 +44,9 @@ CREATE TABLE jdr.personnage(
     id_personnage serial PRIMARY KEY,
     id_joueur integer NOT NULL,
     nom text NOT NULL,
-    classe text NOT NULL
+    race text NOT NULL,
+    classe text NOT NULL,
+    niveau integer NOT NULL
 );
 
 -----------------------------------------------------

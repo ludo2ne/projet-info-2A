@@ -48,7 +48,11 @@ class JoueurMenuVue(VueAbstraite):
 
         reponse = prompt(self.questions)
         if reponse["choix"] == "Créer un personnage":
-            pass
+            from view.creer_personnage_vue import CreerPersonnageVue
+            return CreerPersonnageVue()
+        elif reponse["choix"] == "Lister ses personnages":
+            perso = JoueurService().lister_personnages()
+            return (JoueurMenuVue(perso))
         elif reponse["choix"] == "Se déconnecter":
             Session().user = None
             from view.accueil_vue import AccueilVue
