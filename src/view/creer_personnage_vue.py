@@ -21,7 +21,7 @@ class CreerPersonnageVue(VueAbstraite):
             {
                 "type": "input",
                 "name": "classe",
-                "message": "Entrez la classe de votre personnage : :"
+                "message": "Entrez la classe de votre personnage :"
             },
             {
                 "type": "input",

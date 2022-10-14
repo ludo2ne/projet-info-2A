@@ -11,6 +11,7 @@ from business_object.joueur import Joueur
 from business_object.personnage import Personnage
 from dao.joueur_dao import JoueurDao
 from dao.table_jeu_dao import TableJeuDao
+from dao.personnage_dao import PersonnageDao
 from view.session import Session
 
 
@@ -96,7 +97,7 @@ class JoueurService:
     def creer_personnage(self, nom, classe2, race, niveau):
         '''
         '''
-        print("INFO : Service de création de personnage")
+        print("Service : Création de personnage")
 
         perso = Personnage(id_personnage=None,
                            nom=nom,
@@ -104,9 +105,9 @@ class JoueurService:
                            race=race,
                            niveau=niveau)
 
-        created = JoueurDao().creer_personnage(perso)
+        created = PersonnageDao().creer(perso)
 
-        print(created)
+        print("Service : Création de personnage - Terminé")
 
         return perso
 
@@ -116,10 +117,16 @@ class JoueurService:
         Returns
         -------
         '''
+
+        print("Service : Liste des personnages")
+
         joueur = Session().user
 
-        personnages = JoueurDao().lister_personnages(joueur)
+        personnages = PersonnageDao().lister_par_joueur(joueur)
         resultat = ""
         for i in personnages:
             resultat += i.nom + " " + i.classe + "\n"
+
+        print("Service : Liste des personnages - Terminé")
+
         return resultat

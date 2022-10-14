@@ -10,6 +10,7 @@ from typing import List, Optional
 
 from dao.db_connection import DBConnection
 from utils.singleton import Singleton
+from view.session import Session
 
 from business_object.joueur import Joueur
 from business_object.personnage import Personnage
@@ -136,69 +137,3 @@ class JoueurDao(metaclass=Singleton):
         if res:
             inserted = True
         return inserted
-
-    def lister_personnages(self, joueur):
-        '''lister des personnages d'une utilisateur
-        '''
-        print("INFO : JoueurDao.lister_peronnage()")
-
-        try:
-            with DBConnection().connection as connection:
-                with connection.cursor() as cursor:
-                    cursor.execute(
-                        "SELECT * FROM jdr.personnage "
-                        " WHERE id_joueur = %(id)s;",
-                        {"id": joueur.id_joueur})
-                    res = cursor.fetchall()
-        except Exception as e:
-            print(e)
-            raise
-
-        print(res)
-        perso1 = None
-        personnages = []
-        if res:
-            for row in res:
-                print(row)
-                perso1 = Personnage(id_personnage=row["id_personnage"],
-                                    nom=row["nom"],
-                                    classe=row["classe"],
-                                    race=row["race"],
-                                    niveau=row["niveau"])
-                personnages.append(perso1)
-        print("2")
-
-        return personnages
-
-    def creer_personnage(self, personnage) -> bool:
-        '''Creation d'un personnage dans la base de données
-
-        Parameters
-        ----------
-        personnage : Personnage
-        '''
-        print("Création d'un personnage en BDD")
-
-        joueur = Session().user
-
-        try:
-            with DBConnection().connection as connection:
-                with connection.cursor() as cursor:
-                    cursor.execute(
-                        "INSERT INTO jdr.personnage(nom, race, classe, niveau, id_joueur) VALUES "
-                        "(%(nom)s,%(race)s,%(classe)s,%(niveau)s,%(id_joueur)s) RETURNING id_personnage;",
-                        {"nom": personnage.nom,
-                         "race": personnage.race,
-                         "classe": personnage.classe,
-                         "niveau": personnage.niveau,
-                         "id_joueur": joueur.id_joueur})
-                    res = cursor.fetchone()
-        except Exception as e:
-            print(e)
-            raise
-
-        created = False
-        if res:
-            personnage.id = res['id_personnage']
-            created = True
-        return created
