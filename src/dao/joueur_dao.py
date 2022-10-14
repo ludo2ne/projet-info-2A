@@ -169,3 +169,36 @@ class JoueurDao(metaclass=Singleton):
         print("2")
 
         return personnages
+
+    def creer_personnage(self, personnage) -> bool:
+        '''Creation d'un personnage dans la base de données
+
+        Parameters
+        ----------
+        personnage : Personnage
+        '''
+        print("Création d'un personnage en BDD")
+
+        joueur = Session().user
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "INSERT INTO jdr.personnage(nom, race, classe, niveau, id_joueur) VALUES "
+                        "(%(nom)s,%(race)s,%(classe)s,%(niveau)s,%(id_joueur)s) RETURNING id_personnage;",
+                        {"nom": personnage.nom,
+                         "race": personnage.race,
+                         "classe": personnage.classe,
+                         "niveau": personnage.niveau,
+                         "id_joueur": joueur.id_joueur})
+                    res = cursor.fetchone()
+        except Exception as e:
+            print(e)
+            raise
+
+        created = False
+        if res:
+            personnage.id = res['id_personnage']
+            created = True
+        return created

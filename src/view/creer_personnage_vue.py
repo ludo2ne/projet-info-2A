@@ -5,7 +5,9 @@ Date    : 20/09/2022
 Licence : Domaine public
 Version : 1.0
 '''
+from InquirerPy import prompt
 from view.vue_abstraite import VueAbstraite
+from service.joueur_service import JoueurService
 
 
 class CreerPersonnageVue(VueAbstraite):

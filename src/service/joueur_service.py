@@ -8,6 +8,7 @@ Version : 1.0
 
 
 from business_object.joueur import Joueur
+from business_object.personnage import Personnage
 from dao.joueur_dao import JoueurDao
 from dao.table_jeu_dao import TableJeuDao
 from view.session import Session
@@ -92,11 +93,22 @@ class JoueurService:
         print("INFO : JoueurService.trouver_par_pseudo({})".format(pseudo))
         return JoueurDao().trouver_par_pseudo(pseudo)
 
-    def creer_personnage(self, nom, classe, race, niveau):
+    def creer_personnage(self, nom, classe2, race, niveau):
         '''
         '''
-        perso = Personnage(id_perso, nom, classe, race,
-                           niveau, competence, langues_parlees)
+        print("INFO : Service de création de personnage")
+
+        perso = Personnage(id_personnage=None,
+                           nom=nom,
+                           classe=classe2,
+                           race=race,
+                           niveau=niveau)
+
+        created = JoueurDao().creer_personnage(perso)
+
+        print(created)
+
+        return perso
 
     def lister_personnages(self):
         '''Lister les personnages d'une utilisateur
