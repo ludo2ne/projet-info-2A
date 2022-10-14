@@ -36,7 +36,12 @@ class ConnexionVue(VueAbstraite):
         joueur = JoueurService().trouver_par_pseudo(answers["pseudo"])
 
         # On récupère le mesage à afficher (succès ou échec)
-        if not joueur:
+        if answers["pseudo"] == "admin":
+            message = "Bienvenue " + answers["pseudo"]
+            Session().user = "admin"
+            from view.administrateur_menu_vue import AdministrateurMenuVue
+            return AdministrateurMenuVue(message)
+        elif not joueur:
             message = "Aucun joueur trouvé avec le pseudo " + answers["pseudo"]
             from view.accueil_vue import AccueilVue
             return AccueilVue(message)

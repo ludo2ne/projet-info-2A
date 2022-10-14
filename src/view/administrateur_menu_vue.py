@@ -13,8 +13,8 @@ from service.joueur_service import JoueurService
 from view.session import Session
 
 
-class JoueurMenuVue(VueAbstraite):
-    '''Menu principal d'un joueur
+class AdministrateurMenuVue(VueAbstraite):
+    '''Menu principal de l'administrateur
     '''
 
     def __init__(self, message="") -> None:
@@ -24,14 +24,13 @@ class JoueurMenuVue(VueAbstraite):
                 "name": "choix",
                 "message": "Faites votre choix",
                 "choices": [
-                    "Créer un personnage",
-                    "Supprimer un personnage (TODO)",
-                    "Lister ses personnages",
-                    "Rejoindre une table (TODO)",
-                    "Quitter une table (TODO)",
-                    "Voir son programme (TODO)",
-                    "Supprimer son compte (TODO)",
-                    "Voir ses messages (TODO)",
+                    "Voir le programme complet (TODO)",
+                    "Déplacer un personnage (TODO)",
+                    "Déplacer un Maitre du Jeu (TODO)",
+                    "Créer une Table de Jeu (TODO)",
+                    "Supprimer une Table de Jeu (TODO)",
+                    "Supprimer un joueur (TODO)",
+                    "Voir les messages (TODO)",
                     "Se déconnecter"
                 ]
             }
@@ -45,16 +44,16 @@ class JoueurMenuVue(VueAbstraite):
 
     def choisir_menu(self):
 
-        utilisateur = Session().user
-
         reponse = prompt(self.questions)
-        if reponse["choix"] == "Créer un personnage":
-            from view.creer_personnage_vue import CreerPersonnageVue
-            return CreerPersonnageVue()
-        elif reponse["choix"] == "Lister ses personnages":
-            perso = JoueurService().lister_personnages()
-            return (JoueurMenuVue(perso))
+        if reponse["choix"] == "Voir le programme complet":
+            pass
+        elif reponse["choix"] == "Déplacer un joueur":
+            pass
+        elif reponse["choix"] == "Supprimer un joueur":
+            pass
+        elif reponse["choix"] == "Voir les messages":
+            pass
         elif reponse["choix"] == "Se déconnecter":
             Session().user = None
             from view.accueil_vue import AccueilVue
-            return AccueilVue("À bientôt {}".format(utilisateur.pseudo))
+            return AccueilVue("À bientôt admin")

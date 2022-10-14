@@ -14,8 +14,8 @@ INSERT INTO jdr.table_jeu(id_seance, id_maitre_jeu, scenario, infos_complementai
 
 INSERT INTO jdr.joueur(pseudo, nom, prenom, mail, est_mj) VALUES
 ('admin', 'admin', 'admin', 'admin@jdr.fr', false),
-('pp','Javel', 'Aude', 'Aude.Javel@mail.fr', false),
-('evabien','Poree', 'Eva', 'Eva.Poree@mail.fr', false),
+('pp', 'Javel', 'Aude', 'Aude.Javel@mail.fr', false),
+('evabien','Poree', 'Eva', 'Eva.Poree@mail.fr', true),
 ('toto','Route', 'Otto', 'Otto.Route@mail.fr', false),
 ('calva14','Ptitegoutte', 'Anne', 'Anne.Ptitegoutte@mail.fr', false);
 

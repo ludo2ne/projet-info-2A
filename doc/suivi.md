@@ -18,41 +18,9 @@ tags: Cours2A
 # :dart: Échéances
 -------------------------------------------
 
-
-### :rotating_light: Rédaction du dossier d'analyse
-
-:::danger
-:clock1: <iframe src="https://free.timeanddate.com/countdown/i83zdl7u/n1264/cf11/cm0/cu2/ct4/cs0/ca0/co0/cr0/ss0/cac009/cpcf00/pcfff/tcfff/fs100/szw256/szh108/iso2022-10-08T23:59:00" allowtransparency="true" frameborder="0" width="130" height="16"></iframe>
+:::danger 
+Rapport final :clock1: <iframe src="https://free.timeanddate.com/countdown/i83zdl7u/n1264/cf11/cm0/cu2/ct4/cs0/ca0/co0/cr0/ss0/cac009/cpcf00/pcfff/tcfff/fs100/szw256/szh108/iso2022-11-26T23:59:00" allowtransparency="true" frameborder="0" width="130" height="16"></iframe>
 :::
-
-* [ ] Regrouper tous les diagrammes de classe [color=orange][name=Jason]
-    * [ ] Validation 
-* Introduction 
-    * optionnel : plutôt pour rapport final ?
-* Cahier des charges
-    * [x] rédaction [color=red][name=JF]
-    * [ ] relecture
-* Fonctionnalités
-    * [x] rédaction [color=red][name=JF]
-    * [x] relecture [color=green][name=Ludo]
-* Organisation équipe 
-    * [x] rédaction  [color=green][name=Ludo]
-    * [ ] relecture 
-* Couche business_objet 
-    * [x] rédaction [color=purple][name=Hugo]
-    * [x] relecture [color=green][name=Ludo]
-* Couche service 
-    * [x] rédaction [color=purple][name=Hugo] 1-8
-    * [x] rédaction [color=green][name=Ludo] 9-16
-    * [ ] relecture
-* Couche vue
-    * [x] rédaction [color=blue][name=Banruo]
-    * [ ] relecture 
-* Couche DAO 
-    * [ ] rédaction [color=orange][name=Jason] 
-    * [ ] relecture 
-* [ ] Validation finale [color=red][name=JF]
-
 
 ---
 
@@ -104,8 +72,9 @@ gantt
 | Date    | Livrables                                                    |
 | ------- | ------------------------------------------------------------ |
 | 16 sept | ~~Avoir une v0 des différents diagrammes~~
-| 08 oct. | [Dossier d'analyse](https://www.overleaf.com/7459989917xsmkkjbfvdqs) (:hammer_and_wrench:  [correcteur orthographe et grammaire](https://www.scribens.fr/))
-| 26 nov. | Rapport final                                                | 
+| 08 oct. | ~~[Dossier d'analyse](https://www.overleaf.com/7459989917xsmkkjbfvdqs)~~ 
+| 26 nov. | Rapport final (:hammer_and_wrench:  [correcteur orthographe et grammaire](https://www.scribens.fr/)) | 
+|  6 déc. | PPT soutenance                                               |
 
 
 
@@ -116,25 +85,19 @@ gantt
 ### Organisation d'équipe
 
 * Création des dépôts locaux et faire tourner la v0 sur chacun des postes
-    * [x] Banruo et JF
-    * [ ] Hugo et Jason
-* [ ] Vérifier paramétrage VSCode de tout le monde (autopep8) [color=green][name=Ludo]
-    * [ ] Mettre dans le Readme tout le nécessaire
-* Rédaction du dossier d'analyse
-    * [ ] Expliquer le fonctionnement des commentaires
-* Partages de connaissances
-    * [ ] formation à Git
-    * [x] formation à la programmation en couches
-
+    * [x] Banruo, JF, Hugo
+    * [ ] Décocher connexions multiples dbeaver
+    * [ ] Jason
 
 ---
 
 ### Développement
 
 * [x] [POC](https://fr.wikipedia.org/wiki/Preuve_de_concept) : faire tourner la v0.0 sur la programmation en couche [color=green][name=Ludo]
-* [ ] tuto pour utiliser une BDD postgre sur son poste [color=purple][name=Hugo]
+* [x] tuto pour [utiliser une BDD postgre sur son poste](https://www.youtube.com/watch?v=Cc9d2c8UuKA) [color=purple][name=Hugo]
 * [ ] Se spécialiser dans certaines couches ?
 * [x] Lister quelques fonctionnalités simples pour débuter [color=green][name=Ludo]
+    * [ ] Fournir à chacun un dév simple
 * [ ] tester [un appel à l'api](https://www.dnd5eapi.co/)
 * [x] voir comment lancer tous les tests -> run_all_tests.py
 * [x] script pour ré-initialiser la bdd -> utils/reset_database.py
@@ -146,6 +109,15 @@ gantt
 
 ### :question: Questions à la tutrice ou entre nous
 
+* [ ] [color=green][name=Ludo] : est-ce qu'on a vraiment besoin d'un business object ==Administrateur== ?
+* [color=green][name=Ludo] Points à éclairer
+    * [ ] En bdd, pourquoi `seance` fait parti de la clé primaire d'une `table_jeu` ?
+    * [ ] En bdd, ça me parait inévitable d'avoir une table `seance`
+        * parce que dans le cas contraire dans notre appli, il n'y aura aucune info sur les horaires ni sur les demi-journées
+
+
+---
+
 * [ ] Appels à l'API
     * lors de la création, le joueur choisit la classe du Personnage
     * on récupére auprès de l'API plus d'info sur la classe
@@ -154,11 +126,8 @@ gantt
         * caractéristiques ==features== selon le niveau, ex : "Reckless Attack"
 * Est-ce que l'on doit utiliser toutes les caractèristiques des personnages fournies par l'[api](https://www.dnd5eapi.co/) ?
     * Non, à minima classe et race
-* [ ] Que se passe-t-il lorsqu'un Maitre du jeu quitte la table ? Les joueurs sont virés de la table ou pas ?
-* Distinction entre joueur et MJ ?
-    * [x] le choix se fait à l'inscription -> ok pour la tutrice
-    * [ ] le joueur a une action ==devenir MJ==
-    * [ ] les organisateurs peuvent promouvoir un joueur en MJ
+* Que se passe-t-il lorsqu'un Maitre du jeu quitte la table ? Les joueurs sont virés de la table ou pas ? Non
+* Distinction entre joueur et MJ ? le choix se fait à l'inscription -> ok pour la tutrice
 
 ---
 
@@ -167,11 +136,242 @@ gantt
 * Qui choisit le scénario d'une table, MJ ou organisateur ? MJ
 * « Les organisateurs se réservent le droit ... de réorganiser les tables » : plus précisément ? Déplacer les joueurs
 
+---
+
+
+
+-------------------------------------------
+# :robot_face: Code 
+-------------------------------------------
+
+### :arrow_forward: Utilisateur non connecté
+
+* ==S'inscrire==
+    * [x] Basculer vers la vue InscriptionVue
+        * [ ] demander pseudo, nom, prenom, mail
+        * [ ] JoueurService.**creer(pseudo, nom, prenom, mail)**
+            * [ ] Vérifier que tous les champs remplis sont ok (non vides, mail contient @)
+            * [ ] JoueurDAO.**trouver_par_pseudo()**
+            * si la méthode ci-dessus ne renvoi aucun résultat
+            * [x] JoueurDAO.**creer()** `INSERT INTO joueur...`
+* ==Se connecter==
+    * Basculer vers la vue **ConnexionVue**
+        * demander pseudo
+            * [ ] si pseudo = Admin... 
+            * [ ] sinon
+                * [x] JoueurService.trouver_par_pseudo(pseudo)
+                    * [x] JoueurDAO.trouver_par_pseudo(pseudo)
+            * Si pseudo trouvé
+                * [x] conserver pseudo en Session
+                * [x] basculer vers JoueurMenuVue
+* ==Quitter==
+
+---
+
+### :arrow_forward: JoueurMenuVue
+
+* [color=green][name=Ludo]  [color=purple][name=Hugo]               [color=blue][name=Banruo]  [color=orange][name=Jason]  [color=red][name=JF]
+
+---
+
+* ==Créer un personnage== [color=purple][name=Hugo]
+    * [x] Basculer vers la vue CreerPersonnageVue
+        * demander infos sur le personnage (nom, classe, race, niveau)
+        * [x] PersonnageService.**creer(nom, classe, race, niveau)**
+            * [ ] vérifier qu'il n'a pas dejà 3 personnages
+            * [ ] vérifier que classe et race existent ? faire une liste ?
+            * [ ] appel API
+            * [x] PersonnageDAO.**creer()**
+        * [ ] test DAO
+    * [ ] Test Service
+* :heart: ==Supprimer un personnage==
+    * [ ] Afficher la liste des personnages
+        * [x] JoueurService.**lister_personnage()**
+    * [ ] Basculer vers une vue qui demande de saisir le nom du personnage
+        * [ ] JoueurService.**supprimer_personnage()**
+            * [ ] PersonnageDao.**supprimer()**
+* :heart: ==Lister ses personnages== [color=blue][name=Banruo]
+    * [x] JoueurService.**lister_personnages()**
+        * [x] récupérer le pseudo du joueur en session (pseudo = Session.pseudo)
+        * [x] JoueurDao.**trouver_par_pseudo(pseudo)**
+        * [x] PersonnageDao.**lister_par_joueur(Joueur)**
+        * [ ] TestJoueurDao
+    * [ ] TestJoueurService
+* :fire: ==Rejoindre une table==
+    * 1. lister les tables disponibles 
+    * 2. le joueur sélectionne la table qu'il veut
+    * 3. vérifier que le joueur n'est pas déjà occupé à cet horaire
+    * 4. ajouter Personnage à la table
+* ==Quitter une table==
+    * Lister les tables ou le joueur est
+        * [ ] JoueurService.voir_son_programme()
+    * Basculer vers la QuitterTableVue
+        * Demander le numéro de table qu'il veut quitter
+        * [ ] JoueurService.**quitter_table()**
+            * [ ] JoueurDao (ou PersonnageDao).**quitter_table()** 
+* :heart: ==Voir son programme==
+    * [ ] JoueurService.**voir_son_programme()**
+        * [ ] récupérer le pseudo du joueur en session (pseudo = Session.pseudo)
+        * [ ] JoueurDao.**trouver_par_pseudo(pseudo)**
+        * [ ] JoueurDao.**voir_son_programme()**
+        * [ ] TestJoueurDao
+    * [ ] TestJoueurService
+* :heart: ==Voir messages==
+    * [ ] JoueurService.**voir_messages()**
+        * [ ] récupérer le joueur en session : *joueur = Session().user*
+        * [ ] MessageDao.**lister_par_joueur(Joueur)**
+        * [ ] TestMessageDao
+    * [ ] TestJoueurService
+* :heart: ==Supprimer son compte==
+    * [ ] basculer vers une vue qui pose la question : Etes vous sur ?
+    * [ ] JoueurService.supprimer()
+        * [ ] Récupérer le joueur en session
+        * [ ] JoueurDao.supprimer(joueur)
+* :heart: ==Accéder au Menu Maître du Jeu==
+    * Vérifier si le Joueur est bien MJ
+        * [ ] JoueurService.est_mj()
+            * [ ] JoueurDao.est_mj()
+    * [ ] Basculer vers MaitreJeuMenuVue
+* ==Se déconnecter== [color=green][name=Ludo]
+    * [x] Supprimer le pseudo de la Session
+    * [x] Basculer vers AccueilVue
+
+---
+
+### :arrow_forward: MaitreJeuMenuVue (:construction: à créer )
+
+
+* ==Gérer une Table== [color=blue][name=Banruo]
+    * [ ] Basculer vers GererTableVue
+        * Demander pour quelle séance
+        * Demander quel scénario et quelles infos complémentaires
+        * [ ] MaitreJeuService.**gerer_table()**
+            * [ ] Vérifier que le MJ est libre pour la séance
+            * [ ] TableDao.**gerer_par_mj()**
+                * UPDATE jdr.table SET mj = , scénario = , info_comp =
+* ==Résilier une Table==
+    * [ ] Lister les table ou il est MJ
+    * [ ] Basculer vers ResilierTableVue
+        * Demander le numero de la table
+        * [ ] MaitreJeuService.**résilier_table()**
+            * [ ] TableDao.resilier_mj()
+* ==Voir les Tables gérées==
+    * Afficher les tables ou il est MJ avec les Personnages
+    * [ ] MaitreJeuService.**voir_personnages(Table)**
+        * [ ] TableDao.lister_par_mj()
+        * [ ] TableDao.lister_personnages()
+
+
+---
+
+### :arrow_forward: AdministrateurMenuVue
+
+* ==Créer une Table==
+    * [ ] Basculer vers la vue AdministrateurCreerTableVue
+        * [ ] Demander pour quelle seance
+        * [ ] AdministrateurService.**creer_table()**
+            * [ ] TableJeuDao.**creer()**
+* ==Supprimer une Table==
+    * [ ] Lister les table vides
+        * [ ] AdministrateurService.**lister_tables_vides()**
+    * [ ] Basculer vers la vue AdministrateurCreerTableVue
+        * Demander le numéro de table
+        * [ ] AdministrateurService.**supprimer_table()**
+            * [ ] TableJeuDao.**supprimer()**
+* ==Supprimer un joueur==
+    * [ ] Lister les joueurs
+    * [ ] Basculer vers la vue SupprimerJoueurVue
+        * Demander le pseudo du joueur
+        * [ ] AdministrateurService.**supprimer_joueur()**
+            * [ ] JoueurDao.**supprimer()**
+* ==Voir le programme complet==
+    * [ ] AdministrateurService.**voir_programme_complet()**
+        * lister les tables et les joueurs/personnages assis
+* ==Voir les messages==
+    * idem que pour Joueur
+* ==Déplacer un Personnage==
+* ==Déplacer un Maitre du Jeu==
+
+
+
+
+-------------------------------------------
+# :cyclone: Base de données 
+-------------------------------------------
+
+### DBeaver
+
+* Fenêtre > Preference
+    * Formattage SQL
+        * Casse des mots clefs : UPPER
+        * [x] Insert spaces for tabs
+    * Templates
+        * sf > Modifier
+            * Schéma = ==SELECT * FROM jdr.==
+    * Métadonnées
+        * Décocher "Ouvrir une connexion séparée pour la lecture des métadonnées"
+    * Editeur SQL
+        * Décocher "Ouvrir une connexion séparée pour chaque éditeur"
+
+
+Pour créer une connexion vers la base de données ENSAI sur la VM : 
+* cliquer sur icone ==Nouvelle connexion== en haut à gauche sous fichier
+* PostgreSQL puis suivant
+    * Host : sgbd-eleves.domensai.ecole
+    * Port : 5432
+    * Database : idxxxx
+    * Nom d'utilisateur : idxxxx
+    * Mot de passe : idxxxx
+* cliquer sur l'icone ==SQL== 
+    * coller les scripts ci-dessous (à la racine du projet)
+    * à chaque fois cliquer sur la 3e icone orange ==Executer le script SQL==
+        * init_db.sql
+        * pop_db.sql
+
+
+
+
+
 
 
 -------------------------------------------
 # :mag_right: Dossier d'Analyse 
 -------------------------------------------
+
+
+### :rotating_light: Rédaction du dossier d'analyse
+
+
+
+* [x] Regrouper tous les diagrammes de classe [color=orange][name=Jason]
+    * [x] Validation 
+* Introduction 
+    * [x] rédaction [color=red][name=JF]
+* Cahier des charges
+    * [x] rédaction [color=red][name=JF]
+    * [x] relecture
+* Fonctionnalités
+    * [x] rédaction [color=red][name=JF]
+    * [x] relecture [color=green][name=Ludo]
+* Organisation équipe 
+    * [x] rédaction  [color=green][name=Ludo]
+    * [x] relecture 
+* Couche business_objet 
+    * [x] rédaction [color=purple][name=Hugo]
+    * [x] relecture [color=green][name=Ludo]
+* Couche service 
+    * [x] rédaction [color=purple][name=Hugo] 1-8
+    * [x] rédaction [color=green][name=Ludo] 9-16
+    * [x] relecture
+* Couche vue
+    * [x] rédaction [color=blue][name=Banruo]
+    * [x] relecture 
+* Couche DAO 
+    * [x] rédaction [color=orange][name=Jason] 
+    * [x] relecture 
+* [x] Validation finale [color=red][name=JF] [color=green][name=Ludo]
+
+---
 
 ### Consignes
 
@@ -287,147 +487,6 @@ Ce sont des classes avec uniquement des attributs (pas de méthode) qui représe
 * POC (Preuve de Concept)
     * coder une fonctionnalité basique
     * et vérifier que cela fonctionne bien
-
-
--------------------------------------------
-# :robot_face: Code 
--------------------------------------------
-
-### :arrow_forward: Utilisateur non connecté
-
-* ==S'inscrire==
-    * [x] Basculer vers la vue InscriptionVue
-        * [ ] demander pseudo, nom, prenom, mail
-        * [ ] JoueurService.**creer(pseudo, nom, prenom, mail)**
-            * [ ] Vérifier que tous les champs remplis sont ok (non vides, mail contient @)
-            * [ ] JoueurDAO.**trouver_par_pseudo()**
-            * si la méthode ci-dessus ne renvoi aucun résultat
-            * [x] JoueurDAO.**creer()** `INSERT INTO joueur...`
-* ==Se connecter==
-    * Basculer vers la vue **ConnexionVue**
-        * demander pseudo
-            * [ ] si pseudo = Admin... 
-            * [ ] sinon
-                * [x] JoueurService.trouver_par_pseudo(pseudo)
-                    * [x] JoueurDAO.trouver_par_pseudo(pseudo)
-            * Si pseudo trouvé
-                * [x] conserver pseudo en Session
-                * [x] basculer vers JoueurMenuVue
-* ==Quitter==
-
----
-
-### :arrow_forward: JoueurMenuVue
-
-* ==Créer un personnage==
-    * [ ] Basculer vers la vue CreerPersonnageVue
-        * demander infos sur le personnage (nom, classe, race, niveau)
-        * [ ] PersonnageService.**creer(nom, classe, race, niveau)**
-            * vérifier qu'il n'a pas dejà 3 personnages
-            * [ ] appel API
-            * [ ] PersonnageDAO.**creer()**
-* ==Supprimer un personnage==
-    * [ ] JoueurService.**supprimer_personnage()**
-* :heart: ==Lister ses personnages==
-    * [ ] JoueurService.**lister_personnages()**
-        * [ ] récupérer le pseudo du joueur en session (pseudo = Session.pseudo)
-        * [ ] JoueurDao.**trouver_par_pseudo(pseudo)**
-        * [ ] PersonnageDao.**lister_par_joueur(Joueur)**
-        * [ ] TestJoueurDao
-    * [ ] TestJoueurService
-* :fire: ==Rejoindre une table==
-    * 1. lister les tables disponibles 
-    * 2. le joueur sélectionne la table qu'il veut
-    * 3. vérifier que le joueur n'est pas déjà occupé à cet horaire
-    * 4. ajouter joueur à la table
-* ==Quitter une table==
-    * Basculer vers la QuitterTableVue
-        * Lister les tables ou le joueur est + demander le numéro de table qu'il veut quitter
-        * [ ] JoueurService.**quitter_table()**
-            * [ ] JoueurDao.**quitter_table()**
-* :heart: ==Voir son programme==
-    * [ ] JoueurService.**voir_son_programme()**
-        * [ ] récupérer le pseudo du joueur en session (pseudo = Session.pseudo)
-        * [ ] JoueurDao.**trouver_par_pseudo(pseudo)**
-        * [ ] JoueurDao.**voir_son_programme()**
-        * [ ] TestJoueurDao
-    * [ ] TestJoueurService
-* :heart: ==Voir messages==
-    * [ ] JoueurService.**voir_messages()**
-        * [ ] récupérer le pseudo du joueur en session (pseudo = Session.pseudo)
-        * [ ] JoueurDao.**trouver_par_pseudo(pseudo)**
-        * [ ] JoueurDao.**voir_messages(Joueur)**
-        * [ ] TestJoueurDao
-    * [ ] TestJoueurService
-* ==Supprimer son compte==
-    * demander message de confirmation
-* ==Se déconnecter==
-    * [x] Supprimer le pseudo de la Session
-    * [x] Basculer vers AccueilVue
-
----
-
-### :arrow_forward: Maitre du Jeu
-
-* [ ] MaitreJeuService.**gerer_table()**
-    * S'assoir à une table en tant que MJ et proposé un scénario
-* [ ] MaitreJeuService.**résilier_table()**
-    * Si le MJ veut quitter la table
-    * Faire en sorte que tous les joueurs quittent la table
-* [ ] MaitreJeuService.**voir_joueurs(Table)**
-
-
----
-
-### :arrow_forward: AdministrateurMenuVue
-
-* [ ] Créer Table
-    * [ ] Basculer vers la vue AdministrateurCreerTableVue
-        * [ ] Demander pour quelle demi-journée
-        * [ ] AdministrateurService.**creer_table()**
-* [ ] AdministrateurService.**supprimer_table()**
-* [ ] AdministrateurService.**deplacer_personnage()**
-* [ ] AdministrateurService.**supprimer_joueur()**
-* [ ] AdministrateurService.**voir_programme_complet()**
-    * lister les tables et les joueurs/personnages assis
-
-
-
-
--------------------------------------------
-# :cyclone: Base de données 
--------------------------------------------
-
-### DBeaver
-
-* Fenêtre > Preference
-    * Formattage SQL
-        * Casse des mots clefs : UPPER
-        * [x] Insert spaces for tabs
-    * Templates
-        * sf > Modifier
-            * Schéma = ==SELECT * FROM jdr.==
-    * Métadonnées
-        * Décocher "Ouvrir une connexion séparée pour la lecture des métadonnées"
-    * Editeur SQL
-        * Décocher "Ouvrir une connexion séparée pour chaque éditeur"
-
-
-Pour créer une connexion vers la base de données ENSAI sur la VM : 
-* cliquer sur icone ==Nouvelle connexion== en haut à gauche sous fichier
-* PostgreSQL puis suivant
-    * Host : sgbd-eleves.domensai.ecole
-    * Port : 5432
-    * Database : idxxxx
-    * Nom d'utilisateur : idxxxx
-    * Mot de passe : idxxxx
-* cliquer sur l'icone ==SQL== 
-    * coller les scripts ci-dessous (à la racine du projet)
-    * à chaque fois cliquer sur la 3e icone orange ==Executer le script SQL==
-        * init_db.sql
-        * pop_db.sql
-
-
 
 
 
