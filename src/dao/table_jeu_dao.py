@@ -25,14 +25,17 @@ class TableJeuDao(metaclass=Singleton):
         table : TableJeu
             la table de jeu à créer
         '''
-        inserted = False
+
+        print("DAO : Création d'une TableJeu")
+
+        created = False
 
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "INSERT INTO jdr.table_jeu(numero) VALUES "
-                        "(%(numero)s) RETURNING id_table;", {"numero": table.numero})
+                        "INSERT INTO jdr.table_jeu(id_seance) VALUES "
+                        "(%(id_seance)s) RETURNING id_table;", {"id_seance": table.id_seance})
                     res = cursor.fetchone()
         except Exception as e:
             print(e)
@@ -40,12 +43,18 @@ class TableJeuDao(metaclass=Singleton):
 
         if res:
             table.id = res['id_table']
-            inserted = True
-        return inserted
+            created = True
+
+        print("DAO : Création d'une TableJeu - Terminé")
+
+        return created
 
     def trouver_par_id(self, id_table) -> int:
         '''Obtenir une table à partir de son id_table
         '''
+
+        print("DAO : Trouver TableJeu par id")
+
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
@@ -68,6 +77,8 @@ class TableJeuDao(metaclass=Singleton):
 
             table.liste_personnages = lister_personnages(table)
 
+        print("DAO : Trouver TableJeu par id - Terminé")
+
         return table
 
     def lister_personnages(self, table):
@@ -79,6 +90,8 @@ class TableJeuDao(metaclass=Singleton):
     def nombre_joueurs_assis(self, table) -> int:
         '''Nombre de joueurs assis actuellement à la table
         '''
+        print("DAO : Nombre de joueurs assis à une TableJeu")
+
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
@@ -91,4 +104,7 @@ class TableJeuDao(metaclass=Singleton):
             raise
 
         nb_joueurs = res['count']
+
+        print("DAO : Nombre de joueurs assis à une TableJeu - Terminé")
+
         return nb_joueurs

@@ -5,11 +5,11 @@ INSERT INTO jdr.sceance(description, debut, fin) VALUES
 ('Dimanche après-midi', '2022-09-25 14:00:00', '2022-09-25 19:00:00');
 
 
-INSERT INTO jdr.table_jeu(numero, id_sceance, id_maitre_jeu, scenario) VALUES
-(1, 1, 2, 'Epidémie au Lazaret'),
-(2, 1, null, null),
-(3, 1, null, null),
-(4, 1, null, null);
+INSERT INTO jdr.table_jeu(id_sceance, id_maitre_jeu, scenario) VALUES
+(1, 2, 'Epidémie au Lazaret'),
+(1, null, null),
+(1, null, null),
+(1, null, null);
 
 
 INSERT INTO jdr.joueur(pseudo, nom, prenom, mail) VALUES

@@ -28,7 +28,7 @@ class JoueurDao(metaclass=Singleton):
         ----------
         joueur : Joueur
         '''
-        print("Création d'un joueur en BDD")
+        print("DAO : Création d'un joueur")
 
         try:
             with DBConnection().connection as connection:
@@ -49,11 +49,16 @@ class JoueurDao(metaclass=Singleton):
         if res:
             joueur.id = res['id_joueur']
             created = True
+
+        print("DAO : Création d'un joueur - Terminé")
+
         return created
 
     def trouver_par_id(self, id_joueur) -> Joueur:
         '''trouver un joueur grace à son id
         '''
+        print("DAO : Trouver joueur par id")
+
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
@@ -77,12 +82,14 @@ class JoueurDao(metaclass=Singleton):
             # TODO
             # joueur.liste_personnage = lister_personnages(joueur)
 
+        print("DAO : Trouver joueur par id - Terminé")
+
         return joueur
 
     def trouver_par_pseudo(self, pseudo) -> Joueur:
         '''trouver un joueur grace à son pseudo
         '''
-        print("INFO : JoueurDao.trouver_par_pseudo({})".format(pseudo))
+        print("DAO : Trouver joueur par pseudo")
 
         try:
             with DBConnection().connection as connection:
@@ -106,6 +113,8 @@ class JoueurDao(metaclass=Singleton):
 
             # joueur.liste_personnage = lister_personnages(joueur)
 
+        print("DAO : Trouver joueur par pseudo - Terminé")
+
         return joueur
 
     def rejoindre_table(self, table, joueur, personnage):
@@ -120,6 +129,9 @@ class JoueurDao(metaclass=Singleton):
         personnage : Personnage
             personnage choisi par le joueur
         '''
+
+        print("DAO : Rejoindre une table")
+
         inserted = False
 
         try:
@@ -136,4 +148,7 @@ class JoueurDao(metaclass=Singleton):
 
         if res:
             inserted = True
+
+        print("DAO : Rejoindre une table - Terminé")
+
         return inserted

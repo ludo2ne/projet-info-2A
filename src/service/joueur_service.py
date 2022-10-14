@@ -38,12 +38,12 @@ class JoueurService:
         -------
         Joueur : le joueur créé
         '''
-        print("Service de création de joueur")
-
-        joueur_dao = JoueurDao()
+        print("Service : Création du Joueur")
 
         nouveau_joueur = Joueur(pseudo, nom, prenom, mail)
-        joueur_dao.creer(nouveau_joueur)
+        JoueurDao().creer(nouveau_joueur)
+
+        print("Service : Création du Joueur - Terminé")
 
         return nouveau_joueur
 
@@ -59,6 +59,9 @@ class JoueurService:
         personnage : Personnage
             Personnage choisi par le joueur
         '''
+
+        print("Service : Rejoindre une table")
+
         success = False
 
         # TODO verifier que le joueur est libre a cet horaire
@@ -73,6 +76,8 @@ class JoueurService:
             print("Nombre de joueurs maximum : " + table.nb_joueurs_max)
             print("Nombre de joueurs actuellement : " + nombre_actuel_joueurs)
 
+        print("Service : Rejoindre une table - Terminé")
+
         return success
 
     def lister_tous(self):
@@ -82,6 +87,7 @@ class JoueurService:
         -------
         liste[Joueur]
         '''
+        print("Service : Lister tous les joueurs")
         return JoueurDao().lister_tous()
 
     def trouver_par_pseudo(self, pseudo):
@@ -91,7 +97,7 @@ class JoueurService:
         -------
         Joueur
         '''
-        print("INFO : JoueurService.trouver_par_pseudo({})".format(pseudo))
+        print("Service : Trouver par pseudo ({})".format(pseudo))
         return JoueurDao().trouver_par_pseudo(pseudo)
 
     def creer_personnage(self, nom, classe2, race, niveau):

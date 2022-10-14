@@ -16,8 +16,11 @@ class TableJeuService:
     Classe contenant les méthodes de service de Joueur
     '''
 
-    def creer_table(self, table):
+    def creer_table(self, id_seance):
         '''Service de création d'une table
         '''
-        table_jeu_dao = TableJeuDao()
-        table_dao.creer(table)
+        print("Service : Création de la TableJeu")
+        table = TableJeu(id_table=None, id_seance=id_seance)
+        TableJeuDao().creer(table)
+        print("Service : Création de la TableJeu - Terminé")
+        return table

@@ -27,7 +27,7 @@ class Personnage:
     '''
 
     def __init__(self, id_personnage, nom, classe, race, niveau, competence=None, langues_parlees=None):
-        print("creation du personnage : " + nom)
+        print("Objet : Création du personnage : " + nom)
         self.id_personnage = id_personnage
         self.nom = nom
         self.classe = classe

@@ -23,6 +23,7 @@ class Joueur:
     def __init__(self, pseudo, nom, prenom, mail, id_joueur=None, liste_personnage=[]):
         '''Constructeur de l'objet
         '''
+        print("Objet : Création du joueur : " + pseudo)
         self.id_joueur = id_joueur
         self.pseudo = pseudo
         self.nom = nom
