@@ -13,5 +13,5 @@ class MaitreJeu(Joueur):
     '''Classe MaitreJeu hérite de Joueur
     '''
 
-    def __init__(self, pseudo, nom, prenom, mail, id_joueur=None, liste_personnage=[]):
-        super().__init__(pseudo, nom, prenom, mail, id_joueur=None, liste_personnage=[])
+    def __init__(self, pseudo, nom, prenom, mail, id_joueur=None, liste_personnages=[]):
+        super().__init__(pseudo, nom, prenom, mail, id_joueur=None, liste_personnages=[])

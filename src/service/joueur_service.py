@@ -167,7 +167,7 @@ class JoueurService:
 
         statut_suppression = PersonnageDao().supprimer(perso_a_supprimer)
         # Supprimer le personnage de la liste du joueur
-        joueur.liste_personnage.remove(perso_a_supprimer)
+        joueur.liste_personnages.remove(perso_a_supprimer)
 
         print("Service : Suppression de personnage - Terminé")
 

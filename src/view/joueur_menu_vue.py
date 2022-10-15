@@ -32,6 +32,7 @@ class JoueurMenuVue(VueAbstraite):
                     "Voir son programme (TODO)",
                     "Supprimer son compte (TODO)",
                     "Voir ses messages (TODO)",
+                    "Accéder au Menu MJ (TODO)",
                     "Se déconnecter"
                 ]
             }

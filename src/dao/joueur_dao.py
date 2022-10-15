@@ -81,9 +81,6 @@ class JoueurDao(metaclass=Singleton):
                             mail=res['mail'],
                             id_joueur=res['id_joueur'])
 
-            # TODO
-            # joueur.liste_personnage = lister_personnages(joueur)
-
         print("DAO : Trouver joueur par id - Terminé")
 
         return joueur
@@ -112,8 +109,6 @@ class JoueurDao(metaclass=Singleton):
                             prenom=res["prenom"],
                             mail=res["mail"],
                             id_joueur=res["id_joueur"])
-
-#            joueur.liste_personnage = PersonnageDao.lister_par_joueur(joueur)
 
         print("DAO : Trouver joueur par pseudo - Terminé")
 
