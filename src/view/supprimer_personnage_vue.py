@@ -20,7 +20,7 @@ class SupprimerPersonnageVue(VueAbstraite):
         # et son ordre d'apparition dans la liste de personnages
         choix_perso = []
         i = 1
-        for perso in joueur.liste_personnage:
+        for perso in joueur.liste_personnages:
             print(perso.as_list())
             choix_perso.append(f"{i} {perso.nom}")
             i += 1
@@ -48,7 +48,7 @@ class SupprimerPersonnageVue(VueAbstraite):
 
         # On récupère le personnage à supprimer
         choix_fait = int(answers["choix"][0])-1
-        perso_choisi = joueur.liste_personnage[choix_fait]
+        perso_choisi = joueur.liste_personnages[choix_fait]
         # On appelle le service de suppression de personnage
         statut_suppression = JoueurService().supprimer_personnage(perso_choisi)
 

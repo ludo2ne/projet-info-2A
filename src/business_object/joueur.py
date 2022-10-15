@@ -20,7 +20,7 @@ class Joueur:
         identifiant
     '''
 
-    def __init__(self, pseudo, nom, prenom, mail, id_joueur=None, liste_personnage=[]):
+    def __init__(self, pseudo, nom, prenom, mail, id_joueur=None, liste_personnages=[]):
         '''Constructeur de l'objet
         '''
         print("Objet : Création du joueur : " + pseudo)
@@ -29,7 +29,7 @@ class Joueur:
         self.nom = nom
         self.prenom = prenom
         self.mail = mail
-        self.liste_personnage = liste_personnage
+        self.liste_personnages = liste_personnages
 
     def __str__(self):
         # Dans l'affichage du joueur, seuls les noms des personnages apparaitront

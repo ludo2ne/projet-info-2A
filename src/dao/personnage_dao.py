@@ -85,7 +85,7 @@ class PersonnageDao(metaclass=Singleton):
                                    niveau=row["niveau"])
                 personnages.append(perso)
         # Implemente la liste des personnages dans le profil joueur
-        joueur.liste_personnage = personnages
+        joueur.liste_personnages = personnages
         print("DAO : Lister personnage du joueur - Terminé")
 
         return personnages
