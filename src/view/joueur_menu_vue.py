@@ -27,10 +27,11 @@ class JoueurMenuVue(VueAbstraite):
                     "Créer un personnage",
                     "Supprimer un personnage",
                     "Lister ses personnages",
-                    "Rejoindre une table",
-                    "Quitter une table",
-                    "Voir son programme",
-                    "Supprimer son compte",
+                    "Rejoindre une table (TODO)",
+                    "Quitter une table (TODO)",
+                    "Voir son programme (TODO)",
+                    "Supprimer son compte (TODO)",
+                    "Voir ses messages (TODO)",
                     "Se déconnecter"
                 ]
             }

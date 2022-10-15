@@ -1,5 +1,5 @@
 '''
-Module joueur
+Module administrateur
 Auteurs : L.Deneuville, J-F.Parriaud, J.Torres, H.Wispelaere, B.Zhang
 Date    : 06/09/2022
 Licence : Domaine public

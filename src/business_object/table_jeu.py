@@ -23,12 +23,14 @@ class TableJeu:
 
     '''
 
-    def __init__(self, id_table, id_seance, maitre_jeu=None, personnages=[]):
+    def __init__(self, id_table, id_seance, maitre_jeu=None, scenario=None, infos_complementaires=None, personnages=[]):
         '''Constructeur de l'objet Table
         '''
         print("Objet : Création d'une TableJeu")
         self.id_table = id_table
         self.id_seance = id_seance
         self.maitre_jeu = maitre_jeu
+        self.scenario = scenario
+        self.infos_complementaires = infos_complementaires
         self.personnages = personnages
         self.nb_joueurs_max = 5
