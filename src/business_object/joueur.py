@@ -30,3 +30,13 @@ class Joueur:
         self.prenom = prenom
         self.mail = mail
         self.liste_personnage = liste_personnage
+
+    def __str__(self):
+        # Dans l'affichage du joueur, seuls les noms des personnages apparaitront
+        perso_list = []
+        for el in self.liste_personnage:
+            perso_list.append(f"{el.as_list()[1]}")
+        return (f"Le joueur {self.pseudo} s'appelle {self.prenom} {self.nom}.\n" +
+                f"Il a pour identifiant {self.id_joueur}\n" +
+                f"Son adresse mail est {self.mail}\n" +
+                f"Ses personnages sont {perso_list}")

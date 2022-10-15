@@ -15,6 +15,8 @@ from view.session import Session
 from business_object.joueur import Joueur
 from business_object.personnage import Personnage
 
+from dao.personnage_dao import PersonnageDao
+
 
 class JoueurDao(metaclass=Singleton):
     '''
@@ -111,7 +113,7 @@ class JoueurDao(metaclass=Singleton):
                             mail=res["mail"],
                             id_joueur=res["id_joueur"])
 
-            # joueur.liste_personnage = lister_personnages(joueur)
+#            joueur.liste_personnage = PersonnageDao.lister_par_joueur(joueur)
 
         print("DAO : Trouver joueur par pseudo - Terminé")
 

@@ -147,3 +147,21 @@ class JoueurService:
         print("Service : Liste des personnages - Terminé")
 
         return resultat
+
+    def supprimer_personnage(self, perso_a_supprimer):
+        '''Supprimer un personnage d'un utilisateur
+
+        Returns
+        -------
+        '''
+
+        print("Service : Suppression d'un personnage")
+
+        joueur = Session().user
+        statut_suppression = PersonnageDao().supprimer(perso_a_supprimer)
+        # Supprimer le personnage de la liste du joueur
+        joueur.liste_personnage.remove(perso_a_supprimer)
+
+        print("Service : Suppression de personnage - Terminé")
+
+        return statut_suppression

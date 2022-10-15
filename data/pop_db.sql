@@ -23,7 +23,10 @@ INSERT INTO jdr.personnage(id_joueur, nom, classe,race,niveau) VALUES
 (1, 'Mario', 'Plombier','humain',2),
 (2, 'Luigi', 'Magicien','poisson',1),
 (3, 'Peach', 'Fee','elfe',99),
-(4, 'Daisy', 'Soigneur','nain',0);
+(4, 'Daisy', 'Soigneur','nain',0),
+(3, 'Gandalf','Magicien', 'humain', 99),
+(3, 'Snoopy', 'Compagnon', 'Chien', 14)
+;
 
 
 INSERT INTO jdr.table_joueur(id_table, id_joueur, id_personnage) VALUES

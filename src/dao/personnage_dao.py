@@ -84,7 +84,43 @@ class PersonnageDao(metaclass=Singleton):
                                    race=row["race"],
                                    niveau=row["niveau"])
                 personnages.append(perso)
-
+        # Implemente la liste des personnages dans le profil joueur
+        joueur.liste_personnage = personnages
         print("DAO : Lister personnage du joueur - Terminé")
 
         return personnages
+
+    def supprimer(self, personnage) -> bool:
+        '''Suppression d'un personnage dans la base de données
+
+        Parameters
+        ----------
+        personnage : Personnage
+        '''
+        print("DAO : Suppression d'un personnage")
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    # Supprimer le personnage
+                    cursor.execute(
+                        "DELETE FROM jdr.personnage "
+                        "WHERE id_personnage=%(id_perso)s",
+                        {"id_perso": personnage.id_personnage})
+                    # Rechercher le personnage: le résultat doit être vide
+                    cursor.execute(
+                        "SELECT nom FROM jdr.personnage "
+                        "WHERE id_personnage=%(id_perso)s",
+                        {"id_perso": personnage.id_personnage})
+                    res = cursor.fetchone()
+        except Exception as e:
+            print(e)
+            raise
+
+        suppressed = False
+        if not res:
+            suppressed = True
+
+        print("DAO : Suppression d'un personnage - Terminé")
+
+        return suppressed
