@@ -107,20 +107,12 @@ class PersonnageDao(metaclass=Singleton):
                         "DELETE FROM jdr.personnage "
                         "WHERE id_personnage=%(id_perso)s",
                         {"id_perso": personnage.id_personnage})
-                    # Rechercher le personnage: le résultat doit être vide
-                    cursor.execute(
-                        "SELECT nom FROM jdr.personnage "
-                        "WHERE id_personnage=%(id_perso)s",
-                        {"id_perso": personnage.id_personnage})
-                    res = cursor.fetchone()
+                    res = cursor.rowcount
         except Exception as e:
             print(e)
             raise
-
-        suppressed = False
-        if not res:
-            suppressed = True
+        print("DAO : " + str(res) + " Personnage supprimé")
 
         print("DAO : Suppression d'un personnage - Terminé")
 
-        return suppressed
+        return res > 0

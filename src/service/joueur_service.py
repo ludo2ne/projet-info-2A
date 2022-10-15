@@ -106,6 +106,8 @@ class JoueurService:
         '''
         print("Service : Création de personnage")
 
+        # TODO compter si le joueur n'a pas déjà 3 personnages
+
         # TODO verifier classe et race
 
         # TODO appel API pour obtenir competences
@@ -158,6 +160,9 @@ class JoueurService:
         print("Service : Suppression d'un personnage")
 
         joueur = Session().user
+
+        # TODO vérifier si le personnage n'est pas assis à une table
+
         statut_suppression = PersonnageDao().supprimer(perso_a_supprimer)
         # Supprimer le personnage de la liste du joueur
         joueur.liste_personnage.remove(perso_a_supprimer)

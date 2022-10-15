@@ -24,6 +24,9 @@ class SupprimerPersonnageVue(VueAbstraite):
             print(perso.as_list())
             choix_perso.append(f"{i} {perso.nom}")
             i += 1
+
+        # TODO ajouter à la liste la possibilité de revenir en arriere sans supprimer de personnage
+
         self.questions = [
             {
                 "type": "list",
@@ -32,7 +35,7 @@ class SupprimerPersonnageVue(VueAbstraite):
                 "choices": choix_perso
             }
         ]
-        self.message = ""
+        self.message = message
 
     def afficher(self):
         self.nettoyer_console()
