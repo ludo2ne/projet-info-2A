@@ -15,3 +15,5 @@ class Session(metaclass=Singleton):
         ''' Constructeur
         '''
         self.user = None
+        self.classes_personnages = None
+        self.races_personnages = None

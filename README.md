@@ -12,6 +12,8 @@ git clone git@github.com:ludo2ne/projet-info-2A.git
 
 ## Packages requis
 
+* [inquirerPy](https://inquirerpy.readthedocs.io/en/latest/)
+
 ```bash
 pip install inquirerPy
 pip install requests

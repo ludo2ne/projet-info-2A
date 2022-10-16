@@ -6,17 +6,15 @@ Licence : Domaine public
 Version : 1.0
 '''
 from InquirerPy import prompt
+from InquirerPy.validator import EmptyInputValidator
 
+from view.session import Session
 from view.vue_abstraite import VueAbstraite
 from service.joueur_service import JoueurService
 
 
 class CreerPersonnageVue(VueAbstraite):
     def __init__(self):
-
-        liste_races = ["Humain", "Nain", "Elfe"]
-        liste_classes = ["Humain", "Nain", "Elfe"]
-
         self.questions = [
             {
                 "type": "input",
@@ -27,19 +25,20 @@ class CreerPersonnageVue(VueAbstraite):
                 "type": "list",
                 "name": "classe",
                 "message": "Choisissez la classe de votre personnage :",
-                "choices": liste_classes
+                "choices": Session().classes_personnages
             },
             {
                 "type": "list",
                 "name": "race",
                 "message": "Choisissez la race de votre personnage :",
-                "choices": liste_races
+                "choices": Session().races_personnages
             },
             {
                 "type": "number",
                 "min_allowed": 1,
                 "max_allowed": 100,
-                "default": 1,
+                "default": None,
+                "validate": EmptyInputValidator(),
                 "name": "niveau",
                 "message": "Entrez le niveau de votre personnage (entre 1 et 100):"
             }

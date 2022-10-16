@@ -77,7 +77,6 @@ class PersonnageDao(metaclass=Singleton):
         personnages = []
         if res:
             for row in res:
-                print(row)
                 perso = Personnage(id_personnage=row["id_personnage"],
                                    nom=row["nom"],
                                    classe=row["classe"],

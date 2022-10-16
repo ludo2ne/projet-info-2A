@@ -13,21 +13,20 @@ INSERT INTO jdr.table_jeu(id_seance, id_maitre_jeu, scenario, infos_complementai
 
 
 INSERT INTO jdr.joueur(pseudo, nom, prenom, mail, est_mj) VALUES
-('admin', 'admin', 'admin', 'admin@jdr.fr', false),
-('pp', 'Javel', 'Aude', 'Aude.Javel@mail.fr', false),
-('evabien','Poree', 'Eva', 'Eva.Poree@mail.fr', true),
-('toto','Route', 'Otto', 'Otto.Route@mail.fr', false),
-('calva14','Ptitegoutte', 'Anne', 'Anne.Ptitegoutte@mail.fr', false);
+('admin',     'admin',        'admin',  'admin@jdr.fr',             false),
+('pp',        'Javel',        'Aude',   'Aude.Javel@mail.fr',       false),
+('evabien',   'Poree',        'Eva',    'Eva.Poree@mail.fr',        true),
+('toto',      'Route',        'Otto',   'Otto.Route@mail.fr',       false),
+('calva14',   'Ptitegoutte',  'Anne',   'Anne.Ptitegoutte@mail.fr', false);
 
 
 INSERT INTO jdr.personnage(id_joueur, nom, classe,race,niveau) VALUES
-(1, 'Mario', 'Plombier','humain',2),
-(2, 'Luigi', 'Magicien','poisson',1),
-(3, 'Peach', 'Fee','elfe',99),
-(4, 'Daisy', 'Soigneur','nain',0),
-(3, 'Gandalf','Magicien', 'humain', 99),
-(3, 'Snoopy', 'Compagnon', 'Chien', 14)
-;
+(2, 'Mario',     'Fighter',   'Human',  2),
+(2, 'Peach',     'Sorcerer',  'Human',  4),
+(3, 'Legolas',   'Ranger' ,   'Elf',    5),
+(3, 'Panoramix', 'Druid',     'Human',  0),
+(4, 'Gandalf',   'Wizard',    'Human',  99),
+(5, 'Gimli',     'Fighter',   'Dwarf',  1);
 
 
 INSERT INTO jdr.table_personnage(id_table, id_personnage) VALUES

@@ -8,8 +8,12 @@ Version : 1.0
 
 
 from utils.singleton import Singleton
+
+from view.session import Session
 from service.joueur_service import JoueurService
 from view.accueil_vue import AccueilVue
+from client.classe_client import ClasseClient
+from client.race_client import RaceClient
 
 
 class LancementAppli(metaclass=Singleton):
@@ -21,6 +25,12 @@ class LancementAppli(metaclass=Singleton):
 
         vue_courante = AccueilVue("Bienvenue à la conférence de JDR")
         nb_erreurs = 0
+
+        # Chargement en session de la liste des classes et des races
+        Session().classes_personnages = ClasseClient().lister_classes()
+        Session().races_personnages = RaceClient().lister_races()
+
+        # TODO prévoir solution de contournement si le webservice n'est pas accessible
 
         while vue_courante:
             if nb_erreurs > 100:
