@@ -114,4 +114,36 @@ class PersonnageDao(metaclass=Singleton):
 
         print("DAO : Suppression d'un personnage - Terminé")
 
-        return res > 0
+        return [res > 0]
+
+    def lister_tables(self, personnage) -> bool:
+        '''Lister les tables où un personnage est utilisé dans la base de données
+
+        Parameters
+        ----------
+        personnage : Personnage
+        '''
+        print("DAO : Listing des tables d'un personnage")
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    # Lister les tables du personnage
+                    cursor.execute(
+                        "SELECT id_table,id_seance FROM jdr.personnage "
+                        "JOIN jdr.table_personnage USING (id_personnage)"
+                        "JOIN jdr.table_jeu USING(id_table)"
+                        "WHERE id_personnage=%(id_perso)s",
+                        {"id_perso": personnage.id_personnage})
+                    res = cursor.fetchall()
+        except Exception as e:
+            print(e)
+            raise
+
+        print("DAO : " + str(len(res)) + " tables avec ce personnage")
+
+        print("DAO : Listing des tables d'un personnage - Terminé")
+
+        # Pour l'instant, on ne retourne que le nombre de tables où
+        # le personnage est présent. Si nécessaire, on pourra retourner la liste des tables
+        return len(res)

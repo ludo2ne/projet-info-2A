@@ -56,9 +56,14 @@ class JoueurMenuVue(VueAbstraite):
             perso = JoueurService().lister_personnages()
             return (JoueurMenuVue(perso))
         elif reponse["choix"] == "Supprimer un personnage":
-            perso = JoueurService().lister_personnages()
-            from view.supprimer_personnage_vue import SupprimerPersonnageVue
-            return (SupprimerPersonnageVue(perso))
+            message = JoueurService().lister_personnages()
+            if len(utilisateur.liste_personnages) > 0:
+                from view.supprimer_personnage_vue import SupprimerPersonnageVue
+                prochainevue = SupprimerPersonnageVue(message)
+            else:
+                message = "Suppression impossible: vous n'avez pas de personnage!"
+                prochainevue = JoueurMenuVue(message)
+            return (prochainevue)
         elif reponse["choix"] == "Se déconnecter":
             Session().user = None
             from view.accueil_vue import AccueilVue

@@ -168,11 +168,17 @@ class JoueurService:
 
         joueur = Session().user
 
-        # TODO vérifier si le personnage n'est pas assis à une table
+        # vérifier si le personnage n'est pas assis à une table
+        perso_non_utilise = (
+            PersonnageDao().lister_tables(perso_a_supprimer) == 0)
 
-        statut_suppression = PersonnageDao().supprimer(perso_a_supprimer)
-        # Supprimer le personnage de la liste du joueur
-        joueur.liste_personnages.remove(perso_a_supprimer)
+        if perso_non_utilise:
+            statut_suppression = PersonnageDao().supprimer(perso_a_supprimer)
+            # Supprimer le personnage de la liste du joueur
+            joueur.liste_personnages.remove(perso_a_supprimer)
+        else:
+            statut_suppression = [
+                False, "Le personnage est déjà utilisé sur une table"]
 
         print("Service : Suppression de personnage - Terminé")
 

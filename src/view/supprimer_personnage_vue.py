@@ -15,7 +15,6 @@ from business_object.joueur import Joueur
 class SupprimerPersonnageVue(VueAbstraite):
     def __init__(self, message):
         joueur = Session().user
-        print("init SupprimerPersonnageVue")
         # Pour le choix du joueur, afficher seulement le nom du personnage
         # et son ordre d'apparition dans la liste de personnages
         choix_perso = []
@@ -25,7 +24,8 @@ class SupprimerPersonnageVue(VueAbstraite):
             choix_perso.append(f"{i} {perso.nom}")
             i += 1
 
-        # TODO ajouter à la liste la possibilité de revenir en arriere sans supprimer de personnage
+        # ajouter à la liste la possibilité de revenir en arriere sans supprimer de personnage
+        choix_perso.append(f"{i} Non, finalement j'ai changé d'avis")
 
         self.questions = [
             {
@@ -48,23 +48,31 @@ class SupprimerPersonnageVue(VueAbstraite):
 
     def choisir_menu(self):
         joueur = Session().user
-        answers = prompt(self.questions)
+        answers = prompt(self.questions[0])
+        # On récupère le choix de l'utilisateur
+        choix_fait = int(answers["choix"][0])
 
-        # Si la suppression n a pas ete confirmee, on retourne au menu joueur
-        confirm = answers["confirmation"]
-        message = ""
+        # Si un personnage a été choisi, on demande confirmation
+        confirm = False
+        if choix_fait != len(joueur.liste_personnages)+1:
+            # Si la suppression n a pas ete confirmee, on retourne au menu joueur
+            answers = prompt(self.questions[1])
+            confirm = answers["confirmation"]
+            message = ""
 
-        if not confirm:
+        # Deux cas de figures entrainent l'annulation de la procédure et
+        # le retour au menu joueur:
+        # 1) l'utilisateur a changé d'avis au moment de choisir un personnage
+        # 2) Il n'a pas confirmé son choix
+        if not confirm or choix_fait == len(joueur.liste_personnages)+1:
             message = "Suppression du Personnage annulée"
         else:
-            # On récupère le personnage à supprimer
-            choix_fait = int(answers["choix"][0])-1
-            perso_choisi = joueur.liste_personnages[choix_fait]
+            perso_choisi = joueur.liste_personnages[choix_fait-1]
             # On appelle le service de suppression de personnage
             statut_suppression = JoueurService().supprimer_personnage(perso_choisi)
             # On récupère le message à afficher (succès ou échec)
-            if not statut_suppression:
-                message = "La suppression du personnage a échoué"
+            if not statut_suppression[0]:
+                message = f"{statut_suppression[1]}\n La suppression du personnage a échoué"
             else:
                 message = "Le personnage {} a bien été supprimé".format(
                     perso_choisi.nom)
