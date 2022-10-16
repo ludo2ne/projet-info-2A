@@ -6,6 +6,8 @@ Licence : Domaine public
 Version : 1.0
 '''
 
+import os
+
 
 class TableJeu:
     '''Attributes
@@ -33,4 +35,4 @@ class TableJeu:
         self.scenario = scenario
         self.infos_complementaires = infos_complementaires
         self.personnages = personnages
-        self.nb_joueurs_max = 5
+        self.nb_joueurs_max = int(os.environ["NB_JOUEURS_MAX_PAR_TABLE"])

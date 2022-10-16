@@ -6,6 +6,7 @@ Licence : Domaine public
 Version : 1.0
 '''
 
+import os
 from tabulate import tabulate
 
 from business_object.joueur import Joueur
@@ -103,14 +104,18 @@ class JoueurService:
         joueur.liste_personnages = PersonnageDao().lister_par_joueur(joueur)
         return joueur
 
+    def creation_personnage_autorisee(self) -> bool:
+        '''Dit si le joueur n'a pas atteint le nombre maximum de Personnages
+        '''
+        joueur = Session().user
+        return len(joueur.liste_personnages) < int(os.environ["NB_MAX_PERSONNAGES_PAR_JOUEUR"])
+
     def creer_personnage(self, nom, classe2, race, niveau):
         '''
         '''
         print("Service : Création de personnage")
 
-        # TODO compter si le joueur n'a pas déjà 3 personnages
-
-        # TODO verifier classe et race
+        # TODO verifier que le nom du personnage n'existe pas déjà
 
         # TODO appel API pour obtenir competences
 
