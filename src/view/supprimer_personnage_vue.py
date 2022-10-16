@@ -33,7 +33,11 @@ class SupprimerPersonnageVue(VueAbstraite):
                 "name": "choix",
                 "message": "Choisissez un personnage à supprimer",
                 "choices": choix_perso
-            }
+            },
+            {
+                "type": "confirm",
+                "name": "confirmation",
+                "message": "Confirmez-vous ?"}
         ]
         self.message = message
 
@@ -46,19 +50,24 @@ class SupprimerPersonnageVue(VueAbstraite):
         joueur = Session().user
         answers = prompt(self.questions)
 
-        # On récupère le personnage à supprimer
-        choix_fait = int(answers["choix"][0])-1
-        perso_choisi = joueur.liste_personnages[choix_fait]
-        # On appelle le service de suppression de personnage
-        statut_suppression = JoueurService().supprimer_personnage(perso_choisi)
-
+        # Si la suppression n a pas ete confirmee, on retourne au menu joueur
+        confirm = answers["confirmation"]
         message = ""
-        # On récupère le message à afficher (succès ou échec)
-        if not statut_suppression:
-            message = "La suppression du personnage a échoué"
+
+        if not confirm:
+            message = "Suppression du Personnage annulée"
         else:
-            message = "Le personnage {} a bien été supprimé".format(
-                perso_choisi.nom)
+            # On récupère le personnage à supprimer
+            choix_fait = int(answers["choix"][0])-1
+            perso_choisi = joueur.liste_personnages[choix_fait]
+            # On appelle le service de suppression de personnage
+            statut_suppression = JoueurService().supprimer_personnage(perso_choisi)
+            # On récupère le message à afficher (succès ou échec)
+            if not statut_suppression:
+                message = "La suppression du personnage a échoué"
+            else:
+                message = "Le personnage {} a bien été supprimé".format(
+                    perso_choisi.nom)
 
         from view.joueur_menu_vue import JoueurMenuVue
         return JoueurMenuVue(message)

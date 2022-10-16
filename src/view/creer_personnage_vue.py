@@ -6,12 +6,17 @@ Licence : Domaine public
 Version : 1.0
 '''
 from InquirerPy import prompt
+
 from view.vue_abstraite import VueAbstraite
 from service.joueur_service import JoueurService
 
 
 class CreerPersonnageVue(VueAbstraite):
     def __init__(self):
+
+        liste_races = ["Humain", "Nain", "Elfe"]
+        liste_classes = ["Humain", "Nain", "Elfe"]
+
         self.questions = [
             {
                 "type": "input",
@@ -19,19 +24,24 @@ class CreerPersonnageVue(VueAbstraite):
                 "message": "Entrez le nom de votre personnage :"
             },
             {
-                "type": "input",
+                "type": "list",
                 "name": "classe",
-                "message": "Entrez la classe de votre personnage :"
+                "message": "Choisissez la classe de votre personnage :",
+                "choices": liste_classes
             },
             {
-                "type": "input",
+                "type": "list",
                 "name": "race",
-                "message": "Entrez la race de votre personnage :"
+                "message": "Choisissez la race de votre personnage :",
+                "choices": liste_races
             },
             {
-                "type": "input",
+                "type": "number",
+                "min_allowed": 1,
+                "max_allowed": 100,
+                "default": 1,
                 "name": "niveau",
-                "message": "Entrez le niveau de votre personnage :"
+                "message": "Entrez le niveau de votre personnage (entre 1 et 100):"
             }
         ]
 
