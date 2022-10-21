@@ -153,12 +153,12 @@ gantt
             * [ ] Vérifier que tous les champs remplis sont ok (non vides, mail contient @)
             * [ ] JoueurDAO.**trouver_par_pseudo()**
             * si la méthode ci-dessus ne renvoi aucun résultat
-            * [x] JoueurDAO.**creer()** `INSERT INTO joueur...`
+            * [x] JoueurDAO.**creer()** `INSERT INTO jdr.joueur...`
 * ==Se connecter==
     * Basculer vers la vue **ConnexionVue**
         * demander pseudo
-            * [ ] si pseudo = Admin... 
-            * [ ] sinon
+            * [x] si pseudo = Admin... 
+            * sinon
                 * [x] JoueurService.trouver_par_pseudo(pseudo)
                     * [x] JoueurDAO.trouver_par_pseudo(pseudo)
             * Si pseudo trouvé
@@ -184,12 +184,17 @@ gantt
             * [x] PersonnageDAO.**creer()**
         * [ ] test DAO
     * [ ] Test Service
-* :heart: ==Supprimer un personnage==
-    * [ ] Afficher la liste des personnages
+* :heart: ==Supprimer un personnage== [color=red][name=JF]
+    * [x] Afficher la liste des personnages
         * [x] JoueurService.**lister_personnage()**
-    * [ ] Basculer vers une vue qui demande de saisir le nom du personnage
+    * [x] Basculer vers SupprimerPersonnageVue
+        * demander le nom du Personnage
+        * [x] Demander de confirmer la suppression
         * [ ] JoueurService.**supprimer_personnage()**
-            * [ ] PersonnageDao.**supprimer()**
+            * vérifier que le Personnage n'est pas inscrit à une table
+                * [ ] PersonnageDao.**lister_tables()**
+            * [x] PersonnageDao.**supprimer()**
+    * [ ] :warning: si le joueur n'a aucun Personnage
 * :heart: ==Lister ses personnages== [color=blue][name=Banruo]
     * [x] JoueurService.**lister_personnages()**
         * [x] récupérer le pseudo du joueur en session (pseudo = Session.pseudo)
@@ -211,8 +216,7 @@ gantt
             * [ ] JoueurDao (ou PersonnageDao).**quitter_table()** 
 * :heart: ==Voir son programme==
     * [ ] JoueurService.**voir_son_programme()**
-        * [ ] récupérer le pseudo du joueur en session (pseudo = Session.pseudo)
-        * [ ] JoueurDao.**trouver_par_pseudo(pseudo)**
+        * [ ] récupérer le joueur en session : *joueur = Session().user*
         * [ ] JoueurDao.**voir_son_programme()**
         * [ ] TestJoueurDao
     * [ ] TestJoueurService
@@ -222,11 +226,16 @@ gantt
         * [ ] MessageDao.**lister_par_joueur(Joueur)**
         * [ ] TestMessageDao
     * [ ] TestJoueurService
-* :heart: ==Supprimer son compte==
+* :heart: ==Supprimer son compte== [color=red][name=JF]
     * [ ] basculer vers une vue qui pose la question : Etes vous sur ?
-    * [ ] JoueurService.supprimer()
-        * [ ] Récupérer le joueur en session
-        * [ ] JoueurDao.supprimer(joueur)
+        * [ ] JoueurService.supprimer()
+            * [ ] Récupérer le joueur en session
+            * [ ] PersonnageDao.**lister_par_joueur()**
+            * [ ] PersonnageDao.**quitter_table()**
+            * [ ] PersonnageDao.**supprimer()**
+            * [ ] JoueurDao.**supprimer(joueur)**
+                * DELETE FROM jdr.joueur WHERE pseudo =
+    * [ ] revenir vers AccueilVue
 * :heart: ==Accéder au Menu Maître du Jeu==
     * Vérifier si le Joueur est bien MJ
         * [ ] JoueurService.est_mj()
@@ -289,8 +298,8 @@ gantt
         * lister les tables et les joueurs/personnages assis
 * ==Voir les messages==
     * idem que pour Joueur
-* ==Déplacer un Personnage==
-* ==Déplacer un Maitre du Jeu==
+* :fire: ==Déplacer un Personnage==
+* :fire: ==Déplacer un Maitre du Jeu==
 
 
 
