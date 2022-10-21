@@ -39,16 +39,22 @@ class InscriptionVue(VueAbstraite):
 
         answers = prompt(self.questions)
 
-        # On appelle le service de creation de joueur
-        joueur = JoueurService().creer(answers["pseudo"],
-                                       answers["nom"], answers["prenom"], mail=None)
+        # On regarde si le pseudo existe deja
+        joueur = JoueurService().trouver_par_pseudo(answers["pseudo"])
 
-        # On récupère le mesage à afficher (succès ou échec)
-        if not joueur:
-            message = "La création du joueur a échoué"
+        if joueur:
+            message = "Le pseudo est déjà utilisé. Veuillez en choisir un autre"
         else:
-            message = "Le joueur {} {} a bien été créé".format(
-                joueur.prenom, joueur.nom)
+            # On appelle le service de creation de joueur
+            joueur = JoueurService().creer(answers["pseudo"],
+                                           answers["nom"], answers["prenom"], mail=None)
+
+            # On récupère le mesage à afficher (succès ou échec)
+            if not joueur:
+                message = "La création du joueur a échoué"
+            else:
+                message = "Le joueur {} {} a bien été créé".format(
+                    joueur.prenom, joueur.nom)
 
         from view.accueil_vue import AccueilVue
         return AccueilVue(message)

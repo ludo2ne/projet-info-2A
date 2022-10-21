@@ -32,7 +32,6 @@ class JoueurMenuVue(VueAbstraite):
                     "Voir son programme (TODO)",
                     "Supprimer son compte (TODO)",
                     "Voir ses messages (TODO)",
-                    "Accéder au Menu MJ (TODO)",
                     "Se déconnecter"
                 ]
             }
@@ -47,6 +46,11 @@ class JoueurMenuVue(VueAbstraite):
     def choisir_menu(self):
 
         utilisateur = Session().user
+
+        # Si le joueur est aussi Maitre du Jeu on affiche le lien pour acceder au menu MJ
+        if utilisateur.__class__.__name__ == "MaitreJeu":
+            self.questions[0].get("choices").insert(-1,
+                                                    "Accéder au Menu Maître du Jeu")
 
         reponse = prompt(self.questions)
         if reponse["choix"] == "Créer un personnage":
@@ -64,6 +68,9 @@ class JoueurMenuVue(VueAbstraite):
                 message = "Suppression impossible: vous n'avez pas de personnage!"
                 prochainevue = JoueurMenuVue(message)
             return (prochainevue)
+        elif reponse["choix"] == "Accéder au Menu Maître du Jeu":
+            from view.maitre_jeu_menu_vue import MaitreJeuMenuVue
+            return MaitreJeuMenuVue("Bienvenue dans le menu du Maître du Jeu")
         elif reponse["choix"] == "Se déconnecter":
             Session().user = None
             from view.accueil_vue import AccueilVue

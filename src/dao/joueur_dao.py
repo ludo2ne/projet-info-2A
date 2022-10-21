@@ -13,6 +13,7 @@ from utils.singleton import Singleton
 from view.session import Session
 
 from business_object.joueur import Joueur
+from business_object.maitre_jeu import MaitreJeu
 from business_object.personnage import Personnage
 
 from dao.personnage_dao import PersonnageDao
@@ -109,6 +110,10 @@ class JoueurDao(metaclass=Singleton):
                             prenom=res["prenom"],
                             mail=res["mail"],
                             id_joueur=res["id_joueur"])
+
+        # Si ce n est pas un simple joueur mais un Maitre du Jeu
+        if res["est_mj"]:
+            joueur = MaitreJeu(joueur)
 
         print("DAO : Trouver joueur par pseudo - Terminé")
 

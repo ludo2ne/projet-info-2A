@@ -16,7 +16,7 @@ INSERT INTO jdr.joueur(pseudo, nom, prenom, mail, est_mj) VALUES
 ('admin',     'admin',        'admin',  'admin@jdr.fr',             false),
 ('pp',        'Javel',        'Aude',   'Aude.Javel@mail.fr',       false),
 ('evabien',   'Poree',        'Eva',    'Eva.Poree@mail.fr',        true),
-('toto',      'Route',        'Otto',   'Otto.Route@mail.fr',       false),
+('toto',      'Route',        'Otto',   'Otto.Route@mail.fr',       true),
 ('calva14',   'Ptitegoutte',  'Anne',   'Anne.Ptitegoutte@mail.fr', false);
 
 

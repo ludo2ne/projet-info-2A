@@ -8,6 +8,7 @@ Version : 1.0
 
 import os
 from tabulate import tabulate
+from typing import List, Optional
 
 from business_object.joueur import Joueur
 from business_object.personnage import Personnage
@@ -22,7 +23,7 @@ class JoueurService:
     Classe contenant les méthodes de service de Joueur
     '''
 
-    def creer(self, pseudo, nom, prenom, mail):
+    def creer(self, pseudo, nom, prenom, mail) -> Optional[Joueur]:
         '''Service de création d'un joueur
 
         Parameters
