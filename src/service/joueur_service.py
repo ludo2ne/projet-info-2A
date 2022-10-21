@@ -102,7 +102,8 @@ class JoueurService:
         '''
         print("Service : Trouver par pseudo ({})".format(pseudo))
         joueur = JoueurDao().trouver_par_pseudo(pseudo)
-        joueur.liste_personnages = PersonnageDao().lister_par_joueur(joueur)
+        if joueur:
+            joueur.liste_personnages = PersonnageDao().lister_par_joueur(joueur)
         return joueur
 
     def creation_personnage_autorisee(self) -> bool:

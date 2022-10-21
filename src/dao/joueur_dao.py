@@ -111,9 +111,9 @@ class JoueurDao(metaclass=Singleton):
                             mail=res["mail"],
                             id_joueur=res["id_joueur"])
 
-        # Si ce n est pas un simple joueur mais un Maitre du Jeu
-        if res["est_mj"]:
-            joueur = MaitreJeu(joueur)
+            # Si ce n est pas un simple joueur mais un Maitre du Jeu
+            if res["est_mj"]:
+                joueur = MaitreJeu(joueur)
 
         print("DAO : Trouver joueur par pseudo - Terminé")
 
