@@ -6,10 +6,11 @@
 
 
 INSERT INTO jdr.table_jeu(id_seance, id_maitre_jeu, scenario, infos_complementaires) VALUES
-(1, 2, 'Epidémie au Lazaret', 'joueurs de niveau 5 minimum'),
+(1, 3, 'Epidémie au Lazaret', 'joueurs de niveau 5 minimum'),
+(1, 4, 'Traversée de la Moria', null),
 (1, null, null, null),
 (1, null, null, null),
-(1, null, null, null);
+(2, 3, 'Epidémie au Lazaret le retour', 'joueurs de niveau 6 minimum');
 
 
 INSERT INTO jdr.joueur(pseudo, nom, prenom, mail, est_mj) VALUES
@@ -31,8 +32,8 @@ INSERT INTO jdr.personnage(id_joueur, nom, classe,race,niveau) VALUES
 
 INSERT INTO jdr.table_personnage(id_table, id_personnage) VALUES
 (1, 1),
-(1, 3),
-(1, 4),
+(1, 5),
+(1, 6),
 (2, 1),
 (10001, 10001),
 (10001, 10002);

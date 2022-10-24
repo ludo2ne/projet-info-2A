@@ -24,7 +24,7 @@ class AdministrateurService:
 
         print("Service : Voir programme complet")
 
-        liste_tables = TableJeuDao().lister_toutes()
+        liste_tables = TableJeuDao().lister()
 
         entetes = ["Séance", "Numéro", "Scénario",
                    "Maître du Jeu"]

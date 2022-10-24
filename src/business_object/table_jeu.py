@@ -8,6 +8,8 @@ Version : 1.0
 
 import os
 
+from business_object.maitre_jeu import MaitreJeu
+
 
 class TableJeu:
     '''Attributes
@@ -38,6 +40,7 @@ class TableJeu:
         self.nb_joueurs_max = int(os.environ["NB_JOUEURS_MAX_PAR_TABLE"])
 
     def as_list(self):
+        mj_pseudo = self.maitre_jeu.pseudo if self.maitre_jeu else ""
         liste = [self.id_seance, self.id_table,
-                 self.scenario, "toto"]
+                 self.scenario, mj_pseudo]
         return liste

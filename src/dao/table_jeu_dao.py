@@ -113,32 +113,49 @@ class TableJeuDao(metaclass=Singleton):
 
         return nb_joueurs
 
-    def lister_toutes(self):
+    def lister(self, joueur=None, seance=None) -> list[TableJeu]:
         '''Retourne la liste des tables
-                le maitre du jeu,
-                le scénario,
-                les personnages, 
-                les joueurs assis
+        Si les paramètres sont à None, liste toutes les tables
+        Params
+        ------
+        joueur : Joueur
+            sélectionne uniquement les tables du joueur
+            si None, sélectionne tous les joueurs
+        seance : int
+            sélectionne uniquement les tables de la séance
+            si None, sélectionne toutes les seances
         '''
 
         print("DAO : Lister toutes les tables")
 
+        variables = dict()
+        requete = "SELECT t.id_seance,                                             "\
+            "             t.id_table,                                              "\
+            "             t.scenario,                                              "\
+            "             mj.id_joueur AS id_mj,                                   "\
+            "             j.pseudo,                                                "\
+            "             p.id_personnage                                          "\
+            "        FROM jdr.table_jeu t                                          "\
+            "        LEFT JOIN jdr.table_personnage tp USING(id_table)             "\
+            "        LEFT JOIN jdr.personnage p USING(id_personnage)               "\
+            "        LEFT JOIN jdr.joueur j USING (id_joueur)                      "\
+            "        LEFT JOIN jdr.joueur mj ON t.id_maitre_jeu = mj.id_joueur     "\
+            "       WHERE 1=1                                                      "
+
+        if joueur:
+            requete += " AND j.id_joueur = %(id_joueur)s                           "
+            variables["id_joueur"] = 3
+
+        if seance:
+            requete += " AND t.id_seance = %(id_seance)s                           "
+            variables["id_seance"] = 1
+
+        requete += "ORDER BY t.id_seance, t.id_table;                              "
+
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
-                    cursor.execute("SELECT t.id_seance,                                             "
-                                   "       t.id_table,                                              "
-                                   "       t.scenario,                                              "
-                                   "       mj.id_joueur AS id_mj,                                   "
-                                   "       j.pseudo,                                                "
-                                   "       p.id_personnage                                          "
-                                   "  FROM jdr.table_jeu t                                          "
-                                   "  LEFT JOIN jdr.table_personnage tp USING(id_table)             "
-                                   "  LEFT JOIN jdr.personnage p USING(id_personnage)               "
-                                   "  LEFT JOIN jdr.joueur j USING (id_joueur)                      "
-                                   "  LEFT JOIN jdr.joueur mj ON t.id_maitre_jeu = mj.id_joueur     "
-                                   "  ORDER BY t.id_seance, t.id_table;                             "
-                                   )
+                    cursor.execute(requete, variables)
                     res = cursor.fetchall()
         except Exception as e:
             print(e)
@@ -153,9 +170,12 @@ class TableJeuDao(metaclass=Singleton):
 
         if res:
             for row in res:
+                # Si c est une nouvelle table
                 if (row["id_table"] != id_table_actuel or row["id_seance"] != id_sceance_actuel):
                     id_table_actuel = row["id_table"]
                     id_sceance_actuel = row["id_seance"]
+
+                    # On ajoute la table precedente a la liste
                     if table_jeu:
                         liste_tables_jeu.append(table_jeu)
 
@@ -167,11 +187,12 @@ class TableJeuDao(metaclass=Singleton):
                                          maitre_jeu=maitre_jeu,
                                          scenario=row["scenario"])
 
-                    print("table créée")
-
                 if row["id_personnage"]:
                     table_jeu.personnages.append(
                         PersonnageDao().trouver_par_id(row["id_personnage"]))
+
+            # Ajout a la liste de la derniere table
+            liste_tables_jeu.append(table_jeu)
 
         print("DAO : Lister toutes les tables - Terminé")
 
