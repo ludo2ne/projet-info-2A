@@ -76,11 +76,15 @@ class JoueurDao(metaclass=Singleton):
 
         joueur = None
         if res:
-            joueur = Joueur(pseudo=res['pseudo'],
-                            nom=res['nom'],
-                            prenom=res['prenom'],
-                            mail=res['mail'],
-                            id_joueur=res['id_joueur'])
+            joueur = Joueur(pseudo=res["pseudo"],
+                            nom=res["nom"],
+                            prenom=res["prenom"],
+                            mail=res["mail"],
+                            id_joueur=res["id_joueur"])
+
+            # Si ce n est pas un simple joueur mais un Maitre du Jeu
+            if res["est_mj"]:
+                joueur = MaitreJeu(joueur)
 
         print("DAO : Trouver joueur par id - Terminé")
 

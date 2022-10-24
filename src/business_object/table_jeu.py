@@ -36,3 +36,8 @@ class TableJeu:
         self.infos_complementaires = infos_complementaires
         self.personnages = personnages
         self.nb_joueurs_max = int(os.environ["NB_JOUEURS_MAX_PAR_TABLE"])
+
+    def as_list(self):
+        liste = [self.id_seance, self.id_table,
+                 self.scenario, "toto"]
+        return liste

@@ -9,8 +9,10 @@ Version : 1.0
 
 from InquirerPy import prompt
 from view.vue_abstraite import VueAbstraite
-from service.joueur_service import JoueurService
 from view.session import Session
+
+from service.joueur_service import JoueurService
+from service.administrateur_service import AdministrateurService
 
 
 class AdministrateurMenuVue(VueAbstraite):
@@ -24,7 +26,7 @@ class AdministrateurMenuVue(VueAbstraite):
                 "name": "choix",
                 "message": "Faites votre choix",
                 "choices": [
-                    "Voir le programme complet (TODO)",
+                    "Voir le programme complet",
                     "Déplacer un personnage (TODO)",
                     "Déplacer un Maitre du Jeu (TODO)",
                     "Créer une Table de Jeu (TODO)",
@@ -46,7 +48,8 @@ class AdministrateurMenuVue(VueAbstraite):
 
         reponse = prompt(self.questions)
         if reponse["choix"] == "Voir le programme complet":
-            pass
+            programme = AdministrateurService().voir_programme_complet()
+            return (AdministrateurMenuVue(programme))
         elif reponse["choix"] == "Déplacer un joueur":
             pass
         elif reponse["choix"] == "Supprimer un joueur":

@@ -116,6 +116,37 @@ class PersonnageDao(metaclass=Singleton):
 
         return [res > 0]
 
+    def trouver_par_id(self, id_personnage) -> Personnage:
+        '''trouver un joueur grace à son id
+        '''
+        print("DAO : Trouver personnage par id")
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT * FROM jdr.personnage "
+                        " WHERE id_personnage = %(id_personnage)s;",
+                        {"id_personnage": id_personnage})
+                    res = cursor.fetchone()
+        except Exception as e:
+            print(e)
+            raise
+
+        print(res)
+
+        personnage = None
+        if res:
+            personnage = Personnage(id_personnage=res["id_personnage"],
+                                    nom=res["nom"],
+                                    classe=res["classe"],
+                                    race=res["race"],
+                                    niveau=res["niveau"])
+
+        print("DAO : Trouver personnage par id - Terminé")
+
+        return personnage
+
     def lister_tables(self, personnage) -> bool:
         '''Lister les tables où un personnage est utilisé dans la base de données
 
