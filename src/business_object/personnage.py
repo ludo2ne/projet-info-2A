@@ -40,3 +40,9 @@ class Personnage:
         liste = [self.id_personnage, self.nom,
                  self.classe, self.race, self.niveau]
         return liste
+
+    def __str__(self):
+        return (f"Personnage: {self.nom}: \n" +
+                f" {self.race} {self.classe} de niveau {self.niveau}\n" +
+                f"Compétences: {self.competence}\n" +
+                f"Langues parlées: {self.langues_parlees}")

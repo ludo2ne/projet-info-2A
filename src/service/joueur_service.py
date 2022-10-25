@@ -7,12 +7,15 @@ Version : 1.0
 '''
 
 import os
+
 from tabulate import tabulate
 from typing import List, Optional
 
 from business_object.joueur import Joueur
+from business_object.maitre_jeu import MaitreJeu
 from business_object.personnage import Personnage
 from dao.joueur_dao import JoueurDao
+from dao.maitre_jeu_dao import MaitreJeuDao
 from dao.table_jeu_dao import TableJeuDao
 from dao.personnage_dao import PersonnageDao
 from view.session import Session
@@ -177,11 +180,65 @@ class JoueurService:
         if perso_non_utilise:
             statut_suppression = PersonnageDao().supprimer(perso_a_supprimer)
             # Supprimer le personnage de la liste du joueur
+            print(f"suppression de {perso_a_supprimer.nom}")
+            for el in joueur.liste_personnages:
+                print(el.nom)
             joueur.liste_personnages.remove(perso_a_supprimer)
         else:
             statut_suppression = [
-                False, "Le personnage est déjà utilisé sur une table"]
+                False, f"Le personnage {perso_a_supprimer.nom} est déjà utilisé sur une table"]
 
         print("Service : Suppression de personnage - Terminé")
+
+        return statut_suppression
+
+    def supprimer(self, compte):
+        '''Supprimer le compte d'un joueur
+
+        compte: Joueur
+        Returns
+        -------
+        '''
+
+        print("Service : Suppression de compte")
+
+        joueur = Session().user
+
+        pb_rencontre = 0
+        pb_list_joueur = []
+        # Enlever les personnages des tables où ils sont utilisés
+        # Dans la DAO, le lien entre le joueur et sa table se fait via les personnages
+        # Supprimer un personnage d'un table revient à supprimer le joueur
+        for el in compte.liste_personnages:
+            perso_utilise = (
+                PersonnageDao().lister_tables(el) > 0)
+            if perso_utilise:
+                perso_enleve_table = PersonnageDao().quitter_table(el)
+                if not perso_enleve_table:
+                    pb_rencontre += 1
+                    pb_list_joueur.append(el.nom)
+        if pb_rencontre != 0:
+            print("problème rencontré au moment d'enlever ce(s) personnage(s)" +
+                  "d'une table:\n" +
+                  f"{pb_list_joueur}")
+
+        # Supprimer les personnages
+        # Attention: lors de la suppression du premier personnage de la liste
+        # dans la DAO, il est aussi supprimé de la liste de persos du joueur
+        # Le deuxième perso est alors en premier sur la liste
+        # --> Parcourir la liste dans le sens normal entraine une erreur
+        #  --> besoin de parcourir la liste à l'envers
+        perso_list = []
+        for el in reversed(compte.liste_personnages):
+            statut_suppr_perso = self.supprimer_personnage(el)
+
+        # Enlever le joueur des tables où il est assis en tant que maitre du jeu
+        if type(compte) == MaitreJeu:
+            statut_suppr_mj = MaitreJeuDao().quitter_table(compte)
+
+        # Supprimer le compte du joueur
+        statut_suppression = JoueurDao().supprimer_compte(compte)
+
+        print("Service : Suppression de compte - Terminé")
 
         return statut_suppression
