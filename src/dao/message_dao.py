@@ -37,7 +37,7 @@ class MessageDao(metaclass=Singleton):
                         "INSERT INTO jdr.message(id_joueur, date_creation, contenu, lu) VALUES "
                         "(%(id_joueur)s, current_timestamp ,%(contenu)s, false) RETURNING id_message;",
                         {"id_joueur": joueur.id_joueur,
-                         "contenu": contenu})
+                         "contenu": texte})
                     res = cursor.fetchone()
         except Exception as e:
             print(e)
