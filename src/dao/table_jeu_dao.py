@@ -197,3 +197,23 @@ class TableJeuDao(metaclass=Singleton):
         print("DAO : Lister toutes les tables - Terminé")
 
         return liste_tables_jeu
+
+    def compter_tables_par_seance(self, seance) -> int:
+        print("DAO : Compter Tables")
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT count(*) FROM jdr.table_jeu WHERE id_seance = "
+                        "%(id_seance)s;", {"id_seance": seance})
+                    res = cursor.fetchone()
+        except Exception as e:
+            print(e)
+            raise
+
+        nb_tables_par_seance = res['count']
+
+        print("DAO : Compter Tables-terminé")
+
+        return nb_tables_par_seance

@@ -45,10 +45,11 @@ class SupprimerCompteVue(VueAbstraite):
             # On appelle le service de suppression de compte
             statut_suppression = JoueurService().supprimer(joueur)
             # On récupère le message à afficher (succès ou échec)
-            if not statut_suppression:
-                message = "La suppression du compte a échoué"
+            if not statut_suppression[0]:
+                #                message = "La suppression du compte a échoué"
                 from view.joueur_menu_vue import JoueurMenuVue
-                prochainevue = JoueurMenuVue(message)
+#                prochainevue = JoueurMenuVue(message)
+                prochainevue = JoueurMenuVue(statut_suppression[1])
             else:
                 message = f"Votre compte a bien été supprimé. Au revoir {joueur.prenom}"
                 Session().user = None
