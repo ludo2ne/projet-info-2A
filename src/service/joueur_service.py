@@ -19,6 +19,7 @@ from dao.maitre_jeu_dao import MaitreJeuDao
 from dao.table_jeu_dao import TableJeuDao
 from dao.personnage_dao import PersonnageDao
 from view.session import Session
+from dao.message_dao import MessageDao
 
 
 class JoueurService:
@@ -242,3 +243,32 @@ class JoueurService:
         print("Service : Suppression de compte - Terminé")
 
         return statut_suppression
+
+    def voir_messages(self):
+        '''Afficher les messages envoyés à un utilisateur
+
+        Returns
+        -------
+        '''
+
+        print("Service : voir les messages")
+
+        joueur = Session().user
+        #print('00')
+
+        messages = MessageDao().lister_par_joueur(joueur)
+        #print('aa')
+
+        entetes = ["id_message", "id_joueur", "Contenu", "Lu", "Date_création"]
+        message_as_list = [msg.as_list() for msg in messages]
+
+        #print('bb')
+
+        resultat = "Votre Messages \n" + tabulate(tabular_data=message_as_list,
+                                                  headers=entetes,
+                                                  tablefmt="psql",
+                                                  floatfmt=".2f") + "\n"
+
+        print("Service : voir les messages - Terminé")
+
+        return resultat
