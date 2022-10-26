@@ -39,6 +39,8 @@ class SupprimerCompteVue(VueAbstraite):
         # La suppression est annulée en l'absence de confirmation
         if not confirm:
             message = "Suppression du compte annulée"
+            from view.joueur_menu_vue import JoueurMenuVue
+            prochainevue = JoueurMenuVue(message)
         else:
             # On appelle le service de suppression de compte
             statut_suppression = JoueurService().supprimer(joueur)
@@ -49,6 +51,7 @@ class SupprimerCompteVue(VueAbstraite):
                 prochainevue = JoueurMenuVue(message)
             else:
                 message = f"Votre compte a bien été supprimé. Au revoir {joueur.prenom}"
+                Session().user = None
                 from view.accueil_vue import AccueilVue
                 prochainevue = AccueilVue(message)
         return prochainevue
