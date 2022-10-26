@@ -6,12 +6,23 @@ from view.administrateur_menu_vue import AdministrateurMenuVue
 
 class SupprimerJoueurVue(VueAbstraite):
     def __init__(self):
+
+        liste_joueur = [j.pseudo for j in JoueurService().lister_tous()]
+
+        # ajouter à la liste la possibilité de revenir en arriere sans supprimer de personnage
+        liste_joueur.append("Non, finalement j'ai changé d'avis")
+
         self.questions = [
             {
-                "type": "input",
+                "type": "list",
                 "name": "supression",
-                "message": "Quel est le pseudo du joueur que vous souhaitez supprimer ?"
-            }
+                "message": "Choisissez le joueur à supprimer",
+                "choices": liste_joueur
+            },
+            {
+                "type": "confirm",
+                "name": "confirmation",
+                "message": "Confirmez-vous ?"}
         ]
 
     def afficher(self):
@@ -19,13 +30,14 @@ class SupprimerJoueurVue(VueAbstraite):
 
     def choisir_menu(self):
 
-        answers = prompt(self.questions)
         message = ""
+        answers = prompt(self.questions)
 
-        if not JoueurService().trouver_par_pseudo(answers["supression"]):
-            return AdministrateurMenuVue("Le pseudo que vous avez renseigné n'existe pas")
+        if not answers["confirmation"] or answers["supression"] == "Non, finalement j'ai changé d'avis":
+            return AdministrateurMenuVue("Suppression de joueur annulée")
         joueur = JoueurService().trouver_par_pseudo(answers["supression"])
         statut_suppression = JoueurService().supprimer(joueur)
+
         if not statut_suppression[0]:
             #message = "La suppression du compte a échoué"
             from view.joueur_menu_vue import JoueurMenuVue

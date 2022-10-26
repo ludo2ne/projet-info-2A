@@ -88,7 +88,7 @@ class JoueurService:
 
         return success
 
-    def lister_tous(self):
+    def lister_tous(self) -> list[Joueur]:
         '''Service pour lister tous les joueurs
 
         Returns
@@ -164,7 +164,7 @@ class JoueurService:
 
         return resultat
 
-    def supprimer_personnage(self, perso_a_supprimer):
+    def supprimer_personnage(self, perso_a_supprimer, joueur):
         '''Supprimer un personnage d'un utilisateur
 
         Returns
@@ -172,8 +172,6 @@ class JoueurService:
         '''
 
         print("Service : Suppression d'un personnage")
-
-        joueur = Session().user
 
         # vérifier si le personnage n'est pas assis à une table
         perso_non_utilise = (
@@ -235,7 +233,7 @@ class JoueurService:
         #  --> besoin de parcourir la liste à l'envers
         perso_list = []
         for el in reversed(compte.liste_personnages):
-            statut_suppr_perso = self.supprimer_personnage(el)
+            statut_suppr_perso = self.supprimer_personnage(el, compte)
             err_message += statut_suppr_perso[1]
 
         # Enlever le joueur des tables où il est assis en tant que maitre du jeu

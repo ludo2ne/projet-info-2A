@@ -25,10 +25,12 @@ class AdministrateurService():
     def creer_table_autorisee(self, seance) -> bool:
         '''Dit si le joueur n'a pas atteint le nombre maximum de Personnages
         '''
-        print("Service : Creer table autorisee")
+        print("Service : Créer table autorisee")
         nb_tables = TableJeuDao().compter_tables_par_seance(seance)
-        print(nb_tables)
-        return nb_tables < int(os.environ["NB_TABLES_MAX_PAR_SEANCE"])
+        creation_autorisee = nb_tables < int(
+            os.environ["NB_TABLES_MAX_PAR_SEANCE"])
+        print("Service : Créer table autorisée - Terminé")
+        return creation_autorisee
 
     def voir_programme_complet(self):
 
