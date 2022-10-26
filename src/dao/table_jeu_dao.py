@@ -185,7 +185,8 @@ class TableJeuDao(metaclass=Singleton):
                     table_jeu = TableJeu(id_table=row["id_table"],
                                          id_seance=row["id_seance"],
                                          maitre_jeu=maitre_jeu,
-                                         scenario=row["scenario"])
+                                         scenario=row["scenario"],
+                                         personnages=[])
 
                 if row["id_personnage"]:
                     table_jeu.personnages.append(

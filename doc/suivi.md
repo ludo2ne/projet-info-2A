@@ -1,8 +1,8 @@
 ---
 title: Projet info 2A
 tags: Cours2A
+description: https://hackmd.io/CMTCDVW6Spe2PHXOhdKTRQ?both
 ---
-
 
 
 :::success
@@ -98,7 +98,7 @@ gantt
 * [ ] Se spécialiser dans certaines couches ?
 * [x] Lister quelques fonctionnalités simples pour débuter [color=green][name=Ludo]
     * [ ] Fournir à chacun un dév simple
-* [ ] tester [un appel à l'api](https://www.dnd5eapi.co/)
+* [x] tester [un appel à l'api](https://www.dnd5eapi.co/)
 * [x] voir comment lancer tous les tests -> run_all_tests.py
 * [x] script pour ré-initialiser la bdd -> utils/reset_database.py
 * [ ] voir comment tester les dao sans polluer la bdd
@@ -151,7 +151,7 @@ gantt
         * [ ] demander pseudo, nom, prenom, mail
         * [ ] JoueurService.**creer(pseudo, nom, prenom, mail)**
             * [ ] Vérifier que tous les champs remplis sont ok (non vides, mail contient @)
-            * [ ] JoueurDAO.**trouver_par_pseudo()**
+            * [x] JoueurDAO.**trouver_par_pseudo()**
             * si la méthode ci-dessus ne renvoi aucun résultat
             * [x] JoueurDAO.**creer()** `INSERT INTO jdr.joueur...`
 * ==Se connecter==
@@ -178,9 +178,9 @@ gantt
     * [x] Basculer vers la vue CreerPersonnageVue
         * demander infos sur le personnage (nom, classe, race, niveau)
         * [x] PersonnageService.**creer(nom, classe, race, niveau)**
-            * [ ] vérifier qu'il n'a pas dejà 3 personnages
-            * [ ] vérifier que classe et race existent ? faire une liste ?
-            * [ ] appel API
+            * [x] vérifier qu'il n'a pas dejà 3 personnages
+            * [x] vérifier que classe et race existent ? faire une liste ?
+            * [x] appel API
             * [x] PersonnageDAO.**creer()**
         * [ ] test DAO
     * [ ] Test Service
@@ -194,7 +194,7 @@ gantt
             * vérifier que le Personnage n'est pas inscrit à une table
                 * [ ] PersonnageDao.**lister_tables()**
             * [x] PersonnageDao.**supprimer()**
-    * [ ] :warning: si le joueur n'a aucun Personnage
+    * [x] :warning: si le joueur n'a aucun Personnage
 * :heart: ==Lister ses personnages== [color=blue][name=Banruo]
     * [x] JoueurService.**lister_personnages()**
         * [x] récupérer le pseudo du joueur en session (pseudo = Session.pseudo)
@@ -220,34 +220,33 @@ gantt
         * [ ] JoueurDao.**voir_son_programme()**
         * [ ] TestJoueurDao
     * [ ] TestJoueurService
-* :heart: ==Voir messages==
-    * [ ] JoueurService.**voir_messages()**
+* :heart: ==Voir messages== [color=blue][name=Banruo]
+    * [ ] JoueurService.**voir_messages()** 
         * [ ] récupérer le joueur en session : *joueur = Session().user*
         * [ ] MessageDao.**lister_par_joueur(Joueur)**
         * [ ] TestMessageDao
     * [ ] TestJoueurService
 * :heart: ==Supprimer son compte== [color=red][name=JF]
-    * [ ] basculer vers une vue qui pose la question : Etes vous sur ?
+    * [x] basculer vers une vue qui pose la question : Etes vous sur ?
         * [ ] JoueurService.supprimer()
-            * [ ] Récupérer le joueur en session
-            * [ ] PersonnageDao.**lister_par_joueur()**
-            * [ ] PersonnageDao.**quitter_table()**
-            * [ ] PersonnageDao.**supprimer()**
-            * [ ] JoueurDao.**supprimer(joueur)**
+            * [x] Récupérer le joueur en session
+            * [x] PersonnageDao.**lister_par_joueur()**
+            * [x] PersonnageDao.**quitter_table()**
+            * [x] PersonnageDao.**supprimer()**
+            * [x] JoueurDao.**supprimer(joueur)**
                 * DELETE FROM jdr.joueur WHERE pseudo =
-    * [ ] revenir vers AccueilVue
-* :heart: ==Accéder au Menu Maître du Jeu==
-    * Vérifier si le Joueur est bien MJ
-        * [ ] JoueurService.est_mj()
-            * [ ] JoueurDao.est_mj()
-    * [ ] Basculer vers MaitreJeuMenuVue
+            * [ ] Notifier admin
+    * [x] revenir vers AccueilVue
+* ==Accéder au Menu Maître du Jeu== [color=green][name=Ludo]
+    * [x] Vérifier si le Joueur est bien MJ
+    * [x] Basculer vers MaitreJeuMenuVue
 * ==Se déconnecter== [color=green][name=Ludo]
     * [x] Supprimer le pseudo de la Session
     * [x] Basculer vers AccueilVue
 
 ---
 
-### :arrow_forward: MaitreJeuMenuVue (:construction: à créer )
+### :arrow_forward: MaitreJeuMenuVue
 
 
 * ==Gérer une Table== [color=blue][name=Banruo]
@@ -293,9 +292,11 @@ gantt
         * Demander le pseudo du joueur
         * [ ] AdministrateurService.**supprimer_joueur()**
             * [ ] JoueurDao.**supprimer()**
-* ==Voir le programme complet==
+* ==Voir le programme complet== [color=green][name=Ludo]
     * [ ] AdministrateurService.**voir_programme_complet()**
-        * lister les tables et les joueurs/personnages assis
+        * [ ] Mettre bien en forme le tableau
+        * [x] TableDao.**lister(joueur, seance)**
+            * méthode pour lister des tables par joueur, seance ou toutes les tables
 * ==Voir les messages==
     * idem que pour Joueur
 * :fire: ==Déplacer un Personnage==
