@@ -14,6 +14,7 @@ from view.session import Session
 
 from business_object.joueur import Joueur
 from business_object.personnage import Personnage
+from business_object.table_jeu import TableJeu
 
 from dao.joueur_dao import JoueurDao
 from dao.table_jeu_dao import TableJeuDao
@@ -87,3 +88,13 @@ class AdministrateurService():
         resultat += table_txt
 
         return resultat
+
+    def lister_toutes_les_tables(self) -> list[TableJeu]:
+        '''Retourne la liste de toutes les tables de jeu
+        '''
+
+        print("Service : Lister toutes les tables")
+        liste_tables = TableJeuDao().lister()
+        print("Service : Lister toutes les tables - terminé")
+
+        return liste_tables

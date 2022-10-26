@@ -88,8 +88,36 @@ class TableJeuDao(metaclass=Singleton):
     def lister_personnages(self, table):
         '''retourne la liste des personnages de la table
         '''
-        # TODO
-        return null
+        print("DAO : Lister personnage d'une table")
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT p.*                                             "
+                        "  FROM jdr.personnage p                                "
+                        " INNER JOIN jdr.table_personnage USING(id_personnage)  "
+                        " INNER JOIN jdr.table_jeu t USING(id_table)            "
+                        " WHERE t.id_table = %(id_table)s;                      ",
+                        {"id_table": table.id_table})
+                    res = cursor.fetchall()
+        except Exception as e:
+            print(e)
+            raise
+
+        liste_personnages = []
+        if res:
+            for row in res:
+                perso = Personnage(id_personnage=row["id_personnage"],
+                                   nom=row["nom"],
+                                   classe=row["classe"],
+                                   race=row["race"],
+                                   niveau=row["niveau"])
+                liste_personnages.append(perso)
+
+        print("DAO : Lister personnage d'une table - Terminé")
+
+        return liste_personnages
 
     def nombre_joueurs_assis(self, table) -> int:
         '''Nombre de joueurs assis actuellement à la table

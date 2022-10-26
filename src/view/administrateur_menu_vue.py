@@ -27,7 +27,7 @@ class AdministrateurMenuVue(VueAbstraite):
                 "message": "Faites votre choix",
                 "choices": [
                     "Voir le programme complet",
-                    "Déplacer un personnage (TODO)",
+                    "Déplacer un personnage",
                     "Déplacer un Maitre du Jeu (TODO)",
                     "Créer une Table de Jeu",
                     "Supprimer une Table de Jeu (TODO)",
@@ -50,8 +50,9 @@ class AdministrateurMenuVue(VueAbstraite):
         if reponse["choix"] == "Voir le programme complet":
             programme = AdministrateurService().voir_programme_complet()
             return (AdministrateurMenuVue(programme))
-        elif reponse["choix"] == "Déplacer un joueur":
-            pass
+        elif reponse["choix"] == "Déplacer un personnage":
+            from view.deplacer_personnage_vue import DeplacerPersonnageVue
+            return DeplacerPersonnageVue()
         elif reponse["choix"] == "Créer une Table de Jeu":
             from view.creer_table_vue import CreerTableVue
             return CreerTableVue()
