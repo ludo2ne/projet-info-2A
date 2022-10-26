@@ -14,6 +14,7 @@ from dao.joueur_dao import JoueurDao
 from dao.personnage_dao import PersonnageDao
 
 from business_object.table_jeu import TableJeu
+from business_object.personnage import Personnage
 
 
 class TableJeuDao(metaclass=Singleton):
@@ -63,8 +64,10 @@ class TableJeuDao(metaclass=Singleton):
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "SELECT * FROM jdr.table WHERE id_table = "
-                        "%(id_table)s;", {"id_table": id_table})
+                        "SELECT *                         "
+                        "  FROM jdr.table_jeu             "
+                        " WHERE id_table = %(id_table)s   ",
+                        {"id_table": id_table})
                     res = cursor.fetchone()
         except Exception as e:
             print(e)
@@ -73,13 +76,15 @@ class TableJeuDao(metaclass=Singleton):
         table = None
         if res:
 
-            # TODO trouver mj
+            maitre_jeu = JoueurDao().trouver_par_id(res["id_maitre_jeu"])
 
             table = TableJeu(id_table=res['id_table'],
-                             numero=res['numero'],
-                             scenario=res['scenario'])
+                             id_seance=res['id_seance'],
+                             maitre_jeu=maitre_jeu,
+                             scenario=res['scenario'],
+                             infos_complementaires=res['infos_complementaires'])
 
-            table.liste_personnages = lister_personnages(table)
+            table.personnages = self.lister_personnages(table)
 
         print("DAO : Trouver TableJeu par id - Terminé")
 
