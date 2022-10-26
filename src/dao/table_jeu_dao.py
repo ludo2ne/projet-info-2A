@@ -144,7 +144,7 @@ class TableJeuDao(metaclass=Singleton):
 
         if joueur:
             requete += " AND j.id_joueur = %(id_joueur)s                           "
-            variables["id_joueur"] = 3
+            variables["id_joueur"] = joueur.id_joueur
 
         if seance:
             requete += " AND t.id_seance = %(id_seance)s                           "

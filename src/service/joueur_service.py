@@ -242,3 +242,36 @@ class JoueurService:
         print("Service : Suppression de compte - Terminé")
 
         return statut_suppression
+
+    def voir_son_programme(self):
+        '''Affiche les tables ou le joueur est
+        '''
+        print("Service : Voir programme")
+
+        joueur = Session().user
+
+        table_jeu = TableJeuDao().lister(joueur=joueur)
+
+        entetes = ["séance", "id_table", "sénario", "mj"]
+
+        # liste de liste des persos de chaque table
+        list_perso_des_tables = [t.liste_perso() for t in table_jeu]
+
+        table_as_list = [t.as_list() for t in table_jeu]
+
+        i = 0
+        for table in table_jeu:
+            for perso in table.personnages:
+                for perso_joueur in joueur.liste_personnages:
+                    if perso_joueur.id_personnage == perso.id_personnage:
+                        table_as_list[i].append(perso_joueur.nom)
+                        i += 1
+
+        resultat = "Liste des tables \n" + tabulate(tabular_data=table_as_list,
+                                                    headers=entetes,
+                                                    tablefmt="psql",
+                                                    floatfmt=".2f") + "\n"
+
+        print("Service : Voir programme - Terminé")
+
+        return resultat

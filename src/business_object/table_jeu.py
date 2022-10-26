@@ -44,3 +44,9 @@ class TableJeu:
         liste = [self.id_seance, self.id_table,
                  self.scenario, mj_pseudo]
         return liste
+
+    def liste_perso(self):
+        liste = []
+        for i in self.personnages:
+            liste.append(i.id_personnage)
+        return liste
