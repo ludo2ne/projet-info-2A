@@ -174,23 +174,21 @@ class JoueurDao(metaclass=Singleton):
                     # Lister les tables du personnage
                     cursor.execute(
                         "SELECT id_table,id_seance FROM jdr.personnage "
-                        "JOIN jdr.table_personnage USING (id_joueur)"
+                        "JOIN jdr.table_personnage USING (id_personnage)"
                         "JOIN jdr.table_jeu USING(id_table)"
-                        "WHERE id_personnage=%(id_perso)s",
-                        {"id_perso": personnage.id_personnage})
+                        "WHERE id_joueur=%(id_joueur)s",
+                        {"id_joueur": joueur.id_joueur})
                     res = cursor.fetchall()
         except Exception as e:
             print(e)
             raise
 
         print("DAO : " + str(len(res)) +
-              f" tables avec le personnage {personnage.nom}")
+              f" tables avec le joueur {joueur.pseudo}")
 
-        print("DAO : Listing des tables d'un personnage - Terminé")
+        print("DAO : Listing des tables d'un joueur - Terminé")
 
-        # Pour l'instant, on ne retourne que le nombre de tables où
-        # le personnage est présent. Si nécessaire, on pourra retourner la liste des tables
-        return len(res)
+        return (res)
 
     def supprimer_compte(self, compte) -> bool:
         '''Suppression du compte d'un joueur 

@@ -322,3 +322,20 @@ class JoueurService:
         print("Service : voir les messages - Terminé")
 
         return resultat
+
+    def inscrire_table(self, table_choisie, perso_choisi):
+        '''Inscrire un personnage à une table
+
+        Parameters:
+        table_choisie : int(id_table)
+        perso_choisi : Personnage
+        Returns
+        -------
+        '''
+
+        print("Service : Inscrire un personnage sur une table")
+        statut = PersonnageDao().inscrire_table(
+            table=table_choisie, personnage=perso_choisi)
+        print("Service : Inscrire un personnage sur une table - Terminé")
+
+        return statut

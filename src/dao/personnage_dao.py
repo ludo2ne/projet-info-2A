@@ -211,7 +211,7 @@ class PersonnageDao(metaclass=Singleton):
         return len(res)
 
     def quitter_table(self, personnage) -> bool:
-        '''Suppression de la présence d'un personnage à une table 
+        '''Suppression de la présence d'un personnage à une table
         dans la base de données
 
         Parameters
@@ -237,3 +237,35 @@ class PersonnageDao(metaclass=Singleton):
         print("DAO : Suppression de la présence d'un personnage à une table- Terminé")
 
         return [res > 0]
+
+    def inscrire_table(self, table, personnage) -> bool:
+        '''Inscription d'un personnage sur une table dans la base de données
+
+        Parameters:
+        table : int(id_table)
+        personnage : Personnage
+        '''
+        print("DAO : Inscription d'un personnage sur une table")
+
+        joueur = Session().user
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "INSERT INTO jdr.table_personnage(id_table,id_personnage) VALUES "
+                        "(%(id_table)s,%(id_personnage)s) RETURNING id_table,id_personnage;",
+                        {"id_table": table,
+                         "id_personnage": personnage.id_personnage})
+                    res = cursor.fetchone()
+        except Exception as e:
+            print(e)
+            raise
+
+        inscrit = False
+        if res:
+            inscrit = True
+
+        print("DAO : Inscription d'un personnage sur une table - Terminé")
+
+        return inscrit

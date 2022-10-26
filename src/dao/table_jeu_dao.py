@@ -148,7 +148,7 @@ class TableJeuDao(metaclass=Singleton):
 
         if seance:
             requete += " AND t.id_seance = %(id_seance)s                           "
-            variables["id_seance"] = 1
+            variables["id_seance"] = seance
 
         requete += "ORDER BY t.id_seance, t.id_table;                              "
 

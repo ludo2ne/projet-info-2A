@@ -24,3 +24,24 @@ class TableJeuService:
         TableJeuDao().creer(table)
         print("Service : Création de la TableJeu - Terminé")
         return table
+
+    def lister(self, joueur=None, seance=None) -> list[TableJeu]:
+        '''Retourne la liste des tables
+        Si les paramètres sont à None, liste toutes les tables
+        Params
+        ------
+        joueur : Joueur
+            sélectionne uniquement les tables du joueur
+            si None, sélectionne tous les joueurs
+        seance : int
+            sélectionne uniquement les tables de la séance
+            si None, sélectionne toutes les seances
+        '''
+
+        print("Service : Lister toutes les tables")
+
+        liste_tables_jeu = TableJeuDao().lister(joueur, seance)
+
+        print("Service : Lister toutes les tables - Terminé")
+
+        return liste_tables_jeu
