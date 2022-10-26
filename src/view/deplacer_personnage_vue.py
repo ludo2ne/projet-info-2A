@@ -48,51 +48,26 @@ class DeplacerPersonnageVue(VueAbstraite):
 
         # On recupere l id de la table d origine
         id_table_origine = int(answers["table_origine"][0])
-        print(id_table_origine)
+
+        # On recupere la liste des personnages de la table d origine et on les affiche
         personnage_list = TableJeuService().lister_personnages(id_table_origine)
+        personnage_list_affichee = [
+            p.id_personnage + " - " + p.nom for p in personnage_list]
         question2 = [
             {
                 "type": "list",
                 "name": "choix_personnage",
                 "message": "Choisissez un personnage : \n",
-                "choices": personnage_list
-            },
-            {
-                "type": "confirm",
-                "name": "confirmation",
-                "message": "Confirmez-vous ?"}
+                "choices": personnage_list_affichee
+            }
         ]
 
-        answers = prompt(question2)
+        answers2 = prompt(question2)
+        personnage_choisi = int(answers2["choix_personnage"][0])
 
-        choix_fait = int(answers["choix"][0])
+        # TODO lister puis choisir la nouvelle table
 
-        # Si une table a été choisie, on demande confirmation
-        confirm = False
-        if choix_fait != len(self.table_list)+1:
-            # Si la suppression n a pas ete confirmee, on retourne au menu MaitreJeu
-            answers = prompt(self.questions[1])
-            confirm = answers["confirmation"]
-            message = ""
+        # TODO verifier que le joueur est bien libre a cette seance (si cela concerne une autre seance)
+        #      ou pas si on considere qu on reste toujours sur la meme seance
 
-        # Deux cas de figures entrainent l'annulation de la procédure et
-        # le retour au menu MaitreJeu:
-        # 1) l'utilisateur a changé d'avis au moment de choisir une table
-        # 2) Il n'a pas confirmé son choix
-        if not confirm or choix_fait == len(self.table_list)+1:
-            message = "Résiliation de table annulée"
-        else:
-            table_choisie = self.table_list[choix_fait-1]
-
-            # On appelle le service de résiliation de table
-            statut_suppression = MaitreJeuService(
-            ).quitter_table(joueur, table_choisie[1])
-            # On récupère le message à afficher (succès ou échec)
-            if not statut_suppression[0]:
-                message = statut_suppression[1] + \
-                    f"{statut_suppression[1]}\n La résiliation de table a échoué"
-            else:
-                message = statut_suppression[1] + \
-                    f"Vous avez bien quitté la table {table_choisie} ."
-
-        return MaitreJeuMenuVue(message)
+        # TODO si tout est ok mettre a jour la bdd
