@@ -78,7 +78,7 @@ class MessageDao(metaclass=Singleton):
                               lu=row["lu"],
                               date_creation=row["date_creation"])
                 messages.append(msg)
-            print("recuperer data ok")  # il n'affiche pas ?
+            # print("recuperer data ok")
             # mettre a jour le statut de l'attribut lu des objets messages correspondants
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
@@ -86,7 +86,7 @@ class MessageDao(metaclass=Singleton):
                         "UPDATE jdr.message "
                         " SET lu=True WHERE id_joueur = %(id)s;",
                         {"id": joueur.id_joueur})
-            print("mettre a jour ok")  # il n'affiche pas ?
+            # print("mettre a jour ok")
 
         print("DAO : Voir les messages du joueur - Terminé")
 
