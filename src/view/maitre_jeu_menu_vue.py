@@ -10,6 +10,7 @@ Version : 1.0
 from InquirerPy import prompt
 from view.vue_abstraite import VueAbstraite
 from service.joueur_service import JoueurService
+from service.maitre_jeu_service import MaitreJeuService
 from view.session import Session
 
 
@@ -24,8 +25,11 @@ class MaitreJeuMenuVue(VueAbstraite):
                 "name": "choix",
                 "message": "Faites votre choix",
                 "choices": [
+
                     "Gérer une Table",
-                    "Résilier une Table (TODO)",
+                    "Résilier une Table",
+                    "Gérer une Table (TODO)",
+                    "Résilier une Table",
                     "Voir les Tables gérées (TODO)",
                     "Retourner au menu Joueur",
                     "Se déconnecter"
@@ -47,6 +51,10 @@ class MaitreJeuMenuVue(VueAbstraite):
         if reponse["choix"] == "Retourner au menu Joueur":
             from view.joueur_menu_vue import JoueurMenuVue
             return JoueurMenuVue()
+        elif reponse["choix"] == "Résilier une Table":
+            message = "Vous vous apprêtez à quitter une table de jeu"
+            from view.resilier_table_vue import ResilierTableVue
+            return ResilierTableVue(message)
         elif reponse["choix"] == "Se déconnecter":
             Session().user = None
             from view.accueil_vue import AccueilVue

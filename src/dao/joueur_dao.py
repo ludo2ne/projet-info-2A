@@ -218,3 +218,34 @@ class JoueurDao(metaclass=Singleton):
         print("DAO : Suppression de compte- Terminé")
 
         return [res > 0]
+
+    def lister_tous(self) -> list[Joueur]:
+        '''lister tous les joueurs
+        '''
+        print("DAO : Lister tous les joueurs")
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT *                   "
+                        "   FROM jdr.joueur         "
+                        "  WHERE pseudo != 'admin'  ")
+                    res = cursor.fetchall()
+        except Exception as e:
+            print(e)
+            raise
+
+        liste_joueurs = []
+        if res:
+            for row in res:
+                joueur = Joueur(pseudo=row["pseudo"],
+                                nom=row["nom"],
+                                prenom=row["prenom"],
+                                mail=row["mail"],
+                                id_joueur=row["id_joueur"])
+                liste_joueurs.append(joueur)
+
+        print("DAO : Lister tous les joueurs - Terminé")
+
+        return liste_joueurs
