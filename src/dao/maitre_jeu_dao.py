@@ -21,13 +21,14 @@ class MaitreJeuDao(metaclass=Singleton):
     Classe contenant les méthodes de dao de MaitreJeu
     '''
 
-    def quitter_table(self, mj) -> bool:
+    def quitter_table(self, mj, seance) -> bool:
         '''Suppression de la présence d'un maitre du jeu à une table 
         dans la base de données
 
         Parameters
         ----------
         mj : MaitreJeu
+        seance:integer
         '''
         print("DAO : Suppression de la présence d'un maitre du jeu à une table")
 
@@ -37,8 +38,8 @@ class MaitreJeuDao(metaclass=Singleton):
                     # Supprimer le personnage des tables où il est utilisé
                     cursor.execute(
                         "DELETE FROM jdr.table_jeu "
-                        "WHERE id_maitre_jeu=%(id_maitre_jeu)s",
-                        {"id_maitre_jeu": mj.id_joueur})
+                        "WHERE id_maitre_jeu=%(id_maitre_jeu)s and id_seance=%(id_seance)s",
+                        {"id_maitre_jeu": mj.id_joueur, "id_seance": seance})
                     res = cursor.rowcount
         except Exception as e:
             print(e)
@@ -63,7 +64,7 @@ class MaitreJeuDao(metaclass=Singleton):
                 with connection.cursor() as cursor:
                     # Lister les tables du maitre du jeu
                     cursor.execute(
-                        "SELECT id_table,id_seance FROM jdr.table_jeu "
+                        "SELECT id_table,id_seance,scenario FROM jdr.table_jeu "
                         "WHERE id_maitre_jeu=%(id_mj)s",
                         {"id_mj": mj.id_joueur})
                     res = cursor.fetchall()
@@ -75,7 +76,8 @@ class MaitreJeuDao(metaclass=Singleton):
               f" tables avec le maitre du jeu {mj.prenom} {mj.nom}")
         table_list = []
         for el in res:
-            table_list.append([el["id_table"], el["id_seance"]])
+            table_list.append(
+                [el["id_table"], el["id_seance"], el["scenario"]])
 
         print("DAO : Listing des tables d'un maitre du jeu - Terminé")
 

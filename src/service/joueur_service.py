@@ -18,7 +18,9 @@ from dao.joueur_dao import JoueurDao
 from dao.maitre_jeu_dao import MaitreJeuDao
 from dao.table_jeu_dao import TableJeuDao
 from dao.personnage_dao import PersonnageDao
+from dao.message_dao import MessageDao
 from view.session import Session
+from dao.message_dao import MessageDao
 
 
 class JoueurService:
@@ -86,7 +88,7 @@ class JoueurService:
 
         return success
 
-    def lister_tous(self):
+    def lister_tous(self) -> list[Joueur]:
         '''Service pour lister tous les joueurs
 
         Returns
@@ -162,7 +164,7 @@ class JoueurService:
 
         return resultat
 
-    def supprimer_personnage(self, perso_a_supprimer):
+    def supprimer_personnage(self, perso_a_supprimer, joueur):
         '''Supprimer un personnage d'un utilisateur
 
         Returns
@@ -171,14 +173,13 @@ class JoueurService:
 
         print("Service : Suppression d'un personnage")
 
-        joueur = Session().user
-
         # vérifier si le personnage n'est pas assis à une table
         perso_non_utilise = (
             PersonnageDao().lister_tables(perso_a_supprimer) == 0)
 
         if perso_non_utilise:
-            statut_suppression = PersonnageDao().supprimer(perso_a_supprimer)
+            statut_suppression = [
+                PersonnageDao().supprimer(perso_a_supprimer), ""]
             # Supprimer le personnage de la liste du joueur
             print(f"suppression de {perso_a_supprimer.nom}")
             for el in joueur.liste_personnages:
@@ -186,7 +187,7 @@ class JoueurService:
             joueur.liste_personnages.remove(perso_a_supprimer)
         else:
             statut_suppression = [
-                False, f"Le personnage {perso_a_supprimer.nom} est déjà utilisé sur une table"]
+                False, f"Le personnage {perso_a_supprimer.nom} est déjà utilisé sur une table.\n"]
 
         print("Service : Suppression de personnage - Terminé")
 
@@ -206,6 +207,7 @@ class JoueurService:
 
         pb_rencontre = 0
         pb_list_joueur = []
+        err_message = ""
         # Enlever les personnages des tables où ils sont utilisés
         # Dans la DAO, le lien entre le joueur et sa table se fait via les personnages
         # Supprimer un personnage d'un table revient à supprimer le joueur
@@ -217,6 +219,7 @@ class JoueurService:
                 if not perso_enleve_table:
                     pb_rencontre += 1
                     pb_list_joueur.append(el.nom)
+                    err_message += f"Problème rencontré au moment d'enlever le personnage {el.nom} d'une table.\n"
         if pb_rencontre != 0:
             print("problème rencontré au moment d'enlever ce(s) personnage(s)" +
                   "d'une table:\n" +
@@ -230,18 +233,32 @@ class JoueurService:
         #  --> besoin de parcourir la liste à l'envers
         perso_list = []
         for el in reversed(compte.liste_personnages):
-            statut_suppr_perso = self.supprimer_personnage(el)
+            statut_suppr_perso = self.supprimer_personnage(el, compte)
+            err_message += statut_suppr_perso[1]
 
         # Enlever le joueur des tables où il est assis en tant que maitre du jeu
         if type(compte) == MaitreJeu:
-            statut_suppr_mj = MaitreJeuDao().quitter_table(compte)
+            table_list = MaitreJeuDao().lister_tables_mj(compte)
+            admin = self.trouver_par_pseudo("admin")
+            for el in table_list:
+                statut_suppr_mj = MaitreJeuDao().quitter_table(compte, el[1])
+                if not statut_suppr_mj:
+                    err_message += f"Le Maitre du Jeu {compte.pseudo} n'a pas pu quitter la tables {el}\n"
+                else:
+                    message = f"Le Maitre du Jeu {compte.pseudo} a quitté la table {el}"
+                    statut_notif_admin = MessageDao().creer(admin, message)
+                    if not statut_notif_admin:
+                        err_message += "L'administrateur n'a pas pu être notifié.\n"
+            admin = None
 
         # Supprimer le compte du joueur
         statut_suppression = JoueurDao().supprimer_compte(compte)
+        if not statut_suppression:
+            err_message += f"Le compte du joueur {compte.pseudo} n'a pas pu être supprimé.\n"
 
         print("Service : Suppression de compte - Terminé")
 
-        return statut_suppression
+        return [statut_suppression, err_message]
 
     def voir_son_programme(self):
         '''Affiche les tables ou le joueur est
@@ -252,7 +269,8 @@ class JoueurService:
 
         table_jeu = TableJeuDao().lister(joueur=joueur)
 
-        entetes = ["séance", "id_table", "sénario", "mj"]
+        entetes = ["séance", "id_table", "sénario",
+                   "mj", "nom du personnage joué"]
 
         # liste de liste des persos de chaque table
         list_perso_des_tables = [t.liste_perso() for t in table_jeu]
@@ -273,5 +291,34 @@ class JoueurService:
                                                     floatfmt=".2f") + "\n"
 
         print("Service : Voir programme - Terminé")
+
+        return resultat
+
+    def voir_messages(self):
+        '''Afficher les messages envoyés à un utilisateur
+
+        Returns
+        -------
+        '''
+
+        print("Service : voir les messages")
+
+        joueur = Session().user
+        # print('00')
+
+        messages = MessageDao().lister_par_joueur(joueur)
+        # print('aa')
+
+        entetes = ["id_message", "id_joueur", "Contenu", "Lu", "Date_création"]
+        message_as_list = [msg.as_list() for msg in messages]
+
+        # print('bb')
+
+        resultat = "Votre Messages \n" + tabulate(tabular_data=message_as_list,
+                                                  headers=entetes,
+                                                  tablefmt="psql",
+                                                  floatfmt=".2f") + "\n"
+
+        print("Service : voir les messages - Terminé")
 
         return resultat

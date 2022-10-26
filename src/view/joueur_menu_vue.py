@@ -31,7 +31,7 @@ class JoueurMenuVue(VueAbstraite):
                     "Quitter une table (TODO)",
                     "Voir son programme",
                     "Supprimer son compte",
-                    "Voir ses messages (TODO)",
+                    "Voir ses messages",
                     "Se déconnecter"
                 ]
             }
@@ -82,3 +82,6 @@ class JoueurMenuVue(VueAbstraite):
             Session().user = None
             from view.accueil_vue import AccueilVue
             return AccueilVue("À bientôt {}".format(utilisateur.pseudo))
+        elif reponse["choix"] == "Voir ses messages":
+            msg = JoueurService().voir_messages()
+            return (JoueurMenuVue(msg))

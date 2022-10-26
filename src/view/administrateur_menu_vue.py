@@ -29,9 +29,9 @@ class AdministrateurMenuVue(VueAbstraite):
                     "Voir le programme complet",
                     "Déplacer un personnage (TODO)",
                     "Déplacer un Maitre du Jeu (TODO)",
-                    "Créer une Table de Jeu (TODO)",
+                    "Créer une Table de Jeu",
                     "Supprimer une Table de Jeu (TODO)",
-                    "Supprimer un joueur (TODO)",
+                    "Supprimer un joueur",
                     "Voir les messages (TODO)",
                     "Se déconnecter"
                 ]
@@ -52,8 +52,12 @@ class AdministrateurMenuVue(VueAbstraite):
             return (AdministrateurMenuVue(programme))
         elif reponse["choix"] == "Déplacer un joueur":
             pass
+        elif reponse["choix"] == "Créer une Table de Jeu":
+            from view.creer_table_vue import CreerTableVue
+            return CreerTableVue()
         elif reponse["choix"] == "Supprimer un joueur":
-            pass
+            from view.supprimer_joueur_vue import SupprimerJoueurVue
+            return SupprimerJoueurVue()
         elif reponse["choix"] == "Voir les messages":
             pass
         elif reponse["choix"] == "Se déconnecter":
