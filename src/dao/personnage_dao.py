@@ -117,7 +117,11 @@ class PersonnageDao(metaclass=Singleton):
         return [res > 0]
 
     def trouver_par_id(self, id_personnage) -> Personnage:
-        '''trouver un joueur grace à son id
+        '''Trouver un personnage grace à son id
+        Params
+        ------
+        id_personnage : int
+            id du personnage recherché
         '''
         print("DAO : Trouver personnage par id")
 
@@ -235,5 +239,34 @@ class PersonnageDao(metaclass=Singleton):
         print("DAO : Personnage enlevé de" + str(res) + " table(s)")
 
         print("DAO : Suppression de la présence d'un personnage à une table- Terminé")
+
+        return [res > 0]
+
+    def rejoindre_table(self, table, personnage) -> bool:
+        '''Ajouter un personnage à une table de jeu
+
+        Parameters
+        ----------
+        personnage : Personnage
+            le personnage à ajouter
+        table : TableJeu
+            la table de jeu que le personnage rejoint
+        '''
+        print("DAO : Personnage rejoint une table")
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    # Supprimer le personnage des tables où il est utilisé
+                    cursor.execute(
+                        "INSERT INTO jdr.table_personnage            "
+                        "VALUES(%(id_table)s,%(id_perso)s)           ",
+                        {"id_table": table.id_table, "id_perso": personnage.id_personnage})
+                    res = cursor.rowcount
+        except Exception as e:
+            print(e)
+            raise
+
+        print("DAO : Personnage qui rejoint une table - Terminé")
 
         return [res > 0]
