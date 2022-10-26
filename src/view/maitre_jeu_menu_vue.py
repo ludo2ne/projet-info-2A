@@ -24,7 +24,7 @@ class MaitreJeuMenuVue(VueAbstraite):
                 "name": "choix",
                 "message": "Faites votre choix",
                 "choices": [
-                    "Gérer une Table (TODO)",
+                    "Gérer une Table",
                     "Résilier une Table (TODO)",
                     "Voir les Tables gérées (TODO)",
                     "Retourner au menu Joueur",
@@ -51,3 +51,6 @@ class MaitreJeuMenuVue(VueAbstraite):
             Session().user = None
             from view.accueil_vue import AccueilVue
             return AccueilVue("À bientôt {}".format(utilisateur.pseudo))
+        elif reponse["choix"] == "Gérer une Table":
+            from view.gerer_table_vue import GererTableVue
+            return GererTableVue()
