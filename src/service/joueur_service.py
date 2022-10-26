@@ -20,6 +20,7 @@ from dao.table_jeu_dao import TableJeuDao
 from dao.personnage_dao import PersonnageDao
 from dao.message_dao import MessageDao
 from view.session import Session
+from dao.message_dao import MessageDao
 
 
 class JoueurService:
@@ -87,7 +88,7 @@ class JoueurService:
 
         return success
 
-    def lister_tous(self):
+    def lister_tous(self) -> list[Joueur]:
         '''Service pour lister tous les joueurs
 
         Returns
@@ -163,7 +164,7 @@ class JoueurService:
 
         return resultat
 
-    def supprimer_personnage(self, perso_a_supprimer):
+    def supprimer_personnage(self, perso_a_supprimer, joueur):
         '''Supprimer un personnage d'un utilisateur
 
         Returns
@@ -171,8 +172,6 @@ class JoueurService:
         '''
 
         print("Service : Suppression d'un personnage")
-
-        joueur = Session().user
 
         # vérifier si le personnage n'est pas assis à une table
         perso_non_utilise = (
@@ -234,7 +233,7 @@ class JoueurService:
         #  --> besoin de parcourir la liste à l'envers
         perso_list = []
         for el in reversed(compte.liste_personnages):
-            statut_suppr_perso = self.supprimer_personnage(el)
+            statut_suppr_perso = self.supprimer_personnage(el, compte)
             err_message += statut_suppr_perso[1]
 
         # Enlever le joueur des tables où il est assis en tant que maitre du jeu
@@ -260,3 +259,32 @@ class JoueurService:
         print("Service : Suppression de compte - Terminé")
 
         return [statut_suppression, err_message]
+
+    def voir_messages(self):
+        '''Afficher les messages envoyés à un utilisateur
+
+        Returns
+        -------
+        '''
+
+        print("Service : voir les messages")
+
+        joueur = Session().user
+        # print('00')
+
+        messages = MessageDao().lister_par_joueur(joueur)
+        # print('aa')
+
+        entetes = ["id_message", "id_joueur", "Contenu", "Lu", "Date_création"]
+        message_as_list = [msg.as_list() for msg in messages]
+
+        # print('bb')
+
+        resultat = "Votre Messages \n" + tabulate(tabular_data=message_as_list,
+                                                  headers=entetes,
+                                                  tablefmt="psql",
+                                                  floatfmt=".2f") + "\n"
+
+        print("Service : voir les messages - Terminé")
+
+        return resultat
