@@ -75,9 +75,10 @@ class MaitreJeuDao(metaclass=Singleton):
         print("DAO : " + str(len(res)) +
               f" tables avec le maitre du jeu {mj.prenom} {mj.nom}")
         table_list = []
-        for el in res:
-            table_list.append(
-                [el["id_table"], el["id_seance"], el["scenario"]])
+        if res:
+            for el in res:
+                table_list.append(
+                    [el["id_table"], el["id_seance"], el["scenario"]])
 
         print("DAO : Listing des tables d'un maitre du jeu - Terminé")
 
