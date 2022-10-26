@@ -79,13 +79,15 @@ class DeplacerPersonnageVue(VueAbstraite):
         # On affiche les autres tables disponibles pour la meme seance
         table_arrivee_list = TableJeuService().lister(
             seance=table_origine.id_seance, complete=False)
+
+        # on retire de la liste la table d origine
+        table_arrivee_list = [
+            t for t in table_arrivee_list if t.id_table != id_table_origine]
         table_arrivee_list_affichee = [
             t.id_table for t in table_arrivee_list]
 
-        # on retire de la liste la table d origine
-        table_arrivee_list_affichee.remove(id_table_origine)
-
         self.nettoyer_console()
+        print(TableJeuService().affichage_liste(table_arrivee_list))
         question3 = [
             {
                 "type": "list",

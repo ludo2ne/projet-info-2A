@@ -13,7 +13,7 @@ from dao.table_jeu_dao import TableJeuDao
 from dao.personnage_dao import PersonnageDao
 
 
-class PersonnageService():
+class PersonnageService:
 
     def trouver_par_id(self, id_personnage):
         '''Trouver un personnage grace à son id
