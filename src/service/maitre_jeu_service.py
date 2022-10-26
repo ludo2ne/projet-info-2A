@@ -14,6 +14,7 @@ from typing import List, Optional
 from business_object.joueur import Joueur
 from business_object.maitre_jeu import MaitreJeu
 from business_object.personnage import Personnage
+from business_object.table_jeu import TableJeu
 from dao.joueur_dao import JoueurDao
 from dao.maitre_jeu_dao import MaitreJeuDao
 from dao.table_jeu_dao import TableJeuDao
@@ -21,6 +22,7 @@ from dao.personnage_dao import PersonnageDao
 from dao.message_dao import MessageDao
 from service.joueur_service import JoueurService
 from view.session import Session
+from dao.table_jeu_dao import TableJeuDao
 
 
 class MaitreJeuService:
@@ -57,3 +59,22 @@ class MaitreJeuService:
 
         print("Service : Résiliation de TableJeu du mj - Terminé")
         return [statut_quitter_table, err_message]
+
+    def dispo_mj(self, mj, id_seance):
+        resultat = True
+        table_list_mj = []
+        table_list_mj = MaitreJeuDao().lister_tables_mj(mj)
+        # voir si le mj a deja inscrit pour une meme seance en tant que mj
+        for i in range(len(table_list_mj)):
+            if table_list_mj[i][1] == id_seance:
+                resultat = False
+                break
+
+        # voir si le mj a deja inscrit pour une meme seance en tant que joueur
+        if resultat == True:
+            table_list_j = TableJeuDao().lister_tables_mj(joueur=mj, seance=None)
+            for table_jeu in table_list_j:
+                if table_jeu.id_seance == id_seance:
+                    resultat = False
+                    break
+        return resultat

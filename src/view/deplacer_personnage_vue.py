@@ -10,6 +10,7 @@ from view.session import Session
 from view.vue_abstraite import VueAbstraite
 
 from service.administrateur_service import AdministrateurService
+from service.table_jeu_service import TableJeuService
 
 from business_object.joueur import Joueur
 
@@ -19,8 +20,8 @@ class DeplacerPersonnageVue(VueAbstraite):
         joueur = Session().user
         # Pour le choix de la table, afficher seulement la séance et le scenario
         # et son ordre d'apparition dans la liste de tables
-        table_list = [str(t.id_table) + " - " + str(t.id_seance) + " - " + " - " +
-                      str(t.scenario) for t in AdministrateurService().lister_toutes_les_tables()]
+        table_list = [str(t.id_table) + " | Séance " + str(t.id_seance) + " - Table " + str(t.id_table) + " - " +
+                      str(t.scenario) for t in AdministrateurService().lister_tables_actives()]
 
         # ajouter à la liste la possibilité de revenir en arriere sans supprimer de personnage
         table_list.append("Non, finalement j'ai changé d'avis")
@@ -45,10 +46,10 @@ class DeplacerPersonnageVue(VueAbstraite):
         joueur = Session().user
         answers = prompt(self.question1)
 
-        table_origine = answers["table_origine"]
-        print(table_origine)
-
-        personnage_list = TableJeuService.lister_personnages(table_origine)
+        # On recupere l id de la table d origine
+        id_table_origine = int(answers["table_origine"][0])
+        print(id_table_origine)
+        personnage_list = TableJeuService().lister_personnages(id_table_origine)
         question2 = [
             {
                 "type": "list",

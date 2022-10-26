@@ -26,12 +26,10 @@ class AdministrateurService():
     def creer_table_autorisee(self, seance) -> bool:
         '''Dit si le joueur n'a pas atteint le nombre maximum de Personnages
         '''
-        print("Service : Créer table autorisee")
+        print("Service : Creer table autorisee")
         nb_tables = TableJeuDao().compter_tables_par_seance(seance)
-        creation_autorisee = nb_tables < int(
-            os.environ["NB_TABLES_MAX_PAR_SEANCE"])
-        print("Service : Créer table autorisée - Terminé")
-        return creation_autorisee
+        print(nb_tables)
+        return nb_tables < int(os.environ["NB_TABLES_MAX_PAR_SEANCE"])
 
     def voir_programme_complet(self):
 
@@ -89,12 +87,24 @@ class AdministrateurService():
 
         return resultat
 
-    def lister_toutes_les_tables(self) -> list[TableJeu]:
+    def lister_tables_actives(self) -> list[TableJeu]:
         '''Retourne la liste de toutes les tables de jeu
         '''
 
-        print("Service : Lister toutes les tables")
-        liste_tables = TableJeuDao().lister()
-        print("Service : Lister toutes les tables - terminé")
+        print("Service : Lister les tables actives")
+        liste_tables = TableJeuDao().lister_tables_actives()
+        print("Service : Lister les tables actives - Terminé")
 
         return liste_tables
+
+    def supprimer_table(self):
+        '''TODO corriger
+        '''
+        liste_tables = TableJeuDao().lister(self)
+        table_couple = []
+        for k in range(len(liste_tables)):
+            table_couple.append(
+                [TableJeuDao().nombre_joueurs_assis(liste_tables[k]), liste_tables[k]])
+            if table_couple[k][0] == 0:
+                TableJeuDao().supprimer_table(table_couple[k][1])
+        return table_couple

@@ -208,7 +208,6 @@ class TableJeuDao(metaclass=Singleton):
                         liste_tables_jeu.append(table_jeu)
 
                     maitre_jeu = JoueurDao().trouver_par_id(row["id_mj"])
-                    print("mj trouvé")
 
                     table_jeu = TableJeu(id_table=row["id_table"],
                                          id_seance=row["id_seance"],
@@ -246,3 +245,46 @@ class TableJeuDao(metaclass=Singleton):
         print("DAO : Compter Tables-terminé")
 
         return nb_tables_par_seance
+
+    def lister_tables_actives(self) -> list[TableJeu]:
+        '''Retourne la liste des tables de jeu avec un Maitre du Jeu et/ou des joueurs
+        '''
+
+        print("DAO : Lister tables actives")
+
+        variables = dict()
+        requete = "SELECT t.*                                                      "\
+            "        FROM jdr.table_jeu t                                          "\
+            "       INNER JOIN jdr.table_personnage tp USING(id_table)             "\
+            "      UNION                                                           "\
+            "      SELECT t.*                                                      "\
+            "        FROM jdr.table_jeu t                                          "\
+            "       WHERE id_maitre_jeu IS NOT NULL                                "
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(requete, variables)
+                    res = cursor.fetchall()
+        except Exception as e:
+            print(e)
+            raise
+
+        id_table_actuel = None
+        id_sceance_actuel = None
+        table_jeu = None
+        liste_tables_jeu = []
+
+        if res:
+            for row in res:
+                maitre_jeu = JoueurDao().trouver_par_id(row["id_maitre_jeu"])
+                table_jeu = TableJeu(id_table=row["id_table"],
+                                     id_seance=row["id_seance"],
+                                     maitre_jeu=maitre_jeu,
+                                     scenario=row["scenario"])
+
+                liste_tables_jeu.append(table_jeu)
+
+        print("DAO : Lister tables actives - Terminé")
+
+        return liste_tables_jeu
