@@ -30,11 +30,6 @@ class GererTableVue(VueAbstraite):
             liste_seances_affichee.append(
                 str(s.id_seance) + ". " + s.description)
 
-# ["1. samedi matin",
-#                            "2. samedi après-midi",
-#                            "3. dimanche matin",
-#                            "4. dimanche après-midi"]
-
         self.questions = [
             {   # demander le séance a rejoindre
                 "type": "list",

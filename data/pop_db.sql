@@ -10,8 +10,12 @@ INSERT INTO jdr.table_jeu(id_seance, id_maitre_jeu, scenario, infos_complementai
 (1, 3, 'Traversée de la Moria', null),
 (1, 11, 'Libérons les papillons', null),
 (1, null, null, null),
-(2, 2, 'Epidémie au Lazaret le retour', 'joueurs de niveau 6 minimum'),
-(2, 11, 'Il faut sauver maurice', null);
+(2, 2, 'Epidémie au Lazaret - le retour', 'joueurs de niveau 6 minimum'),
+(2, 11, 'Il faut sauver maurice', null),
+(2, null, null, null),
+(3, 2, 'Epidémie au Lazaret - la revanche', null),
+(3, null, null, null),
+(4, 2, 'Epidémie au Lazaret - le retour de la revanche', null);
 
 
 INSERT INTO jdr.joueur(pseudo, nom, prenom, mail, est_mj) VALUES
@@ -38,7 +42,8 @@ INSERT INTO jdr.personnage(id_joueur, nom, classe,race,niveau) VALUES
 (6, 'Luke',      'Fighter',   'Human',    10),
 (6, 'Leia',      'Ranger',    'Elf',      3),
 (7, 'Bron',      'Rogue',     'Elf',      6),
-(8, 'Superman',  'Warlock',   'Half-Elf', 8);
+(8, 'Superman',  'Warlock',   'Half-Elf', 8),
+(9, 'Kevin',     'Druid',     'Dwarf',    5);
 
 
 INSERT INTO jdr.table_personnage(id_table, id_personnage) VALUES
