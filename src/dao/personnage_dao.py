@@ -57,8 +57,11 @@ class PersonnageDao(metaclass=Singleton):
 
         return created
 
-    def lister_par_joueur(self, joueur):
+    def lister_par_joueur(self, joueur) -> list[Personnage]:
         '''lister des personnages d'une utilisateur
+
+        Parameters:
+        joueur: Joueur
         '''
         print("DAO : Lister personnage du joueur")
 
@@ -153,6 +156,9 @@ class PersonnageDao(metaclass=Singleton):
 
     def trouver_joueur(self, personnage) -> Joueur:
         '''trouver le joueur à qui appartient le personnage
+
+        Parameters:
+        personnage: Personnage
         '''
         print("DAO : Trouver joueur depuis personnage")
 
@@ -215,7 +221,7 @@ class PersonnageDao(metaclass=Singleton):
         # le personnage est présent. Si nécessaire, on pourra retourner la liste des tables
         return len(res)
 
-    def quitter_table(self, table, personnage) -> bool:
+    def quitter_table(self, personnage, table=None) -> bool:
         '''Suppression de la présence d'un personnage à une ou plusieurs tables
 
         TODO corriger méthode
@@ -298,7 +304,6 @@ class PersonnageDao(metaclass=Singleton):
 
 
 # TODO fusionner avec inscrire_table
-
 
     def rejoindre_table(self, table, personnage) -> bool:
         '''Ajouter un personnage à une table de jeu

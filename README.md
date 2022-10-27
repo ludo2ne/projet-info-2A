@@ -24,6 +24,8 @@ pip install requests
 pip install psycopg2-binary
 pip install tabulate
 pip install autopep8
+pip install pyfiglet
+pip install regex
 
 pip list
 ```

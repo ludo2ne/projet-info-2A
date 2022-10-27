@@ -36,7 +36,7 @@ class MaitreJeuService:
     -------
     lister_tables(mj : Joueur) : list
     quitter_table(mj : Joueur, seance : int): list
-    gerer_table(id_seance : int , scenario : str, info_comple : str): str
+    gerer_table(id_seance : int , scenario : str, info_complementaire : str): str
     voir_tables_gerees() : str
     '''
 
@@ -90,16 +90,16 @@ class MaitreJeuService:
         print("Service : Résiliation de TableJeu du mj - Terminé")
         return [statut_quitter_table, err_message]
 
-    def gerer_table(self, id_seance, scenario, info_comple) -> str:
+    def gerer_table(self, seance, scenario, info_complementaire) -> str:
         '''Service de gerer une table pour mj
 
         Parameters
         ----------
-        id_seance : int
-            numéro de la séance
+        seance : Seance
+            Séance concernée
         scenario : str
             nom du scénario
-        info_comple : str
+        info_complementaire : str
             informations complémentaires
 
         Returns
@@ -114,25 +114,26 @@ class MaitreJeuService:
         table_list_mj = []
         table_list_mj = MaitreJeuDao().lister_tables_mj(mj)
         for i in range(len(table_list_mj)):
-            if table_list_mj[i][1] == id_seance:
+            if table_list_mj[i][1] == seance.id_seance:
                 resultat = "mj non libre"
                 return resultat
         # voir si le mj a deja inscrit pour une meme seance en tant que joueur
         table_list_j = TableJeuDao().lister(joueur=mj, seance=None)
         for table_jeu in table_list_j:
-            if table_jeu.id_seance == id_seance:
+            if table_jeu.id_seance == seance.id_seance:
                 resultat = "mj non libre"
                 return resultat
 
         # Vérification de la disponibilité de table jeu
-        table_list_t = TableJeuDao().lister(joueur=None, seance=id_seance)
+        table_list_t = TableJeuDao().lister(joueur=None, seance=seance.id_seance)
         if len(table_list_t) == int(os.environ["NB_JOUEURS_MAX_PAR_TABLE"]):
             resultat = "non table libre"
             return resultat
 
         # Mettre en place la gestion de table
         id_mj = mj.id_joueur
-        resultat = TableJeuDao().gerer_par_mj(id_mj, id_seance, scenario, info_comple)
+        resultat = TableJeuDao().gerer_par_mj(
+            id_mj, seance.id_seance, scenario, info_complementaire)
         print("Service : Gestion d'une table jeu du mj - Terminé")
         return resultat
 
@@ -156,7 +157,7 @@ class MaitreJeuService:
         entetes = ["séance", "id_table", "scénario", "Personnages"]
 
         entetes_perso = ["nom", "classe", "race",
-                         "niveau", "compétences", "langues parlées"]
+                         "niveau"]
 
         # liste de liste des persos de chaque table
         list_perso_des_tables = [t.liste_perso() for t in table_jeu]

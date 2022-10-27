@@ -15,6 +15,7 @@ from dao.personnage_dao import PersonnageDao
 
 from business_object.table_jeu import TableJeu
 from business_object.personnage import Personnage
+from business_object.joueur import Joueur
 
 
 class TableJeuDao(metaclass=Singleton):
@@ -330,3 +331,34 @@ class TableJeuDao(metaclass=Singleton):
         print("DAO : Gerer une table pour mj - Terminé")
         resultat = "OK"
         return resultat
+
+    def joueurs_assis(self, table) -> list[Joueur]:
+        '''Liste des joueurs assis actuellement à la table
+        '''
+        print("DAO : Liste des joueurs assis à une TableJeu")
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT pseudo,j.nom,prenom,mail,id_joueur                                   "
+                        "  FROM jdr.table_personnage                       "
+                        " JOIN jdr.personnage p USING (id_personnage)"
+                        " JOIN jdr.joueur j USING (id_joueur)"
+                        " WHERE id_table = %(id_table)s                    ",
+                        {"id_table": table.id_table})
+                    res = cursor.fetchall()
+        except Exception as e:
+            print(e)
+            raise
+
+        joueur_list = []
+        if res:
+            for el in res:
+                joueur = Joueur(el["pseudo"], el["nom"], el["prenom"],
+                                el["mail"], id_joueur=el["id_joueur"])
+                joueur_list.append(joueur)
+
+        print("DAO : Liste des joueurs assis à une TableJeu - Terminé")
+
+        return joueur_list

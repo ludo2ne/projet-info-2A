@@ -4,13 +4,13 @@ CREATE SCHEMA jdr;
 -----------------------------------------------------
 -- Sceance
 -----------------------------------------------------
---DROP TABLE IF EXISTS jdr.sceance CASCADE ;
---CREATE TABLE jdr.sceance  (
---    id_sceance serial PRIMARY KEY,
---    description text,
---    debut timestamp,
---    fin timestamp
---);
+DROP TABLE IF EXISTS jdr.seance CASCADE ;
+CREATE TABLE jdr.seance  (
+    id_seance serial PRIMARY KEY,
+    description text,
+    debut timestamp,
+    fin timestamp
+);
 
 -----------------------------------------------------
 -- Table de jeu
