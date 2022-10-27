@@ -23,11 +23,29 @@ class DeplacerPersonnageVue(VueAbstraite):
         joueur = Session().user
 
         table_list = AdministrateurService().lister_tables_actives()
-        table_list_affichee = [str(t.id_table) + ". Séance " + str(t.id_seance) + " - Table " + str(t.id_table) + " - " +
-                               str(t.scenario) for t in table_list]
+
+        # Gros mic-mac pour replacer les tables dans l'ordre chronologique...
+        liste_provisoire = []
+        for t in table_list:
+            listbid = t.as_list()
+            listbid.append(t)
+            print(len(t.personnages))
+            if len(t.personnages) != 0:
+                liste_provisoire.append(listbid)
+                print("ajout", len(t.personnages))
+        liste_provisoire.sort()
+        table_list = [t[-1] for t in liste_provisoire]
+
+        i = 1
+        table_list_affichee = []
+        for t in table_list:
+            table_list_affichee.append(str(i) + ". Séance " + str(t.id_seance) + " - Table " + str(t.id_table) + " - " +
+                                       str(t.scenario))
+            i += 1
+        self.nb_choix = i
 
         # ajouter à la liste la possibilité de revenir en arriere sans supprimer de personnage
-        table_list_affichee.append("Non, finalement j'ai changé d'avis")
+        table_list_affichee.append(f"{i} Non, finalement j'ai changé d'avis")
 
         self.question1 = [
             {
@@ -49,12 +67,13 @@ class DeplacerPersonnageVue(VueAbstraite):
         joueur = Session().user
         answers = prompt(self.question1)
 
-        if answers["table_origine"] == "Non, finalement j'ai changé d'avis":
+        if answers["table_origine"][0] == self.nb_choix:
             message = "Déplacement de personnage annulé"
             return AdministrateurMenuVue(message)
 
         # On recupere l id de la table d origine
-        id_table_origine = int(answers["table_origine"][0])
+        choix_fait = answers["table_origine"]
+        id_table_origine = int(choix_fait.split()[5])
 
         # On recupere la liste des personnages de la table d origine et on les affiche
         table_origine = TableJeuService().trouver_par_id(id_table_origine)

@@ -61,10 +61,14 @@ class QuitterTableVue(VueAbstraite):
 
     def choisir_menu(self):
         message = ""
-        answers = prompt(self.questions)
+        answers = prompt(self.questions[0])
 
-#        if not answers["confirmation"] or answers["id_table"] == "Non, finalement j'ai changé d'avis":
-        if not answers["confirmation"] or int(answers["id_table"][0]) == self.nb_choix:
+#        if not answers["confirmation"] or int(answers["id_table"][0]) == self.nb_choix:
+        if int(answers["id_table"][0]) == self.nb_choix:
+            return JoueurMenuVue("Aucune table quittée")
+
+        answers2 = prompt(self.questions[1])
+        if not answers2["confirmation"]:
             return JoueurMenuVue("Aucune table quittée")
 
         choix_fait = answers["id_table"]

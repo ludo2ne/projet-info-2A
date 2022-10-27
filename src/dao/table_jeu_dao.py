@@ -304,6 +304,7 @@ class TableJeuDao(metaclass=Singleton):
                                      id_seance=row["id_seance"],
                                      maitre_jeu=maitre_jeu,
                                      scenario=row["scenario"])
+                table_jeu.personnages = self.lister_personnages(table_jeu)
 
                 liste_tables_jeu.append(table_jeu)
 
