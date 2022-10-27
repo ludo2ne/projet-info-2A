@@ -191,10 +191,11 @@ class PersonnageDao(metaclass=Singleton):
                 with connection.cursor() as cursor:
                     # Lister les tables du personnage
                     cursor.execute(
-                        "SELECT id_table,id_seance FROM jdr.personnage "
-                        "JOIN jdr.table_personnage USING (id_personnage)"
-                        "JOIN jdr.table_jeu USING(id_table)"
-                        "WHERE id_personnage=%(id_perso)s",
+                        "SELECT t.*                                             "
+                        "  FROM jdr.personnage p                                "
+                        "  JOIN jdr.table_personnage tp USING (id_personnage)   "
+                        "  JOIN jdr.table_jeu t USING(id_table)                 "
+                        "WHERE id_personnage=%(id_perso)s                       ",
                         {"id_perso": personnage.id_personnage})
                     res = cursor.fetchall()
         except Exception as e:
@@ -210,9 +211,11 @@ class PersonnageDao(metaclass=Singleton):
         # le personnage est présent. Si nécessaire, on pourra retourner la liste des tables
         return len(res)
 
-    def quitter_table(self, personnage) -> bool:
+    def quitter_table(self, personnage, table) -> bool:
         '''Suppression de la présence d'un personnage à une table 
         dans la base de données
+
+        TODO corriger méthode
 
         Parameters
         ----------
@@ -225,15 +228,16 @@ class PersonnageDao(metaclass=Singleton):
                 with connection.cursor() as cursor:
                     # Supprimer le personnage des tables où il est utilisé
                     cursor.execute(
-                        "DELETE FROM jdr.table_personnage "
-                        "WHERE id_personnage=%(id_perso)s",
-                        {"id_perso": personnage.id_personnage})
+                        "DELETE FROM jdr.table_personnage     "
+                        "WHERE id_personnage= % (id_perso)s   "
+                        "AND id_table= % (id_table)s          ",
+                        {"id_perso": personnage.id_personnage, "id_table": table.id_table})
                     res = cursor.rowcount
         except Exception as e:
             print(e)
             raise
         print("DAO : Personnage enlevé de" + str(res) + " table(s)")
 
-        print("DAO : Suppression de la présence d'un personnage à une table- Terminé")
+        print("DAO : Suppression de la présence d'un personnage à une table - Terminé")
 
         return [res > 0]

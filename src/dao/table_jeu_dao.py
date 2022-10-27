@@ -113,7 +113,7 @@ class TableJeuDao(metaclass=Singleton):
 
         return nb_joueurs
 
-    def lister(self, joueur=None, seance=None) -> list[TableJeu]:
+    def lister(self, joueur=None, seance=None, personnage=None) -> list[TableJeu]:
         '''Retourne la liste des tables
         Si les paramètres sont à None, liste toutes les tables
         Params
@@ -141,6 +141,10 @@ class TableJeuDao(metaclass=Singleton):
             "        LEFT JOIN jdr.joueur j USING (id_joueur)                      "\
             "        LEFT JOIN jdr.joueur mj ON t.id_maitre_jeu = mj.id_joueur     "\
             "       WHERE 1=1                                                      "
+
+        if personnage:
+            requete += " AND p.id_personnage = %(id_personnage)s                   "
+            variables["id_personnage"] = personnage.id_personnage
 
         if joueur:
             requete += " AND j.id_joueur = %(id_joueur)s                           "

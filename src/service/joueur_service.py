@@ -322,3 +322,19 @@ class JoueurService:
         print("Service : voir les messages - Terminé")
 
         return resultat
+
+    def quitter_table(self, id_table):
+        '''Permet au joueur de quitter sa table
+        '''
+        print("Service : Quitter une table")
+
+        joueur = Session().user
+        table_jeu = TableJeuDao().trouver_par_id(id_table)
+
+        # TODO methode qui renvoie personnage a partir de joueur et table
+
+        statut_suppression = PersonnageDao().quitter_table(personnage, table_jeu)
+
+        print("Service : Suppression de personnage - Terminé")
+
+        return statut_suppression
