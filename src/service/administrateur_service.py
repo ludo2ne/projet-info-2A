@@ -14,6 +14,7 @@ from view.session import Session
 
 from business_object.joueur import Joueur
 from business_object.personnage import Personnage
+from business_object.table_jeu import TableJeu
 
 from dao.joueur_dao import JoueurDao
 from dao.table_jeu_dao import TableJeuDao
@@ -25,12 +26,10 @@ class AdministrateurService():
     def creer_table_autorisee(self, seance) -> bool:
         '''Dit si le joueur n'a pas atteint le nombre maximum de Personnages
         '''
-        print("Service : Créer table autorisee")
+        print("Service : Creer table autorisee")
         nb_tables = TableJeuDao().compter_tables_par_seance(seance)
-        creation_autorisee = nb_tables < int(
-            os.environ["NB_TABLES_MAX_PAR_SEANCE"])
-        print("Service : Créer table autorisée - Terminé")
-        return creation_autorisee
+        print(nb_tables)
+        return nb_tables < int(os.environ["NB_TABLES_MAX_PAR_SEANCE"])
 
     def voir_programme_complet(self):
 
@@ -73,7 +72,8 @@ class AdministrateurService():
                 personnages_as_list = [p.as_list() for p in t.personnages]
 
                 for p in personnages_as_list:
-                    joueur = PersonnageDao().trouver_joueur(p[0])
+                    current_perso = PersonnageDao().trouver_par_id(p[0])
+                    joueur = PersonnageDao().trouver_joueur(current_perso)
                     p.append(joueur.prenom + " " + joueur.nom +
                              " (" + joueur.pseudo + ")")
 
@@ -87,3 +87,25 @@ class AdministrateurService():
         resultat += table_txt
 
         return resultat
+
+    def lister_tables_actives(self) -> list[TableJeu]:
+        '''Retourne la liste de toutes les tables de jeu
+        '''
+
+        print("Service : Lister les tables actives")
+        liste_tables = TableJeuDao().lister_tables_actives()
+        print("Service : Lister les tables actives - Terminé")
+
+        return liste_tables
+
+    def supprimer_table(self):
+        '''TODO corriger
+        '''
+        liste_tables = TableJeuDao().lister(self)
+        table_couple = []
+        for k in range(len(liste_tables)):
+            table_couple.append(
+                [TableJeuDao().nombre_joueurs_assis(liste_tables[k]), liste_tables[k]])
+            if table_couple[k][0] == 0:
+                TableJeuDao().supprimer_table(table_couple[k][1])
+        return table_couple

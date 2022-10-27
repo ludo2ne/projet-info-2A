@@ -34,7 +34,8 @@ INSERT INTO jdr.table_personnage(id_table, id_personnage) VALUES
 (1, 1),
 (1, 5),
 (1, 6),
-(2, 1),
+(2, 3),
+(5, 2),
 (10001, 10001),
 (10001, 10002);
 
