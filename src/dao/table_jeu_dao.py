@@ -295,3 +295,26 @@ class TableJeuDao(metaclass=Singleton):
         print("DAO : Lister tables actives - Terminé")
 
         return liste_tables_jeu
+
+    def gerer_par_mj(self, id_mj, id_seance, scenario, info_comple):
+        ''' gerer une table pour mj
+        '''
+        print("DAO : Gerer une table pour mj")
+
+        if not info_comple:
+            info_comple = 'null'
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "INSERT INTO jdr.table_jeu(id_seance, id_maitre_jeu, scenario, infos_complementaires)"
+                        " VALUES (%(id_seance)s, %(id_mj)s, %(scenario)s, %(info_comple)s)",
+                        {"id_seance": id_seance, "id_mj": id_mj, "scenario": scenario, "info_comple": info_comple})
+        except Exception as e:
+            print(e)
+            raise
+
+        print("DAO : Gerer une table pour mj - Terminé")
+        resultat = "OK"
+        return resultat

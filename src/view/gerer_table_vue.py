@@ -6,8 +6,10 @@ Licence : Domaine public
 Version : 1.0
 '''
 from InquirerPy import prompt
+from InquirerPy.validator import EmptyInputValidator
 from view.vue_abstraite import VueAbstraite
 from service.joueur_service import JoueurService
+from service.maitre_jeu_service import MaitreJeuService
 from view.session import Session
 from business_object.joueur import Joueur
 
@@ -25,11 +27,14 @@ class GererTableVue(VueAbstraite):
                 "choices": ["1. samedi matin",
                             "2. samedi après-midi",
                             "3. dimanche matin",
-                            "4. dimanche après-midi"]},
+                            "4. dimanche après-midi"]
+            },
             {   # demander le scenario
                 "type": "input",
                 "name": "scenario",
-                "message": "Indiquez le scénario que vous voulez diriger :"},
+                "message": "Indiquez le scénario que vous voulez diriger :",
+                "validate": EmptyInputValidator()
+            },
             {   # demander l'information complementaire
                 "type": "input",
                 "name": "info_comple",
@@ -47,36 +52,21 @@ class GererTableVue(VueAbstraite):
         mj = Session().user
         # recuperer les reponses saisies par le maitre de jeu
         reponse = prompt(self.questions)
-        seance = int(reponse["seance"][0])
+        id_seance = int(reponse["seance"][0])
         scenario = reponse["scenario"]
         info_comple = reponse["info_comple"]
 
-        # verifier que si MJ est libre pour la sceance
-        if MaitreJeuService().dispo_mj == False:
+        resultat = MaitreJeuService().gerer_table(id_seance, scenario, info_comple)
+        # verifier si MJ est libre pour la sceance
+        if resultat == "mj non libre":  # MJ n'est pas libre
             message = "Vous ne pouvez pas jouer à tables en même temps, veuillez vérifier pour quelle table vous vous êtes inscrit et la séance correspondant"
             from view.maitre_jeu_menu_vue import MaitreJeuMenuVue
             return MaitreJeuMenuVue(message)
-
-
-# en-dessus a verifier, ceux pour maitrejeusevice.gerertable()...... a faire
-
-        # La suppression est annulée en l'absence de confirmation
-        if not confirm:
-            message = "Suppression du compte annulée"
-            from view.joueur_menu_vue import JoueurMenuVue
-            prochainevue = JoueurMenuVue(message)
-        else:
-            # On appelle le service de suppression de compte
-            statut_suppression = JoueurService().supprimer(joueur)
-            # On récupère le message à afficher (succès ou échec)
-            if not statut_suppression[0]:
-                #                message = "La suppression du compte a échoué"
-                from view.joueur_menu_vue import JoueurMenuVue
-#                prochainevue = JoueurMenuVue(message)
-                prochainevue = JoueurMenuVue(statut_suppression[1])
-            else:
-                message = f"Votre compte a bien été supprimé. Au revoir {joueur.prenom}"
-                Session().user = None
-                from view.accueil_vue import AccueilVue
-                prochainevue = AccueilVue(message)
-        return prochainevue
+        elif resultat == "non table libre":
+            message = "Désolé, il n'y a plus de tables disponibles pour la séance que vous avez sélectionnée, veuillez choisir une nouvelle séance"
+            from view.maitre_jeu_menu_vue import MaitreJeuMenuVue
+            return MaitreJeuMenuVue(message)
+        elif resultat == "OK":
+            message = "Vous avez termié avec succès la gestion de la table de jeu"
+            from view.maitre_jeu_menu_vue import MaitreJeuMenuVue
+            return MaitreJeuMenuVue(message)
