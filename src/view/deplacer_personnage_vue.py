@@ -23,7 +23,7 @@ class DeplacerPersonnageVue(VueAbstraite):
         joueur = Session().user
 
         table_list = AdministrateurService().lister_tables_actives()
-        table_list_affichee = [str(t.id_table) + " | Séance " + str(t.id_seance) + " - Table " + str(t.id_table) + " - " +
+        table_list_affichee = [str(t.id_table) + ". Séance " + str(t.id_seance) + " - Table " + str(t.id_table) + " - " +
                                str(t.scenario) for t in table_list]
 
         # ajouter à la liste la possibilité de revenir en arriere sans supprimer de personnage

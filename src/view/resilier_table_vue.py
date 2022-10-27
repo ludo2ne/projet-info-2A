@@ -23,7 +23,7 @@ class ResilierTableVue(VueAbstraite):
         choix_table = []
         i = 1
         for el in table_list:
-            choix_table.append(f"{i} {el[1]}{el[2]}")
+            choix_table.append(f"{i} {el[2]}")
             i += 1
 
         # ajouter à la liste la possibilité de revenir en arriere sans supprimer de personnage
