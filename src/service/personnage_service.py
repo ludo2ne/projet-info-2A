@@ -15,13 +15,30 @@ from dao.personnage_dao import PersonnageDao
 
 
 class PersonnageService:
+    ''' Classe des services des personnages
+
+    Attributes
+    ----------
+    None
+
+    Methods
+    -------
+    trouver_par_id(id_personnage : int) : Personnage
+    trouver_joueur(personnage : Personnage) : Joueur
+    rejoindre_table(table : TableJeu, personnage : Personnage) : bool
+    quitter_table(table : TableJeu, personnage : Personnage): bool
+    '''
 
     def trouver_par_id(self, id_personnage) -> Personnage:
         '''Trouver un personnage grace à son id
-        Params
+        Parameters
         ------
         * id_personnage : int
             * id du personnage recherché
+
+        Returns
+        -------
+        Personnage
         '''
         print("Service : trouver Personnage à partir de son id")
         return PersonnageDao().trouver_par_id(id_personnage)
@@ -30,11 +47,12 @@ class PersonnageService:
         '''Trouver le joueur à qui appartient le Personnage
         Params
         ------
-        * personnage : Personnage
+        personnage : Personnage
 
         Returns
         -------
-        * le Joueur propriétaire du Personnage
+        Joueur
+            le Joueur propriétaire du Personnage
         '''
         print("Service : trouver Joueur à partir de Personnage")
         return PersonnageDao().trouver_joueur(personnage)

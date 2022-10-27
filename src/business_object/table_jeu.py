@@ -29,6 +29,21 @@ class TableJeu:
 
     def __init__(self, id_table, id_seance, maitre_jeu=None, scenario=None, infos_complementaires=None, personnages=[]):
         '''Constructeur de l'objet Table
+
+        Parameters
+        ----------
+        id_table : int
+            numéro de la table
+        id_seance : int
+            numéro de la séance
+        maitre_jeu : MaitreJeu
+            maître du jeu de la table
+        scenario : str
+            sénario choisi par le maître du jeu
+        infos_complementaires : str
+            informations complémentaires
+        personnages : list[Personnage]
+            liste des personnages présents sur la table
         '''
         print("Objet : Création d'une TableJeu")
         self.id_table = id_table
@@ -40,12 +55,33 @@ class TableJeu:
         self.nb_joueurs_max = int(os.environ["NB_JOUEURS_MAX_PAR_TABLE"])
 
     def as_list(self):
+        '''Renvoie les information de la table
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        liste : list[str]
+            information de la table sous forme de liste
+        '''
         mj_pseudo = self.maitre_jeu.pseudo if self.maitre_jeu else ""
         liste = [self.id_seance, self.id_table,
                  self.scenario, mj_pseudo]
         return liste
 
-    def liste_perso(self):
+    def liste_perso(self) -> list[Personnage]:
+        '''Renvoie liste des personnages présent sur la table
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        liste : list[Personnage]
+        '''
         liste = []
         for i in self.personnages:
             liste.append(i.id_personnage)
