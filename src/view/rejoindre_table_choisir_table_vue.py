@@ -23,10 +23,10 @@ class RejoindreTableChoisirTableVue(VueAbstraite):
         choix_table = []
         i = 1
         for el in liste_tables_jeu:
-            if len(el.personnages) < el.nb_joueurs_max:
+            if len(el.personnages) < el.nb_joueurs_max and el.maitre_jeu is not None:
                 choix_table.append(f"Choix {i} : Table {el.id_table} avec {len(el.personnages)} joueurs inscrits.\n" +
                                    f"Scénario: {el.scenario}")
-            i += 1
+                i += 1
         self.tables_libres = i-1
         # ajouter à la liste la possibilité de revenir en arriere sans supprimer de personnage
         if i > 1:
