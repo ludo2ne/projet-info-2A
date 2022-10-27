@@ -83,3 +83,32 @@ class MaitreJeuDao(metaclass=Singleton):
         print("DAO : Listing des tables d'un maitre du jeu - Terminé")
 
         return table_list
+
+    def devenir_mj(self) -> bool:
+        '''Donner le statut mj à un joueur dans la base de données
+
+        Parameters
+        ----------
+
+        '''
+        print("DAO : Accéder au statut maitre du jeu")
+
+        joueur = Session().user
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    # Passer à true la valeur est_mj pour devenir maitre du jeu
+                    cursor.execute(
+                        "UPDATE jdr.joueur "
+                        "SET est_mj = true "
+                        "WHERE id_joueur=%(id_joueur)s",
+                        {"id_joueur": joueur.id_joueur})
+                    res = cursor.rowcount
+        except Exception as e:
+            print(e)
+            raise
+
+        statut = (res > 0)
+        print("DAO : Accéder au statut maitre du jeu - Terminé")
+
+        return statut
