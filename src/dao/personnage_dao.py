@@ -215,7 +215,7 @@ class PersonnageDao(metaclass=Singleton):
         return len(res)
 
     def quitter_table(self, personnage) -> bool:
-        '''Suppression de la présence d'un personnage à une table 
+        '''Suppression de la présence d'un personnage à une table
         dans la base de données
 
         Parameters
@@ -242,31 +242,32 @@ class PersonnageDao(metaclass=Singleton):
 
         return [res > 0]
 
-    def rejoindre_table(self, table, personnage) -> bool:
-        '''Ajouter un personnage à une table de jeu
+    def inscrire_table(self, table, personnage) -> bool:
+        '''Inscription d'un personnage sur une table dans la base de données
 
-        Parameters
-        ----------
+        Parameters:
+        table : int(id_table)
         personnage : Personnage
-            le personnage à ajouter
-        table : TableJeu
-            la table de jeu que le personnage rejoint
         '''
-        print("DAO : Personnage rejoint une table")
+        print("DAO : Inscription d'un personnage sur une table")
 
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
-                    # Supprimer le personnage des tables où il est utilisé
                     cursor.execute(
-                        "INSERT INTO jdr.table_personnage            "
-                        "VALUES(%(id_table)s,%(id_perso)s)           ",
-                        {"id_table": table.id_table, "id_perso": personnage.id_personnage})
-                    res = cursor.rowcount
+                        "INSERT INTO jdr.table_personnage(id_table,id_personnage) VALUES "
+                        "(%(id_table)s,%(id_personnage)s) RETURNING id_table,id_personnage;",
+                        {"id_table": table,
+                         "id_personnage": personnage.id_personnage})
+                    res = cursor.fetchone()
         except Exception as e:
             print(e)
             raise
 
-        print("DAO : Personnage qui rejoint une table - Terminé")
+        inscrit = False
+        if res:
+            inscrit = True
 
-        return [res > 0]
+        print("DAO : Inscription d'un personnage sur une table - Terminé")
+
+        return [len(res) > 0]

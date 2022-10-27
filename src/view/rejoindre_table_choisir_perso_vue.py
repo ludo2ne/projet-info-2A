@@ -10,12 +10,14 @@ from view.vue_abstraite import VueAbstraite
 from service.joueur_service import JoueurService
 from view.session import Session
 from business_object.joueur import Joueur
+from business_object.table_jeu import TableJeu
 
 
-class SupprimerPersonnageVue(VueAbstraite):
-    def __init__(self, message):
+class RejoindreTableChoisirPersoVue(VueAbstraite):
+    def __init__(self, message, table_choisie):
         joueur = Session().user
-        # Pour le choix du joueur, afficher seulement le nom du personnage
+        self.table_choisie = table_choisie
+       # Pour le choix du joueur, afficher seulement le nom du personnage
         # et son ordre d'apparition dans la liste de personnages
         choix_perso = []
         i = 1
@@ -31,7 +33,7 @@ class SupprimerPersonnageVue(VueAbstraite):
             {
                 "type": "list",
                 "name": "choix",
-                "message": "Choisissez un personnage à supprimer",
+                "message": "Choisissez un personnage pour participer à cette table",
                 "choices": choix_perso
             },
             {
@@ -65,17 +67,18 @@ class SupprimerPersonnageVue(VueAbstraite):
         # 1) l'utilisateur a changé d'avis au moment de choisir un personnage
         # 2) Il n'a pas confirmé son choix
         if not confirm or choix_fait == len(joueur.liste_personnages)+1:
-            message = "Suppression du Personnage annulée"
+            message = "Réservation de table annulée."
         else:
             perso_choisi = joueur.liste_personnages[choix_fait-1]
-            # On appelle le service de suppression de personnage
-            statut_suppression = JoueurService().supprimer_personnage(perso_choisi, joueur)
+            # On appelle le service de réservation de table
+            statut_reservation = JoueurService().inscrire_table(
+                self.table_choisie, perso_choisi)
             # On récupère le message à afficher (succès ou échec)
-            if not statut_suppression[0]:
-                message = f"{statut_suppression[1]}\n La suppression du personnage a échoué"
+            if not statut_reservation:
+                message = "La réservation de table a échoué."
             else:
-                message = "Le personnage {} a bien été supprimé".format(
-                    perso_choisi.nom)
+                message = f"Vous êtes inscrit(e) en table {self.table_choisie} " +\
+                    f"avec le personnage {perso_choisi.nom}."
 
         from view.joueur_menu_vue import JoueurMenuVue
         return JoueurMenuVue(message)
