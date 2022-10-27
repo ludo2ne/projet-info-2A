@@ -26,12 +26,31 @@ from dao.table_jeu_dao import TableJeuDao
 
 
 class MaitreJeuService:
-    '''
-    Classe contenant les méthodes de service de MaitreJeu
+    '''Classe contenant les méthodes de service de MaitreJeu
+
+    Attributes
+    ----------
+    None
+
+    Methods
+    -------
+    lister_tables(mj : Joueur) : list
+    quitter_table(mj : Joueur, seance : int): list
+    gerer_table(id_seance : int , scenario : str, info_comple : str): str
+    voir_tables_gerees() : str
     '''
 
-    def lister_tables(self, mj):
+    def lister_tables(self, mj) -> list:
         '''Service de listing de tables du mj
+
+        Parameters
+        ----------
+        mj : Joueur
+            il s'agit du maitre du jeu
+
+        Returns
+        -------
+        table_list : list
         '''
         print("Service : Listing de TableJeu du mj")
 
@@ -40,8 +59,19 @@ class MaitreJeuService:
         print("Service : Listing de TableJeu du mj - Terminé")
         return table_list
 
-    def quitter_table(self, mj, seance):
+    def quitter_table(self, mj, seance) -> list:
         '''Service de résiliation de tables du mj
+
+        Parameters
+        ----------
+        mj : Joueur
+            le maître du jeu
+        seance : int
+            numéro de la séance
+
+        Returns
+        -------
+        list
         '''
         print("Service : Résiliation de TableJeu du mj")
 
@@ -60,9 +90,21 @@ class MaitreJeuService:
         print("Service : Résiliation de TableJeu du mj - Terminé")
         return [statut_quitter_table, err_message]
 
-    def gerer_table(self, id_seance, scenario, info_comple):
+    def gerer_table(self, id_seance, scenario, info_comple) -> str:
         '''Service de gerer une table pour mj
-            return -> str
+
+        Parameters
+        ----------
+        id_seance : int
+            numéro de la séance
+        scenario : str
+            nom du scénario
+        info_comple : str
+            informations complémentaires
+
+        Returns
+        -------
+        resultat : str
         '''
         print("Service : Gestion d'une table jeu du mj")
         mj = Session().user
@@ -94,8 +136,16 @@ class MaitreJeuService:
         print("Service : Gestion d'une table jeu du mj - Terminé")
         return resultat
 
-    def voir_tables_gerees(self):
+    def voir_tables_gerees(self) -> str:
         '''Affiche les tables ou le mj est
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        resultat : str
         '''
         print("Service : Voir programme")
 
@@ -106,7 +156,7 @@ class MaitreJeuService:
         entetes = ["séance", "id_table", "scénario", "Personnages"]
 
         entetes_perso = ["nom", "classe", "race",
-                         "niveau", "compétences", "langues parlées"]
+                         "niveau"]
 
         # liste de liste des persos de chaque table
         list_perso_des_tables = [t.liste_perso() for t in table_jeu]

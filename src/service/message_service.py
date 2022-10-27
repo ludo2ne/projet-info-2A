@@ -10,6 +10,29 @@ from dao.message_dao import MessageDao
 
 
 class MessageService:
+    '''Classe des services messages
+
+    Attributes
+    ----------
+    None
+
+    Methods
+    -------
+    creer(destinataire : Joueur, texte : str) : None
+    '''
 
     def creer(self, destinataire, texte):
+        '''Creation d'un message
+
+        Parameters
+        ----------
+        destinataire : Joueur
+            joueur qui reçoit le message
+        text : str
+            contenu du message
+
+        Returns
+        -------
+        None
+        '''
         MessageDao().creer(destinataire, texte)

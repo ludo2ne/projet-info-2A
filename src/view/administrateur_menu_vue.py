@@ -26,6 +26,7 @@ class AdministrateurMenuVue(VueAbstraite):
                 "name": "choix",
                 "message": "Faites votre choix",
                 "choices": [
+                    "Lister les utilisateurs (TODO)",
                     "Voir le programme complet",
                     "Déplacer un personnage",
                     "Déplacer un Maitre du Jeu (TODO)",
@@ -47,21 +48,30 @@ class AdministrateurMenuVue(VueAbstraite):
     def choisir_menu(self):
 
         reponse = prompt(self.questions)
+        if reponse["choix"] == "Lister les utilisateurs":
+            # TODO
+            pass
         if reponse["choix"] == "Voir le programme complet":
             programme = AdministrateurService().voir_programme_complet()
             return (AdministrateurMenuVue(programme))
         elif reponse["choix"] == "Déplacer un personnage":
             from view.deplacer_personnage_vue import DeplacerPersonnageVue
             return DeplacerPersonnageVue()
+        elif reponse["choix"] == "Déplacer un Maitre du Jeu":
+            # TODO
+            pass
         elif reponse["choix"] == "Créer une Table de Jeu":
             from view.creer_table_vue import CreerTableVue
             return CreerTableVue()
-        elif reponse["choix"] == "Supprimer un joueur":
-            from view.supprimer_joueur_vue import SupprimerJoueurVue
-            return SupprimerJoueurVue()
         elif reponse["choix"] == "Supprimer une Table de Jeu":
             from view.supprimer_table_vue import SupprimerTableVue
             return SupprimerTableVue()
+        elif reponse["choix"] == "Supprimer un joueur":
+            from view.supprimer_joueur_vue import SupprimerJoueurVue
+            return SupprimerJoueurVue()
+        elif reponse["choix"] == "Voir les messages":
+            # TODO
+            pass
         elif reponse["choix"] == "Se déconnecter":
             Session().user = None
             from view.accueil_vue import AccueilVue

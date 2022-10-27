@@ -26,9 +26,42 @@ from dao.message_dao import MessageDao
 class JoueurService:
     '''
     Classe contenant les méthodes de service de Joueur
+
+    Attributes
+    ----------
+        None
+
+    Methods
+    -------
+        creer(pseudo : str, nom : str, prenom : str) : Joueur
+            création d'un joueur
+        rejoindre_table(table : TableJeu, joueur : Joueur, personnage : Personnage) : bool
+            permet au joueur connecté de rejoindre une table
+        lister_tous() : list[Joueur]
+            lister tous les joueurs
+        trouver_par_pseudo(pseudo : str) : Joueur
+            trouver un joueur par son pseudo
+        creation_personnage_autorisee() : bool
+            permet de savoir si le joueur connecté a la possibilité de créer un personnage 
+        creer_personnage(nom : str, classe2 : str, race : str, niveau : int) : Personnage
+            permet au joueur connecté de créer un personnage
+        lister_personnages() : str
+            permet au joueur connecter de lister ses personnages
+        supprimer_personnage(perso_a_supprimer : Personnage, joueur : Joueur) : list[bool,str]
+            permet au joueur connecté de supprimer un personnage qu'il possède
+        supprimer(compte : Joueur) : list[bool,str]
+            permet de supprimer son compte joueur
+        voir_son_programme() : str 
+            permet au joueur connecté de voir les informations des tables sur lesquelles il possède un personnage
+        voir_messages() : str
+            permet au joueur connecté de voir ses messages
+        quitter_table(id_table : str) : bool
+            permet au joueur connecté de quitter une table
+        inscrire_table(table_choisie : TableJeu, perso_choisi : Personnage) : bool
+            permet au joueur connecté de s'inscrire à une table
     '''
 
-    def creer(self, pseudo, nom, prenom, mail) -> Optional[Joueur]:
+    def creer(self, pseudo, nom, prenom, mail) -> Joueur:
         '''Service de création d'un joueur
 
         Parameters
@@ -44,7 +77,8 @@ class JoueurService:
 
         Returns
         -------
-        Joueur : le joueur créé
+        nouveau_joueur : Joueur
+            Le joueur crée
         '''
         print("Service : Création du Joueur")
 
@@ -66,6 +100,10 @@ class JoueurService:
             Joueur à ajouter
         personnage : Personnage
             Personnage choisi par le joueur
+
+        Returns
+        -------
+        succes : bool
         '''
 
         print("Service : Rejoindre une table")
@@ -91,20 +129,32 @@ class JoueurService:
     def lister_tous(self) -> list[Joueur]:
         '''Service pour lister tous les joueurs
 
+        Parameters
+        ----------
+        None
+
         Returns
         -------
         liste[Joueur]
         '''
+
         print("Service : Lister tous les joueurs")
         return JoueurDao().lister_tous()
 
-    def trouver_par_pseudo(self, pseudo):
+    def trouver_par_pseudo(self, pseudo) -> Joueur:
         '''Trouver un joueur à partir de son pseudo
+
+        Parameters
+        ----------
+        pseudo : str
+            pseudo du joueur à trouver
 
         Returns
         -------
-        Joueur
+        joueur : Joueur
+            joueur trouvé par le pseudo
         '''
+
         print("Service : Trouver par pseudo ({})".format(pseudo))
         joueur = JoueurDao().trouver_par_pseudo(pseudo)
         if joueur:
@@ -113,12 +163,37 @@ class JoueurService:
 
     def creation_personnage_autorisee(self) -> bool:
         '''Dit si le joueur n'a pas atteint le nombre maximum de Personnages
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        bool
+            True si le joueur peut encore créer des personnages (si le joueur possède pas trop de personnage)
         '''
         joueur = Session().user
         return len(joueur.liste_personnages) < int(os.environ["NB_MAX_PERSONNAGES_PAR_JOUEUR"])
 
-    def creer_personnage(self, nom, classe2, race, niveau):
-        '''
+    def creer_personnage(self, nom, classe2, race, niveau) -> Personnage:
+        '''Permet la création d'un personnage
+
+        Parameters
+        ----------
+        nom : str
+            nom du personnage
+        classe2 : str
+            classe du personnage
+        race : str
+            race du personnage
+        niveau : int
+            niveau du personnage
+
+        Returns
+        -------
+        perso : Personnage
+            retourne le personnage crée
         '''
         print("Service : Création de personnage")
 
@@ -138,11 +213,17 @@ class JoueurService:
 
         return perso
 
-    def lister_personnages(self):
+    def lister_personnages(self) -> str:
         '''Lister les personnages d'une utilisateur
+
+        Parameters
+        ----------
+        None
 
         Returns
         -------
+        resultat : str
+            renvoie la liste des personnage sous forme tabulée (c'est un str)
         '''
 
         print("Service : Liste des personnages")
@@ -164,11 +245,19 @@ class JoueurService:
 
         return resultat
 
-    def supprimer_personnage(self, perso_a_supprimer, joueur=None):
+    def supprimer_personnage(self, perso_a_supprimer, joueur=None) -> list[bool, str]:
         '''Supprimer un personnage d'un utilisateur
+
+        Parameters
+        ----------
+        perso_a_supprimer : Personnage
+            personnage à supprimer
+        joueur : Joueur
+            joueur qui possède le personnage à supprimer
 
         Returns
         -------
+        statut_suppression : list[bool,str]
         '''
         print("Service : Suppression d'un personnage")
 
@@ -268,8 +357,17 @@ class JoueurService:
 
         return [statut_suppression, err_message]
 
-    def voir_son_programme(self):
+    def voir_son_programme(self) -> str:
         '''Affiche les tables ou le joueur est
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        resultat : str
+            renvoie le résumé des tables du joueur
         '''
         print("Service : Voir programme")
 
@@ -277,8 +375,8 @@ class JoueurService:
 
         table_jeu = TableJeuDao().lister(joueur=joueur)
 
-        entetes = ["séance", "id_table", "sénario",
-                   "mj", "nom du personnage joué"]
+        entetes = ["séance", "numéro table", "sénario",
+                   "maître du jeu", "nom du personnage joué"]
 
         # liste de liste des persos de chaque table
         list_perso_des_tables = [t.liste_perso() for t in table_jeu]
@@ -302,11 +400,17 @@ class JoueurService:
 
         return resultat
 
-    def voir_messages(self):
+    def voir_messages(self) -> str:
         '''Afficher les messages envoyés à un utilisateur
+
+        Parameters
+        ----------
+        None
 
         Returns
         -------
+        resultat : str
+            renvoie le résumé des messages du joueur
         '''
 
         print("Service : voir les messages")
@@ -333,6 +437,15 @@ class JoueurService:
 
     def quitter_table(self, id_table) -> bool:
         '''Permet au joueur de quitter sa table
+
+        Parameters
+        ----------
+        id_table : int
+            numéro id de la table dont le joueur souhaite quitter
+
+        Returns
+        -------
+            statut_suppression : bool
         '''
         print("Service : Quitter une table")
 
@@ -350,14 +463,19 @@ class JoueurService:
 
         return statut_suppression
 
-    def inscrire_table(self, table_choisie, perso_choisi):
+    def inscrire_table(self, table_choisie, perso_choisi) -> bool:
         '''Inscrire un personnage à une table
 
-        Parameters:
-        table_choisie : int(id_table)
+        Parameters
+        ----------
+        table_choisie : int
+            choisir la table sur laquelle s'inscrire
         perso_choisi : Personnage
+            Personnage que le joueur souhaite inscrire à la table
+
         Returns
         -------
+        statut : bool
         '''
 
         print("Service : Inscrire un personnage sur une table")
