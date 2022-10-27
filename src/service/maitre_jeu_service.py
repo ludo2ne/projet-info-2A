@@ -60,23 +60,38 @@ class MaitreJeuService:
         print("Service : Résiliation de TableJeu du mj - Terminé")
         return [statut_quitter_table, err_message]
 
-    def dispo_mj(self, mj, id_seance):
-        resultat = True
+    def gerer_table(self, id_seance, scenario, info_comple):
+        '''Service de gerer une table pour mj
+            return -> str
+        '''
+        print("Service : Gestion d'une table jeu du mj")
+        mj = Session().user
+
+        # Vérification de la disponibilité d'un mj pour voir si le mj peut gérer une table
+        # voir si le mj a deja inscrit pour une meme seance en tant que mj
         table_list_mj = []
         table_list_mj = MaitreJeuDao().lister_tables_mj(mj)
-        # voir si le mj a deja inscrit pour une meme seance en tant que mj
         for i in range(len(table_list_mj)):
             if table_list_mj[i][1] == id_seance:
-                resultat = False
-                break
-
+                resultat = "mj non libre"
+                return resultat
         # voir si le mj a deja inscrit pour une meme seance en tant que joueur
-        if resultat == True:
-            table_list_j = TableJeuDao().lister_tables_mj(joueur=mj, seance=None)
-            for table_jeu in table_list_j:
-                if table_jeu.id_seance == id_seance:
-                    resultat = False
-                    break
+        table_list_j = TableJeuDao().lister(joueur=mj, seance=None)
+        for table_jeu in table_list_j:
+            if table_jeu.id_seance == id_seance:
+                resultat = "mj non libre"
+                return resultat
+
+        # Vérification de la disponibilité de table jeu
+        table_list_t = TableJeuDao().lister(joueur=None, seance=id_seance)
+        if len(table_list_t) == int(os.environ["NB_JOUEURS_MAX_PAR_TABLE"]):
+            resultat = "non table libre"
+            return resultat
+
+        # Mettre en place la gestion de table
+        id_mj = mj.id_joueur
+        resultat = TableJeuDao().gerer_par_mj(id_mj, id_seance, scenario, info_comple)
+        print("Service : Gestion d'une table jeu du mj - Terminé")
         return resultat
 
     def voir_tables_gerees(self):

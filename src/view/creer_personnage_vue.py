@@ -22,7 +22,8 @@ class CreerPersonnageVue(VueAbstraite):
             {
                 "type": "input",
                 "name": "nom",
-                "message": "Entrez le nom de votre personnage :"
+                "message": "Entrez le nom de votre personnage :",
+                "validate": EmptyInputValidator(),
             },
             {
                 "type": "list",

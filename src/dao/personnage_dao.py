@@ -195,10 +195,11 @@ class PersonnageDao(metaclass=Singleton):
                 with connection.cursor() as cursor:
                     # Lister les tables du personnage
                     cursor.execute(
-                        "SELECT id_table,id_seance FROM jdr.personnage "
-                        "JOIN jdr.table_personnage USING (id_personnage)"
-                        "JOIN jdr.table_jeu USING(id_table)"
-                        "WHERE id_personnage=%(id_perso)s",
+                        "SELECT t.*                                             "
+                        "  FROM jdr.personnage p                                "
+                        "  JOIN jdr.table_personnage tp USING (id_personnage)   "
+                        "  JOIN jdr.table_jeu t USING(id_table)                 "
+                        "WHERE id_personnage=%(id_perso)s                       ",
                         {"id_perso": personnage.id_personnage})
                     res = cursor.fetchall()
         except Exception as e:
@@ -216,6 +217,8 @@ class PersonnageDao(metaclass=Singleton):
 
     def quitter_table(self, table, personnage) -> bool:
         '''Suppression de la présence d'un personnage à une ou plusieurs tables
+
+        TODO corriger méthode
 
         Parameters
         ----------
@@ -259,7 +262,7 @@ class PersonnageDao(metaclass=Singleton):
             print("DAO : Personnage " + personnage.nom +
                   " enlevé de toutes les tables")
 
-        print("DAO : Suppression de la présence d'un personnage à une table- Terminé")
+        print("DAO : Suppression de la présence d'un personnage à une table - Terminé")
 
         return [res > 0]
 

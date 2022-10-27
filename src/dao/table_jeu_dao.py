@@ -54,7 +54,7 @@ class TableJeuDao(metaclass=Singleton):
 
         return created
 
-    def trouver_par_id(self, id_table) -> int:
+    def trouver_par_id(self, id_table) -> TableJeu:
         '''Obtenir une table à partir de son id_table
         '''
 
@@ -148,7 +148,7 @@ class TableJeuDao(metaclass=Singleton):
 
         return nb_joueurs
 
-    def lister(self, joueur=None, seance=None, mj=None) -> list[TableJeu]:
+    def lister(self, joueur=None, seance=None, personnage=None, mj=None) -> list[TableJeu]:
         '''Retourne la liste des tables
         Si les paramètres sont à None, liste toutes les tables
         Params
@@ -180,6 +180,10 @@ class TableJeuDao(metaclass=Singleton):
             "        LEFT JOIN jdr.joueur j USING (id_joueur)                      "\
             "        LEFT JOIN jdr.joueur mj ON t.id_maitre_jeu = mj.id_joueur     "\
             "       WHERE 1=1                                                      "
+
+        if personnage:
+            requete += " AND p.id_personnage = %(id_personnage)s                   "
+            variables["id_personnage"] = personnage.id_personnage
 
         if joueur:
             requete += " AND j.id_joueur = %(id_joueur)s                           "
@@ -303,3 +307,26 @@ class TableJeuDao(metaclass=Singleton):
         print("DAO : Lister tables actives - Terminé")
 
         return liste_tables_jeu
+
+    def gerer_par_mj(self, id_mj, id_seance, scenario, info_comple):
+        ''' gerer une table pour mj
+        '''
+        print("DAO : Gerer une table pour mj")
+
+        if not info_comple:
+            info_comple = 'null'
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "INSERT INTO jdr.table_jeu(id_seance, id_maitre_jeu, scenario, infos_complementaires)"
+                        " VALUES (%(id_seance)s, %(id_mj)s, %(scenario)s, %(info_comple)s)",
+                        {"id_seance": id_seance, "id_mj": id_mj, "scenario": scenario, "info_comple": info_comple})
+        except Exception as e:
+            print(e)
+            raise
+
+        print("DAO : Gerer une table pour mj - Terminé")
+        resultat = "OK"
+        return resultat
