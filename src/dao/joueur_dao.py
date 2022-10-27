@@ -81,6 +81,16 @@ class JoueurDao(metaclass=Singleton):
 
     def trouver_par_id(self, id_joueur) -> Joueur:
         '''trouver un joueur grace à son id
+
+        Parameters
+        ----------
+        id_joueur : int
+            numéro id du joueur que l'on souhaite trouver
+
+        Returns
+        -------
+        joueur : Joueur
+            renvoie le joueur que l'on cherche par id
         '''
         print("DAO : Trouver joueur par id")
 
@@ -114,6 +124,16 @@ class JoueurDao(metaclass=Singleton):
 
     def trouver_par_pseudo(self, pseudo) -> Joueur:
         '''trouver un joueur grace à son pseudo
+
+        Parameters
+        ----------
+        pseudo : str
+            pseudo du joueur que l'on souhaite trouver
+
+        Returns
+        -------
+        joueur : Joueur
+            renvoie le joueur recherché par pseudo
         '''
         print("DAO : Trouver joueur par pseudo")
 
@@ -160,6 +180,7 @@ class JoueurDao(metaclass=Singleton):
         Returns
         -------
         inserted : bool
+            succès d'ajout du personnage du joueur sur la table
         '''
 
         print("DAO : Rejoindre une table")
