@@ -142,16 +142,20 @@ class AdministrateurService():
         return liste_tables
 
     def supprimer_table(self) -> list:
-        '''TODO corriger
-        '''
-        liste_tables = TableJeuDao().lister(self)
+
+        liste_tables = TableJeuDao().lister()
         table_couple = []
+        statut_suppression_global = True
         for k in range(len(liste_tables)):
             table_couple.append(
                 [TableJeuDao().nombre_joueurs_assis(liste_tables[k]), liste_tables[k]])
             if table_couple[k][0] == 0:
-                TableJeuDao().supprimer_table(table_couple[k][1])
-        return table_couple
+                statut_suppression_table = TableJeuDao(
+                ).supprimer_table(table_couple[k][1])
+                print(statut_suppression_table)
+                statut_suppression_global = statut_suppression_table and statut_suppression_global
+
+        return statut_suppression_global
 
     def lister_joueur(self) -> str:
         print("Service : lister tous les utilisateur")

@@ -364,3 +364,28 @@ class TableJeuDao(metaclass=Singleton):
         print("DAO : Liste des joueurs assis à une TableJeu - Terminé")
 
         return joueur_list
+
+    def supprimer_table(self, table) -> bool:
+        '''Suppression d'une table vide
+
+        Parameters:
+        table: TableJeu
+        '''
+        print("DAO : Suppression d'une TableJeu")
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "DELETE  FROM jdr.table_jeu                       "
+                        " WHERE id_table = %(id_table)s                    ",
+                        {"id_table": table.id_table})
+                    res = cursor.rowcount
+        except Exception as e:
+            print(e)
+            raise
+
+        statut = (res == 1)
+        print("DAO : Suppression d'une TableJeu - Terminé")
+
+        return statut

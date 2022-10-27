@@ -28,17 +28,12 @@ class SupprimerTableVue(VueAbstraite):
             from view.joueur_menu_vue import JoueurMenuVue
             prochainevue = AdministrateurMenuVue(message)
         else:
-            print("ok")
             # On appelle le service de suppression de table
             statut_suppression = AdministrateurService().supprimer_table()
             # On récupère le message à afficher (succès ou échec)
-            if not statut_suppression[0]:
-                #                message = "La suppression du compte a échoué"
-                from view.administrateur_menu_vue import AdministrateurMenuVue
-#                prochainevue = AdministrateurMenuVue(message)
-                prochainevue = AdministrateurMenuVue(statut_suppression[1])
+            if not statut_suppression:
+                message = "La suppression des tables a échoué"
             else:
                 message = f"La table a bien été supprimée. Au revoir"
-                Session().user = None
-                prochainevue = AdministrateurMenuVue(message)
-        return prochainevue
+
+        return AdministrateurMenuVue(message)
