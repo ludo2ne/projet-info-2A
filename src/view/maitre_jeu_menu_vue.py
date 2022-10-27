@@ -30,7 +30,7 @@ class MaitreJeuMenuVue(VueAbstraite):
                     "Résilier une Table",
                     "Gérer une Table (TODO)",
                     "Résilier une Table",
-                    "Voir les Tables gérées (TODO)",
+                    "Voir les Tables gérées",
                     "Retourner au menu Joueur",
                     "Se déconnecter"
                 ]
@@ -62,3 +62,6 @@ class MaitreJeuMenuVue(VueAbstraite):
         elif reponse["choix"] == "Gérer une Table":
             from view.gerer_table_vue import GererTableVue
             return GererTableVue()
+        elif reponse["choix"] == "Voir les Tables gérées":
+            programme_txt = MaitreJeuService().voir_tables_gerees()
+            return (MaitreJeuMenuVue(programme_txt))

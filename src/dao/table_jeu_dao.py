@@ -148,7 +148,7 @@ class TableJeuDao(metaclass=Singleton):
 
         return nb_joueurs
 
-    def lister(self, joueur=None, seance=None, personnage=None) -> list[TableJeu]:
+    def lister(self, joueur=None, seance=None, personnage=None, mj=None) -> list[TableJeu]:
         '''Retourne la liste des tables
         Si les paramètres sont à None, liste toutes les tables
         Params
@@ -159,6 +159,10 @@ class TableJeuDao(metaclass=Singleton):
         seance : int
             sélectionne uniquement les tables de la séance
             si None, sélectionne toutes les seances
+        mj : MaitreJeu
+            sélectionne uniquement les tables du mj
+            si None, sélectionne tous les mj
+
         '''
 
         print("DAO : Lister toutes les tables")
@@ -188,6 +192,10 @@ class TableJeuDao(metaclass=Singleton):
         if seance:
             requete += " AND t.id_seance = %(id_seance)s                           "
             variables["id_seance"] = seance
+
+        if mj:
+            requete += " AND t.id_maitre_jeu = %(id_mj)s                           "
+            variables["id_mj"] = mj.id_joueur
 
         requete += "ORDER BY t.id_seance, t.id_table;                              "
 
