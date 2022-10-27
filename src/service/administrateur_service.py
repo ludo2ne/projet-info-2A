@@ -22,16 +22,47 @@ from dao.personnage_dao import PersonnageDao
 
 
 class AdministrateurService():
+    '''Classe service de l'administrateur
+
+    Attributes
+    ----------
+    None
+
+    Methods
+    -------
+    creer_table_autorisee(seance : int) : bool 
+    voir_programme_complet() : str
+    lister_tables_actives(self) : list[TableJeu]
+    '''
 
     def creer_table_autorisee(self, seance) -> bool:
         '''Dit si le joueur n'a pas atteint le nombre maximum de Personnages
+
+        Parameters
+        ----------
+        seance : int
+            numéro de la séance
+
+        Returns
+        -------
+        bool
         '''
         print("Service : Creer table autorisee")
         nb_tables = TableJeuDao().compter_tables_par_seance(seance)
         print(nb_tables)
         return nb_tables < int(os.environ["NB_TABLES_MAX_PAR_SEANCE"])
 
-    def voir_programme_complet(self):
+    def voir_programme_complet(self) -> str:
+        '''Affiche un résumé complet des informations des tables de jeu
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        resultat : str
+        '''
 
         print("Service : Voir programme complet")
 
@@ -90,6 +121,14 @@ class AdministrateurService():
 
     def lister_tables_actives(self) -> list[TableJeu]:
         '''Retourne la liste de toutes les tables de jeu
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        liste_tables : list[TableJeu]
         '''
 
         print("Service : Lister les tables actives")
@@ -98,7 +137,7 @@ class AdministrateurService():
 
         return liste_tables
 
-    def supprimer_table(self):
+    def supprimer_table(self) -> list:
         '''TODO corriger
         '''
         liste_tables = TableJeuDao().lister(self)
