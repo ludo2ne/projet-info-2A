@@ -164,7 +164,9 @@ class AdministrateurService():
         info_as_list = []
 
         for info in informations:
-            info_as_list.append(info[1].as_list().append(info[0]))
+            listbid = info[1].as_list()
+            listbid.append(info[0])
+            info_as_list.append(listbid)
 
         resultat = "les informations des utilisateur \n" + tabulate(tabular_data=info_as_list,
                                                                     headers=entetes,

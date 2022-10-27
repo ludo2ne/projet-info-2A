@@ -50,7 +50,7 @@ class AdministrateurMenuVue(VueAbstraite):
         reponse = prompt(self.questions)
         if reponse["choix"] == "Lister les utilisateurs":
             message = AdministrateurService().lister_joueur()
-            return (JoueurMenuVue(message))
+            return (AdministrateurMenuVue(message))
         if reponse["choix"] == "Voir le programme complet":
             programme = AdministrateurService().voir_programme_complet()
             return (AdministrateurMenuVue(programme))

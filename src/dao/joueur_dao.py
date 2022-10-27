@@ -311,6 +311,7 @@ class JoueurDao(metaclass=Singleton):
                                 mail=row["mail"],
                                 id_joueur=row["id_joueur"])
                 liste_est_mj = row["est_mj"]
+
                 # liste_joueurs une liste
                 liste_joueurs.append([liste_est_mj, joueur])
 

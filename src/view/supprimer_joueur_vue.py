@@ -7,7 +7,7 @@ from view.administrateur_menu_vue import AdministrateurMenuVue
 class SupprimerJoueurVue(VueAbstraite):
     def __init__(self):
 
-        liste_joueur = [j.pseudo for j in JoueurService().lister_tous()]
+        liste_joueur = [j[1].pseudo for j in JoueurService().lister_tous()]
 
         # ajouter à la liste la possibilité de revenir en arriere sans supprimer de personnage
         liste_joueur.append("Non, finalement j'ai changé d'avis")
