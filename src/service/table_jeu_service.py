@@ -17,8 +17,21 @@ from dao.personnage_dao import PersonnageDao
 
 
 class TableJeuService:
-    '''
-    Classe contenant les méthodes de service de Joueur
+    '''Classe contenant les méthodes de service de Joueur
+
+    Attributes
+    ----------
+    None
+
+    Methods
+    -------
+    creer_table(id_seance : int) : TableJeu
+    trouver_par_id(id_table : int) : TableJeu
+    lister_personnages(table_jeu : TableJeu) : list[Personnage]
+    lister(joueur=None : Joueur, seance=None : int, complete=None : bool) : list[TableJeu]
+    est_disponible(table) : bool
+    affichage_liste(liste_tables : list[TableJeu]) : str
+
     '''
 
     def creer_table(self, id_seance) -> TableJeu:
@@ -39,7 +52,7 @@ class TableJeuService:
         print("Service : Création de la TableJeu - Terminé")
         return table
 
-    def trouver_par_id(self, id_table):
+    def trouver_par_id(self, id_table) -> TableJeu:
         '''Service pour trouver une Table de Jeu à partir de son id
 
         Params
@@ -109,7 +122,7 @@ class TableJeuService:
         print("Service : Lister tables - Terminé")
         return liste_tables
 
-    def est_disponible(self, table):
+    def est_disponible(self, table) -> bool:
         '''Teste si il y a des places libre à la Table de Jeu
 
         Params

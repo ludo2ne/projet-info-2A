@@ -37,7 +37,18 @@ class Message:
         self.contenu = contenu
         self.lu = lu
 
-    def as_list(self):
+    def as_list(self) -> list[str]:
+        '''Permet d'obtenir les informations d'un message
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        liste : list[str]
+            liste des informations du message
+        '''
         liste = [self.id_message, self.id_joueur,
                  self.contenu, self.lu, self.date_creation]
         return liste
