@@ -13,6 +13,7 @@ from view.administrateur_menu_vue import AdministrateurMenuVue
 from service.administrateur_service import AdministrateurService
 from service.table_jeu_service import TableJeuService
 from service.personnage_service import PersonnageService
+from service.message_service import MessageService
 
 from business_object.joueur import Joueur
 
@@ -117,9 +118,8 @@ class DeplacerPersonnageVue(VueAbstraite):
         confirm = answers4["confirmation"]
 
         if confirm:
-            # TODO supprimer de l ancienne table
-            #success = PersonnageService().quitter_table()
-            success = True
+            success = PersonnageService().quitter_table(
+                table_origine, personnage_choisi)
 
             if answers3["table_arrivee"] != "Aucune table":
                 success = PersonnageService().rejoindre_table(
@@ -129,6 +129,10 @@ class DeplacerPersonnageVue(VueAbstraite):
             else:
                 message = "Personnage supprimé de la table " + \
                     str(table_origine.id_table)
+
+            # On receupere le joueur a partir du personnage puis on le notifie par message
+            joueur_concerne = PersonnageService().trouver_joueur(personnage_choisi)
+            MessageService().creer(joueur_concerne, message)
 
             if not success:
                 message = "Déplacement de personnage échoué"

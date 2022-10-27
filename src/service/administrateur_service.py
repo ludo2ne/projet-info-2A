@@ -72,7 +72,8 @@ class AdministrateurService():
                 personnages_as_list = [p.as_list() for p in t.personnages]
 
                 for p in personnages_as_list:
-                    joueur = PersonnageDao().trouver_joueur(p[0])
+                    current_perso = PersonnageDao().trouver_par_id(p[0])
+                    joueur = PersonnageDao().trouver_joueur(current_perso)
                     p.append(joueur.prenom + " " + joueur.nom +
                              " (" + joueur.pseudo + ")")
 
