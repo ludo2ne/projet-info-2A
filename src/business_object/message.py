@@ -28,7 +28,7 @@ class Message:
     '''
 
     def __init__(self, id_message, id_joueur, contenu, lu=False, date_creation=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())):
-        '''Constructeur de l'objet Table
+        '''Constructeur de l'objet Message
         '''
         print("Objet : Création d'un message")
         self.date_creation = date_creation

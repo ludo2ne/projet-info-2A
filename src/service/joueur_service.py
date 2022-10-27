@@ -11,16 +11,19 @@ import os
 from tabulate import tabulate
 from typing import List, Optional
 
+from view.session import Session
+
 from business_object.joueur import Joueur
 from business_object.maitre_jeu import MaitreJeu
 from business_object.personnage import Personnage
+
 from dao.joueur_dao import JoueurDao
 from dao.maitre_jeu_dao import MaitreJeuDao
 from dao.table_jeu_dao import TableJeuDao
 from dao.personnage_dao import PersonnageDao
 from dao.message_dao import MessageDao
-from view.session import Session
 from dao.message_dao import MessageDao
+from dao.seance_dao import SeanceDao
 
 
 class JoueurService:
@@ -384,13 +387,17 @@ class JoueurService:
 
         table_jeu = TableJeuDao().lister(joueur=joueur)
 
-        entetes = ["séance", "numéro table", "sénario",
-                   "maître du jeu", "nom du personnage joué"]
+        entetes = ["Séance", "Numéro Table", "Scénario",
+                   "Maître du jeu", "Personnage joué"]
 
         # liste de liste des persos de chaque table
         list_perso_des_tables = [t.liste_perso() for t in table_jeu]
 
         table_as_list = [t.as_list() for t in table_jeu]
+
+        for t_list in table_as_list:
+            seance = SeanceDao().trouver_par_id(t_list[0])
+            t_list[0] = seance.description
 
         i = 0
         for table in table_jeu:
