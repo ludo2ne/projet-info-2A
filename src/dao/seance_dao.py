@@ -73,7 +73,7 @@ class SeanceDao(metaclass=Singleton):
                     cursor.execute(
                         "SELECT *                               "
                         "  FROM jdr.seance                      ")
-                    res = cursor.fetchone()
+                    res = cursor.fetchall()
         except Exception as e:
             print(e)
             raise
@@ -81,10 +81,10 @@ class SeanceDao(metaclass=Singleton):
         liste_seances = []
         if res:
             for row in res:
-                seance = Seance(id_seance=res["id_seance"],
-                                description=res["description"],
-                                debut=res["debut"],
-                                fin=res["fin"])
+                seance = Seance(id_seance=row["id_seance"],
+                                description=row["description"],
+                                debut=row["debut"],
+                                fin=row["fin"])
                 liste_seances.append(seance)
 
         print("DAO : Lister toutes les Séances - Terminé")

@@ -26,8 +26,9 @@ class GererTableVue(VueAbstraite):
         liste_seance = SeanceDao().lister_toutes()
 
         liste_seances_affichee = []
-        for i in range(liste_seance):
-            liste_seances_affichee.append(str(i+1) + ". " + liste_seance[i])
+        for s in liste_seance:
+            liste_seances_affichee.append(
+                str(s.id_seance) + ". " + s.description)
 
 # ["1. samedi matin",
 #                            "2. samedi après-midi",
@@ -38,7 +39,7 @@ class GererTableVue(VueAbstraite):
             {   # demander le séance a rejoindre
                 "type": "list",
                 "name": "seance",
-                "message": "Sélectionner la séance à laquelle vous souhaitez participer",
+                "message": "Sélectionnez la séance à laquelle vous souhaitez participer :",
                 "choices": liste_seances_affichee
             },
             {   # demander le scenario
@@ -50,7 +51,7 @@ class GererTableVue(VueAbstraite):
             {   # demander l'information complementaire
                 "type": "input",
                 "name": "info_comple",
-                "message": "Si vous souhaitez ajouter quelque chose, écrivez ici."
+                "message": "Si vous souhaitez ajouter quelque chose, écrivez ici :"
             }
         ]
         self.message = message
@@ -66,9 +67,12 @@ class GererTableVue(VueAbstraite):
         reponse = prompt(self.questions)
         id_seance = int(reponse["seance"][0])
         scenario = reponse["scenario"]
-        info_comple = reponse["info_comple"]
+        info_complementaire = reponse["info_comple"]
 
-        resultat = MaitreJeuService().gerer_table(id_seance, scenario, info_comple)
+        seance = SeanceDao().trouver_par_id(id_seance)
+
+        resultat = MaitreJeuService().gerer_table(
+            seance, scenario, info_complementaire)
         # verifier si MJ est libre pour la sceance
         if resultat == "mj non libre":  # MJ n'est pas libre
             message = "Vous ne pouvez pas jouer à tables en même temps, veuillez vérifier pour quelle table vous vous êtes inscrit et la séance correspondant"
@@ -79,6 +83,7 @@ class GererTableVue(VueAbstraite):
             from view.maitre_jeu_menu_vue import MaitreJeuMenuVue
             return MaitreJeuMenuVue(message)
         elif resultat == "OK":
-            message = "Vous avez termié avec succès la gestion de la table de jeu"
+            # TODO ajouter à la table xxx
+            message = "Vous êtes officiellement Maître du Jeu pour la séance : " + seance.description
             from view.maitre_jeu_menu_vue import MaitreJeuMenuVue
             return MaitreJeuMenuVue(message)
