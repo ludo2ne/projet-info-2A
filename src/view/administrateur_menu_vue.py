@@ -26,7 +26,7 @@ class AdministrateurMenuVue(VueAbstraite):
                 "name": "choix",
                 "message": "Faites votre choix",
                 "choices": [
-                    "Lister les utilisateurs (TODO)",
+                    "Lister les utilisateurs",
                     "Voir le programme complet",
                     "Déplacer un personnage",
                     "Déplacer un Maitre du Jeu (TODO)",
@@ -49,8 +49,8 @@ class AdministrateurMenuVue(VueAbstraite):
 
         reponse = prompt(self.questions)
         if reponse["choix"] == "Lister les utilisateurs":
-            # TODO
-            pass
+            message = AdministrateurService().lister_joueur()
+            return (JoueurMenuVue(message))
         if reponse["choix"] == "Voir le programme complet":
             programme = AdministrateurService().voir_programme_complet()
             return (AdministrateurMenuVue(programme))

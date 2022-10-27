@@ -40,3 +40,8 @@ class Joueur:
                 f"Il a pour identifiant {self.id_joueur}\n" +
                 f"Son adresse mail est {self.mail}\n" +
                 f"Ses personnages sont {perso_list}")
+
+    def as_list(self):
+        liste = [self.pseudo, self.nom,
+                 self.prenom, self.mail]
+        return liste
