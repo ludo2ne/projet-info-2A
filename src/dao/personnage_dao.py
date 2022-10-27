@@ -57,8 +57,11 @@ class PersonnageDao(metaclass=Singleton):
 
         return created
 
-    def lister_par_joueur(self, joueur):
+    def lister_par_joueur(self, joueur) -> list[Personnage]:
         '''lister des personnages d'une utilisateur
+
+        Parameters:
+        joueur: Joueur
         '''
         print("DAO : Lister personnage du joueur")
 
@@ -153,6 +156,9 @@ class PersonnageDao(metaclass=Singleton):
 
     def trouver_joueur(self, personnage) -> Joueur:
         '''trouver le joueur à qui appartient le personnage
+
+        Parameters:
+        personnage: Personnage
         '''
         print("DAO : Trouver joueur depuis personnage")
 
@@ -298,7 +304,6 @@ class PersonnageDao(metaclass=Singleton):
 
 
 # TODO fusionner avec inscrire_table
-
 
     def rejoindre_table(self, table, personnage) -> bool:
         '''Ajouter un personnage à une table de jeu

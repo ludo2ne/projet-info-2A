@@ -50,7 +50,7 @@ class MaitreJeuDao(metaclass=Singleton):
 
         return [res > 0]
 
-    def lister_tables_mj(self, mj) -> bool:
+    def lister_tables_mj(self, mj) -> list:
         '''Lister les tables où un maitre du jeu est assis dans la base de données
 
         Parameters

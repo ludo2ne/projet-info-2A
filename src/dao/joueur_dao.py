@@ -123,7 +123,7 @@ class JoueurDao(metaclass=Singleton):
 
         return joueur
 
-    def rejoindre_table(self, table, joueur, personnage):
+    def rejoindre_table(self, table, joueur, personnage) -> bool:
         '''Ajoute un joueur à une table        
 
         Parameters
@@ -159,7 +159,7 @@ class JoueurDao(metaclass=Singleton):
 
         return inserted
 
-    def lister_tables(self, joueur) -> bool:
+    def lister_tables(self, joueur) -> list:
         '''Lister les tables où un joueur est assis dans la base de données
 
         Parameters
