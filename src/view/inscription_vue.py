@@ -17,6 +17,9 @@ import regex
 
 
 class MailValidator(Validator):
+    '''la classe MailValidator verifie si la chaine de caractere qu'on entre correspond au format de l'email
+    '''
+
     def validate(self, document) -> None:
         ok = regex.match('^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$', document.text)
         if not ok:
@@ -67,7 +70,7 @@ class InscriptionVue(VueAbstraite):
             joueur = JoueurService().creer(answers["pseudo"],
                                            answers["nom"], answers["prenom"], mail=answers["email"])
 
-            # On récupère le mesage à afficher (succès ou échec)
+            # On récupère le message à afficher (succès ou échec)
             if not joueur:
                 message = "La création du joueur a échoué"
             else:
