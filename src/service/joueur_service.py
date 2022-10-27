@@ -164,14 +164,16 @@ class JoueurService:
 
         return resultat
 
-    def supprimer_personnage(self, perso_a_supprimer, joueur):
+    def supprimer_personnage(self, perso_a_supprimer, joueur=None):
         '''Supprimer un personnage d'un utilisateur
 
         Returns
         -------
         '''
-
         print("Service : Suppression d'un personnage")
+
+        if not joueur:
+            joueur = Session().user
 
         # vérifier si le personnage n'est pas assis à une table
         perso_non_utilise = (
@@ -196,9 +198,15 @@ class JoueurService:
     def supprimer(self, compte):
         '''Supprimer le compte d'un joueur
 
-        compte: Joueur
+        Params
+        ------
+        * compte : Joueur
+            * Compte du joueur à supprimer
+
         Returns
         -------
+        * True si le compte a bien été supprimé
+        * False sinon
         '''
 
         print("Service : Suppression de compte")

@@ -13,5 +13,6 @@
     "terminal.integrated.env.osx": {
         "PYTHONPATH": "${workspaceFolder}/src",
     },
-    "python.languageServer": "Jedi"
+    "python.languageServer": "Jedi",
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
 }
