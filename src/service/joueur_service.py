@@ -473,7 +473,7 @@ class JoueurService:
                 if perso_joueur.id_personnage == perso_table.id_personnage:
                     personnage = PersonnageDao().trouver_par_id(perso_table.id_personnage)
 
-        statut_suppression = PersonnageDao().quitter_table(table, personnage)
+        statut_suppression = PersonnageDao().quitter_table(personnage, table)
 
         print("Service : Suppression de personnage - Terminé")
 

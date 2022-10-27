@@ -118,8 +118,7 @@ class DeplacerPersonnageVue(VueAbstraite):
         confirm = answers4["confirmation"]
 
         if confirm:
-            success = PersonnageService().quitter_table(
-                table_origine, personnage_choisi)
+            success = PersonnageService().quitter_table(personnage_choisi, table_origine)
 
             if answers3["table_arrivee"] != "Aucune table":
                 success = PersonnageService().rejoindre_table(
