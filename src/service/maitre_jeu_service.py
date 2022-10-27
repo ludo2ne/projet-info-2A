@@ -157,22 +157,23 @@ class MaitreJeuService:
         entetes = ["séance", "id_table", "scénario", "Personnages"]
 
         entetes_perso = ["nom", "classe", "race",
-                         "niveau"]
+                         "niveau", "competence", "langue_parlée"]
 
         # liste de liste des persos de chaque table
         list_perso_des_tables = [t.liste_perso() for t in table_jeu]
 
-        table_as_list = [t.as_list()[0:3] for t in table_jeu]
+        table_as_list = [t.as_list()[0:len(entetes)-1] for t in table_jeu]
         print(table_as_list)
 
         i = 0
         for table in table_jeu:
-            perso_as_list = [p.as_list()[1:7] for p in table.personnages]
+            perso_as_list = [p.as_list()[1:len(entetes_perso)+1]
+                             for p in table.personnages]
             resultat_perso = tabulate(tabular_data=perso_as_list,
                                       headers=entetes_perso,
                                       tablefmt="psql",
                                       floatfmt=".2f") + "\n"
-            print(resultat_perso)
+
             table_as_list[i].append(resultat_perso)
             i += 1
 

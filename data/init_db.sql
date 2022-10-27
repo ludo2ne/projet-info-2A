@@ -47,7 +47,9 @@ CREATE TABLE jdr.personnage(
     nom text NOT NULL,
     race text NOT NULL,
     classe text NOT NULL,
-    niveau integer NOT NULL
+    niveau integer NOT NULL,
+    competence text NOT NULL,
+    langues_parlees text NOT NULL
 );
 
 -----------------------------------------------------

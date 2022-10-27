@@ -45,6 +45,18 @@ class CreerPersonnageVue(VueAbstraite):
                 "validate": EmptyInputValidator(),
                 "name": "niveau",
                 "message": "Entrez le niveau de votre personnage (entre 1 et 100):"
+            },
+            {
+                "type": "list",
+                "name": "competence",
+                "message": "Choisissez la competence de votre personnage :",
+                "choices": Session().competences_personnages
+            },
+            {
+                "type": "list",
+                "name": "langue",
+                "message": "Choisissez la langue de votre personnage :",
+                "choices": Session().langues_personnages
             }
         ]
 
@@ -64,9 +76,10 @@ class CreerPersonnageVue(VueAbstraite):
 
         # On appelle le service de creation de joueur
         personnage = JoueurService().creer_personnage(answers["nom"],
-                                                      answers["classe"], answers["race"], answers["niveau"])
+                                                      answers["classe"], answers["race"], answers["niveau"],
+                                                      competence=answers["competence"], langues_parlees=answers["langue"])
 
-        # On récupère le mesage à afficher (succès ou échec)
+        # On récupère le message à afficher (succès ou échec)
         if not personnage:
             message += "\nLa création du personnage a échoué"
         else:

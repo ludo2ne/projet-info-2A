@@ -36,13 +36,15 @@ class PersonnageDao(metaclass=Singleton):
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "INSERT INTO jdr.personnage(nom, race, classe, niveau, id_joueur) VALUES "
-                        "(%(nom)s,%(race)s,%(classe)s,%(niveau)s,%(id_joueur)s) RETURNING id_personnage;",
+                        "INSERT INTO jdr.personnage(nom, race, classe, niveau, id_joueur,competence,langues_parlees) VALUES "
+                        "(%(nom)s,%(race)s,%(classe)s,%(niveau)s,%(id_joueur)s,%(competence)s,%(langues_parlees)s) RETURNING id_personnage;",
                         {"nom": personnage.nom,
                          "race": personnage.race,
                          "classe": personnage.classe,
                          "niveau": personnage.niveau,
-                         "id_joueur": joueur.id_joueur})
+                         "id_joueur": joueur.id_joueur,
+                         "competence": personnage.competence,
+                         "langues_parlees": personnage.langues_parlees})
                     res = cursor.fetchone()
         except Exception as e:
             print(e)
@@ -84,7 +86,9 @@ class PersonnageDao(metaclass=Singleton):
                                    nom=row["nom"],
                                    classe=row["classe"],
                                    race=row["race"],
-                                   niveau=row["niveau"])
+                                   niveau=row["niveau"],
+                                   competence=row["competence"],
+                                   langues_parlees=row["langues_parlees"])
                 personnages.append(perso)
         # Implemente la liste des personnages dans le profil joueur
         joueur.liste_personnages = personnages
@@ -148,7 +152,9 @@ class PersonnageDao(metaclass=Singleton):
                                     nom=res["nom"],
                                     classe=res["classe"],
                                     race=res["race"],
-                                    niveau=res["niveau"])
+                                    niveau=res["niveau"],
+                                    competence=res["competence"],
+                                    langues_parlees=res["langues_parlees"])
 
         print("DAO : Trouver personnage par id - Terminé")
 
@@ -302,6 +308,7 @@ class PersonnageDao(metaclass=Singleton):
 
 
 # TODO fusionner avec inscrire_table
+
 
     def rejoindre_table(self, table, personnage) -> bool:
         '''Ajouter un personnage à une table de jeu

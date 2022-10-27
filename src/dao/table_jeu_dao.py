@@ -118,7 +118,9 @@ class TableJeuDao(metaclass=Singleton):
                                    nom=row["nom"],
                                    classe=row["classe"],
                                    race=row["race"],
-                                   niveau=row["niveau"])
+                                   niveau=row["niveau"],
+                                   competence=row["competence"],
+                                   langues_parlees=row["langues_parlees"])
                 liste_personnages.append(perso)
 
         print("DAO : Lister personnage d'une table - Terminé")

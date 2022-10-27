@@ -32,18 +32,18 @@ INSERT INTO jdr.joueur(pseudo, nom, prenom, mail, est_mj) VALUES
 ('tex',       'Agère',        'Tex',    'texagere@mail.fr',         true);
 
  
-INSERT INTO jdr.personnage(id_joueur, nom, classe,race,niveau) VALUES
-(2, 'Mario',     'Fighter',   'Human',    2),
-(2, 'Peach',     'Sorcerer',  'Human',    4),
-(3, 'Legolas',   'Ranger' ,   'Elf',      5),
-(3, 'Panoramix', 'Druid',     'Human',    0),
-(4, 'Gandalf',   'Wizard',    'Human',    99),
-(5, 'Gimli',     'Fighter',   'Dwarf',    1),
-(6, 'Luke',      'Fighter',   'Human',    10),
-(6, 'Leia',      'Ranger',    'Elf',      3),
-(7, 'Bron',      'Rogue',     'Elf',      6),
-(8, 'Superman',  'Warlock',   'Half-Elf', 8),
-(9, 'Kevin',     'Druid',     'Dwarf',    5);
+INSERT INTO jdr.personnage(id_joueur, nom, classe,race,niveau,competence,langues_parlees) VALUES
+(2, 'Mario',     'Fighter',   'Human',    2,'Druid','abyssal'),
+(2, 'Peach',     'Sorcerer',  'Human',    4,'Druid','abyssal'),
+(3, 'Legolas',   'Ranger' ,   'Elf',      5,'Druid','abyssal'),
+(3, 'Panoramix', 'Druid',     'Human',    0,'Druid','abyssal'),
+(4, 'Gandalf',   'Wizard',    'Human',    99,'Druid','abyssal'),
+(5, 'Gimli',     'Fighter',   'Dwarf',    1,'Druid','abyssal'),
+(6, 'Luke',      'Fighter',   'Human',    10,'Druid','abyssal'),
+(6, 'Leia',      'Ranger',    'Elf',      3,'Druid','abyssal'),
+(7, 'Bron',      'Rogue',     'Elf',      6,'Druid','abyssal'),
+(8, 'Superman',  'Warlock',   'Half-Elf', 8,'Druid','abyssal'),
+(9, 'Kevin',     'Druid',     'Dwarf',    5,'Druid','abyssal');
 
 
 INSERT INTO jdr.table_personnage(id_table, id_personnage) VALUES

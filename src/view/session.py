@@ -17,3 +17,5 @@ class Session(metaclass=Singleton):
         self.user = None
         self.classes_personnages = None
         self.races_personnages = None
+        self.competences_personnages = None
+        self.langues_personnages = None

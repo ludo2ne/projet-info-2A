@@ -103,7 +103,7 @@ class AdministrateurService():
 
             if t.personnages != []:
                 entetes = ["id", "Nom", "Classe",
-                           "Race", "Niveau", "Joueur"]
+                           "Race", "Niveau", "Competence", "Langue parlée", "Joueur"]
                 personnages_as_list = [p.as_list() for p in t.personnages]
 
                 for p in personnages_as_list:

@@ -14,6 +14,8 @@ from service.joueur_service import JoueurService
 from view.accueil_vue import AccueilVue
 from client.classe_client import ClasseClient
 from client.race_client import RaceClient
+from client.competence_client import CompetenceClient
+from client.langue_client import LangueClient
 
 
 class LancementAppli(metaclass=Singleton):
@@ -29,6 +31,8 @@ class LancementAppli(metaclass=Singleton):
         # Chargement en session de la liste des classes et des races
         Session().classes_personnages = ClasseClient().lister_classes()
         Session().races_personnages = RaceClient().lister_races()
+        Session().competences_personnages = CompetenceClient().lister_competences()
+        Session().langues_personnages = LangueClient().lister_langues()
 
         # TODO prévoir solution de contournement si le webservice n'est pas accessible
 

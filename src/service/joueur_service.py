@@ -179,7 +179,7 @@ class JoueurService:
         joueur = Session().user
         return len(joueur.liste_personnages) < int(os.environ["NB_MAX_PERSONNAGES_PAR_JOUEUR"])
 
-    def creer_personnage(self, nom, classe2, race, niveau) -> Personnage:
+    def creer_personnage(self, nom, classe2, race, niveau, competence, langues_parlees) -> Personnage:
         '''Permet la création d'un personnage
 
         Parameters
@@ -192,6 +192,10 @@ class JoueurService:
             race du personnage
         niveau : int
             niveau du personnage
+        competence : str
+            competence du personnage
+        langue : str
+            langue du personnage
 
         Returns
         -------
@@ -202,13 +206,14 @@ class JoueurService:
 
         # TODO verifier que le nom du personnage n'existe pas déjà
 
-        # TODO appel API pour obtenir competences
-
         perso = Personnage(id_personnage=None,
                            nom=nom,
                            classe=classe2,
                            race=race,
-                           niveau=niveau)
+                           niveau=niveau,
+                           competence=competence,
+                           langues_parlees=langues_parlees
+                           )
 
         created = PersonnageDao().creer(perso)
 
@@ -236,7 +241,7 @@ class JoueurService:
         personnages = PersonnageDao().lister_par_joueur(joueur)
 
         entetes = ["id", "Nom", "Classe",
-                   "Race", "Niveau"]
+                   "Race", "Niveau", "Compétence", "Langues parlées"]
         personnages_as_list = [p.as_list() for p in personnages]
 
         resultat = "Liste des personnages \n" + tabulate(tabular_data=personnages_as_list,
