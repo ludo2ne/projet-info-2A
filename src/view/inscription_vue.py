@@ -7,7 +7,8 @@ Version : 1.0
 '''
 
 
-from PyInquirer import prompt, Validator, ValidationError
+from InquirerPy import prompt
+from prompt_toolkit.validation import ValidationError, Validator
 from view.vue_abstraite import VueAbstraite
 from service.joueur_service import JoueurService
 
@@ -16,7 +17,7 @@ import regex
 
 
 class MailValidator(Validator):
-    def validate(self, document: document.Document) -> None:
+    def validate(self, document) -> None:
         ok = regex.match('^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$', document.text)
         if not ok:
             raise ValidationError(
@@ -45,7 +46,7 @@ class InscriptionVue(VueAbstraite):
                 'type': 'input',
                 'name': 'email',
                 'message': 'Entrez votre email',
-                'validate': MailValidator
+                'validate': MailValidator()
             }
         ]
 
