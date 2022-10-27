@@ -9,6 +9,7 @@ Version : 1.0
 import os
 
 from business_object.maitre_jeu import MaitreJeu
+from business_object.personnage import Personnage
 
 
 class TableJeu:
