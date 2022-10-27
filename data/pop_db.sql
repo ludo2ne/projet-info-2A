@@ -1,8 +1,8 @@
---INSERT INTO jdr.sceance(description, debut, fin) VALUES
---('Samedi matin', '2022-09-24 08:00:00', '2022-09-24 13:00:00'),
---('Samedi après-midi', '2022-09-24 14:00:00', '2022-09-24 19:00:00'),
---('Dimanche matin', '2022-09-25 08:00:00', '2022-09-25 13:00:00'),
---('Dimanche après-midi', '2022-09-25 14:00:00', '2022-09-25 19:00:00');
+INSERT INTO jdr.seance(description, debut, fin) VALUES
+('Samedi matin', '2022-09-24 08:00:00', '2022-09-24 13:00:00'),
+('Samedi après-midi', '2022-09-24 14:00:00', '2022-09-24 19:00:00'),
+('Dimanche matin', '2022-09-25 08:00:00', '2022-09-25 13:00:00'),
+('Dimanche après-midi', '2022-09-25 14:00:00', '2022-09-25 19:00:00');
 
 
 INSERT INTO jdr.table_jeu(id_seance, id_maitre_jeu, scenario, infos_complementaires) VALUES
