@@ -392,13 +392,25 @@ class JoueurService:
 
         table_jeu = TableJeuDao().lister(joueur=joueur)
 
+        if type(joueur) == MaitreJeu:
+            table_jeu_mj = TableJeuDao().lister(mj=joueur)
+            table_jeu += table_jeu_mj
+
         entetes = ["Séance", "Numéro Table", "Scénario",
                    "Maître du jeu", "Personnage joué"]
 
         # liste de liste des persos de chaque table
         list_perso_des_tables = [t.liste_perso() for t in table_jeu]
 
-        table_as_list = [t.as_list() for t in table_jeu]
+        # Gros mic-mac pour replacer les tables dans l'ordre chronologique...
+        liste_provisoire = []
+        for t in table_jeu:
+            listbid = t.as_list()
+            listbid.append(t)
+            liste_provisoire.append(listbid)
+        liste_provisoire.sort()
+        table_jeu = [t[-1] for t in liste_provisoire]
+        table_as_list = [t[0:len(t)-1] for t in liste_provisoire]
 
         for t_list in table_as_list:
             seance = SeanceDao().trouver_par_id(t_list[0])
@@ -406,11 +418,17 @@ class JoueurService:
 
         i = 0
         for table in table_jeu:
+            # On regarde si le joueur joue à la table
             for perso in table.personnages:
                 for perso_joueur in joueur.liste_personnages:
                     if perso_joueur.id_personnage == perso.id_personnage:
                         table_as_list[i].append(perso_joueur.nom)
+                        print(table.id_table, i, "joueur")
                         i += 1
+            # ou s'il y officie en tant que MJ
+            if table.maitre_jeu.id_joueur == joueur.id_joueur:
+                print(table.id_table, i, "mj")
+                i += 1
 
         resultat = "Liste des tables \n" + tabulate(tabular_data=table_as_list,
                                                     headers=entetes,
