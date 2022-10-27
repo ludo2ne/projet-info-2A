@@ -8,9 +8,13 @@ Version : 1.0
 from InquirerPy import prompt
 from InquirerPy.validator import EmptyInputValidator
 from view.vue_abstraite import VueAbstraite
+from view.session import Session
+
 from service.joueur_service import JoueurService
 from service.maitre_jeu_service import MaitreJeuService
-from view.session import Session
+
+from dao.seance_dao import SeanceDao
+
 from business_object.joueur import Joueur
 
 
@@ -19,15 +23,23 @@ class GererTableVue(VueAbstraite):
     def __init__(self, message=""):
         joueur = Session().user
 
+        liste_seance = SeanceDao().lister_toutes()
+
+        liste_seances_affichee = []
+        for i in range(liste_seance):
+            liste_seances_affichee.append(str(i+1) + ". " + liste_seance[i])
+
+# ["1. samedi matin",
+#                            "2. samedi après-midi",
+#                            "3. dimanche matin",
+#                            "4. dimanche après-midi"]
+
         self.questions = [
             {   # demander le séance a rejoindre
                 "type": "list",
                 "name": "seance",
                 "message": "Sélectionner la séance à laquelle vous souhaitez participer",
-                "choices": ["1. samedi matin",
-                            "2. samedi après-midi",
-                            "3. dimanche matin",
-                            "4. dimanche après-midi"]
+                "choices": liste_seances_affichee
             },
             {   # demander le scenario
                 "type": "input",

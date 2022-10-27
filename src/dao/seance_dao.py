@@ -49,10 +49,44 @@ class SeanceDao(metaclass=Singleton):
 
         seance = None
         if res:
-            seance = Seance(description=res["description"],
+            seance = Seance(id_seance=res["id_seance"],
+                            description=res["description"],
                             debut=res["debut"],
                             fin=res["fin"])
 
         print("DAO : Trouver séance par id - Terminé")
 
-        return joueur
+        return seance
+
+    def lister_toutes(self) -> list[Seance]:
+        '''Lister toutes les Séances
+
+        Returns
+        -------
+        list[Seance] : la liste de toutes les Séances
+        '''
+        print("DAO : Lister toutes les Séances")
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT *                               "
+                        "  FROM jdr.seance                      ")
+                    res = cursor.fetchone()
+        except Exception as e:
+            print(e)
+            raise
+
+        liste_seances = []
+        if res:
+            for row in res:
+                seance = Seance(id_seance=res["id_seance"],
+                                description=res["description"],
+                                debut=res["debut"],
+                                fin=res["fin"])
+                liste_seances.append(seance)
+
+        print("DAO : Lister toutes les Séances - Terminé")
+
+        return liste_seances
