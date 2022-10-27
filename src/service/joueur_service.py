@@ -341,6 +341,8 @@ class JoueurService:
             table_list = MaitreJeuDao().lister_tables_mj(compte)
             admin = self.trouver_par_pseudo("admin")
             for el in table_list:
+                table_correspondante = TableJeuDao().trouver_par_id(el[1])
+                joueur_list = TableJeuDao().joueurs_assis(table_correspondante)
                 statut_suppr_mj = MaitreJeuDao().quitter_table(compte, el[1])
                 if not statut_suppr_mj:
                     err_message += f"Le Maitre du Jeu {compte.pseudo} n'a pas pu quitter la tables {el}\n"
@@ -349,6 +351,13 @@ class JoueurService:
                     statut_notif_admin = MessageDao().creer(admin, message)
                     if not statut_notif_admin:
                         err_message += "L'administrateur n'a pas pu être notifié.\n"
+                    for player in joueur_list:
+                        message = f"Le Maitre du Jeu {compte.pseudo} a quitté la table {el}"
+                        statut_notif_joueur = MessageDao().creer(player, message)
+                        print(f"Message au joueur {player.pseudo}")
+                        if not statut_notif_joueur:
+                            err_message += f"Le joueur {player.pseudo} n'a pas pu être notifié.\n"
+
             admin = None
 
         # Supprimer le compte du joueur

@@ -159,7 +159,7 @@ class JoueurDao(metaclass=Singleton):
 
         return inserted
 
-    def lister_tables(self, joueur) -> list:
+    def lister_tables(self, joueur) -> Dict:
         '''Lister les tables où un joueur est assis dans la base de données
 
         Parameters
