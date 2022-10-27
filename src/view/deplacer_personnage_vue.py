@@ -13,6 +13,7 @@ from view.administrateur_menu_vue import AdministrateurMenuVue
 from service.administrateur_service import AdministrateurService
 from service.table_jeu_service import TableJeuService
 from service.personnage_service import PersonnageService
+from service.message_service import MessageService
 
 from business_object.joueur import Joueur
 
@@ -32,7 +33,7 @@ class DeplacerPersonnageVue(VueAbstraite):
             {
                 "type": "list",
                 "name": "table_origine",
-                "message": "Choisissez la table d'origine : \n",
+                "message": "Choisissez la table d'origine :",
                 "choices": table_list_affichee
             },
         ]
@@ -66,7 +67,7 @@ class DeplacerPersonnageVue(VueAbstraite):
             {
                 "type": "list",
                 "name": "choix_personnage",
-                "message": "Choisissez un personnage à déplacer : \n",
+                "message": "Choisissez un personnage à déplacer :",
                 "choices": personnage_list_affichee
             }
         ]
@@ -85,21 +86,26 @@ class DeplacerPersonnageVue(VueAbstraite):
             t for t in table_arrivee_list if t.id_table != id_table_origine]
         table_arrivee_list_affichee = [
             t.id_table for t in table_arrivee_list]
+        table_arrivee_list_affichee.append("Aucune table")
 
+        table_arrivee_txt = TableJeuService().affichage_liste(table_arrivee_list)
         self.nettoyer_console()
-        print(TableJeuService().affichage_liste(table_arrivee_list))
+        print(table_arrivee_txt)
         question3 = [
             {
                 "type": "list",
                 "name": "table_arrivee",
-                "message": "Choisissez la table d'arrivée : \n",
+                "message": "Choisissez le numéro de la table d'arrivée :",
                 "choices": table_arrivee_list_affichee
             },
         ]
         answers3 = prompt(question3)
 
-        id_table_arrivee_choisie = int(answers3["table_arrivee"])
-        table_arrivee_choisie = TableJeuService().trouver_par_id(id_table_arrivee_choisie)
+        toto = answers3["table_arrivee"]
+        print(toto)
+        if answers3["table_arrivee"] != "Aucune table":
+            id_table_arrivee_choisie = int(answers3["table_arrivee"])
+            table_arrivee_choisie = TableJeuService().trouver_par_id(id_table_arrivee_choisie)
 
         self.nettoyer_console()
         question4 = [
@@ -112,13 +118,24 @@ class DeplacerPersonnageVue(VueAbstraite):
         confirm = answers4["confirmation"]
 
         if confirm:
-            # TODO supprimer de l ancienne table
-            success = PersonnageService().rejoindre_table(
-                table_arrivee_choisie, personnage_choisi)
-            if success:
-                message = "Personnage déplacé"
+            success = PersonnageService().quitter_table(
+                table_origine, personnage_choisi)
+
+            if answers3["table_arrivee"] != "Aucune table":
+                success = PersonnageService().rejoindre_table(
+                    table_arrivee_choisie, personnage_choisi)
+                message = "Personnage " + personnage_choisi.nom + " déplacé de la table " + str(table_origine.id_table) + \
+                    " vers la table " + str(table_arrivee_choisie.id_table)
             else:
-                message = "Déplacement de personnage  échoué"
+                message = "Personnage supprimé de la table " + \
+                    str(table_origine.id_table)
+
+            # On receupere le joueur a partir du personnage puis on le notifie par message
+            joueur_concerne = PersonnageService().trouver_joueur(personnage_choisi)
+            MessageService().creer(joueur_concerne, message)
+
+            if not success:
+                message = "Déplacement de personnage échoué"
         else:
             message = "Déplacement de personnage annulé"
 

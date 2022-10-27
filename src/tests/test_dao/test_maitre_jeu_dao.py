@@ -22,7 +22,8 @@ class TestMaitreJeuDao(unittest.TestCase):
         listfin = []
         if type(joueur) == MaitreJeu:
             listini = MaitreJeuDao().lister_tables_mj(joueur)
-            statut = MaitreJeuDao().quitter_table(joueur)
+            for el in listini:
+                statut = MaitreJeuDao().quitter_table(joueur, el[1])
             listfin = MaitreJeuDao().lister_tables_mj(joueur)
         else:
             statut = False

@@ -27,8 +27,8 @@ class JoueurMenuVue(VueAbstraite):
                     "Créer un personnage",
                     "Supprimer un personnage",
                     "Lister ses personnages",
-                    "Rejoindre une table (TODO)",
-                    "Quitter une table (TODO)",
+                    "Rejoindre une table",
+                    "Quitter une table",
                     "Voir son programme",
                     "Supprimer son compte",
                     "Voir ses messages",
@@ -59,6 +59,10 @@ class JoueurMenuVue(VueAbstraite):
         elif reponse["choix"] == "Lister ses personnages":
             perso = JoueurService().lister_personnages()
             return (JoueurMenuVue(perso))
+        elif reponse["choix"] == "Rejoindre une table":
+            from view.rejoindre_table_choisir_horaire_vue import RejoindreTableChoisirHoraireVue
+            message = "Vous allez pouvoir choisir une table pour jouer"
+            return (RejoindreTableChoisirHoraireVue(message))
         elif reponse["choix"] == "Supprimer un personnage":
             message = JoueurService().lister_personnages()
             if len(utilisateur.liste_personnages) > 0:
@@ -71,6 +75,9 @@ class JoueurMenuVue(VueAbstraite):
         elif reponse["choix"] == "Voir son programme":
             programme_txt = JoueurService().voir_son_programme()
             return (JoueurMenuVue(programme_txt))
+        elif reponse["choix"] == "Quitter une table":
+            from view.quitter_table_vue import QuitterTableVue
+            return (QuitterTableVue(""))
         elif reponse["choix"] == "Supprimer son compte":
             message = "Attention! Vous êtes sur le point de supprimer votre compte."
             from view.supprimer_compte_vue import SupprimerCompteVue

@@ -93,3 +93,43 @@ class MaitreJeuService:
         resultat = TableJeuDao().gerer_par_mj(id_mj, id_seance, scenario, info_comple)
         print("Service : Gestion d'une table jeu du mj - Terminé")
         return resultat
+
+    def voir_tables_gerees(self):
+        '''Affiche les tables ou le mj est
+        '''
+        print("Service : Voir programme")
+
+        joueur = Session().user
+
+        table_jeu = TableJeuDao().lister(mj=joueur)
+
+        entetes = ["séance", "id_table", "scénario", "Personnages"]
+
+        entetes_perso = ["nom", "classe", "race",
+                         "niveau", "compétences", "langues parlées"]
+
+        # liste de liste des persos de chaque table
+        list_perso_des_tables = [t.liste_perso() for t in table_jeu]
+
+        table_as_list = [t.as_list()[0:3] for t in table_jeu]
+        print(table_as_list)
+
+        i = 0
+        for table in table_jeu:
+            perso_as_list = [p.as_list()[1:7] for p in table.personnages]
+            resultat_perso = tabulate(tabular_data=perso_as_list,
+                                      headers=entetes_perso,
+                                      tablefmt="psql",
+                                      floatfmt=".2f") + "\n"
+            print(resultat_perso)
+            table_as_list[i].append(resultat_perso)
+            i += 1
+
+        resultat = "Liste des tables \n" + tabulate(tabular_data=table_as_list,
+                                                    headers=entetes,
+                                                    tablefmt="psql",
+                                                    floatfmt=".2f") + "\n"
+
+        print("Service : Voir programme - Terminé")
+
+        return resultat

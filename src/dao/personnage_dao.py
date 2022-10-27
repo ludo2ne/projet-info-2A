@@ -151,7 +151,7 @@ class PersonnageDao(metaclass=Singleton):
 
         return personnage
 
-    def trouver_joueur(self, id_personnage) -> Joueur:
+    def trouver_joueur(self, personnage) -> Joueur:
         '''trouver le joueur à qui appartient le personnage
         '''
         print("DAO : Trouver joueur depuis personnage")
@@ -163,7 +163,7 @@ class PersonnageDao(metaclass=Singleton):
                         "SELECT j.* FROM jdr.joueur j "
                         " INNER JOIN jdr.personnage p USING(id_joueur) "
                         " WHERE p.id_personnage = %(id_personnage)s;",
-                        {"id_personnage": id_personnage})
+                        {"id_personnage": personnage.id_personnage})
                     res = cursor.fetchone()
         except Exception as e:
             print(e)
@@ -195,10 +195,11 @@ class PersonnageDao(metaclass=Singleton):
                 with connection.cursor() as cursor:
                     # Lister les tables du personnage
                     cursor.execute(
-                        "SELECT id_table,id_seance FROM jdr.personnage "
-                        "JOIN jdr.table_personnage USING (id_personnage)"
-                        "JOIN jdr.table_jeu USING(id_table)"
-                        "WHERE id_personnage=%(id_perso)s",
+                        "SELECT t.*                                             "
+                        "  FROM jdr.personnage p                                "
+                        "  JOIN jdr.table_personnage tp USING (id_personnage)   "
+                        "  JOIN jdr.table_jeu t USING(id_table)                 "
+                        "WHERE id_personnage=%(id_perso)s                       ",
                         {"id_perso": personnage.id_personnage})
                     res = cursor.fetchall()
         except Exception as e:
@@ -214,43 +215,99 @@ class PersonnageDao(metaclass=Singleton):
         # le personnage est présent. Si nécessaire, on pourra retourner la liste des tables
         return len(res)
 
-    def quitter_table(self, personnage) -> bool:
-        '''Suppression de la présence d'un personnage à une table 
-        dans la base de données
+    def quitter_table(self, table, personnage) -> bool:
+        '''Suppression de la présence d'un personnage à une ou plusieurs tables
+
+        TODO corriger méthode
 
         Parameters
         ----------
-        personnage : Personnage
+        * personnage : Personnage
+            * le personnage à ajouter
+        * table : TableJeu
+            * la table de jeu que le personnage quitte
+            * si non renseigné le personnage quitte toutes les tables
+
+        Returns
+        -------
+        * True si l'opération est un succés
+        * False sinon
         '''
         print("DAO : Suppression de la présence d'un personnage à une table")
+
+        variables = {"id_perso": personnage.id_personnage}
+
+        requete = "   DELETE                                      "\
+            "           FROM jdr.table_personnage                 "\
+            "          WHERE id_personnage = %(id_perso)s         "
+
+        if table:
+            requete += " AND id_table = %(id_table)s          "
+            variables["id_table"] = table.id_table
 
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     # Supprimer le personnage des tables où il est utilisé
-                    cursor.execute(
-                        "DELETE FROM jdr.table_personnage "
-                        "WHERE id_personnage=%(id_perso)s",
-                        {"id_perso": personnage.id_personnage})
+                    cursor.execute(requete,
+                                   variables)
                     res = cursor.rowcount
         except Exception as e:
             print(e)
             raise
-        print("DAO : Personnage enlevé de" + str(res) + " table(s)")
 
-        print("DAO : Suppression de la présence d'un personnage à une table- Terminé")
+        if table:
+            print("DAO : Personnage " + personnage.nom + " enlevé de la table")
+        else:
+            print("DAO : Personnage " + personnage.nom +
+                  " enlevé de toutes les tables")
+
+        print("DAO : Suppression de la présence d'un personnage à une table - Terminé")
 
         return [res > 0]
 
+    def inscrire_table(self, table, personnage) -> bool:
+        '''Inscription d'un personnage sur une table dans la base de données
+
+        Parameters:
+        table : int(id_table)
+        personnage : Personnage
+        '''
+        print("DAO : Inscription d'un personnage sur une table")
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "INSERT INTO jdr.table_personnage(id_table,id_personnage) VALUES "
+                        "(%(id_table)s,%(id_personnage)s) RETURNING id_table,id_personnage;",
+                        {"id_table": table,
+                         "id_personnage": personnage.id_personnage})
+                    res = cursor.fetchone()
+        except Exception as e:
+            print(e)
+            raise
+
+        inscrit = False
+        if res:
+            inscrit = True
+
+        print("DAO : Inscription d'un personnage sur une table - Terminé")
+
+        return [len(res) > 0]
+
+
+# TODO fusionner avec inscrire_table
+
+
     def rejoindre_table(self, table, personnage) -> bool:
         '''Ajouter un personnage à une table de jeu
-
         Parameters
         ----------
-        personnage : Personnage
-            le personnage à ajouter
-        table : TableJeu
-            la table de jeu que le personnage rejoint
+        * personnage : Personnage
+            * le personnage à ajouter
+        * table : TableJeu
+            * la table de jeu que le personnage rejoint
         '''
         print("DAO : Personnage rejoint une table")
 

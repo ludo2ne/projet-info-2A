@@ -164,14 +164,16 @@ class JoueurService:
 
         return resultat
 
-    def supprimer_personnage(self, perso_a_supprimer, joueur):
+    def supprimer_personnage(self, perso_a_supprimer, joueur=None):
         '''Supprimer un personnage d'un utilisateur
 
         Returns
         -------
         '''
-
         print("Service : Suppression d'un personnage")
+
+        if not joueur:
+            joueur = Session().user
 
         # vérifier si le personnage n'est pas assis à une table
         perso_non_utilise = (
@@ -196,9 +198,15 @@ class JoueurService:
     def supprimer(self, compte):
         '''Supprimer le compte d'un joueur
 
-        compte: Joueur
+        Params
+        ------
+        * compte : Joueur
+            * Compte du joueur à supprimer
+
         Returns
         -------
+        * True si le compte a bien été supprimé
+        * False sinon
         '''
 
         print("Service : Suppression de compte")
@@ -322,3 +330,39 @@ class JoueurService:
         print("Service : voir les messages - Terminé")
 
         return resultat
+
+    def quitter_table(self, id_table) -> bool:
+        '''Permet au joueur de quitter sa table
+        '''
+        print("Service : Quitter une table")
+
+        joueur = Session().user
+        table = TableJeuDao().trouver_par_id(id_table)
+
+        for perso_table in table.personnages:
+            for perso_joueur in joueur.liste_personnages:
+                if perso_joueur.id_personnage == perso_table.id_personnage:
+                    personnage = PersonnageDao().trouver_par_id(perso_table.id_personnage)
+
+        statut_suppression = PersonnageDao().quitter_table(table, personnage)
+
+        print("Service : Suppression de personnage - Terminé")
+
+        return statut_suppression
+
+    def inscrire_table(self, table_choisie, perso_choisi):
+        '''Inscrire un personnage à une table
+
+        Parameters:
+        table_choisie : int(id_table)
+        perso_choisi : Personnage
+        Returns
+        -------
+        '''
+
+        print("Service : Inscrire un personnage sur une table")
+        statut = PersonnageDao().inscrire_table(
+            table=table_choisie, personnage=perso_choisi)
+        print("Service : Inscrire un personnage sur une table - Terminé")
+
+        return statut

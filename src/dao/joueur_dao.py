@@ -159,6 +159,37 @@ class JoueurDao(metaclass=Singleton):
 
         return inserted
 
+    def lister_tables(self, joueur) -> bool:
+        '''Lister les tables où un joueur est assis dans la base de données
+
+        Parameters
+        ----------
+        joueur : Joueur
+        '''
+        print("DAO : Listing des tables d'un joueur")
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    # Lister les tables du personnage
+                    cursor.execute(
+                        "SELECT id_table,id_seance FROM jdr.personnage "
+                        "JOIN jdr.table_personnage USING (id_personnage)"
+                        "JOIN jdr.table_jeu USING(id_table)"
+                        "WHERE id_joueur=%(id_joueur)s",
+                        {"id_joueur": joueur.id_joueur})
+                    res = cursor.fetchall()
+        except Exception as e:
+            print(e)
+            raise
+
+        print("DAO : " + str(len(res)) +
+              f" tables avec le joueur {joueur.pseudo}")
+
+        print("DAO : Listing des tables d'un joueur - Terminé")
+
+        return (res)
+
     def supprimer_compte(self, compte) -> bool:
         '''Suppression du compte d'un joueur 
         dans la base de données

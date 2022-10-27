@@ -54,7 +54,7 @@ class TableJeuDao(metaclass=Singleton):
 
         return created
 
-    def trouver_par_id(self, id_table) -> int:
+    def trouver_par_id(self, id_table) -> TableJeu:
         '''Obtenir une table à partir de son id_table
         '''
 
@@ -148,7 +148,7 @@ class TableJeuDao(metaclass=Singleton):
 
         return nb_joueurs
 
-    def lister(self, joueur=None, seance=None) -> list[TableJeu]:
+    def lister(self, joueur=None, seance=None, personnage=None, mj=None) -> list[TableJeu]:
         '''Retourne la liste des tables
         Si les paramètres sont à None, liste toutes les tables
         Params
@@ -159,6 +159,10 @@ class TableJeuDao(metaclass=Singleton):
         seance : int
             sélectionne uniquement les tables de la séance
             si None, sélectionne toutes les seances
+        mj : MaitreJeu
+            sélectionne uniquement les tables du mj
+            si None, sélectionne tous les mj
+
         '''
 
         print("DAO : Lister toutes les tables")
@@ -177,6 +181,10 @@ class TableJeuDao(metaclass=Singleton):
             "        LEFT JOIN jdr.joueur mj ON t.id_maitre_jeu = mj.id_joueur     "\
             "       WHERE 1=1                                                      "
 
+        if personnage:
+            requete += " AND p.id_personnage = %(id_personnage)s                   "
+            variables["id_personnage"] = personnage.id_personnage
+
         if joueur:
             requete += " AND j.id_joueur = %(id_joueur)s                           "
             variables["id_joueur"] = joueur.id_joueur
@@ -184,6 +192,10 @@ class TableJeuDao(metaclass=Singleton):
         if seance:
             requete += " AND t.id_seance = %(id_seance)s                           "
             variables["id_seance"] = seance
+
+        if mj:
+            requete += " AND t.id_maitre_jeu = %(id_mj)s                           "
+            variables["id_mj"] = mj.id_joueur
 
         requete += "ORDER BY t.id_seance, t.id_table;                              "
 

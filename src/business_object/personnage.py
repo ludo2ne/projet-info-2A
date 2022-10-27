@@ -38,7 +38,7 @@ class Personnage:
 
     def as_list(self):
         liste = [self.id_personnage, self.nom,
-                 self.classe, self.race, self.niveau]
+                 self.classe, self.race, self.niveau, self.competence, self.langues_parlees]
         return liste
 
     def __str__(self):
