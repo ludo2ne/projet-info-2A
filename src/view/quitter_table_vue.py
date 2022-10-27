@@ -10,8 +10,13 @@ Version : 1.0
 from typing import Optional
 from InquirerPy import prompt
 
+from view.session import Session
 from view.vue_abstraite import VueAbstraite
+from view.joueur_menu_vue import JoueurMenuVue
+
 from dao.table_jeu_dao import TableJeuDao
+
+from service.joueur_service import JoueurService
 
 
 class QuitterTableVue(VueAbstraite):
@@ -48,18 +53,15 @@ class QuitterTableVue(VueAbstraite):
         message = ""
         answers = prompt(self.questions)
 
-        if not answers["confirmation"] or answers["choix"] == "Non, finalement j'ai changé d'avis":
+        if not answers["confirmation"] or answers["id_table"] == "Non, finalement j'ai changé d'avis":
             return JoueurMenuVue("Aucune table quittée")
 
         statut_suppression = JoueurService().quitter_table(answers["id_table"])
 
-        if not statut_suppression[0]:
-            # message = "La suppression du compte a échoué"
-            from view.joueur_menu_vue import JoueurMenuVue
-            # prochainevue = JoueurMenuVue(message)
-            prochainevue = JoueurMenuVue(statut_suppression[1])
+        if not statut_suppression:
+            message = "La suppression du compte a échoué"
         else:
-            message = "Le compte du joueur " + \
-                str(answers["supression"]) + " a bien été supprimé."
-            prochainevue = AdministrateurMenuVue(message)
-        return prochainevue
+            message = "Votre personnage a bien quitté la table " + \
+                str(answers["id_table"])
+
+        return JoueurMenuVue(message)

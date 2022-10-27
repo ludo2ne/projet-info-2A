@@ -331,23 +331,25 @@ class JoueurService:
 
         return resultat
 
-<<<<<<< HEAD
-    def quitter_table(self, id_table):
+    def quitter_table(self, id_table) -> bool:
         '''Permet au joueur de quitter sa table
         '''
         print("Service : Quitter une table")
 
         joueur = Session().user
-        table_jeu = TableJeuDao().trouver_par_id(id_table)
+        table = TableJeuDao().trouver_par_id(id_table)
 
-        # TODO methode qui renvoie personnage a partir de joueur et table
+        for perso_table in table.personnages:
+            for perso_joueur in joueur.liste_personnages:
+                if perso_joueur.id_personnage == perso_table.id_personnage:
+                    personnage = PersonnageDao().trouver_par_id(perso_table.id_personnage)
 
-        statut_suppression = PersonnageDao().quitter_table(personnage, table_jeu)
+        statut_suppression = PersonnageDao().quitter_table(table, personnage)
 
         print("Service : Suppression de personnage - Terminé")
 
         return statut_suppression
-=======
+
     def inscrire_table(self, table_choisie, perso_choisi):
         '''Inscrire un personnage à une table
 
@@ -364,4 +366,3 @@ class JoueurService:
         print("Service : Inscrire un personnage sur une table - Terminé")
 
         return statut
->>>>>>> 32dd732f2450be33b1c6714cf4a39ca12b605888

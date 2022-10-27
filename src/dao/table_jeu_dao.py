@@ -54,7 +54,7 @@ class TableJeuDao(metaclass=Singleton):
 
         return created
 
-    def trouver_par_id(self, id_table) -> int:
+    def trouver_par_id(self, id_table) -> TableJeu:
         '''Obtenir une table à partir de son id_table
         '''
 
