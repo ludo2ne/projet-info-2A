@@ -7,9 +7,20 @@ Version : 1.0
 '''
 
 
-from InquirerPy import prompt
+from PyInquirer import prompt, Validator, ValidationError
 from view.vue_abstraite import VueAbstraite
 from service.joueur_service import JoueurService
+
+from prompt_toolkit import document
+import regex
+
+
+class MailValidator(Validator):
+    def validate(self, document: document.Document) -> None:
+        ok = regex.match('^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$', document.text)
+        if not ok:
+            raise ValidationError(
+                message='Please enter a valid mail', cursor_position=len(document.text))
 
 
 class InscriptionVue(VueAbstraite):
@@ -29,6 +40,12 @@ class InscriptionVue(VueAbstraite):
                 "type": "input",
                 "name": "prenom",
                 "message": "Entrez votre prénom :"
+            },
+            {
+                'type': 'input',
+                'name': 'email',
+                'message': 'Entrez votre email',
+                'validate': MailValidator
             }
         ]
 
@@ -47,14 +64,14 @@ class InscriptionVue(VueAbstraite):
         else:
             # On appelle le service de creation de joueur
             joueur = JoueurService().creer(answers["pseudo"],
-                                           answers["nom"], answers["prenom"], mail=None)
+                                           answers["nom"], answers["prenom"], mail=answers["email"])
 
             # On récupère le mesage à afficher (succès ou échec)
             if not joueur:
                 message = "La création du joueur a échoué"
             else:
-                message = "Le joueur {} {} a bien été créé".format(
-                    joueur.prenom, joueur.nom)
+                message = "Le joueur {} {} a bien été créé et veuillez vous souvenir de votre pseudo comme {} ".format(
+                    joueur.prenom, joueur.nom, joueur.pseudo)
 
         from view.accueil_vue import AccueilVue
         return AccueilVue(message)
