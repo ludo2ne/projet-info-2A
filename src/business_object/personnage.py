@@ -37,8 +37,13 @@ class Personnage:
         self.langues_parlees = langues_parlees
 
     def as_list(self):
+        ''' Mettre les attributs sous forme de liste pour faire de l'affichage
+        TODO voir si on ajoute self.competence, self.langues_parlees
+             impacts dans MaitreJeuService.voir_tables_gerees() et AdministrateurService.voir_programme_complet()
+
+        '''
         liste = [self.id_personnage, self.nom,
-                 self.classe, self.race, self.niveau, self.competence, self.langues_parlees]
+                 self.classe, self.race, self.niveau, ]
         return liste
 
     def __str__(self):

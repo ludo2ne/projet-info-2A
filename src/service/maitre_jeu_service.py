@@ -106,7 +106,7 @@ class MaitreJeuService:
         entetes = ["séance", "id_table", "scénario", "Personnages"]
 
         entetes_perso = ["nom", "classe", "race",
-                         "niveau", "compétences", "langues parlées"]
+                         "niveau"]
 
         # liste de liste des persos de chaque table
         list_perso_des_tables = [t.liste_perso() for t in table_jeu]

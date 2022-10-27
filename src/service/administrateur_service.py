@@ -55,15 +55,17 @@ class AdministrateurService():
             # Si on est dans une nouvelle seance
             if t.id_seance != sceance_courante or not sceance_courante:
                 sceance_courante = t.id_seance
-                table_txt += "\n###########################################################"
+                table_txt += "\n###########################################################################################"
                 table_txt += "\nSéance " + str(sceance_courante)
-                table_txt += "\n###########################################################\n"
+                table_txt += "\n###########################################################################################\n"
 
             table_txt += "\nTable " + str(t.id_table)
             table_txt += "\n-------\n\n"
 
             if t.maitre_jeu:
-                table_txt += "Maître du jeu : " + t.maitre_jeu.pseudo + "\n"
+                table_txt += "Maître du jeu : " + t.maitre_jeu.prenom + " "
+                table_txt += t.maitre_jeu.nom + \
+                    " (" + t.maitre_jeu.pseudo + ")\n"
                 table_txt += "Scénario : " + t.scenario + "\n"
 
             if t.personnages != []:
