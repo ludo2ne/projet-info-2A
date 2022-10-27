@@ -183,3 +183,16 @@ class MaitreJeuService:
         print("Service : Voir programme - Terminé")
 
         return resultat
+
+    def devenir_mj(self):
+        '''Service de passage au statut mj
+        '''
+        print("Service : Passage au statut mj")
+
+        joueur = Session().user
+        statut = MaitreJeuDao().devenir_mj()
+        if statut:
+            Session().user = MaitreJeu(joueur)
+
+        print("Service : Passage au statut mj - Terminé")
+        return statut

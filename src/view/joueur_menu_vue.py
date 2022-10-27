@@ -51,6 +51,10 @@ class JoueurMenuVue(VueAbstraite):
         if utilisateur.__class__.__name__ == "MaitreJeu":
             self.questions[0].get("choices").insert(-1,
                                                     "Accéder au Menu Maître du Jeu")
+        # Sinon on affiche le lien pour devenir maitre du jeu
+        else:
+            self.questions[0].get("choices").insert(-1,
+                                                    "Devenir Maître du Jeu")
 
         reponse = prompt(self.questions)
         if reponse["choix"] == "Créer un personnage":
@@ -85,6 +89,9 @@ class JoueurMenuVue(VueAbstraite):
         elif reponse["choix"] == "Accéder au Menu Maître du Jeu":
             from view.maitre_jeu_menu_vue import MaitreJeuMenuVue
             return MaitreJeuMenuVue("Bienvenue dans le menu du Maître du Jeu")
+        elif reponse["choix"] == "Devenir Maître du Jeu":
+            from view.devenir_maitre_jeu_vue import DevenirMaitreJeuVue
+            return DevenirMaitreJeuVue("Vous vous apprêtez à devenir Maître du Jeu")
         elif reponse["choix"] == "Se déconnecter":
             Session().user = None
             from view.accueil_vue import AccueilVue
