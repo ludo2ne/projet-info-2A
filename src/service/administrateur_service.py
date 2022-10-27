@@ -19,6 +19,7 @@ from business_object.table_jeu import TableJeu
 from dao.joueur_dao import JoueurDao
 from dao.table_jeu_dao import TableJeuDao
 from dao.personnage_dao import PersonnageDao
+from dao.seance_dao import SeanceDao
 
 
 class AdministrateurService():
@@ -84,17 +85,20 @@ class AdministrateurService():
         for t in liste_tables:
 
             # Si on est dans une nouvelle seance
-            if t.id_seance != sceance_courante or not sceance_courante:
-                sceance_courante = t.id_seance
-                table_txt += "\n###########################################################"
-                table_txt += "\nSéance " + str(sceance_courante)
-                table_txt += "\n###########################################################\n"
+            if not sceance_courante or t.id_seance != sceance_courante.id_seance:
+                sceance_courante = SeanceDao().trouver_par_id(t.id_seance)
+                table_txt += "\n###########################################################################################"
+                table_txt += "\nSéance " + str(sceance_courante.id_seance)
+                table_txt += " " + sceance_courante.description
+                table_txt += "\n###########################################################################################\n"
 
             table_txt += "\nTable " + str(t.id_table)
             table_txt += "\n-------\n\n"
 
             if t.maitre_jeu:
-                table_txt += "Maître du jeu : " + t.maitre_jeu.pseudo + "\n"
+                table_txt += "Maître du jeu : " + t.maitre_jeu.prenom + " "
+                table_txt += t.maitre_jeu.nom + \
+                    " (" + t.maitre_jeu.pseudo + ")\n"
                 table_txt += "Scénario : " + t.scenario + "\n"
 
             if t.personnages != []:

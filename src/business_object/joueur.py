@@ -32,6 +32,8 @@ class Joueur:
         self.liste_personnages = liste_personnages
 
     def __str__(self):
+        '''Permet d'afficher les informations du joueurs
+        '''
         # Dans l'affichage du joueur, seuls les noms des personnages apparaitront
         perso_list = []
         for el in self.liste_personnages:

@@ -17,5 +17,7 @@ class Administrateur:
     '''
 
     def __init__(self, id_admin, pseudo):
+        ''' Constructeur
+        '''
         self.id_admin = id_admin
         self.pseudo = pseudo

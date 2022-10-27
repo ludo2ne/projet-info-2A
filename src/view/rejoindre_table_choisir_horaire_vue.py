@@ -6,9 +6,13 @@ Licence : Domaine public
 Version : 1.0
 '''
 from InquirerPy import prompt
-from view.vue_abstraite import VueAbstraite
-from service.joueur_service import JoueurService
 from view.session import Session
+from view.vue_abstraite import VueAbstraite
+
+from service.joueur_service import JoueurService
+
+from dao.seance_dao import SeanceDao
+
 from business_object.joueur import Joueur
 from business_object.table_jeu import TableJeu
 
@@ -16,19 +20,23 @@ from business_object.table_jeu import TableJeu
 class RejoindreTableChoisirHoraireVue(VueAbstraite):
     def __init__(self, message):
         joueur = Session().user
-        # Si une table séance est créée en base de données, chercher la correspondance des séances là-bas
-        choix_horaire = ["1 Samedi matin", "2 Samedi Après-midi",
-                         "3 Dimanche matin", "4 Dimanche après-midi"]
+
+        liste_seance = SeanceDao().lister_toutes()
+
+        liste_seances_affichee = []
+        for s in liste_seance:
+            liste_seances_affichee.append(
+                str(s.id_seance) + ". " + s.description)
 
         # ajouter à la liste la possibilité de revenir en arriere sans supprimer de personnage
-        choix_horaire.append("5 Non, finalement j'ai changé d'avis")
+        liste_seances_affichee.append("5. Non, finalement j'ai changé d'avis")
 
         self.questions = [
             {
                 "type": "list",
                 "name": "choix",
                 "message": "Choisissez une plage horaire",
-                "choices": choix_horaire
+                "choices": liste_seances_affichee
             },
         ]
         self.message = message

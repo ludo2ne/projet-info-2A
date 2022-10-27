@@ -11,16 +11,19 @@ import os
 from tabulate import tabulate
 from typing import List, Optional
 
+from view.session import Session
+
 from business_object.joueur import Joueur
 from business_object.maitre_jeu import MaitreJeu
 from business_object.personnage import Personnage
+
 from dao.joueur_dao import JoueurDao
 from dao.maitre_jeu_dao import MaitreJeuDao
 from dao.table_jeu_dao import TableJeuDao
 from dao.personnage_dao import PersonnageDao
 from dao.message_dao import MessageDao
-from view.session import Session
 from dao.message_dao import MessageDao
+from dao.seance_dao import SeanceDao
 
 
 class JoueurService:
@@ -338,6 +341,8 @@ class JoueurService:
             table_list = MaitreJeuDao().lister_tables_mj(compte)
             admin = self.trouver_par_pseudo("admin")
             for el in table_list:
+                table_correspondante = TableJeuDao().trouver_par_id(el[1])
+                joueur_list = TableJeuDao().joueurs_assis(table_correspondante)
                 statut_suppr_mj = MaitreJeuDao().quitter_table(compte, el[1])
                 if not statut_suppr_mj:
                     err_message += f"Le Maitre du Jeu {compte.pseudo} n'a pas pu quitter la tables {el}\n"
@@ -346,6 +351,13 @@ class JoueurService:
                     statut_notif_admin = MessageDao().creer(admin, message)
                     if not statut_notif_admin:
                         err_message += "L'administrateur n'a pas pu être notifié.\n"
+                    for player in joueur_list:
+                        message = f"Le Maitre du Jeu {compte.pseudo} a quitté la table {el}"
+                        statut_notif_joueur = MessageDao().creer(player, message)
+                        print(f"Message au joueur {player.pseudo}")
+                        if not statut_notif_joueur:
+                            err_message += f"Le joueur {player.pseudo} n'a pas pu être notifié.\n"
+
             admin = None
 
         # Supprimer le compte du joueur
@@ -375,13 +387,17 @@ class JoueurService:
 
         table_jeu = TableJeuDao().lister(joueur=joueur)
 
-        entetes = ["séance", "numéro table", "sénario",
-                   "maître du jeu", "nom du personnage joué"]
+        entetes = ["Séance", "Numéro Table", "Scénario",
+                   "Maître du jeu", "Personnage joué"]
 
         # liste de liste des persos de chaque table
         list_perso_des_tables = [t.liste_perso() for t in table_jeu]
 
         table_as_list = [t.as_list() for t in table_jeu]
+
+        for t_list in table_as_list:
+            seance = SeanceDao().trouver_par_id(t_list[0])
+            t_list[0] = seance.description
 
         i = 0
         for table in table_jeu:
@@ -457,7 +473,7 @@ class JoueurService:
                 if perso_joueur.id_personnage == perso_table.id_personnage:
                     personnage = PersonnageDao().trouver_par_id(perso_table.id_personnage)
 
-        statut_suppression = PersonnageDao().quitter_table(table, personnage)
+        statut_suppression = PersonnageDao().quitter_table(personnage, table)
 
         print("Service : Suppression de personnage - Terminé")
 

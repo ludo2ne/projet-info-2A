@@ -28,8 +28,6 @@ class MaitreJeuMenuVue(VueAbstraite):
 
                     "Gérer une Table",
                     "Résilier une Table",
-                    "Gérer une Table (TODO)",
-                    "Résilier une Table",
                     "Voir les Tables gérées",
                     "Retourner au menu Joueur",
                     "Se déconnecter"
@@ -51,17 +49,17 @@ class MaitreJeuMenuVue(VueAbstraite):
         if reponse["choix"] == "Retourner au menu Joueur":
             from view.joueur_menu_vue import JoueurMenuVue
             return JoueurMenuVue()
+        elif reponse["choix"] == "Gérer une Table":
+            from view.gerer_table_vue import GererTableVue
+            return GererTableVue()
         elif reponse["choix"] == "Résilier une Table":
             message = "Vous vous apprêtez à quitter une table de jeu"
             from view.resilier_table_vue import ResilierTableVue
             return ResilierTableVue(message)
+        elif reponse["choix"] == "Voir les Tables gérées":
+            programme_txt = MaitreJeuService().voir_tables_gerees()
+            return (MaitreJeuMenuVue(programme_txt))
         elif reponse["choix"] == "Se déconnecter":
             Session().user = None
             from view.accueil_vue import AccueilVue
             return AccueilVue("À bientôt {}".format(utilisateur.pseudo))
-        elif reponse["choix"] == "Gérer une Table":
-            from view.gerer_table_vue import GererTableVue
-            return GererTableVue()
-        elif reponse["choix"] == "Voir les Tables gérées":
-            programme_txt = MaitreJeuService().voir_tables_gerees()
-            return (MaitreJeuMenuVue(programme_txt))

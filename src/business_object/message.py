@@ -28,7 +28,7 @@ class Message:
     '''
 
     def __init__(self, id_message, id_joueur, contenu, lu=False, date_creation=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())):
-        '''Constructeur de l'objet Table
+        '''Constructeur de l'objet Message
         '''
         print("Objet : Création d'un message")
         self.date_creation = date_creation
@@ -37,7 +37,18 @@ class Message:
         self.contenu = contenu
         self.lu = lu
 
-    def as_list(self):
+    def as_list(self) -> list[str]:
+        '''Permet d'obtenir les informations d'un message
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        liste : list[str]
+            liste des informations du message
+        '''
         liste = [self.id_message, self.id_joueur,
                  self.contenu, self.lu, self.date_creation]
         return liste

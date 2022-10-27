@@ -1,16 +1,21 @@
---INSERT INTO jdr.sceance(description, debut, fin) VALUES
---('Samedi matin', '2022-09-24 08:00:00', '2022-09-24 13:00:00'),
---('Samedi après-midi', '2022-09-24 14:00:00', '2022-09-24 19:00:00'),
---('Dimanche matin', '2022-09-25 08:00:00', '2022-09-25 13:00:00'),
---('Dimanche après-midi', '2022-09-25 14:00:00', '2022-09-25 19:00:00');
+INSERT INTO jdr.seance(description, debut, fin) VALUES
+('Samedi matin', '2022-09-24 08:00:00', '2022-09-24 13:00:00'),
+('Samedi après-midi', '2022-09-24 14:00:00', '2022-09-24 19:00:00'),
+('Dimanche matin', '2022-09-25 08:00:00', '2022-09-25 13:00:00'),
+('Dimanche après-midi', '2022-09-25 14:00:00', '2022-09-25 19:00:00');
 
 
 INSERT INTO jdr.table_jeu(id_seance, id_maitre_jeu, scenario, infos_complementaires) VALUES
-(1, 3, 'Epidémie au Lazaret', 'joueurs de niveau 5 minimum'),
-(1, 4, 'Traversée de la Moria', null),
+(1, 2, 'Epidémie au Lazaret', 'joueurs de niveau 5 minimum'),
+(1, 3, 'Traversée de la Moria', null),
+(1, 11, 'Libérons les papillons', null),
 (1, null, null, null),
-(1, null, null, null),
-(2, 3, 'Epidémie au Lazaret le retour', 'joueurs de niveau 6 minimum');
+(2, 2, 'Epidémie au Lazaret - le retour', 'joueurs de niveau 6 minimum'),
+(2, 11, 'Il faut sauver maurice', null),
+(2, null, null, null),
+(3, 2, 'Epidémie au Lazaret - la revanche', null),
+(3, null, null, null),
+(4, 2, 'Epidémie au Lazaret - le retour de la revanche', null);
 
 
 INSERT INTO jdr.joueur(pseudo, nom, prenom, mail, est_mj) VALUES
@@ -18,26 +23,37 @@ INSERT INTO jdr.joueur(pseudo, nom, prenom, mail, est_mj) VALUES
 ('pp',        'Javel',        'Aude',   'Aude.Javel@mail.fr',       true),
 ('evabien',   'Poree',        'Eva',    'Eva.Poree@mail.fr',        true),
 ('toto',      'Route',        'Otto',   'Otto.Route@mail.fr',       true),
-('calva14',   'Ptitegoutte',  'Anne',   'Anne.Ptitegoutte@mail.fr', false);
+('jj',        'Bon',          'Jean',   'jeanbon@mail.fr',          true),
+('dd',        'Lapeche',      'Ella',   'ella@mail.fr',             true),
+('ll',        'Masse',        'Lara ',  'l.masse@mail.fr',          false),
+('oo',        'Ochon',        'Paul',   'polochon@mail.fr',         false),
+('tt',        'Kiki',         'Terry',  'terry@mail.fr',            false),
+('yy',        'Atrovite',     'Yves',   'atrovite@mail.fr',         false),
+('tex',       'Agère',        'Tex',    'texagere@mail.fr',         true);
 
-
+ 
 INSERT INTO jdr.personnage(id_joueur, nom, classe,race,niveau) VALUES
-(2, 'Mario',     'Fighter',   'Human',  2),
-(2, 'Peach',     'Sorcerer',  'Human',  4),
-(3, 'Legolas',   'Ranger' ,   'Elf',    5),
-(3, 'Panoramix', 'Druid',     'Human',  0),
-(4, 'Gandalf',   'Wizard',    'Human',  99),
-(5, 'Gimli',     'Fighter',   'Dwarf',  1);
+(2, 'Mario',     'Fighter',   'Human',    2),
+(2, 'Peach',     'Sorcerer',  'Human',    4),
+(3, 'Legolas',   'Ranger' ,   'Elf',      5),
+(3, 'Panoramix', 'Druid',     'Human',    0),
+(4, 'Gandalf',   'Wizard',    'Human',    99),
+(5, 'Gimli',     'Fighter',   'Dwarf',    1),
+(6, 'Luke',      'Fighter',   'Human',    10),
+(6, 'Leia',      'Ranger',    'Elf',      3),
+(7, 'Bron',      'Rogue',     'Elf',      6),
+(8, 'Superman',  'Warlock',   'Half-Elf', 8),
+(9, 'Kevin',     'Druid',     'Dwarf',    5);
 
 
 INSERT INTO jdr.table_personnage(id_table, id_personnage) VALUES
-(1, 1),
 (1, 5),
 (1, 6),
-(2, 3),
-(5, 2),
-(10001, 10001),
-(10001, 10002);
+(1, 7),
+(2, 9),
+(2, 10),
+(5, 3),
+(5, 5);
 
 
 INSERT INTO jdr.message(id_joueur, date_creation, contenu, lu) VALUES

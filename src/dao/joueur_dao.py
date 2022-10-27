@@ -22,6 +22,22 @@ from dao.personnage_dao import PersonnageDao
 class JoueurDao(metaclass=Singleton):
     '''
     Classe contenant les méthodes de dao de Joueur
+
+    Attributes
+    ----------
+    None
+
+    Methods
+    -------
+    creer(joueur : Joueur) : bool
+    trouver_par_id(id_joueur : int) : Joueur
+    trouver_par_pseudo(pseudo : str) : Joueur
+    rejoindre_table(table : TableJeu, joueur : Joueur, personnage : Personnage) : bool
+    lister_tables(joueur : Joueur) : bool
+    supprimer_compte(compte : Joueur) : bool
+    lister_tous() : list[Joueur]
+
+
     '''
 
     def creer(self, joueur) -> bool:
@@ -30,6 +46,12 @@ class JoueurDao(metaclass=Singleton):
         Parameters
         ----------
         joueur : Joueur
+
+        Returns
+        -------
+        created : bool
+            True si la création est un succès
+            False sinon
         '''
         print("DAO : Création d'un joueur")
 
@@ -59,6 +81,16 @@ class JoueurDao(metaclass=Singleton):
 
     def trouver_par_id(self, id_joueur) -> Joueur:
         '''trouver un joueur grace à son id
+
+        Parameters
+        ----------
+        id_joueur : int
+            numéro id du joueur que l'on souhaite trouver
+
+        Returns
+        -------
+        joueur : Joueur
+            renvoie le joueur que l'on cherche par id
         '''
         print("DAO : Trouver joueur par id")
 
@@ -92,6 +124,16 @@ class JoueurDao(metaclass=Singleton):
 
     def trouver_par_pseudo(self, pseudo) -> Joueur:
         '''trouver un joueur grace à son pseudo
+
+        Parameters
+        ----------
+        pseudo : str
+            pseudo du joueur que l'on souhaite trouver
+
+        Returns
+        -------
+        joueur : Joueur
+            renvoie le joueur recherché par pseudo
         '''
         print("DAO : Trouver joueur par pseudo")
 
@@ -123,7 +165,7 @@ class JoueurDao(metaclass=Singleton):
 
         return joueur
 
-    def rejoindre_table(self, table, joueur, personnage):
+    def rejoindre_table(self, table, joueur, personnage) -> bool:
         '''Ajoute un joueur à une table        
 
         Parameters
@@ -134,6 +176,11 @@ class JoueurDao(metaclass=Singleton):
             joueur à ajouter
         personnage : Personnage
             personnage choisi par le joueur
+
+        Returns
+        -------
+        inserted : bool
+            succès d'ajout du personnage du joueur sur la table
         '''
 
         print("DAO : Rejoindre une table")
@@ -159,12 +206,18 @@ class JoueurDao(metaclass=Singleton):
 
         return inserted
 
-    def lister_tables(self, joueur) -> bool:
+    def lister_tables(self, joueur) -> dict:
         '''Lister les tables où un joueur est assis dans la base de données
 
         Parameters
         ----------
         joueur : Joueur
+            joueur dont on veut lister les tables sur lesquelles il est inscrit
+
+        Returns
+        -------
+        res : dict
+            dictionnaire qui rescence des tables du joueurs
         '''
         print("DAO : Listing des tables d'un joueur")
 
@@ -197,6 +250,12 @@ class JoueurDao(metaclass=Singleton):
         Parameters
         ----------
         compte : Joueur
+            compte du joueur à supprimer de la base de donnée
+
+        Returns
+        -------
+        [res > 0] : bool
+            True si le personnage a bien été supprimé
         '''
         print("DAO : Suppression du compte d'un joueur")
 
@@ -219,6 +278,15 @@ class JoueurDao(metaclass=Singleton):
 
     def lister_tous(self) -> list[Joueur]:
         '''lister tous les joueurs
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        liste_joueurs : list[Joueur]
+            renvoie la liste de tous les joueurs dans la base de données
         '''
         print("DAO : Lister tous les joueurs")
 
