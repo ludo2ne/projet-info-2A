@@ -14,6 +14,7 @@ from view.vue_abstraite import VueAbstraite
 from view.inscription_vue import InscriptionVue
 from view.connexion_vue import ConnexionVue
 from utils.reset_database import ResetDatabase
+from utils.headers import headers
 
 
 class AccueilVue(VueAbstraite):
@@ -32,7 +33,7 @@ class AccueilVue(VueAbstraite):
                 ]
             }
         ]
-        self.message = message
+        self.message = headers().print_header()+message
 
     def afficher(self) -> None:
         self.nettoyer_console()
