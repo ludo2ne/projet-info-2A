@@ -60,7 +60,7 @@ class PersonnageService:
         print("Service : Personnage rejoint une table - Terminé")
         return success
 
-    def quitter_table(self, table, personnage):
+    def quitter_table(self, personnage, table):
         '''Le personnage quitte une table de jeu
 
         Parameters
@@ -76,6 +76,6 @@ class PersonnageService:
         * False sinon
         '''
         print("Service : Personnage quitte une table")
-        success = PersonnageDao().quitter_table(table, personnage)
+        success = PersonnageDao().quitter_table(personnage, table)
         print("Service : Personnage quitte une table - Terminé")
         return success

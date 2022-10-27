@@ -221,15 +221,13 @@ class PersonnageDao(metaclass=Singleton):
         # le personnage est présent. Si nécessaire, on pourra retourner la liste des tables
         return len(res)
 
-    def quitter_table(self, table, personnage) -> bool:
+    def quitter_table(self, personnage, table=None) -> bool:
         '''Suppression de la présence d'un personnage à une ou plusieurs tables
-
-        TODO corriger méthode
 
         Parameters
         ----------
         * personnage : Personnage
-            * le personnage à ajouter
+            * le personnage qui quitte la table
         * table : TableJeu
             * la table de jeu que le personnage quitte
             * si non renseigné le personnage quitte toutes les tables
