@@ -310,7 +310,9 @@ class JoueurDao(metaclass=Singleton):
                                 prenom=row["prenom"],
                                 mail=row["mail"],
                                 id_joueur=row["id_joueur"])
-                liste_joueurs.append(joueur)
+                liste_est_mj = row["est_mj"]
+                # liste_joueurs une liste
+                liste_joueurs.append([liste_est_mj, joueur])
 
         print("DAO : Lister tous les joueurs - Terminé")
 

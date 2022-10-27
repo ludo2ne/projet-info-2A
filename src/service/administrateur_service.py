@@ -31,7 +31,7 @@ class AdministrateurService():
 
     Methods
     -------
-    creer_table_autorisee(seance : int) : bool 
+    creer_table_autorisee(seance : int) : bool
     voir_programme_complet() : str
     lister_tables_actives(self) : list[TableJeu]
     '''
@@ -152,3 +152,25 @@ class AdministrateurService():
             if table_couple[k][0] == 0:
                 TableJeuDao().supprimer_table(table_couple[k][1])
         return table_couple
+
+    def lister_joueur(self) -> str:
+        print("Service : lister tous les utilisateur")
+
+        # recuperer les info des tous les joueurs
+        informations = JoueurDao().lister_tous()
+
+        # mettre en forme
+        entetes = ["pseudo", "nom", "prenom", "mail", "est mj"]
+        info_as_list = []
+
+        for info in informations:
+            info_as_list.append(info[1].as_list().append(info[0]))
+
+        resultat = "les informations des utilisateur \n" + tabulate(tabular_data=info_as_list,
+                                                                    headers=entetes,
+                                                                    tablefmt="psql",
+                                                                    floatfmt=".2f") + "\n"
+
+        print("Service : lister tous les utilisateur - Terminé")
+
+        return resultat
