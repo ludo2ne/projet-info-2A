@@ -82,6 +82,6 @@ class ResilierTableVue(VueAbstraite):
                     f"{statut_suppression[1]}\n La résiliation de table a échoué"
             else:
                 message = statut_suppression[1] + \
-                    f"Vous avez bien quitté la table {table_choisie} ."
+                    f"Vous avez bien quitté la table {table_choisie[0]} avec le scénario {table_choisie[2]} ."
 
         return MaitreJeuMenuVue(message)
