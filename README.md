@@ -57,4 +57,5 @@ python -m unittest
 ```
 
 Au tout premier lancement de l'application, choisir ==initialiser la base de données== dans le menu
+
 **TODO** : éventuellement déplacer plus tard dans le menu Administrateur

@@ -63,7 +63,7 @@ class RejoindreTableChoisirTableVue(VueAbstraite):
         if choix_fait == self.tables_libres+1:
             message = "Choix de table annulé"
             from view.joueur_menu_vue import JoueurMenuVue
-            prochainevue = JoueurMenuVue("message")
+            prochainevue = JoueurMenuVue(message)
         else:
             table_choisie = int(answers["choix"].split()[4])
             from view.rejoindre_table_choisir_perso_vue import RejoindreTableChoisirPersoVue

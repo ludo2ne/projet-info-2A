@@ -117,7 +117,11 @@ class PersonnageDao(metaclass=Singleton):
         return [res > 0]
 
     def trouver_par_id(self, id_personnage) -> Personnage:
-        '''trouver un joueur grace à son id
+        '''Trouver un personnage grace à son id
+        Params
+        ------
+        id_personnage : int
+            id du personnage recherché
         '''
         print("DAO : Trouver personnage par id")
 
@@ -247,8 +251,6 @@ class PersonnageDao(metaclass=Singleton):
         '''
         print("DAO : Inscription d'un personnage sur une table")
 
-        joueur = Session().user
-
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
@@ -268,4 +270,4 @@ class PersonnageDao(metaclass=Singleton):
 
         print("DAO : Inscription d'un personnage sur une table - Terminé")
 
-        return inscrit
+        return [len(res) > 0]

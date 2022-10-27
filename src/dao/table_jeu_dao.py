@@ -14,6 +14,7 @@ from dao.joueur_dao import JoueurDao
 from dao.personnage_dao import PersonnageDao
 
 from business_object.table_jeu import TableJeu
+from business_object.personnage import Personnage
 
 
 class TableJeuDao(metaclass=Singleton):
@@ -63,8 +64,10 @@ class TableJeuDao(metaclass=Singleton):
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "SELECT * FROM jdr.table WHERE id_table = "
-                        "%(id_table)s;", {"id_table": id_table})
+                        "SELECT *                         "
+                        "  FROM jdr.table_jeu             "
+                        " WHERE id_table = %(id_table)s   ",
+                        {"id_table": id_table})
                     res = cursor.fetchone()
         except Exception as e:
             print(e)
@@ -73,13 +76,15 @@ class TableJeuDao(metaclass=Singleton):
         table = None
         if res:
 
-            # TODO trouver mj
+            maitre_jeu = JoueurDao().trouver_par_id(res["id_maitre_jeu"])
 
             table = TableJeu(id_table=res['id_table'],
-                             numero=res['numero'],
-                             scenario=res['scenario'])
+                             id_seance=res['id_seance'],
+                             maitre_jeu=maitre_jeu,
+                             scenario=res['scenario'],
+                             infos_complementaires=res['infos_complementaires'])
 
-            table.liste_personnages = lister_personnages(table)
+            table.personnages = self.lister_personnages(table)
 
         print("DAO : Trouver TableJeu par id - Terminé")
 
@@ -88,8 +93,36 @@ class TableJeuDao(metaclass=Singleton):
     def lister_personnages(self, table):
         '''retourne la liste des personnages de la table
         '''
-        # TODO
-        return null
+        print("DAO : Lister personnage d'une table")
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT p.*                                             "
+                        "  FROM jdr.personnage p                                "
+                        " INNER JOIN jdr.table_personnage USING(id_personnage)  "
+                        " INNER JOIN jdr.table_jeu t USING(id_table)            "
+                        " WHERE t.id_table = %(id_table)s;                      ",
+                        {"id_table": table.id_table})
+                    res = cursor.fetchall()
+        except Exception as e:
+            print(e)
+            raise
+
+        liste_personnages = []
+        if res:
+            for row in res:
+                perso = Personnage(id_personnage=row["id_personnage"],
+                                   nom=row["nom"],
+                                   classe=row["classe"],
+                                   race=row["race"],
+                                   niveau=row["niveau"])
+                liste_personnages.append(perso)
+
+        print("DAO : Lister personnage d'une table - Terminé")
+
+        return liste_personnages
 
     def nombre_joueurs_assis(self, table) -> int:
         '''Nombre de joueurs assis actuellement à la table
@@ -100,8 +133,10 @@ class TableJeuDao(metaclass=Singleton):
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "SELECT count(1) FROM jdr.table_personnage WHERE id_table = "
-                        "%(id_table)s;", {"id_table": table.id_table})
+                        "SELECT count(1)                                   "
+                        "  FROM jdr.table_personnage                       "
+                        " WHERE id_table = %(id_table)s                    ",
+                        {"id_table": table.id_table})
                     res = cursor.fetchone()
         except Exception as e:
             print(e)
@@ -180,7 +215,6 @@ class TableJeuDao(metaclass=Singleton):
                         liste_tables_jeu.append(table_jeu)
 
                     maitre_jeu = JoueurDao().trouver_par_id(row["id_mj"])
-                    print("mj trouvé")
 
                     table_jeu = TableJeu(id_table=row["id_table"],
                                          id_seance=row["id_seance"],
@@ -218,3 +252,46 @@ class TableJeuDao(metaclass=Singleton):
         print("DAO : Compter Tables-terminé")
 
         return nb_tables_par_seance
+
+    def lister_tables_actives(self) -> list[TableJeu]:
+        '''Retourne la liste des tables de jeu avec un Maitre du Jeu et/ou des joueurs
+        '''
+
+        print("DAO : Lister tables actives")
+
+        variables = dict()
+        requete = "SELECT t.*                                                      "\
+            "        FROM jdr.table_jeu t                                          "\
+            "       INNER JOIN jdr.table_personnage tp USING(id_table)             "\
+            "      UNION                                                           "\
+            "      SELECT t.*                                                      "\
+            "        FROM jdr.table_jeu t                                          "\
+            "       WHERE id_maitre_jeu IS NOT NULL                                "
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(requete, variables)
+                    res = cursor.fetchall()
+        except Exception as e:
+            print(e)
+            raise
+
+        id_table_actuel = None
+        id_sceance_actuel = None
+        table_jeu = None
+        liste_tables_jeu = []
+
+        if res:
+            for row in res:
+                maitre_jeu = JoueurDao().trouver_par_id(row["id_maitre_jeu"])
+                table_jeu = TableJeu(id_table=row["id_table"],
+                                     id_seance=row["id_seance"],
+                                     maitre_jeu=maitre_jeu,
+                                     scenario=row["scenario"])
+
+                liste_tables_jeu.append(table_jeu)
+
+        print("DAO : Lister tables actives - Terminé")
+
+        return liste_tables_jeu

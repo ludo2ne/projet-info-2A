@@ -69,7 +69,7 @@ class SupprimerPersonnageVue(VueAbstraite):
         else:
             perso_choisi = joueur.liste_personnages[choix_fait-1]
             # On appelle le service de suppression de personnage
-            statut_suppression = JoueurService().supprimer_personnage(perso_choisi)
+            statut_suppression = JoueurService().supprimer_personnage(perso_choisi, joueur)
             # On récupère le message à afficher (succès ou échec)
             if not statut_suppression[0]:
                 message = f"{statut_suppression[1]}\n La suppression du personnage a échoué"

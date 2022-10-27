@@ -50,7 +50,7 @@ class RejoindreTableChoisirHoraireVue(VueAbstraite):
         if choix_fait == 5:
             message = "Choix de table annulé"
             from view.joueur_menu_vue import JoueurMenuVue
-            prochainevue = JoueurMenuVue("message")
+            prochainevue = JoueurMenuVue(message)
         else:
             # On vérifie que le joueur est disponible sur cette plage horaire
             from service.table_jeu_service import TableJeuService

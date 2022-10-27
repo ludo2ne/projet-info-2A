@@ -14,6 +14,7 @@ from view.session import Session
 
 from business_object.joueur import Joueur
 from business_object.personnage import Personnage
+from business_object.table_jeu import TableJeu
 
 from dao.joueur_dao import JoueurDao
 from dao.table_jeu_dao import TableJeuDao
@@ -86,12 +87,24 @@ class AdministrateurService():
 
         return resultat
 
-        def supprimer_table(self):
-            liste_tables = TableJeuDao().lister(self)
-            table_couple = []
-            for k in range(len(liste_tables)):
-                table_couple.append(
-                    [TableJeuDao().nombre_joueurs_assis(liste_tables[k]), liste_tables[k]])
-                if table_couple[k][0] == 0:
-                    TableJeuDao().supprimer_table(table_couple[k][1])
-            return table_couple
+    def lister_tables_actives(self) -> list[TableJeu]:
+        '''Retourne la liste de toutes les tables de jeu
+        '''
+
+        print("Service : Lister les tables actives")
+        liste_tables = TableJeuDao().lister_tables_actives()
+        print("Service : Lister les tables actives - Terminé")
+
+        return liste_tables
+
+    def supprimer_table(self):
+        '''TODO corriger
+        '''
+        liste_tables = TableJeuDao().lister(self)
+        table_couple = []
+        for k in range(len(liste_tables)):
+            table_couple.append(
+                [TableJeuDao().nombre_joueurs_assis(liste_tables[k]), liste_tables[k]])
+            if table_couple[k][0] == 0:
+                TableJeuDao().supprimer_table(table_couple[k][1])
+        return table_couple
