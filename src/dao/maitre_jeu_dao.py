@@ -1,7 +1,7 @@
 '''
-Module joueur_dao
+Module maitre_jeu_dao
 Auteurs : L.Deneuville, J-F.Parriaud, J.Torres, H.Wispelaere, B.Zhang
-Date    : 06/09/2022
+Date    : 20/09/2022
 Licence : Domaine public
 Version : 1.0
 '''
@@ -10,8 +10,8 @@ from typing import List, Optional
 
 from dao.db_connection import DBConnection
 from utils.singleton import Singleton
-from view.session import Session
 
+from view.session import Session
 
 from business_object.maitre_jeu import MaitreJeu
 

@@ -37,7 +37,7 @@ class MaitreJeuService:
     -------
     lister_tables(mj : Joueur) : list
     quitter_table(mj : Joueur, seance : int): list
-    gerer_table(id_seance : int , scenario : str, info_complementaire : str): str
+    gerer_table(id_seance : int , scenario : str, infos_complementaires : str): str
     voir_tables_gerees() : str
     '''
 
@@ -111,7 +111,7 @@ class MaitreJeuService:
         print("Service : Résiliation de TableJeu du mj - Terminé")
         return [statut_quitter_table, err_message]
 
-    def gerer_table(self, seance, scenario, info_complementaire) -> str:
+    def gerer_table(self, seance, scenario, infos_complementaires) -> str:
         '''Service de gerer une table pour mj
 
         Parameters
@@ -120,7 +120,7 @@ class MaitreJeuService:
             Séance concernée
         scenario : str
             nom du scénario
-        info_complementaire : str
+        infos_complementaires : str
             informations complémentaires
 
         Returns
@@ -146,13 +146,15 @@ class MaitreJeuService:
                 return resultat
 
         # Trouver une table libre
-        id_table_jeu = TableJeuDao().trouver_table_libre(seance.id_seance)
-        if not id_table_jeu:
+        table_jeu = TableJeuDao().trouver_table_libre(seance)
+        if not table_jeu:
             resultat = "il n'y a pas de table de disponible pour la seance que vous avez demamdée, veuillez la reprendre"
 
+        table_jeu.scenario = scenario
+        table_jeu.infos_complementaires = infos_complementaires
+
         # Mettre en place la gestion de table
-        id_mj = mj.id_joueur
-        if TableJeuDao().gerer_par_mj(id_mj, id_table_jeu, seance.id_seance, scenario, info_complementaire):
+        if TableJeuDao().gerer_par_mj(table_jeu, mj):
             resultat = "OK"
 
         print("Service : Gestion d'une table jeu du mj - Terminé")

@@ -55,6 +55,40 @@ class TableJeuDao(metaclass=Singleton):
 
         return created
 
+    def supprimer_table(self, table) -> bool:
+        '''Suppression d'une Table de Jeu
+
+        Parameters
+        ----------
+        table : TableJeu
+            la Table de Jeu a supprimer
+
+        Returns
+        -------
+        True si la suppression s'est bien passée
+        False sinon
+
+        '''
+        print("DAO : Suppression d'une TableJeu")
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "DELETE                                            "
+                        "  FROM jdr.table_jeu                              "
+                        " WHERE id_table = %(id_table)s                    ",
+                        {"id_table": table.id_table})
+                    res = cursor.rowcount
+        except Exception as e:
+            print(e)
+            raise
+
+        statut = (res == 1)
+        print("DAO : Suppression d'une TableJeu - Terminé")
+
+        return statut
+
     def trouver_par_id(self, id_table) -> TableJeu:
         '''Obtenir une table à partir de son id_table
         '''
@@ -255,8 +289,10 @@ class TableJeuDao(metaclass=Singleton):
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "SELECT count(*) FROM jdr.table_jeu WHERE id_seance = "
-                        "%(id_seance)s;", {"id_seance": seance})
+                        "SELECT count(*)                        "
+                        "  FROM jdr.table_jeu                   "
+                        " WHERE id_seance = %(id_seance)s       ",
+                        {"id_seance": seance})
                     res = cursor.fetchone()
         except Exception as e:
             print(e)
@@ -312,14 +348,14 @@ class TableJeuDao(metaclass=Singleton):
 
         return liste_tables_jeu
 
-    def gerer_par_mj(self, id_mj, id_table, id_seance, scenario, info_comple) -> bool:
+    def gerer_par_mj(self, table, maitre_jeu) -> bool:
         ''' gerer une table pour mj
         TODO refactor les parametres en TableJeu
         '''
         print("DAO : Gerer une table pour mj")
 
-        if not info_comple:
-            info_comple = 'null'
+        # if not info_comp:
+        #    info_comp = 'null'
 
         try:
             with DBConnection().connection as connection:
@@ -328,22 +364,20 @@ class TableJeuDao(metaclass=Singleton):
                         "UPDATE jdr.table_jeu                           "
                         "   SET id_maitre_jeu = %(id_mj)s,              "
                         "       scenario = %(scenario)s,                "
-                        "       infos_complementaires = %(info_comple)s "
+                        "       infos_complementaires = %(info_comp)s   "
                         " WHERE id_table = %(id_table)s                 "
                         "   AND id_seance = %(id_seance)s               ",
-                        {"id_table": id_table, "id_seance": id_seance, "id_mj": id_mj, "scenario": scenario, "info_comple": info_comple})
+                        {"id_table": table.id_table, "id_seance": table.id_seance,
+                         "id_mj": maitre_jeu.id_joueur, "scenario": table.scenario,
+                         "info_comp": table.infos_complementaires})
                     res = cursor.rowcount
         except Exception as e:
             print(e)
             raise
 
-        print("DAO : Suppression d'une TableJeu - Terminé")
+        print("DAO : Gerer une table pour mj - Terminé")
 
         return (res == 1)
-
-        print("DAO : Gerer une table pour mj - Terminé")
-        resultat = "OK"
-        return resultat
 
     def joueurs_assis(self, table) -> list[Joueur]:
         '''Liste des joueurs assis actuellement à la table
@@ -376,57 +410,39 @@ class TableJeuDao(metaclass=Singleton):
 
         return joueur_list
 
-    def supprimer_table(self, table) -> bool:
-        '''Suppression d'une table vide
+    def trouver_table_libre(self, seance):
+        '''Trouver une table libre durant la Seance
 
-        Parameters:
-        table: TableJeu
+        Parameters
+        ----------
+        seance : Seance
+
+        Returns
+        -------
+        TableJeu : la première Table de Jeu libre trouvée
         '''
-        print("DAO : Suppression d'une TableJeu")
+        print("DAO : Trouver une TableJeu libre lors de la Seance")
 
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "DELETE                                            "
-                        "  FROM jdr.table_jeu                              "
-                        " WHERE id_table = %(id_table)s                    ",
-                        {"id_table": table.id_table})
-                    res = cursor.rowcount
-        except Exception as e:
-            print(e)
-            raise
-
-        statut = (res == 1)
-        print("DAO : Suppression d'une TableJeu - Terminé")
-
-        return statut
-
-    def trouver_table_libre(self, id_seance):
-        '''Trouver une table libre
-
-        Parameters:
-        id_seance : int
-        '''
-        print("DAO : Suppression d'une TableJeu")
-
-        try:
-            with DBConnection().connection as connection:
-                with connection.cursor() as cursor:
-                    cursor.execute(
-                        "SELECT id_table                                              "
+                        "SELECT *                                                     "
                         "  FROM jdr.table_jeu                                         "
                         " WHERE id_maitre_jeu IS NULL                                 "
                         "   AND id_seance = %(id_seance)s                             ",
-                        {"id_seance": id_seance})
+                        {"id_seance": seance.id_seance})
                     res = cursor.fetchone()
         except Exception as e:
             print(e)
             raise
 
         if res:
-            resultat = res["id_table"]
+            table_jeu = TableJeu(id_table=res["id_table"],
+                                 id_seance=res["id_seance"])
         else:
-            resultat = None
+            table_jeu = None
 
-        return resultat
+        print("DAO : Trouver une TableJeu libre lors de la Seance - Terminé")
+
+        return table_jeu
