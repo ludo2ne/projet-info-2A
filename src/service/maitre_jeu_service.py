@@ -152,8 +152,9 @@ class MaitreJeuService:
 
         # Mettre en place la gestion de table
         id_mj = mj.id_joueur
-        resultat = TableJeuDao().gerer_par_mj(
-            id_mj, id_table_jeu, seance.id_seance, scenario, info_complementaire)
+        if TableJeuDao().gerer_par_mj(id_mj, id_table_jeu, seance.id_seance, scenario, info_complementaire):
+            resultat = "OK"
+
         print("Service : Gestion d'une table jeu du mj - Terminé")
         return resultat
 

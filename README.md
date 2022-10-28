@@ -58,6 +58,5 @@ python src/run_all_tests.py              # pour lancer tous les tests
 python -m unittest
 ```
 
-Au tout premier lancement de l'application, choisir ==initialiser la base de données== dans le menu
-
-**TODO** : éventuellement déplacer plus tard dans le menu Administrateur
+* Utilisez le pseudo **admin** pour vous connecter en tant qu'Administrateur
+* Au tout premier lancement de l'application, choisir ==initialiser la base de données== dans le menu

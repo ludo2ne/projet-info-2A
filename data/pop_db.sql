@@ -25,7 +25,7 @@ INSERT INTO jdr.joueur(pseudo, nom, prenom, mail, est_mj) VALUES
 ('toto',      'Route',        'Otto',   'Otto.Route@mail.fr',       true),
 ('jj',        'Bon',          'Jean',   'jeanbon@mail.fr',          true),
 ('dd',        'Lapeche',      'Ella',   'ella@mail.fr',             true),
-('ll',        'Masse',        'Lara ',  'l.masse@mail.fr',          false),
+('ll',        'Masse',        'Lara',   'l.masse@mail.fr',          false),
 ('oo',        'Ochon',        'Paul',   'polochon@mail.fr',         false),
 ('tt',        'Kiki',         'Terry',  'terry@mail.fr',            false),
 ('yy',        'Atrovite',     'Yves',   'atrovite@mail.fr',         false),

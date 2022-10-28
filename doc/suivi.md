@@ -81,37 +81,41 @@ gantt
 # :bulb: Reste à faire 
 -------------------------------------------
 
-### :question: Questions
+### :question: Questions tutrice 28/10/22
 
-* [ ] Tests ?
-    * > "votre tuteur sélectionnera une classe que vous devrez tester entièrement"
-    * [ ] Est-ce qu'on teste la DAO ? Comment on fait ?
-* [ ] Démo à la tutrice
-* [ ] Notice élève 3d) 
-    * > "votre travail devra comporter l’importation ou l’exportation d’un jeu de données"
+* [x] Notice élève 3d) : "votre travail devra comporter l’importation ou l’exportation d’un jeu de données" :arrow_right: inutile
+* [ ] Admin, un objet un peu bizarre
+    * ok faire vite fait un truc un peu plus propre pas très couteux
 
 
 ### :robot_face: Code 
 
-* [ ] Documenter le classes et méthodes [color=orange][name=Jason]
+* [ ] Tester de A à Z toutes les méthodes d'une **classe de service** : ==table_jeu_service== [color=blue][name=Banruo]
+    * https://gayerie.dev/docs/python/python3/unittest.html
+    * [Voir tests sur les pokemons](https://gitlab.com/remi2J/complement_info_ensai_2022_2023/-/tree/tp4_base/tests/test_services)
+    * cas nominaux
+    * cas d'erreurs
+* [ ] Documenter les classes et méthodes [color=orange][name=Jason]
     * [ ] Puis [générer la doc sous format html avec pydoc](https://docs.python.org/fr/3/library/pydoc.html)
-* Tester l'appli de fond en comble 
-    * [ ] [color=green][name=Ludo]  
-    * [ ] [color=purple][name=Hugo] 
-    * [ ] [color=blue][name=Banruo]  
-    * [ ] [color=orange][name=Jason]  
-    * [ ] [color=red][name=JF]
-    * si vous trouvez un bug, 2 possibilités : 
-        * si c'est facile :arrow_right: corriger
-        * si trop compliqué, le répertorier
-    * erreurs dans l'interface ou manque d'ergonomie, idem que ci-dessus, 2 possibilités
-    * si 2 méthodes font presque la meme chose :arrow_right: bug
 * [ ] Renommer `lancement_appli.py` en `main.py`
 * [ ] Fichier README.txt
     * Rédigé en Anglais
     * 1. Présenter rapidement l'application avec quelques exemples
     * 2. Comment installer l'application
 * [ ] Fichier requirements.txt (install packages python) [color=green][name=Ludo] 
+* [ ] Bonus (bien vu de faire un petit bonus selon les dires de la Tutrice), par exemple : 
+    * voir_messages
+    * ajouter mot de passe
+    * créer une api simple pour exposer des données (par exemple, le programme complet)
+* Tester l'appli de fond en comble 
+    * [ ] [color=green][name=Ludo] 
+    * [ ] [color=purple][name=Hugo] 
+    * [ ] [color=blue][name=Banruo] 
+    * [ ] [color=orange][name=Jason] 
+    * [ ] [color=red][name=JF]
+    * si vous trouvez un bug, 2 possibilités (corriger ou répertorier ci-dessous)
+    * erreurs dans l'interface ou manque d'ergonomie, idem corriger ou répertorier 
+    * si 2 méthodes font presque la meme chose :arrow_right: bug
 
 
 
@@ -125,14 +129,22 @@ gantt
 ### :rainbow: Ergonomie à améliorer
 
 * [x] Joueur > Quitter une table
-* [x] MaitreJeu > Resilier Table `Vous avez bien quitté la table [11, 1, 'la vie de toto'] .`
-* [ ] Admin > Déplacer joueur
+* MaitreJeu > Resilier Table 
+    * [x] `Vous avez bien quitté la table [11, 1, 'la vie de toto'] .`
+    * [x] Ne pas rentrer dans le Menu si le MJ ne gère aucune table
+* [ ] MaitreJeu > Gerer Table 
+    * [ ] `Vous ne pouvez pas jouer à tables en même temps`
+    * [ ] Ajouter possibilité "J'ai changé d'avis"
+    * [ ] Si non libre pour une séance
+        * soit dire tout de suite après sélecion de la séance
+        * soit ne pas afficher les séances non disponibles
+* [x] Admin > Déplacer joueur
 * [ ] Admin > Voir programme complet (léger)
-* [ ] Admin > Créer une Table de Jeu
+* [x] Admin > Créer une Table de Jeu
 
 ### Autres
 
-* [ ] BDD : Ajouter les clés étrangères [color=green][name=Ludo] 
+* [x] BDD : Ajouter les clés étrangères [color=green][name=Ludo] 
 
 
 ### :pencil:  Rapport final 
@@ -292,21 +304,21 @@ gantt
 
 * ==Lister les joueurs== [color=blue][name=Banruo]
     * lister pseudo, noms, prenom, mail, est mj
-    * [ ] AdministrateurService.**lister_joueurs()**
-        * [ ] JoueurDao.**lister_tous()**
-        * [ ] mettre en forme avec tabulate
+    * [x] AdministrateurService.**lister_joueurs()**
+        * [x] JoueurDao.**lister_tous()**
+        * [x] mettre en forme avec tabulate
 * ==Créer une Table== [color=purple][name=Hugo]
     * [x] Basculer vers la vue AdministrateurCreerTableVue
         * [x] Demander pour quelle seance
         * [x] AdministrateurService.**creer_table()**
             * [x] TableJeuDao.**creer()**
 * ==Supprimer une Table== [color=purple][name=Hugo] 
-    * [ ] Lister les table vides
-        * [ ] AdministrateurService.**lister_tables_vides()**
+    * [x] Lister les table vides
+        * [x] AdministrateurService.**lister_tables_vides()**
     * [ ] Basculer vers la vue AdministrateurCreerTableVue
         * Demander le numéro de table
-        * [ ] AdministrateurService.**supprimer_table()**
-            * [ ] TableJeuDao.**supprimer()**
+        * [x] AdministrateurService.**supprimer_table()**
+            * [x] TableJeuDao.**supprimer()**
 * ==Supprimer un joueur== [color=purple][name=Hugo]
     * [x] Lister les joueurs
     * [x] Basculer vers la vue SupprimerJoueurVue
@@ -318,9 +330,9 @@ gantt
         * [x] Mettre bien en forme le tableau
         * [x] TableDao.**lister(joueur, seance)**
             * méthode pour lister des tables par joueur, seance ou toutes les tables
-* ==Voir les messages==
+* ==Voir les messages== [color=blue][name=Banruo]
     * idem que pour Joueur
-    * [ ] lister message de Admin
+    * [x] lister message de Admin
 * :fire: ==Déplacer un Personnage== [color=green][name=Ludo]
     * [x] basculer vers Vue Déplacer personnage
         * [ ] :warning: Ne lister que les tables qui ont des joueurs
@@ -372,12 +384,37 @@ gantt
 * Présentation du système de stockage (Base de Données)
     * à quels moments il est utilisé dans votre application
 
-### 3. Note individuelle
+### 3. Parler des perspectives d'évolution
+
+trucs qu'on aurait aimé faire mais manque de temps...
+
+### Note individuelle
 
 * voir section 3f
 * Vous pouvez adopter un style moins formel que pour le rapport
+* > [color=blue] "faites-la sérieusement et honnêtement"
+* 1. Votre participation effective au projet (roles)
+* 2. Comment avez-vous vécu le projet avec votre groupe. Est-ce difficile ? Enrichissant ?
+* 3. Les enseignements que vous en tirez, ce que vous referiez, ce que vous changerez. En gros, quels conseils que vous donnez à vos successeurs ?
 
 
+-------------------------------------------
+# :tada: Soutenance
+-------------------------------------------
+ 
+> [color=red] TODO (section 3g)
+
+:::info
+* IMPORTANT : 
+    * ne pas lister les fonctionnalités de l'application
+    * raconter une histoire, par exemple : 
+        * JF est Maitre du jeu et propose un scéanario
+        * Banruo veut participer à la conférence et va sur l'application
+        * Elle trouve le scéanario de JF génial et s'inscrit à sa table
+        * Mais la veille JF est malade et Hugo l'Admin désigne Jason pour remplacer JF
+        * ...
+
+:::
 
 -------------------------------------------
 # :construction: Todo 
