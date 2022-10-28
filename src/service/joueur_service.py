@@ -81,7 +81,7 @@ class JoueurService:
         Returns
         -------
         nouveau_joueur : Joueur
-            Le joueur crée
+            Le joueur créé
         '''
         print("Service : Création du Joueur")
 

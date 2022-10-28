@@ -1,0 +1,7 @@
+autopep8
+inquirerPy
+requests
+psycopg2-binary
+tabulate
+regex
+pyfiglet

@@ -70,11 +70,11 @@ class GererTableVue(VueAbstraite):
             seance, scenario, info_complementaire)
         # verifier si MJ est libre pour la sceance
         if resultat == "mj non libre":  # MJ n'est pas libre
-            message = "Vous ne pouvez pas jouer à tables en même temps, veuillez vérifier pour quelle table vous vous êtes inscrit et la séance correspondant"
+            message = "Vous êtes déjà inscrit sur une autre table pour cette séance"
             from view.maitre_jeu_menu_vue import MaitreJeuMenuVue
             return MaitreJeuMenuVue(message)
         elif resultat == "non table libre":
-            message = "Désolé, il n'y a plus de tables disponibles pour la séance que vous avez sélectionnée, veuillez choisir une nouvelle séance"
+            message = "Désolé, il n'y a plus de table disponible pour la séance sélectionnée, vous pouvez choisir une autre séance"
             from view.maitre_jeu_menu_vue import MaitreJeuMenuVue
             return MaitreJeuMenuVue(message)
         elif resultat == "OK":

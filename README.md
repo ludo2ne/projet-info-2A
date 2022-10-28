@@ -1,5 +1,10 @@
 # Projet conférence de jeu de rôle
 
+## Description
+
+:construction: TODO
+
+
 ## Création du dépôt local
 
 ```bash
@@ -8,25 +13,20 @@ git clone git@github.com:ludo2ne/projet-info-2A.git
 
 ## Visual Studio Code 
 
-* File > Open Folder > ==projet-info-2A==
+* File > Open Folder > **projet-info-2A**
 
 ## Packages requis
 
 * [inquirerPy](https://inquirerpy.readthedocs.io/en/latest/)
-
-TODO : 
-* creer un fichier requirements.txt
-* pip install -r requirements.txt
+* requests
+* psycopg2-binary
+* tabulate
+* autopep8
+* pyfiglet
+* regex
 
 ```bash
-pip install inquirerPy
-pip install requests
-pip install psycopg2-binary
-pip install tabulate
-pip install autopep8
-pip install pyfiglet
-pip install regex
-
+pip install -r requirements.txt
 pip list
 ```
 
@@ -53,7 +53,7 @@ NB_TABLES_MAX_PAR_SEANCE=10
 ## Utilisation
 
 ```bash
-python src/lancement_appli.py            # pour lancer l application
+python src/main.py                       # pour lancer l application
 python src/run_all_tests.py              # pour lancer tous les tests
 python -m unittest
 ```
