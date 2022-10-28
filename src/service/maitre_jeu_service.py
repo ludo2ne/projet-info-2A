@@ -148,7 +148,8 @@ class MaitreJeuService:
         # Trouver une table libre
         table_jeu = TableJeuDao().trouver_table_libre(seance)
         if not table_jeu:
-            resultat = "il n'y a pas de table de disponible pour la seance que vous avez demamdée, veuillez la reprendre"
+            resultat = "il n'y a pas de table disponible pour la seance que vous avez demandée, veuillez la reprendre"
+            return resultat
 
         table_jeu.scenario = scenario
         table_jeu.infos_complementaires = infos_complementaires
