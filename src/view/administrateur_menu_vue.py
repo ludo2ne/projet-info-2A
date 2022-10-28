@@ -33,7 +33,7 @@ class AdministrateurMenuVue(VueAbstraite):
                     "Créer une Table de Jeu",
                     "Supprimer une Table de Jeu",
                     "Supprimer un joueur",
-                    "Voir les messages (TODO)",
+                    "Voir les messages",
                     "Se déconnecter"
                 ]
             }
@@ -70,8 +70,8 @@ class AdministrateurMenuVue(VueAbstraite):
             from view.supprimer_joueur_vue import SupprimerJoueurVue
             return SupprimerJoueurVue()
         elif reponse["choix"] == "Voir les messages":
-            # TODO
-            pass
+            msg = AdministrateurService().voir_messages()
+            return (AdministrateurMenuVue(msg))
         elif reponse["choix"] == "Se déconnecter":
             Session().user = None
             from view.accueil_vue import AccueilVue
