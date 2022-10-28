@@ -1,1 +1,248 @@
-TODO
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{awesomebox}
+\usepackage{tcolorbox}
+\usepackage{xcolor}
+\usepackage{pifont}
+\usepackage[top=1.5cm,bottom=1.5cm,margin=2.5cm]{geometry}
+
+
+
+\graphicspath{{Images/}} %le chemin vers les images
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\begin{document}
+
+
+%-------------------------------------------------------------------------------
+% Page de garde
+%-------------------------------------------------------------------------------
+
+\begin{titlepage}
+\begin{center}
+
+
+\textsc{{\LARGE Ecole nationale de la statistique \\et de l'analyse de l'information}} \\ %Nom de l'école
+\vspace{5mm}
+\includegraphics[width=0.4\textwidth]{ensai_logo}\\[2 cm] %logo de l'école
+
+%\textsc{\LARGE Projet de traitement de données }\\[0.5cm] % Nom de cours
+
+
+% Title
+\HRule \\[0.4cm]
+{ \huge \bfseries Projet informatique \\ \ \\ Rapport final}\\[0.4cm]
+
+\HRule \\[1cm]
+
+{\Large 2ème Année}\\ [2cm]
+
+% Auteur(s) et Superviseur(s)
+
+\begin{flushleft} \Large
+\emph{Etudiants :}\\
+Ludovic \textsc{Deneuville} \\
+Jean-François \textsc{Parriaud} \\
+Jason \textsc{Torres} \\
+Hugo \textsc{Wispelaere} \\
+Banruo \textsc{Zhang} \\
+\end{flushleft}
+
+\begin{flushright} \Large
+\emph{Professeur:} \\
+Rémi \textsc{Pépin} \\
+\emph{Encadrant:} \\
+Cyriel \textsc{Mallart} \\
+\end{flushright}
+
+
+\vfill
+{\large 2022 - 2023}
+\end{center}
+\end{titlepage} 
+
+
+%-------------------------------------------------------------------------------
+% Table des matieres
+%-------------------------------------------------------------------------------
+
+\renewcommand{\contentsname}{Sommaire}
+\tableofcontents
+\newpage
+
+
+%-------------------------------------------------------------------------------
+% Introduction
+%-------------------------------------------------------------------------------
+
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+
+Les personnes impliquées dans un événement public se divisent en trois catégories: les organisateurs, les intervenants et le public. Dans le cadre d'une conférence, les intervenants (les conférenciers) sont choisis par les organisateurs. Leur nombre est fixé par avance en fonction de plusieurs critères: contraintes horaires, salles disponibles, budget, et ce nombre n'est pas destiné à évoluer, sauf cas de force majeure tel un désistement. Les organisateurs gèrent le nombre de personnes dans le public (l'auditoire) de façon relativement linéaire (inscriptions, désistements éventuels). Le nombre de personnes dans le public n'est pas limité par le nombre d'intervenants mais par les capacités d'accueil des salles. Ainsi, il est possible d'accueillir des personnes sans réservation dans la limites des places disponibles et il n'est pas nécessaire de gérer la répartition de l'auditoire.\\
+
+L'organisation d'une convention est différente. En effet les intervenants ne sont pas engagés par les organisateurs mais sont des volontaires, oeuvrant bénévolement pour partager leur passion. Ils doivent pouvoir s'inscrire ou se désister librement et chaque intervenant a la charge de quelques membres du public. Par conséquent, le public ne peut s'inscrire qu'à condition qu'il y ait des intervenants pour les encadrer (en pratique, les organisateurs auront tendance à faire la promotion de leur convention auprès de communautés susceptibles de fournir des intervenants avant de lancer la phase d'inscription). Il faut par conséquent pouvoir gérer son effectif et sa répartition au fil de l'eau en fonction du nombre d'intervenants disponibles et des capacités d'accueil de la salle. Toutes ces contraintes font que l'organisation d'une convention est complexe et notre but est de fournir un outil approprié sous forme d'application. \\
+
+
+
+\newpage
+
+%-------------------------------------------------------------------------------
+% Section 1
+%-------------------------------------------------------------------------------
+
+\section{Analyse du besoin}
+
+Pour cette partie reprendre les éléments du dossier d'analyse
+
+\subsection{Cahier des charges}
+
+\subsection{Fonctionnalités de l'application}
+
+\subsection{Organisation d'équipe}
+
+
+Exemple liste
+
+L'application sera découpée en trois couches :
+\begin{itemize}
+    \item \texttt{Couche de Vue} : elle contiendra les classes qui gèrent l'interface avec l'utilisateur,
+    \item \texttt{Couche de Service} : elle regroupe les classes qui contiennent les procédures métier,
+    \item \texttt{Couche DAO} : ensemble de classes permettant d'accéder à la base de données.
+\end{itemize}
+
+\bigbreak
+
+Exemple image
+
+\begin{figure}[H]
+    \caption{\textbf{Diagramme de Gantt}}
+    \label{UML_gantt}
+    \centering
+    \includegraphics[height=0.55\textheight]{UML_diagrammes/diag_gantt.png}
+\end{figure}
+
+
+%-------------------------------------------------------------------------------
+% Section 2
+%-------------------------------------------------------------------------------
+
+\newpage
+\section{Modélisation}
+
+
+
+
+\subsection{Les couches}
+
+\subsection{Les objets métier}
+
+
+\subsection{Diagramme classe}
+
+
+\subsection{Outils et technologies utilisées}
+
+
+%-------------------------------------------------------------------------------
+% Section 3
+%-------------------------------------------------------------------------------
+
+\newpage
+\section{Fonctionnalités de l'application}
+
+\subsection{Détailler une fonctionnalité de A à Z}
+
+
+\subsection{Fonctionnalités Utilisateur}
+
+\subsection{Fonctionnalités Joueur}
+
+
+\subsection{Fonctionnalités MJ}
+
+
+\subsection{Fonctionnalités Administrateur}
+
+
+
+
+
+%-------------------------------------------------------------------------------
+% Section 4
+%-------------------------------------------------------------------------------
+
+\newpage
+\section{Guide d'utilisation}
+
+\subsection{Installation de l'application}
+
+
+\subsection{Lancement de l'application}
+
+
+
+
+%-------------------------------------------------------------------------------
+% Conclusion
+%-------------------------------------------------------------------------------
+
+\newpage
+\section*{Conclusion}
+\addcontentsline{toc}{section}{Conclusion}
+
+
+
+
+
+%-------------------------------------------------------------------------------
+% Annexes
+%-------------------------------------------------------------------------------
+
+\newgeometry{top=0.5cm, bottom=0.1cm}
+
+\addcontentsline{toc}{section}{Annexes}
+\appendix  % On passe aux annexes
+
+
+\section*{Annexe 1 - Notes individuelles}
+
+
+%-----------------------------
+%-----------------------------
+
+\section*{Annexe 2 - Diagramme de classe UML}
+
+\begin{figure}[H]
+    \label{UML_classes}
+    \centering
+    \includegraphics[angle=90,height=0.9\textheight]{UML_diagrammes/diag_classes.png}
+\end{figure}
+
+
+
+\restoregeometry
+
+\section*{Annexe 1 - Diagramme de classe UML}
+
+\begin{figure}[H]
+    \label{UML_classes}
+    \centering
+    \includegraphics[angle=90,height=0.9\textheight]{UML_diagrammes/diag_classes.png}
+\end{figure}
+
+
+
+\restoregeometry
+
+
+\end{document}
+

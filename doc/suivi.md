@@ -7,7 +7,7 @@ description: https://hackmd.io/CMTCDVW6Spe2PHXOhdKTRQ?both
 
 :::success
 * **Sujet** : Conférence de jeu de rôle
-* **Tuteur / Tutrice** : Cyriel Mallart (cyrielle.mallart@gmail.com)
+* **Tutrice** : Cyriel Mallart (cyrielle.mallart@gmail.com)
 * [Dépôt GitHub](https://github.com/ludo2ne/projet-info-2A)
     * Git ([Présentation](https://hackmd.io/AOSXJAJiR4q7GKdbiKcKsw) - [TP initiation](https://hackmd.io/BdGZF6qOTk2qvzAlvrz_WA))
 * [Dossier d'analyse](https://www.overleaf.com/7459989917xsmkkjbfvdqs)
@@ -84,8 +84,7 @@ gantt
 ### :question: Questions tutrice 28/10/22
 
 * [x] Notice élève 3d) : "votre travail devra comporter l’importation ou l’exportation d’un jeu de données" :arrow_right: inutile
-* [ ] Admin, un objet un peu bizarre
-    * ok faire vite fait un truc un peu plus propre pas très couteux
+
 
 
 ### :robot_face: Code 
@@ -96,13 +95,15 @@ gantt
     * cas nominaux
     * cas d'erreurs
 * [ ] Documenter les classes et méthodes [color=orange][name=Jason]
+    * principalement service et dao
     * [ ] Puis [générer la doc sous format html avec pydoc](https://docs.python.org/fr/3/library/pydoc.html)
-* [ ] Renommer `lancement_appli.py` en `main.py`
+* [ ] `admin` dans la table joueur -> essayer de vite fait mettre au propre
+* [x] Renommer `lancement_appli.py` en `main.py`
 * [ ] Fichier README.txt
     * Rédigé en Anglais
     * 1. Présenter rapidement l'application avec quelques exemples
     * 2. Comment installer l'application
-* [ ] Fichier requirements.txt (install packages python) [color=green][name=Ludo] 
+* [x] Fichier requirements.txt (install packages python) [color=green][name=Ludo] 
 * [ ] Bonus (bien vu de faire un petit bonus selon les dires de la Tutrice), par exemple : 
     * voir_messages
     * ajouter mot de passe
@@ -125,6 +126,10 @@ gantt
 * [x] Admin > Supprimer un joueur `'list' object has no attribute 'pseudo'`
 * [x] Admin > Supprimer une Table de Jeu
 * [x] Admin > Liste Utilisateurs
+* [ ] MaitreJeu > Gerer table `erreur si pas de table dispo à la séance`
+* [ ] MaitreJeu > Resilier table
+    * ça supprime la table alors qu'il faut juste retirer le MJ
+    * MaitreJeuDao.quitter_table -> faire un UPDATE SET mj=null au lieu d'un DELETE
 
 ### :rainbow: Ergonomie à améliorer
 
@@ -144,12 +149,15 @@ gantt
 
 ### Autres
 
-* [x] BDD : Ajouter les clés étrangères [color=green][name=Ludo] 
+* [x] BDD : Ajouter les clés étrangères [color=green][name=Ludo]
+* [ ] Important : tester l'installation de l'application sur une nouvelle machine 
 
 
 ### :pencil:  Rapport final 
 
-* [ ] Mettre à jour diagramme de classes
+* [ ] **Mettre à jour diagramme de classes**
+    * Inutile de mettre toutes les vues (dixit la tutrice)
+    * Se concentrer sur Service, DAO et business_objets
 * [ ] Initialiser les sections à rédiger [color=green][name=Ludo] 
 * [ ] se répartir les sections
 * :arrow_right: à torcher dès que les partiels sont terminés
