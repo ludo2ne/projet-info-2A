@@ -24,12 +24,16 @@ class RejoindreTableChoisirHoraireVue(VueAbstraite):
         liste_seance = SeanceDao().lister_toutes()
 
         liste_seances_affichee = []
+        i = 1
         for s in liste_seance:
             liste_seances_affichee.append(
                 str(s.id_seance) + ". " + s.description)
+            i += 1
+        self.nb_choix = i
 
         # ajouter à la liste la possibilité de revenir en arriere sans supprimer de personnage
-        liste_seances_affichee.append("5. Non, finalement j'ai changé d'avis")
+        liste_seances_affichee.append(
+            f"{i}. Non, finalement j'ai changé d'avis")
 
         self.questions = [
             {
@@ -37,7 +41,7 @@ class RejoindreTableChoisirHoraireVue(VueAbstraite):
                 "name": "choix",
                 "message": "Choisissez une plage horaire",
                 "choices": liste_seances_affichee
-            },
+            }
         ]
         self.message = message
 
@@ -55,7 +59,7 @@ class RejoindreTableChoisirHoraireVue(VueAbstraite):
         # Si l'utilisateur a changé d'avis au moment de choisir une plage horaire,
         # il retourne à la vue MenuJoueurVue
         message = ""
-        if choix_fait == 5:
+        if choix_fait == self.nb_choix:
             message = "Choix de table annulé"
             from view.joueur_menu_vue import JoueurMenuVue
             prochainevue = JoueurMenuVue(message)
