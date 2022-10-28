@@ -25,6 +25,7 @@ class ResilierTableVue(VueAbstraite):
         for el in table_list:
             choix_table.append(f"{i} {el[2]}")
             i += 1
+        self.nb_choix = i
 
         # ajouter à la liste la possibilité de revenir en arriere sans supprimer de personnage
         choix_table.append(f"{i} Non, finalement j'ai changé d'avis")
@@ -52,6 +53,10 @@ class ResilierTableVue(VueAbstraite):
 
     def choisir_menu(self):
         joueur = Session().user
+
+        if self.nb_choix == 1:
+            return MaitreJeuMenuVue("Vous ne gérez pas de table actuellement!")
+
         answers = prompt(self.questions[0])
         # On récupère le choix de l'utilisateur
         choix_fait = int(answers["choix"][0])

@@ -14,6 +14,7 @@ from service.joueur_service import JoueurService
 from service.maitre_jeu_service import MaitreJeuService
 
 from dao.seance_dao import SeanceDao
+from dao.table_jeu_dao import TableJeuDao
 
 from business_object.joueur import Joueur
 
@@ -26,12 +27,16 @@ class GererTableVue(VueAbstraite):
         liste_seance = SeanceDao().lister_toutes()
 
         liste_seances_affichee = []
+        i = 1
         for s in liste_seance:
             liste_seances_affichee.append(
                 str(s.id_seance) + ". " + s.description)
+            i += 1
+        liste_seances_affichee.append(f"{i}. J'ai changé d'avis")
+        self.nb_choix = i
 
         self.questions = [
-            {   # demander le séance a rejoindre
+            {   # demander la séance a rejoindre
                 "type": "list",
                 "name": "seance",
                 "message": "Sélectionnez la séance à laquelle vous souhaitez participer :",
@@ -59,18 +64,32 @@ class GererTableVue(VueAbstraite):
     def choisir_menu(self):
         mj = Session().user
         # recuperer les reponses saisies par le maitre de jeu
-        reponse = prompt(self.questions)
+
+        reponse = prompt(self.questions[0])
         id_seance = int(reponse["seance"][0])
+        if id_seance == self.nb_choix:
+            from view.maitre_jeu_menu_vue import MaitreJeuMenuVue
+            return MaitreJeuMenuVue("Pas de souci, vous avez encore le temps d'y réfléchir.")
+
+#        mj_libre = (len(TableJeuDao().lister(mj=mj, seance=id_seance)) == 0) and (
+#            len(TableJeuDao().lister(joueur=mj, seance=id_seance)) == 0)
+#        if not mj_libre:
+#            from view.maitre_jeu_menu_vue import MaitreJeuMenuVue
+#            return MaitreJeuMenuVue("Vous ne pouvez pas être sur deux tables en même temps.")
+
+        reponse = prompt(self.questions[1])
         scenario = reponse["scenario"]
+        reponse = prompt(self.questions[2])
         info_complementaire = reponse["info_comple"]
 
         seance = SeanceDao().trouver_par_id(id_seance)
 
+#  Plus besoin de vérifier si mj est libre, ça a été fait avant
         resultat = MaitreJeuService().gerer_table(
             seance, scenario, info_complementaire)
         # verifier si MJ est libre pour la sceance
         if resultat == "mj non libre":  # MJ n'est pas libre
-            message = "Vous ne pouvez pas jouer à tables en même temps, veuillez vérifier pour quelle table vous vous êtes inscrit et la séance correspondant"
+            message = "Vous ne pouvez pas jouer à 2 tables en même temps, veuillez vérifier pour quelle table vous vous êtes inscrit et la séance correspondant"
             from view.maitre_jeu_menu_vue import MaitreJeuMenuVue
             return MaitreJeuMenuVue(message)
         elif resultat == "non table libre":
