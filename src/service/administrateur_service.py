@@ -144,6 +144,8 @@ class AdministrateurService():
 
     def supprimer_table(self) -> list:
 
+        print("Service : Supprimer table")
+
         liste_tables = TableJeuDao().lister()
         table_couple = []
         statut_suppression_global = True
@@ -155,6 +157,8 @@ class AdministrateurService():
                 ).supprimer_table(table_couple[k][1])
                 print(statut_suppression_table)
                 statut_suppression_global = statut_suppression_table and statut_suppression_global
+
+        print("Service : Supprimer table - Terminé")
 
         return statut_suppression_global
 

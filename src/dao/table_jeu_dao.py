@@ -388,10 +388,10 @@ class TableJeuDao(metaclass=Singleton):
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "SELECT pseudo,j.nom,prenom,mail,id_joueur                                   "
+                        "SELECT j.*                                        "
                         "  FROM jdr.table_personnage                       "
-                        " JOIN jdr.personnage p USING (id_personnage)"
-                        " JOIN jdr.joueur j USING (id_joueur)"
+                        "  JOIN jdr.personnage p USING (id_personnage)     "
+                        "  JOIN jdr.joueur j USING (id_joueur)             "
                         " WHERE id_table = %(id_table)s                    ",
                         {"id_table": table.id_table})
                     res = cursor.fetchall()
@@ -401,9 +401,12 @@ class TableJeuDao(metaclass=Singleton):
 
         joueur_list = []
         if res:
-            for el in res:
-                joueur = Joueur(el["pseudo"], el["nom"], el["prenom"],
-                                el["mail"], id_joueur=el["id_joueur"])
+            for row in res:
+                joueur = Joueur(pseudo=row["pseudo"],
+                                nom=row["nom"],
+                                prenom=row["prenom"],
+                                mail=row["mail"],
+                                id_joueur=row["id_joueur"])
                 joueur_list.append(joueur)
 
         print("DAO : Liste des joueurs assis à une TableJeu - Terminé")

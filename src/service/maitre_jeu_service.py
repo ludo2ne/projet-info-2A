@@ -1,5 +1,5 @@
 '''
-Module joueur_service
+Module maitre_jeu_service
 Auteurs : L.Deneuville, J-F.Parriaud, J.Torres, H.Wispelaere, B.Zhang
 Date    : 06/09/2022
 Licence : Domaine public
@@ -11,19 +11,22 @@ import os
 from tabulate import tabulate
 from typing import List, Optional
 
-from business_object.joueur import Joueur
-from business_object.maitre_jeu import MaitreJeu
-from business_object.personnage import Personnage
-from business_object.table_jeu import TableJeu
+from view.session import Session
+
+from service.joueur_service import JoueurService
+
 from dao.joueur_dao import JoueurDao
 from dao.maitre_jeu_dao import MaitreJeuDao
 from dao.table_jeu_dao import TableJeuDao
 from dao.personnage_dao import PersonnageDao
 from dao.message_dao import MessageDao
-from service.joueur_service import JoueurService
-from view.session import Session
 from dao.table_jeu_dao import TableJeuDao
 from dao.seance_dao import SeanceDao
+
+from business_object.joueur import Joueur
+from business_object.maitre_jeu import MaitreJeu
+from business_object.personnage import Personnage
+from business_object.table_jeu import TableJeu
 
 
 class MaitreJeuService:
@@ -148,7 +151,7 @@ class MaitreJeuService:
         # Trouver une table libre
         table_jeu = TableJeuDao().trouver_table_libre(seance)
         if not table_jeu:
-            resultat = "il n'y a pas de table disponible pour la seance que vous avez demandée, veuillez la reprendre"
+            resultat = "non table libre"
             return resultat
 
         table_jeu.scenario = scenario

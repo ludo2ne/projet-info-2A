@@ -51,6 +51,38 @@ class MessageDao(metaclass=Singleton):
 
         return created
 
+    def supprimer_par_joueur(self, joueur):
+        '''Supprimer les messages d'un joueur
+
+         Parameters
+         ----------
+         joueur : Joueur
+             Le joueur pour lequel on doit supprimer les messages
+
+         Returns
+         -------
+         boolean : 
+             True si la suppression s'est bien déroulée
+             False sinon
+         '''
+        print("DAO : Suppression des messages d'un joueur")
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "DELETE FROM jdr.message                     "
+                        " WHERE id_joueur = %(id_joueur)s            ",
+                        {"id_joueur": joueur.id_joueur})
+                    res = cursor.rowcount
+        except Exception as e:
+            print(e)
+            raise
+
+        print("DAO : Suppression des messages d'un joueur - Terminé")
+
+        return res >= 0
+
     def lister_par_joueur(self, joueur):
         '''lister les messages envoyés à un utilisateur
         '''
@@ -60,8 +92,9 @@ class MessageDao(metaclass=Singleton):
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "SELECT * FROM jdr.message "
-                        " WHERE id_joueur = %(id)s;",
+                        "SELECT *                          "
+                        "  FROM jdr.message                "
+                        " WHERE id_joueur = %(id)s         ",
                         {"id": joueur.id_joueur})
                     res = cursor.fetchall()
         except Exception as e:
@@ -83,8 +116,9 @@ class MessageDao(metaclass=Singleton):
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "UPDATE jdr.message "
-                        " SET lu=True WHERE id_joueur = %(id)s;",
+                        "UPDATE jdr.message                     "
+                        "   SET lu = True                       "
+                        " WHERE id_joueur = %(id)s              ",
                         {"id": joueur.id_joueur})
             # print("mettre a jour ok")
 
@@ -101,8 +135,9 @@ class MessageDao(metaclass=Singleton):
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "SELECT * FROM jdr.message "
-                        " WHERE id_joueur = %(id)s;",
+                        "SELECT *                        "
+                        "  FROM jdr.message              "
+                        " WHERE id_joueur = %(id)s       ",
                         {"id": admin.id_admin})
                     res = cursor.fetchall()
         except Exception as e:
@@ -124,8 +159,9 @@ class MessageDao(metaclass=Singleton):
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "UPDATE jdr.message "
-                        " SET lu=True WHERE id_joueur = %(id)s;",
+                        "UPDATE jdr.message               "
+                        "   SET lu = True                 "
+                        " WHERE id_joueur = %(id)s        ",
                         {"id": admin.id_admin})
             # print("mettre a jour ok")
 

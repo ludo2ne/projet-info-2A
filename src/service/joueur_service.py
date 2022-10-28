@@ -376,6 +376,9 @@ class JoueurService:
 
             admin = None
 
+        # Supprimer les messages du Joueur
+        MessageDao().supprimer_par_joueur(compte)
+
         # Supprimer le compte du joueur
         statut_suppression = JoueurDao().supprimer_compte(compte)
         if not statut_suppression:

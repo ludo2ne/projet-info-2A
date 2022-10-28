@@ -37,17 +37,18 @@ class MaitreJeuDao(metaclass=Singleton):
                 with connection.cursor() as cursor:
                     # Supprimer le maitre du jeu de la table choisie
                     cursor.execute(
-                        "UPDATE jdr.table_jeu "
-                        "SET id_maitre_jeu=null "
-                        "WHERE id_maitre_jeu=%(id_maitre_jeu)s and id_seance=%(id_seance)s",
+                        "UPDATE jdr.table_jeu                           "
+                        "   SET id_maitre_jeu = null                    "
+                        " WHERE id_maitre_jeu = %(id_maitre_jeu)s       "
+                        "   AND id_seance = %(id_seance)s               ",
                         {"id_maitre_jeu": mj.id_joueur, "id_seance": seance})
                     res = cursor.rowcount
         except Exception as e:
             print(e)
             raise
-        print("DAO : Maitre du jeu enlevé de" + str(res) + " table(s)")
+        print("DAO : Maitre du jeu enlevé de " + str(res) + " table(s)")
 
-        print("DAO : Suppression de la présence d'un maitre du jeu à une table- Terminé")
+        print("DAO : Suppression de la présence d'un maitre du jeu à une table - Terminé")
 
         return [res > 0]
 
@@ -65,8 +66,11 @@ class MaitreJeuDao(metaclass=Singleton):
                 with connection.cursor() as cursor:
                     # Lister les tables du maitre du jeu
                     cursor.execute(
-                        "SELECT id_table,id_seance,scenario FROM jdr.table_jeu "
-                        "WHERE id_maitre_jeu=%(id_mj)s",
+                        "SELECT id_table,                           "
+                        "       id_seance,                          "
+                        "       scenario                            "
+                        "  FROM jdr.table_jeu                       "
+                        " WHERE id_maitre_jeu = %(id_mj)s           ",
                         {"id_mj": mj.id_joueur})
                     res = cursor.fetchall()
         except Exception as e:
@@ -90,6 +94,13 @@ class MaitreJeuDao(metaclass=Singleton):
 
         Parameters
         ----------
+        None
+
+        Returns
+        -------
+        bool :
+            True si la mise à jour est réussie
+            False sinon
 
         '''
         print("DAO : Accéder au statut maitre du jeu")
@@ -100,16 +111,15 @@ class MaitreJeuDao(metaclass=Singleton):
                 with connection.cursor() as cursor:
                     # Passer à true la valeur est_mj pour devenir maitre du jeu
                     cursor.execute(
-                        "UPDATE jdr.joueur "
-                        "SET est_mj = true "
-                        "WHERE id_joueur=%(id_joueur)s",
+                        "UPDATE jdr.joueur                    "
+                        "   SET est_mj = true                 "
+                        " WHERE id_joueur=%(id_joueur)s       ",
                         {"id_joueur": joueur.id_joueur})
                     res = cursor.rowcount
         except Exception as e:
             print(e)
             raise
 
-        statut = (res > 0)
         print("DAO : Accéder au statut maitre du jeu - Terminé")
 
-        return statut
+        return (res > 0)
