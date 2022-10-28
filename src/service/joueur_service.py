@@ -113,8 +113,6 @@ class JoueurService:
 
         success = False
 
-        # TODO verifier que le joueur est libre a cet horaire
-
         # y a t il encore de la place a la table
         nb_joueurs_table = TableJeuDao().get_nb_joueurs(table)
 
@@ -204,7 +202,13 @@ class JoueurService:
         '''
         print("Service : Création de personnage")
 
-        # TODO verifier que le nom du personnage n'existe pas déjà
+        joueur = Session().user
+        # verifier que le nom du personnage n'existe pas déjà
+        liste_perso = PersonnageDao().lister_par_joueur(joueur)
+        liste_nom_perso = [p.nom for p in liste_perso]
+        if nom in liste_nom_perso:
+            perso = None
+            return perso
 
         perso = Personnage(id_personnage=None,
                            nom=nom,

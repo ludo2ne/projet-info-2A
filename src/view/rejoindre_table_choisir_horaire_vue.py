@@ -31,7 +31,7 @@ class RejoindreTableChoisirHoraireVue(VueAbstraite):
             i += 1
         self.nb_choix = i
 
-        # ajouter à la liste la possibilité de revenir en arriere sans supprimer de personnage
+        # ajouter à la liste la possibilité de revenir en arriere
         liste_seances_affichee.append(
             f"{i}. Non, finalement j'ai changé d'avis")
 

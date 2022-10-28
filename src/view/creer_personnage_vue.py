@@ -81,7 +81,7 @@ class CreerPersonnageVue(VueAbstraite):
 
         # On récupère le message à afficher (succès ou échec)
         if not personnage:
-            message += "\nLa création du personnage a échoué"
+            message += "\nLa création du personnage a échoué. Vous en avez peut-être déjà un avec le même nom."
         else:
             message += "\nLe personnage {} a bien été créé".format(
                 personnage.nom)
