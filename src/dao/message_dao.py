@@ -38,13 +38,13 @@ class MessageDao(metaclass=Singleton):
                         "(%(id_joueur)s, current_timestamp ,%(contenu)s, false) RETURNING id_message;",
                         {"id_joueur": joueur.id_joueur,
                          "contenu": texte})
-                    res = cursor.fetchone()
+                    res = cursor.rowcount
         except Exception as e:
             print(e)
             raise
 
         created = False
-        if res:
+        if res == 1:
             created = True
 
         print("DAO : Création d'un message - Terminé")

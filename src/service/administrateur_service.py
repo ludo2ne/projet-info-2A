@@ -149,7 +149,7 @@ class AdministrateurService():
         for k in range(len(liste_tables)):
             table_couple.append(
                 [TableJeuDao().nombre_joueurs_assis(liste_tables[k]), liste_tables[k]])
-            if table_couple[k][0] == 0:
+            if table_couple[k][0] == 0 and table_couple[k][1].maitre_jeu is None:
                 statut_suppression_table = TableJeuDao(
                 ).supprimer_table(table_couple[k][1])
                 print(statut_suppression_table)
