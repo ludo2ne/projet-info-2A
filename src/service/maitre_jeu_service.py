@@ -145,16 +145,15 @@ class MaitreJeuService:
                 resultat = "mj non libre"
                 return resultat
 
-        # Vérification de la disponibilité de table jeu
-        table_list_t = TableJeuDao().lister(joueur=None, seance=seance.id_seance)
-        if len(table_list_t) == int(os.environ["NB_JOUEURS_MAX_PAR_TABLE"]):
-            resultat = "non table libre"
-            return resultat
+        # Trouver une table libre
+        id_table_jeu = TableJeuDao().trouver_table_libre(seance.id_seance)
+        if not id_table_jeu:
+            resultat = "il n'y a pas de table de disponible pour la seance que vous avez demamdée, veuillez la reprendre"
 
         # Mettre en place la gestion de table
         id_mj = mj.id_joueur
         resultat = TableJeuDao().gerer_par_mj(
-            id_mj, seance.id_seance, scenario, info_complementaire)
+            id_mj, id_table_jeu, seance.id_seance, scenario, info_complementaire)
         print("Service : Gestion d'une table jeu du mj - Terminé")
         return resultat
 

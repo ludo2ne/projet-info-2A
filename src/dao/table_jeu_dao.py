@@ -312,7 +312,7 @@ class TableJeuDao(metaclass=Singleton):
 
         return liste_tables_jeu
 
-    def gerer_par_mj(self, id_mj, id_seance, scenario, info_comple):
+    def gerer_par_mj(self, id_mj, id_table, id_seance, scenario, info_comple):
         ''' gerer une table pour mj
         '''
         print("DAO : Gerer une table pour mj")
@@ -324,9 +324,13 @@ class TableJeuDao(metaclass=Singleton):
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "INSERT INTO jdr.table_jeu(id_seance, id_maitre_jeu, scenario, infos_complementaires)"
-                        " VALUES (%(id_seance)s, %(id_mj)s, %(scenario)s, %(info_comple)s)",
-                        {"id_seance": id_seance, "id_mj": id_mj, "scenario": scenario, "info_comple": info_comple})
+                        "UPDATE jdr.table_jeu                           "
+                        "   SET id_maitre_jeu = %(id_mj)s,              "
+                        "       scenario = %(scenario)s,                "
+                        "       infos_complementaires = %(info_comple)s "
+                        " WHERE id_table = %(id_table)s                 "
+                        "   AND id_seance = %(id_seance)s               ",
+                        {"id_table": id_table, "id_seance": id_seance, "id_mj": id_mj, "scenario": scenario, "info_comple": info_comple})
         except Exception as e:
             print(e)
             raise
@@ -390,3 +394,30 @@ class TableJeuDao(metaclass=Singleton):
         print("DAO : Suppression d'une TableJeu - Terminé")
 
         return statut
+
+    def trouver_table_libre(self, id_seance):
+        '''Trouver une table libre
+
+        Parameters:
+        id_seance : int
+        '''
+        print("DAO : Suppression d'une TableJeu")
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT id_table FROM jdr.table_jeu                       "
+                        " WHERE id_maitre_jeu = null AND id_seance = %(id_seance)s                    ",
+                        {"id_seance": id_seance})
+                    res = cursor.fetchone()
+        except Exception as e:
+            print(e)
+            raise
+
+        if res:
+            resultat = res["id_table"]
+        else:
+            resultat = None
+
+        return resultat
