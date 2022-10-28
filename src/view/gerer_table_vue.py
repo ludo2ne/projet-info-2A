@@ -14,6 +14,7 @@ from service.joueur_service import JoueurService
 from service.maitre_jeu_service import MaitreJeuService
 
 from dao.seance_dao import SeanceDao
+from dao.table_jeu_dao import TableJeuDao
 
 from business_object.joueur import Joueur
 
@@ -26,12 +27,16 @@ class GererTableVue(VueAbstraite):
         liste_seance = SeanceDao().lister_toutes()
 
         liste_seances_affichee = []
+        i = 1
         for s in liste_seance:
             liste_seances_affichee.append(
                 str(s.id_seance) + ". " + s.description)
+            i += 1
+        liste_seances_affichee.append(f"{i}. J'ai changé d'avis")
+        self.nb_choix = i
 
         self.questions = [
-            {   # demander le séance a rejoindre
+            {   # demander la séance a rejoindre
                 "type": "list",
                 "name": "seance",
                 "message": "Sélectionnez la séance à laquelle vous souhaitez participer :",
@@ -59,9 +64,16 @@ class GererTableVue(VueAbstraite):
     def choisir_menu(self):
         mj = Session().user
         # recuperer les reponses saisies par le maitre de jeu
-        reponse = prompt(self.questions)
+
+        reponse = prompt(self.questions[0])
         id_seance = int(reponse["seance"][0])
+        if id_seance == self.nb_choix:
+            from view.maitre_jeu_menu_vue import MaitreJeuMenuVue
+            return MaitreJeuMenuVue("Pas de souci, vous avez encore le temps d'y réfléchir.")
+
+        reponse = prompt(self.questions[1])
         scenario = reponse["scenario"]
+        reponse = prompt(self.questions[2])
         info_complementaire = reponse["info_comple"]
 
         seance = SeanceDao().trouver_par_id(id_seance)

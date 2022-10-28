@@ -35,9 +35,10 @@ class MaitreJeuDao(metaclass=Singleton):
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
-                    # Supprimer le personnage des tables où il est utilisé
+                    # Supprimer le maitre du jeu de la table choisie
                     cursor.execute(
-                        "DELETE FROM jdr.table_jeu "
+                        "UPDATE jdr.table_jeu "
+                        "SET id_maitre_jeu=null "
                         "WHERE id_maitre_jeu=%(id_maitre_jeu)s and id_seance=%(id_seance)s",
                         {"id_maitre_jeu": mj.id_joueur, "id_seance": seance})
                     res = cursor.rowcount
