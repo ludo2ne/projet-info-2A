@@ -158,7 +158,7 @@ class AdministrateurService():
         return statut_suppression_global
 
     def lister_joueur(self) -> str:
-        print("Service : lister tous les utilisateur")
+        print("Service : lister tous les utilisateurs")
 
         # recuperer les info des tous les joueurs
         informations = JoueurDao().lister_tous()
@@ -172,11 +172,11 @@ class AdministrateurService():
             listbid.append(info[0])
             info_as_list.append(listbid)
 
-        resultat = "les informations des utilisateur \n" + tabulate(tabular_data=info_as_list,
-                                                                    headers=entetes,
-                                                                    tablefmt="psql",
-                                                                    floatfmt=".2f") + "\n"
+        resultat = "La liste des joueurs :\n" + tabulate(tabular_data=info_as_list,
+                                                         headers=entetes,
+                                                         tablefmt="psql",
+                                                         floatfmt=".2f") + "\n"
 
-        print("Service : lister tous les utilisateur - Terminé")
+        print("Service : lister tous les utilisateurs - Terminé")
 
         return resultat
