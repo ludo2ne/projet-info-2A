@@ -10,6 +10,7 @@ Version : 1.0
 from InquirerPy import prompt
 from view.vue_abstraite import VueAbstraite
 from service.joueur_service import JoueurService
+from business_object.administrateur import Administrateur
 from view.session import Session
 
 
@@ -38,7 +39,7 @@ class ConnexionVue(VueAbstraite):
         # On récupère le mesage à afficher (succès ou échec)
         if answers["pseudo"] == "admin":
             message = "Bienvenue " + answers["pseudo"]
-            Session().user = "admin"
+            Session().user = Administrateur(1, "admin")
             from view.administrateur_menu_vue import AdministrateurMenuVue
             return AdministrateurMenuVue(message)
         elif not joueur:
