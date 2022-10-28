@@ -57,6 +57,7 @@ INSERT INTO jdr.table_personnage(id_table, id_personnage) VALUES
 
 
 INSERT INTO jdr.message(id_joueur, date_creation, contenu, lu) VALUES
+(1, '2022-09-05 10:00:00', 'Le Maître du jeu toto a quitté la table 5 pour la séance de Samedi matin', false),
 (2, '2022-09-01 08:00:00', 'Vous êtes virés de la table 2',                       false),
 (2, '2022-09-20 08:00:00', 'Vous avez été déplacé de la table 3 à la table 5',    false),
 (3, '2022-09-05 08:00:00', 'Bonjour',                                             false),

@@ -462,15 +462,11 @@ class JoueurService:
         print("Service : voir les messages")
 
         joueur = Session().user
-        # print('00')
 
         messages = MessageDao().lister_par_joueur(joueur)
-        # print('aa')
 
         entetes = ["id_message", "id_joueur", "Contenu", "Lu", "Date_création"]
         message_as_list = [msg.as_list() for msg in messages]
-
-        # print('bb')
 
         resultat = "Votre Messages \n" + tabulate(tabular_data=message_as_list,
                                                   headers=entetes,

@@ -18,6 +18,18 @@ from utils.headers import headers
 
 
 class AccueilVue(VueAbstraite):
+    '''Vue de l'accueil de l'application du Jeu de Rôle.
+
+    Attributes
+    ----------
+    message='' 
+        str
+
+    Returns
+    ------
+    view
+        retourne la prochaine vue, celle qui est choisi par l'utilisateur de l'application
+    '''
 
     def __init__(self, message="") -> None:
         self.questions = [
@@ -36,11 +48,20 @@ class AccueilVue(VueAbstraite):
         self.message = headers().print_header()+message
 
     def afficher(self) -> None:
+        '''Echappe un grans espace dans le terminal pour simuler le changement de page de l'application
+        '''
         self.nettoyer_console()
         print(self.message)
         print()
 
     def choisir_menu(self):
+        ''' Choix du menu suivant de l'utilisateur
+
+        Return
+        ------
+        vue
+            Retourne la vue choisi par l'utilisateur dans le terminal
+        '''
         reponse = prompt(self.questions)
         if reponse["choix"] == "Quitter":
             pass

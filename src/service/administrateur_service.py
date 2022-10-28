@@ -20,6 +20,7 @@ from dao.joueur_dao import JoueurDao
 from dao.table_jeu_dao import TableJeuDao
 from dao.personnage_dao import PersonnageDao
 from dao.seance_dao import SeanceDao
+from dao.message_dao import MessageDao
 
 
 class AdministrateurService():
@@ -178,5 +179,36 @@ class AdministrateurService():
                                                                     floatfmt=".2f") + "\n"
 
         print("Service : lister tous les utilisateur - Terminé")
+
+        return resultat
+
+    def voir_messages(self) -> str:
+        '''Afficher les messages envoyés à l'administrateur
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        resultat : str
+            renvoie le résumé des messages du joueur
+        '''
+
+        print("Service : voir les messages")
+
+        joueur = Session().user
+
+        messages = MessageDao().lister_admin(joueur)
+
+        entetes = ["id_message", "id_admin", "Contenu", "Lu", "Date_création"]
+        message_as_list = [msg.as_list() for msg in messages]
+
+        resultat = "Votre Messages \n" + tabulate(tabular_data=message_as_list,
+                                                  headers=entetes,
+                                                  tablefmt="psql",
+                                                  floatfmt=".2f") + "\n"
+
+        print("Service : voir les messages - Terminé")
 
         return resultat

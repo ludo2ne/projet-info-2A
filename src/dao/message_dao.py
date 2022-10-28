@@ -91,3 +91,44 @@ class MessageDao(metaclass=Singleton):
         print("DAO : Voir les messages du joueur - Terminé")
 
         return messages
+
+    def lister_admin(self, admin):
+        '''lister les messages envoyés à un utilisateur
+        '''
+        print("DAO : lister les messages envoyés à un utilisateur")
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT * FROM jdr.message "
+                        " WHERE id_joueur = %(id)s;",
+                        {"id": admin.id_admin})
+                    res = cursor.fetchall()
+        except Exception as e:
+            print(e)
+            raise
+
+        # recuperer les messages en les sauvgardant dans une liste messages
+        messages = []
+        if res:
+            for row in res:
+                msg = Message(id_message=row["id_message"],
+                              id_joueur=row["id_joueur"],
+                              contenu=row["contenu"],
+                              lu=row["lu"],
+                              date_creation=row["date_creation"])
+                messages.append(msg)
+            # print("recuperer data ok")
+            # mettre a jour le statut de l'attribut lu des objets messages correspondants
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "UPDATE jdr.message "
+                        " SET lu=True WHERE id_joueur = %(id)s;",
+                        {"id": admin.id_admin})
+            # print("mettre a jour ok")
+
+        print("DAO : Voir les messages du joueur - Terminé")
+
+        return messages
