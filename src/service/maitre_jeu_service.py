@@ -23,6 +23,7 @@ from dao.message_dao import MessageDao
 from service.joueur_service import JoueurService
 from view.session import Session
 from dao.table_jeu_dao import TableJeuDao
+from dao.seance_dao import SeanceDao
 
 
 class MaitreJeuService:
@@ -75,17 +76,37 @@ class MaitreJeuService:
         '''
         print("Service : Résiliation de TableJeu du mj")
 
+        # Creation d'un dictionnaire id_seance --> description_seance
+        liste_seance = SeanceDao().lister_toutes()
+        dict_seance = {}
+        for el in liste_seance:
+            dict_seance[f"{el.id_seance}"] = el.description
+
+        # instanciation de la table à supprimer
+        table_correspondante = TableJeuDao().lister(mj=mj, seance=seance)[0]
+        # Liste des joueurs assis à cette table
+        joueur_list = TableJeuDao().joueurs_assis(table_correspondante)
+
         statut_quitter_table = MaitreJeuDao().quitter_table(mj, seance)
         err_message = ""
         if not statut_quitter_table:
             err_message = f"Vous n'avez pas pu quitter la table.\n"
         else:
-            message = f"Le Maitre du Jeu {mj.pseudo} a quitté la table."
+            # notification de l'administrateur
+            message = f"Le Maitre du Jeu {mj.pseudo} a quitté la table {table_correspondante.id_table} du {dict_seance[str(table_correspondante.id_seance)]}."
             admin = JoueurService().trouver_par_pseudo("admin")
             statut_notif_admin = MessageDao().creer(admin, message)
             if not statut_notif_admin:
                 err_message = "L'administrateur n'a pas pu être notifié.\n"
             admin = None
+
+            # notification des joueurs assis
+            for player in joueur_list:
+                message = f"Le Maitre du Jeu {mj.pseudo} a quitté la table {table_correspondante.id_table} du {dict_seance[str(table_correspondante.id_seance)]}."
+                statut_notif_joueur = MessageDao().creer(player, message)
+                print(f"Message au joueur {player.pseudo}")
+                if not statut_notif_joueur:
+                    err_message += f"Le joueur {player.pseudo} n'a pas pu être notifié.\n"
 
         print("Service : Résiliation de TableJeu du mj - Terminé")
         return [statut_quitter_table, err_message]

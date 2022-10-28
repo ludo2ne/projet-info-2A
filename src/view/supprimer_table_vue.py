@@ -10,7 +10,7 @@ class SupprimerTableVue(VueAbstraite):
             {
                 "type": "confirm",
                 "name": "confirmation",
-                "message": "Etes-vous sur(e) ?"}
+                "message": "Etes-vous sur(e) de vouloir supprimer toutes les tables sans joueur ?"}
         ]
 
     def afficher(self):
@@ -24,7 +24,7 @@ class SupprimerTableVue(VueAbstraite):
 
         # La suppression est annulée en l'absence de confirmation
         if not confirm:
-            message = "Suppression de la table annulée"
+            message = "Suppression des tables annulée"
             from view.joueur_menu_vue import JoueurMenuVue
             prochainevue = AdministrateurMenuVue(message)
         else:
@@ -34,6 +34,6 @@ class SupprimerTableVue(VueAbstraite):
             if not statut_suppression:
                 message = "La suppression des tables a échoué"
             else:
-                message = f"La table a bien été supprimée. Au revoir"
+                message = f"Les tables vides de joueur ont bien été supprimés."
 
         return AdministrateurMenuVue(message)

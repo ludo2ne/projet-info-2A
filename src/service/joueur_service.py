@@ -342,6 +342,11 @@ class JoueurService:
             err_message += statut_suppr_perso[1]
 
         # Enlever le joueur des tables où il est assis en tant que maitre du jeu
+        liste_seance = SeanceDao().lister_toutes()
+        dict_seance = {}
+        for el in liste_seance:
+            dict_seance[f"{el.id_seance}"] = el.description
+
         if type(compte) == MaitreJeu:
             table_list = MaitreJeuDao().lister_tables_mj(compte)
             admin = self.trouver_par_pseudo("admin")
@@ -350,16 +355,18 @@ class JoueurService:
                 joueur_list = TableJeuDao().joueurs_assis(table_correspondante)
                 statut_suppr_mj = MaitreJeuDao().quitter_table(compte, el[1])
                 if not statut_suppr_mj:
-                    err_message += f"Le Maitre du Jeu {compte.pseudo} n'a pas pu quitter la tables {el}\n"
+                    err_message += f"Le Maitre du Jeu {compte.pseudo} n'a pas pu quitter la table {el[0]}\n"
                 else:
-                    message = f"Le Maitre du Jeu {compte.pseudo} a quitté la table {el}"
+                    # notifier l'administrateur
+                    message = f"Le Maitre du Jeu {compte.pseudo} a quitté la table {el[0]} de la séance du {dict_seance[str(el[1])]}"
                     statut_notif_admin = MessageDao().creer(admin, message)
                     if not statut_notif_admin:
                         err_message += "L'administrateur n'a pas pu être notifié.\n"
+
+                    # notifier les joueurs assis à la table
                     for player in joueur_list:
-                        message = f"Le Maitre du Jeu {compte.pseudo} a quitté la table {el}"
+                        message = f"Le Maitre du Jeu {compte.pseudo} a quitté la table {el[0]} de la séance du {dict_seance[str(el[1])]}"
                         statut_notif_joueur = MessageDao().creer(player, message)
-                        print(f"Message au joueur {player.pseudo}")
                         if not statut_notif_joueur:
                             err_message += f"Le joueur {player.pseudo} n'a pas pu être notifié.\n"
 
