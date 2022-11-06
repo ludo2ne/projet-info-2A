@@ -2,7 +2,7 @@
 
 ## Description
 
-:construction: TODO
+:construction: TODO :flag-gb: 
 
 
 ## Création du dépôt local
@@ -59,4 +59,4 @@ python -m unittest
 ```
 
 * Utilisez le pseudo **admin** pour vous connecter en tant qu'Administrateur
-* Au tout premier lancement de l'application, choisir ==initialiser la base de données== dans le menu
+* Au tout premier lancement de l'application, choisir **initialiser la base de données** dans le menu
