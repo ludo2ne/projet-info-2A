@@ -18,6 +18,8 @@ from dao.table_jeu_dao import TableJeuDao
 from dao.seance_dao import SeanceDao
 
 from service.joueur_service import JoueurService
+from service.personnage_service import PersonnageService
+from service.table_jeu_service import TableJeuService
 
 
 class QuitterTableVue(VueAbstraite):
@@ -72,7 +74,11 @@ class QuitterTableVue(VueAbstraite):
             return JoueurMenuVue("Aucune table quittée")
 
         id_table_quittee = int(answers["id_table"].split()[4])
-        statut_suppression = JoueurService().quitter_table(id_table_quittee)
+        table_quittee = TableJeuService().trouver_par_id(id_table_quittee)
+        personnage_a_la_table = JoueurService(
+        ).trouver_personnage_a_la_table(id_table_quittee)
+        statut_suppression = PersonnageService().quitter_table(
+            personnage_a_la_table, table_quittee)
 
         if not statut_suppression:
             message = "Le départ de la table a échoué"
