@@ -60,8 +60,6 @@ class JoueurService:
             permet au joueur connecté de voir ses messages
         quitter_table(id_table : str) : bool
             permet au joueur connecté de quitter une table
-        inscrire_table(table_choisie : TableJeu, perso_choisi : Personnage) : bool
-            permet au joueur connecté de s'inscrire à une table
     '''
 
     def creer(self, pseudo, nom, prenom, mail) -> Joueur:
@@ -511,25 +509,3 @@ class JoueurService:
         print("Service : Suppression de personnage - Terminé")
 
         return statut_suppression
-
-    def inscrire_table(self, table_choisie, perso_choisi) -> bool:
-        '''Inscrire un personnage à une table
-
-        Parameters
-        ----------
-        table_choisie : int
-            choisir la table sur laquelle s'inscrire
-        perso_choisi : Personnage
-            Personnage que le joueur souhaite inscrire à la table
-
-        Returns
-        -------
-        statut : bool
-        '''
-
-        print("Service : Inscrire un personnage sur une table")
-        statut = PersonnageDao().inscrire_table(
-            table=table_choisie, personnage=perso_choisi)
-        print("Service : Inscrire un personnage sur une table - Terminé")
-
-        return statut

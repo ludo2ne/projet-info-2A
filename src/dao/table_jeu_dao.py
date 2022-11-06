@@ -350,7 +350,6 @@ class TableJeuDao(metaclass=Singleton):
 
     def gerer_par_mj(self, table, maitre_jeu) -> bool:
         ''' gerer une table pour mj
-        TODO refactor les parametres en TableJeu
         '''
         print("DAO : Gerer une table pour mj")
 

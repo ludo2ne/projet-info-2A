@@ -33,15 +33,17 @@ class PersonnageService:
         '''Trouver un personnage grace à son id
         Parameters
         ------
-        * id_personnage : int
-            * id du personnage recherché
+        id_personnage : int
+            id du personnage recherché
 
         Returns
         -------
         Personnage
         '''
         print("Service : trouver Personnage à partir de son id")
-        return PersonnageDao().trouver_par_id(id_personnage)
+        personnage = PersonnageDao().trouver_par_id(id_personnage)
+        print("Service : trouver Personnage à partir de son id - Terminé")
+        return personnage
 
     def trouver_joueur(self, personnage) -> Joueur:
         '''Trouver le joueur à qui appartient le Personnage
@@ -55,25 +57,28 @@ class PersonnageService:
             le Joueur propriétaire du Personnage
         '''
         print("Service : trouver Joueur à partir de Personnage")
-        return PersonnageDao().trouver_joueur(personnage)
+        joueur = PersonnageDao().trouver_joueur(personnage)
+        print("Service : trouver Joueur à partir de Personnage - Terminé")
+        return joueur
 
-    def rejoindre_table(self, table, personnage):
+    def rejoindre_table(self, id_table, personnage):
         '''Ajouter un personnage à une table de jeu
 
         Parameters
         ----------
-        * personnage : Personnage
-            * le personnage à ajouter
-        * table : TableJeu
-            * la table de jeu que le personnage rejoint
+        id_table : int
+            l'identifiant de la table de jeu que le personnage rejoint
+        personnage : Personnage
+            le personnage à ajouter
 
         Returns
         -------
-        * True si l'opération est un succés
-        * False sinon
+        True si l'opération est un succés
+        False sinon
 
           '''
         print("Service : Personnage rejoint une table")
+        table = TableJeuDao().trouver_par_id(id_table)
         success = PersonnageDao().rejoindre_table(table, personnage)
         print("Service : Personnage rejoint une table - Terminé")
         return success

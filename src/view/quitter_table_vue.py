@@ -71,14 +71,13 @@ class QuitterTableVue(VueAbstraite):
         if not answers2["confirmation"]:
             return JoueurMenuVue("Aucune table quittée")
 
-        choix_fait = answers["id_table"]
-        statut_suppression = JoueurService().quitter_table(
-            int(choix_fait.split()[4]))
+        id_table_quittee = int(answers["id_table"].split()[4])
+        statut_suppression = JoueurService().quitter_table(id_table_quittee)
 
         if not statut_suppression:
-            message = "La suppression du compte a échoué"
+            message = "Le départ de la table a échoué"
         else:
             message = "Votre personnage a bien quitté la table " + \
-                str(answers["id_table"])
+                str(id_table_quittee)
 
         return JoueurMenuVue(message)

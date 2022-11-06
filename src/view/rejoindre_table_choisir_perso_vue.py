@@ -7,7 +7,7 @@ Version : 1.0
 '''
 from InquirerPy import prompt
 from view.vue_abstraite import VueAbstraite
-from service.joueur_service import JoueurService
+from service.personnage_service import PersonnageService
 from view.session import Session
 from business_object.joueur import Joueur
 from business_object.table_jeu import TableJeu
@@ -71,7 +71,7 @@ class RejoindreTableChoisirPersoVue(VueAbstraite):
         else:
             perso_choisi = joueur.liste_personnages[choix_fait-1]
             # On appelle le service de réservation de table
-            statut_reservation = JoueurService().inscrire_table(
+            statut_reservation = PersonnageService().rejoindre_table(
                 self.table_choisie, perso_choisi)
             # On récupère le message à afficher (succès ou échec)
             if not statut_reservation:

@@ -276,48 +276,19 @@ class PersonnageDao(metaclass=Singleton):
 
         return [res > 0]
 
-    def inscrire_table(self, table, personnage) -> bool:
-        '''Inscription d'un personnage sur une table dans la base de données
-
-        Parameters:
-        table : int(id_table)
-        personnage : Personnage
-        '''
-        print("DAO : Inscription d'un personnage sur une table")
-
-        try:
-            with DBConnection().connection as connection:
-                with connection.cursor() as cursor:
-                    cursor.execute(
-                        "INSERT INTO jdr.table_personnage(id_table,id_personnage) VALUES "
-                        "(%(id_table)s,%(id_personnage)s) RETURNING id_table,id_personnage;",
-                        {"id_table": table,
-                         "id_personnage": personnage.id_personnage})
-                    res = cursor.fetchone()
-        except Exception as e:
-            print(e)
-            raise
-
-        inscrit = False
-        if res:
-            inscrit = True
-
-        print("DAO : Inscription d'un personnage sur une table - Terminé")
-
-        return [len(res) > 0]
-
-
-# TODO fusionner avec inscrire_table
-
-
     def rejoindre_table(self, table, personnage) -> bool:
         '''Ajouter un personnage à une table de jeu
+
         Parameters
         ----------
-        * personnage : Personnage
-            * le personnage à ajouter
-        * table : TableJeu
-            * la table de jeu que le personnage rejoint
+        table : TableJeu
+            la table de jeu que le personnage rejoint
+        personnage : Personnage
+            le personnage à ajouter
+
+        Returns
+        -------
+        True si l'inscription à la table est réussie 
         '''
         print("DAO : Personnage rejoint une table")
 
@@ -336,4 +307,4 @@ class PersonnageDao(metaclass=Singleton):
 
         print("DAO : Personnage qui rejoint une table - Terminé")
 
-        return [res > 0]
+        return res > 0
