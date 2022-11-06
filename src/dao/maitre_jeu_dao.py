@@ -21,7 +21,7 @@ class MaitreJeuDao(metaclass=Singleton):
     Classe contenant les méthodes de dao de MaitreJeu
     '''
 
-    def quitter_table(self, mj, seance) -> bool:
+    def resilier_table(self, mj, seance) -> bool:
         '''Suppression de la présence d'un maitre du jeu à une table 
         dans la base de données
 

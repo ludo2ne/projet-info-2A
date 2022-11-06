@@ -54,8 +54,6 @@ class JoueurService:
             permet au joueur connecté de voir les informations des tables sur lesquelles il possède un personnage
         voir_messages() : str
             permet au joueur connecté de voir ses messages
-        quitter_table(id_table : str) : bool
-            permet au joueur connecté de quitter une table
     '''
 
     def creer(self, pseudo, nom, prenom, mail) -> Joueur:
@@ -147,7 +145,7 @@ class JoueurService:
             for el in table_list:
                 table_correspondante = TableJeuDao().trouver_par_id(el[1])
                 joueur_list = TableJeuDao().joueurs_assis(table_correspondante)
-                statut_suppr_mj = MaitreJeuDao().quitter_table(compte, el[1])
+                statut_suppr_mj = MaitreJeuDao().resilier_table(compte, el[1])
                 if not statut_suppr_mj:
                     err_message += f"Le Maitre du Jeu {compte.pseudo} n'a pas pu quitter la table {el[0]}\n"
                 else:
@@ -356,17 +354,18 @@ class JoueurService:
 
         return resultat
 
-    def trouver_personnage_a_la_table(self, id_table) -> bool:
-        '''Permet au joueur de quitter sa table
+    def trouver_personnage_a_la_table(self, id_table) -> Personnage:
+        '''Trouver le personnage d'un joueur à une Table de Jeu
 
         Parameters
         ----------
         id_table : int
-            numéro id de la table dont le joueur souhaite quitter
+            numéro id de la TableJeu sur laquelle on cherche un personnage du Joueur
 
         Returns
         -------
-            statut_suppression : bool
+            Le Personnage du joueur 
+            None si le Joueur n'a aucun Personnage à la Table de Jeu
         '''
         print("Service : Trouver personnage d'un joueur à une table")
 

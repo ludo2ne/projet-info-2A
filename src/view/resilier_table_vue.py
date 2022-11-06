@@ -80,7 +80,7 @@ class ResilierTableVue(VueAbstraite):
 
             # On appelle le service de résiliation de table
             statut_suppression = MaitreJeuService(
-            ).quitter_table(joueur, table_choisie[1])
+            ).resilier_table(joueur, table_choisie[1])
             # On récupère le message à afficher (succès ou échec)
             if not statut_suppression[0]:
                 message = statut_suppression[1] + \
