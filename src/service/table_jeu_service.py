@@ -25,7 +25,8 @@ class TableJeuService:
 
     Methods
     -------
-    creer_table(id_seance : int) : TableJeu
+    creer(id_seance : int) : TableJeu
+    supprimer() : list
     trouver_par_id(id_table : int) : TableJeu
     lister_personnages(table_jeu : TableJeu) : list[Personnage]
     lister(joueur=None : Joueur, seance=None : int, complete=None : bool) : list[TableJeu]
@@ -34,7 +35,7 @@ class TableJeuService:
 
     '''
 
-    def creer_table(self, id_seance) -> TableJeu:
+    def creer(self, id_seance) -> TableJeu:
         '''Service de création d'une Table de Jeu
 
         Params
@@ -51,6 +52,27 @@ class TableJeuService:
         TableJeuDao().creer(table)
         print("Service : Création de la TableJeu - Terminé")
         return table
+
+    def supprimer(self) -> list:
+        ''' Supprimer toutes les tables sans joueur ni MJ
+        '''
+
+        print("Service : Supprimer table")
+
+        liste_tables = TableJeuDao().lister()
+        table_couple = []
+        statut_suppression_global = True
+        for k in range(len(liste_tables)):
+            table_couple.append(
+                [TableJeuDao().nombre_joueurs_assis(liste_tables[k]), liste_tables[k]])
+            if table_couple[k][0] == 0 and table_couple[k][1].maitre_jeu is None:
+                statut_suppression_table = TableJeuDao(
+                ).supprimer(table_couple[k][1])
+                statut_suppression_global = statut_suppression_table and statut_suppression_global
+
+        print("Service : Supprimer table - Terminé")
+
+        return statut_suppression_global
 
     def trouver_par_id(self, id_table) -> TableJeu:
         '''Service pour trouver une Table de Jeu à partir de son id

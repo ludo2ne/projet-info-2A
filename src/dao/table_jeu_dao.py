@@ -20,7 +20,7 @@ from business_object.joueur import Joueur
 
 class TableJeuDao(metaclass=Singleton):
     '''
-    Classe contenant les méthodes de service de Joueur
+    Classe contenant les méthodes de dao de TableJeu
     '''
 
     def creer(self, table) -> bool:
@@ -55,7 +55,7 @@ class TableJeuDao(metaclass=Singleton):
 
         return created
 
-    def supprimer_table(self, table) -> bool:
+    def supprimer(self, table) -> bool:
         '''Suppression d'une Table de Jeu
 
         Parameters
