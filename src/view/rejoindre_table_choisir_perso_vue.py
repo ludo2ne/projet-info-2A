@@ -1,5 +1,5 @@
 '''
-Module supprimer_personnage_vue
+Module rejoindre_table_choisir_perso_vue
 Auteurs : L.Deneuville, J-F.Parriaud, J.Torres, H.Wispelaere, B.Zhang
 Date    : 20/09/2022
 Licence : Domaine public

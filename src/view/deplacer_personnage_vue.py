@@ -1,5 +1,5 @@
 '''
-Module supprimer_personnage_vue
+Module deplacer_personnage_vue
 Auteurs : L.Deneuville, J-F.Parriaud, J.Torres, H.Wispelaere, B.Zhang
 Date    : 20/09/2022
 Licence : Domaine public
@@ -94,7 +94,7 @@ class DeplacerPersonnageVue(VueAbstraite):
 
         # On recupere le Personnage choisi
         answers2 = prompt(question2)
-        id_personnage_choisi = int(answers2["choix_personnage"].split(" ")[0])
+        id_personnage_choisi = int(answers2["choix_personnage"].split()[0])
         personnage_choisi = PersonnageService().trouver_par_id(id_personnage_choisi)
 
         # On affiche les autres tables disponibles pour la meme seance

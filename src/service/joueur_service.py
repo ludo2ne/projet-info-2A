@@ -13,6 +13,8 @@ from typing import List, Optional
 
 from view.session import Session
 
+from service.personnage_service import PersonnageService
+
 from business_object.joueur import Joueur
 from business_object.maitre_jeu import MaitreJeu
 from business_object.personnage import Personnage
@@ -46,12 +48,8 @@ class JoueurService:
             trouver un joueur par son pseudo
         creation_personnage_autorisee() : bool
             permet de savoir si le joueur connecté a la possibilité de créer un personnage 
-        creer_personnage(nom : str, classe2 : str, race : str, niveau : int) : Personnage
-            permet au joueur connecté de créer un personnage
         lister_personnages() : str
             permet au joueur connecter de lister ses personnages
-        supprimer_personnage(perso_a_supprimer : Personnage, joueur : Joueur) : list[bool,str]
-            permet au joueur connecté de supprimer un personnage qu'il possède
         supprimer(compte : Joueur) : list[bool,str]
             permet de supprimer son compte joueur
         voir_son_programme() : str 
@@ -175,54 +173,6 @@ class JoueurService:
         joueur = Session().user
         return len(joueur.liste_personnages) < int(os.environ["NB_MAX_PERSONNAGES_PAR_JOUEUR"])
 
-    def creer_personnage(self, nom, classe2, race, niveau, competence, langues_parlees) -> Personnage:
-        '''Permet la création d'un personnage
-
-        Parameters
-        ----------
-        nom : str
-            nom du personnage
-        classe2 : str
-            classe du personnage
-        race : str
-            race du personnage
-        niveau : int
-            niveau du personnage
-        competence : str
-            competence du personnage
-        langue : str
-            langue du personnage
-
-        Returns
-        -------
-        perso : Personnage
-            retourne le personnage crée
-        '''
-        print("Service : Création de personnage")
-
-        joueur = Session().user
-        # verifier que le nom du personnage n'existe pas déjà
-        liste_perso = PersonnageDao().lister_par_joueur(joueur)
-        liste_nom_perso = [p.nom for p in liste_perso]
-        if nom in liste_nom_perso:
-            perso = None
-            return perso
-
-        perso = Personnage(id_personnage=None,
-                           nom=nom,
-                           classe=classe2,
-                           race=race,
-                           niveau=niveau,
-                           competence=competence,
-                           langues_parlees=langues_parlees
-                           )
-
-        created = PersonnageDao().creer(perso)
-
-        print("Service : Création de personnage - Terminé")
-
-        return perso
-
     def lister_personnages(self) -> str:
         '''Lister les personnages d'une utilisateur
 
@@ -254,45 +204,6 @@ class JoueurService:
         print("Service : Liste des personnages - Terminé")
 
         return resultat
-
-    def supprimer_personnage(self, perso_a_supprimer, joueur=None) -> list[bool, str]:
-        '''Supprimer un personnage d'un utilisateur
-
-        Parameters
-        ----------
-        perso_a_supprimer : Personnage
-            personnage à supprimer
-        joueur : Joueur
-            joueur qui possède le personnage à supprimer
-
-        Returns
-        -------
-        statut_suppression : list[bool,str]
-        '''
-        print("Service : Suppression d'un personnage")
-
-        if not joueur:
-            joueur = Session().user
-
-        # vérifier si le personnage n'est pas assis à une table
-        perso_non_utilise = (
-            PersonnageDao().lister_tables(perso_a_supprimer) == 0)
-
-        if perso_non_utilise:
-            statut_suppression = [
-                PersonnageDao().supprimer(perso_a_supprimer), ""]
-            # Supprimer le personnage de la liste du joueur
-            print(f"suppression de {perso_a_supprimer.nom}")
-            for el in joueur.liste_personnages:
-                print(el.nom)
-            joueur.liste_personnages.remove(perso_a_supprimer)
-        else:
-            statut_suppression = [
-                False, f"Le personnage {perso_a_supprimer.nom} est déjà utilisé sur une table.\n"]
-
-        print("Service : Suppression de personnage - Terminé")
-
-        return statut_suppression
 
     def supprimer(self, compte):
         '''Supprimer le compte d'un joueur
@@ -340,7 +251,7 @@ class JoueurService:
         #  --> besoin de parcourir la liste à l'envers
         perso_list = []
         for el in reversed(compte.liste_personnages):
-            statut_suppr_perso = self.supprimer_personnage(el, compte)
+            statut_suppr_perso = PersonnageService().supprimer(el, compte)
             err_message += statut_suppr_perso[1]
 
         # Enlever le joueur des tables où il est assis en tant que maitre du jeu

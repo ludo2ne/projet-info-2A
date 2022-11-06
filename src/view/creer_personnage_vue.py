@@ -13,7 +13,9 @@ from InquirerPy.validator import EmptyInputValidator
 from view.session import Session
 from view.vue_abstraite import VueAbstraite
 from view.joueur_menu_vue import JoueurMenuVue
+
 from service.joueur_service import JoueurService
+from service.personnage_service import PersonnageService
 
 
 class CreerPersonnageVue(VueAbstraite):
@@ -75,9 +77,9 @@ class CreerPersonnageVue(VueAbstraite):
         message = ""
 
         # On appelle le service de creation de joueur
-        personnage = JoueurService().creer_personnage(answers["nom"],
-                                                      answers["classe"], answers["race"], answers["niveau"],
-                                                      competence=answers["competence"], langues_parlees=answers["langue"])
+        personnage = PersonnageService().creer(answers["nom"],
+                                               answers["classe"], answers["race"], answers["niveau"],
+                                               competence=answers["competence"], langues_parlees=answers["langue"])
 
         # On récupère le message à afficher (succès ou échec)
         if not personnage:
