@@ -412,8 +412,8 @@ class TableJeuDao(metaclass=Singleton):
 
         return joueur_list
 
-    def trouver_table_libre(self, seance):
-        '''Trouver une table libre durant la Seance
+    def tables_sans_maitre_du_jeu(self, seance) -> list[TableJeu]:
+        '''Retourne la liste des Tables sans Maître du Jeu de la Séance
 
         Parameters
         ----------
@@ -421,9 +421,9 @@ class TableJeuDao(metaclass=Singleton):
 
         Returns
         -------
-        TableJeu : la première Table de Jeu libre trouvée
+        list[TableJeu] : la liste des Tables sans Maître du Jeu de la Séance
         '''
-        print("DAO : Trouver une TableJeu libre lors de la Seance")
+        print("DAO : Tables sans Maître du Jeu de la Séance")
 
         try:
             with DBConnection().connection as connection:
@@ -434,17 +434,49 @@ class TableJeuDao(metaclass=Singleton):
                         " WHERE id_maitre_jeu IS NULL                                 "
                         "   AND id_seance = %(id_seance)s                             ",
                         {"id_seance": seance.id_seance})
+                    res = cursor.fetchall()
+        except Exception as e:
+            print(e)
+            raise
+
+        table_list = []
+        if res:
+            for row in res:
+                table_jeu = TableJeu(id_table=row["id_table"],
+                                     id_seance=row["id_seance"])
+                table_list.append(table_jeu)
+
+        print("DAO : Tables sans Maître du Jeu de la Séance - Terminé")
+        return table_list
+
+    def trouver_mj(self, table) -> int:
+        '''Trouver le Maitre du Jeu d'une Table
+
+        Params
+        ------
+        * table : tableJeu
+            * la table sur laquelle on souhaite connaitre le MJ
+
+        Returns
+        -------
+        L'identifiant du Maître du Jeu ou None s'il n'y a pas de Maître du Jeu à la Table
+        '''
+        print("DAO : Trouver Maitre du Jeu de la Table")
+
+        try:
+            with DBConnection().connection as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT id_maitre_jeu                                         "
+                        "  FROM jdr.table_jeu                                         "
+                        " WHERE id_table = %(id_table)s                               ",
+                        {"id_table": table.id_table})
                     res = cursor.fetchone()
         except Exception as e:
             print(e)
             raise
 
-        if res:
-            table_jeu = TableJeu(id_table=res["id_table"],
-                                 id_seance=res["id_seance"])
-        else:
-            table_jeu = None
+        id_maitre_jeu = res["id_maitre_jeu"] if res else None
 
-        print("DAO : Trouver une TableJeu libre lors de la Seance - Terminé")
-
-        return table_jeu
+        print("DAO : Trouver Maitre du Jeu de la Table - Terminé")
+        return id_maitre_jeu

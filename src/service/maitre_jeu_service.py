@@ -63,15 +63,15 @@ class MaitreJeuService:
         print("Service : Listing de TableJeu du mj - Terminé")
         return table_list
 
-    def resilier_table(self, mj, seance) -> list:
+    def resilier_table(self, mj, id_seance) -> list:
         '''Service de résiliation de tables du mj
 
         Parameters
         ----------
         mj : Joueur
             le maître du jeu
-        seance : int
-            numéro de la séance
+        id_seance : int
+            identifiant de la séance
 
         Returns
         -------
@@ -86,11 +86,11 @@ class MaitreJeuService:
             dict_seance[f"{el.id_seance}"] = el.description
 
         # instanciation de la table à supprimer
-        table_correspondante = TableJeuDao().lister(mj=mj, seance=seance)[0]
+        table_correspondante = TableJeuDao().lister(mj=mj, seance=id_seance)[0]
         # Liste des joueurs assis à cette table
         joueur_list = TableJeuDao().joueurs_assis(table_correspondante)
 
-        statut_resilier_table = MaitreJeuDao().resilier_table(mj, seance)
+        statut_resilier_table = MaitreJeuDao().resilier_table(mj, id_seance)
         err_message = ""
         if not statut_resilier_table:
             err_message = f"Vous n'avez pas pu quitter la table.\n"
@@ -114,7 +114,7 @@ class MaitreJeuService:
         print("Service : Résiliation de TableJeu du mj - Terminé")
         return [statut_resilier_table, err_message]
 
-    def gerer_table(self, seance, scenario, infos_complementaires) -> str:
+    def gerer_table(self, seance, scenario, infos_complementaires, mj=None, table=None) -> str:
         '''Service de gerer une table pour mj
 
         Parameters
@@ -125,13 +125,16 @@ class MaitreJeuService:
             nom du scénario
         infos_complementaires : str
             informations complémentaires
+        mj : MaitreJeu
+            le Maitre du Jeu qui doit gerer la table
 
         Returns
         -------
         resultat : str
         '''
         print("Service : Gestion d'une table jeu du mj")
-        mj = Session().user
+        if not mj:
+            mj = Session().user
 
         # Vérification de la disponibilité d'un mj pour voir si le mj peut gérer une table
         # voir si le mj a deja inscrit pour une meme seance en tant que mj
@@ -148,14 +151,21 @@ class MaitreJeuService:
                 resultat = "mj non libre"
                 return resultat
 
-        # Trouver une table libre
-        table_jeu = TableJeuDao().trouver_table_libre(seance)
-        if not table_jeu:
-            resultat = "non table libre"
-            return resultat
-
-        table_jeu.scenario = scenario
-        table_jeu.infos_complementaires = infos_complementaires
+        if table:
+            # Si un table a ete donnee en parametre
+            table_jeu = table
+        else:
+            # Sinon on cherche une table libre pour la seance
+            liste_tables_jeu = TableJeuDao().tables_sans_maitre_du_jeu(seance)
+            table_jeu = None
+            if liste_tables_jeu == []:
+                resultat = "non table libre"
+                return resultat
+            else:
+                # on prend la premiere table de la liste
+                table_jeu = liste_tables_jeu[0]
+            table_jeu.scenario = scenario
+            table_jeu.infos_complementaires = infos_complementaires
 
         # Mettre en place la gestion de table
         if TableJeuDao().gerer_par_mj(table_jeu, mj):
@@ -225,3 +235,11 @@ class MaitreJeuService:
 
         print("Service : Passage au statut mj - Terminé")
         return statut
+
+    def liste_tables_sans_mj(self, seance) -> list[TableJeu]:
+        '''Service pour lister les tables sans MJ pour une seance
+        '''
+        print("Service : Liste tables sans mj")
+        liste_tables = TableJeuDao().tables_sans_maitre_du_jeu(seance)
+        print("Service : Liste tables sans mj - Terminé")
+        return liste_tables
