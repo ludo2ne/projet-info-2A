@@ -6,9 +6,11 @@ Licence : Domaine public
 Version : 1.0
 '''
 from InquirerPy import prompt
-from view.vue_abstraite import VueAbstraite
-from service.joueur_service import JoueurService
 from view.session import Session
+from view.vue_abstraite import VueAbstraite
+
+from service.personnage_service import PersonnageService
+
 from business_object.joueur import Joueur
 
 
@@ -69,7 +71,7 @@ class SupprimerPersonnageVue(VueAbstraite):
         else:
             perso_choisi = joueur.liste_personnages[choix_fait-1]
             # On appelle le service de suppression de personnage
-            statut_suppression = JoueurService().supprimer_personnage(perso_choisi, joueur)
+            statut_suppression = PersonnageService().supprimer(perso_choisi, joueur)
             # On récupère le message à afficher (succès ou échec)
             if not statut_suppression[0]:
                 message = f"{statut_suppression[1]}\n La suppression du personnage a échoué"

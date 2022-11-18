@@ -39,7 +39,7 @@ class MaitreJeuService:
     Methods
     -------
     lister_tables(mj : Joueur) : list
-    quitter_table(mj : Joueur, seance : int): list
+    resilier_table(mj : Joueur, seance : int): list
     gerer_table(id_seance : int , scenario : str, infos_complementaires : str): str
     voir_tables_gerees() : str
     '''
@@ -63,7 +63,7 @@ class MaitreJeuService:
         print("Service : Listing de TableJeu du mj - Terminé")
         return table_list
 
-    def quitter_table(self, mj, seance) -> list:
+    def resilier_table(self, mj, seance) -> list:
         '''Service de résiliation de tables du mj
 
         Parameters
@@ -90,9 +90,9 @@ class MaitreJeuService:
         # Liste des joueurs assis à cette table
         joueur_list = TableJeuDao().joueurs_assis(table_correspondante)
 
-        statut_quitter_table = MaitreJeuDao().quitter_table(mj, seance)
+        statut_resilier_table = MaitreJeuDao().resilier_table(mj, seance)
         err_message = ""
-        if not statut_quitter_table:
+        if not statut_resilier_table:
             err_message = f"Vous n'avez pas pu quitter la table.\n"
         else:
             # notification de l'administrateur
@@ -112,7 +112,7 @@ class MaitreJeuService:
                     err_message += f"Le joueur {player.pseudo} n'a pas pu être notifié.\n"
 
         print("Service : Résiliation de TableJeu du mj - Terminé")
-        return [statut_quitter_table, err_message]
+        return [statut_resilier_table, err_message]
 
     def gerer_table(self, seance, scenario, infos_complementaires) -> str:
         '''Service de gerer une table pour mj

@@ -6,10 +6,9 @@ from service.table_jeu_service import TableJeuService
 
 class TestTableJeuService(unittest.TestCase):
 
-    def test_creer_table(self):
+    def test_creer(self):
         # GIVEN
-        id_seance=3
-        
+        id_seance = 3
 
         # WHEN
         nouveau_joueur = JoueurService().creer(pseudo, nom, prenom, mail)

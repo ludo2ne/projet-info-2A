@@ -1,5 +1,5 @@
 '''
-Module supprimer_personnage_vue
+Module resilier_table_vue
 Auteurs : L.Deneuville, J-F.Parriaud, J.Torres, H.Wispelaere, B.Zhang
 Date    : 20/09/2022
 Licence : Domaine public
@@ -80,7 +80,7 @@ class ResilierTableVue(VueAbstraite):
 
             # On appelle le service de résiliation de table
             statut_suppression = MaitreJeuService(
-            ).quitter_table(joueur, table_choisie[1])
+            ).resilier_table(joueur, table_choisie[1])
             # On récupère le message à afficher (succès ou échec)
             if not statut_suppression[0]:
                 message = statut_suppression[1] + \

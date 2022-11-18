@@ -50,7 +50,7 @@ class CreerTableVue(VueAbstraite):
 
         # On appelle le service de creation de joueur
         from service.table_jeu_service import TableJeuService
-        table = TableJeuService().creer_table(int(answers["creation"][0]))
+        table = TableJeuService().creer(int(answers["creation"][0]))
 
         # On récupère le mesage à afficher (succès ou échec)
         if not table:

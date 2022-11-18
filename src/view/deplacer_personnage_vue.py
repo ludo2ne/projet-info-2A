@@ -1,5 +1,5 @@
 '''
-Module supprimer_personnage_vue
+Module deplacer_personnage_vue
 Auteurs : L.Deneuville, J-F.Parriaud, J.Torres, H.Wispelaere, B.Zhang
 Date    : 20/09/2022
 Licence : Domaine public
@@ -42,10 +42,11 @@ class DeplacerPersonnageVue(VueAbstraite):
             table_list_affichee.append(str(i) + ". Séance " + str(t.id_seance) + " - Table " + str(t.id_table) + " - " +
                                        str(t.scenario))
             i += 1
+
         self.nb_choix = i
 
-        # ajouter à la liste la possibilité de revenir en arriere sans supprimer de personnage
-        table_list_affichee.append(f"{i} Non, finalement j'ai changé d'avis")
+        # ajouter a la liste la possibilite de revenir en arriere sans deplacer de personnage
+        table_list_affichee.append(f"{i}. Non, finalement j'ai changé d'avis")
 
         self.question1 = [
             {
@@ -67,7 +68,7 @@ class DeplacerPersonnageVue(VueAbstraite):
         joueur = Session().user
         answers = prompt(self.question1)
 
-        if answers["table_origine"][0] == self.nb_choix:
+        if int(answers["table_origine"][0]) == self.nb_choix:
             message = "Déplacement de personnage annulé"
             return AdministrateurMenuVue(message)
 
@@ -93,7 +94,7 @@ class DeplacerPersonnageVue(VueAbstraite):
 
         # On recupere le Personnage choisi
         answers2 = prompt(question2)
-        id_personnage_choisi = int(answers2["choix_personnage"][0])
+        id_personnage_choisi = int(answers2["choix_personnage"].split()[0])
         personnage_choisi = PersonnageService().trouver_par_id(id_personnage_choisi)
 
         # On affiche les autres tables disponibles pour la meme seance
@@ -124,7 +125,6 @@ class DeplacerPersonnageVue(VueAbstraite):
         print(toto)
         if answers3["table_arrivee"] != "Aucune table":
             id_table_arrivee_choisie = int(answers3["table_arrivee"])
-            table_arrivee_choisie = TableJeuService().trouver_par_id(id_table_arrivee_choisie)
 
         self.nettoyer_console()
         question4 = [
@@ -141,9 +141,9 @@ class DeplacerPersonnageVue(VueAbstraite):
 
             if answers3["table_arrivee"] != "Aucune table":
                 success = PersonnageService().rejoindre_table(
-                    table_arrivee_choisie, personnage_choisi)
+                    id_table_arrivee_choisie, personnage_choisi)
                 message = "Personnage " + personnage_choisi.nom + " déplacé de la table " + str(table_origine.id_table) + \
-                    " vers la table " + str(table_arrivee_choisie.id_table)
+                    " vers la table " + str(id_table_arrivee_choisie)
             else:
                 message = "Personnage supprimé de la table " + \
                     str(table_origine.id_table)

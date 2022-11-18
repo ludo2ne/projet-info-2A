@@ -1,7 +1,17 @@
+'''
+Module supprimer_table_vue
+Auteurs : L.Deneuville, J-F.Parriaud, J.Torres, H.Wispelaere, B.Zhang
+Date    : 20/09/2022
+Licence : Domaine public
+Version : 1.0
+'''
+
 from InquirerPy import prompt
+
 from view.vue_abstraite import VueAbstraite
 from view.administrateur_menu_vue import AdministrateurMenuVue
-from service.administrateur_service import AdministrateurService
+
+from service.table_jeu_service import TableJeuService
 
 
 class SupprimerTableVue(VueAbstraite):
@@ -29,7 +39,7 @@ class SupprimerTableVue(VueAbstraite):
             prochainevue = AdministrateurMenuVue(message)
         else:
             # On appelle le service de suppression de table
-            statut_suppression = AdministrateurService().supprimer_table()
+            statut_suppression = TableJeuService().supprimer()
             # On récupère le message à afficher (succès ou échec)
             if not statut_suppression:
                 message = "La suppression des tables a échoué"
