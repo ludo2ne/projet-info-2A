@@ -198,3 +198,26 @@ class AdministrateurService():
         print("Service : voir les messages - Terminé")
 
         return resultat
+
+    def nb_messages_non_lus(self) -> int:
+        '''Afficher le nombre de messages non lus
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        resultat : int
+            renvoie le nombre de messages non lus
+        '''
+
+        print("Service : nombre de messages non lus")
+
+        joueur = Session().user
+
+        messages = MessageDao().lister_admin(joueur, lu=False)
+
+        print("Service : nombre de messages non lus - Terminé")
+
+        return len(messages)

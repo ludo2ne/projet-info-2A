@@ -10,6 +10,7 @@ Version : 1.0
 from InquirerPy import prompt
 from view.vue_abstraite import VueAbstraite
 from service.joueur_service import JoueurService
+from service.administrateur_service import AdministrateurService
 from business_object.administrateur import Administrateur
 from view.session import Session
 
@@ -40,6 +41,9 @@ class ConnexionVue(VueAbstraite):
         if answers["pseudo"] == "admin":
             message = "Bienvenue " + answers["pseudo"]
             Session().user = Administrateur(1, "admin")
+            msg = AdministrateurService().nb_messages_non_lus()
+            if msg > 0:
+                message += f"Vous avez {msg} nouveau(x) message(s)!"
             from view.administrateur_menu_vue import AdministrateurMenuVue
             return AdministrateurMenuVue(message)
         elif not joueur:
@@ -47,7 +51,10 @@ class ConnexionVue(VueAbstraite):
             from view.accueil_vue import AccueilVue
             return AccueilVue(message)
         else:
-            message = "Bienvenue " + answers["pseudo"]
+            message = "Bienvenue " + answers["pseudo"]+"\n"
             Session().user = joueur
+            msg = JoueurService().nb_messages_non_lus()
+            if msg > 0:
+                message += f"Vous avez {msg} nouveau(x) message(s)!"
             from view.joueur_menu_vue import JoueurMenuVue
             return JoueurMenuVue(message)
