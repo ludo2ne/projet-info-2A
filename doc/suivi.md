@@ -98,6 +98,7 @@ gantt
     * principalement service et dao
     * [ ] Puis [générer la doc sous format html avec pydoc](https://docs.python.org/fr/3/library/pydoc.html)
 * [ ] `admin` dans la table joueur -> essayer de vite fait mettre au propre
+* [ ] Rechercher et "Résoudre" les TODO
 * [x] Renommer `lancement_appli.py` en `main.py`
 * [ ] Fichier README.txt
     * Rédigé en Anglais
@@ -126,8 +127,8 @@ gantt
 * [x] Admin > Supprimer un joueur `'list' object has no attribute 'pseudo'`
 * [x] Admin > Supprimer une Table de Jeu
 * [x] Admin > Liste Utilisateurs
-* [ ] MaitreJeu > Gerer table `erreur si pas de table dispo à la séance`
-* [ ] MaitreJeu > Resilier table
+* [x] MaitreJeu > Gerer table `erreur si pas de table dispo à la séance`
+* [x] MaitreJeu > Resilier table
     * ça supprime la table alors qu'il faut juste retirer le MJ
     * MaitreJeuDao.quitter_table -> faire un UPDATE SET mj=null au lieu d'un DELETE
 
@@ -138,19 +139,26 @@ gantt
     * [x] `Vous avez bien quitté la table [11, 1, 'la vie de toto'] .`
     * [x] Ne pas rentrer dans le Menu si le MJ ne gère aucune table
 * [ ] MaitreJeu > Gerer Table 
-    * [ ] `Vous ne pouvez pas jouer à tables en même temps`
-    * [ ] Ajouter possibilité "J'ai changé d'avis"
+    * [x] `Vous ne pouvez pas jouer à tables en même temps`
+    * [x] Ajouter possibilité "J'ai changé d'avis"
     * [ ] Si non libre pour une séance
         * soit dire tout de suite après sélecion de la séance
         * soit ne pas afficher les séances non disponibles
 * [x] Admin > Déplacer joueur
 * [ ] Admin > Voir programme complet (léger)
 * [x] Admin > Créer une Table de Jeu
+* [ ] Admin > Supprimer les tables sans joueurs, proposer un choix contenant : 
+    * la liste des tables vides
+    * toutes (pour supprimer toutes les tables vides)
 
 ### Autres
 
 * [x] BDD : Ajouter les clés étrangères [color=green][name=Ludo]
 * [ ] Important : tester l'installation de l'application sur une nouvelle machine 
+* [x] tester une injection SQL
+    * Entrez votre pseudo : ;DROP TABLE jdr.joueur CASCADE;--
+    * Entrez votre pseudo : ;DROP SCHEMA jdr CASCADE;-- 
+    * Entrez votre pseudo : ;SELECT * FROM jdr.joueur--
 
 
 ### :pencil:  Rapport final 
@@ -162,6 +170,71 @@ gantt
 * [ ] se répartir les sections
 * :arrow_right: à torcher dès que les partiels sont terminés
 
+
+
+-------------------------------------------
+# :pencil: Rapport Final 
+-------------------------------------------
+
+:::info
+* ++[Lien overleaf](https://www.overleaf.com/2118446326mqvrspgxdcnj)++
+* Voir Moodle, notice élève, section 3e
+* Doit décrire et valoriser le travail produit
+* 25 pages hors annexes
+:::
+
+### 1. Contexte de l'application
+
+* À quels besoins répond-elle ? Diagramme cas d’utilisation NON nécessaire
+* Quels sont les utilisateurs ?
+* Architecture « macro » de votre application
+    * IHM console, technologies utilisées, schéma d’architecture (couches)
+
+### 2. Architecture du code 
+
+* Diagramme de classe 
+    * Commenter le diagramme, explication des héritages/associations
+    * Présentation des objets métiers et comment ils sont utilisés
+    * Mise en avant d’une décomposition en couche, d’un découplage entre les objets
+* Fonctionnement du code
+    * Faire un Zoom sur une fonctionnalité centrale (en la détaillant complètement)
+        * Qu’est-ce que l’utilisateur fait ? Qu’est-ce que le code fait ? Comment interagit-il avec les autre composant ? Quelles sont les classes utilisées ?
+    * Explication rapide pour les autres fonctionnalités
+        * NE PAS faire un listing des fonctions pythons
+* Présentation du système de stockage (Base de Données)
+    * à quels moments il est utilisé dans votre application
+
+### 3. Parler des perspectives d'évolution
+
+trucs qu'on aurait aimé faire mais manque de temps...
+
+### Note individuelle
+
+* voir section 3f
+* Vous pouvez adopter un style moins formel que pour le rapport
+* > [color=blue] "faites-la sérieusement et honnêtement"
+* 1. Votre participation effective au projet (roles)
+* 2. Comment avez-vous vécu le projet avec votre groupe. Est-ce difficile ? Enrichissant ?
+* 3. Les enseignements que vous en tirez, ce que vous referiez, ce que vous changerez. En gros, quels conseils que vous donnez à vos successeurs ?
+
+
+-------------------------------------------
+# :tada: Soutenance
+-------------------------------------------
+ 
+> [color=red] TODO (section 3g)
+
+:::info
+* IMPORTANT : 
+    * ne pas lister les fonctionnalités de l'application
+    * raconter une histoire, par exemple : 
+        * JF est Maitre du jeu et propose un scéanario
+        * Banruo veut participer à la conférence et va sur l'application
+        * Elle trouve le scéanario de JF génial et s'inscrit à sa table
+        * Mais la veille JF est malade et Hugo l'Admin désigne Jason pour remplacer JF
+        * ...
+
+:::
 
 -------------------------------------------
 # :robot_face: Code 
@@ -361,68 +434,6 @@ gantt
         * [ ] choisir table destination
 
 
--------------------------------------------
-# :pencil: Rapport Final 
--------------------------------------------
-
-:::info
-* Voir Moodle, notice élève, section 3e
-* Doit décrire et valoriser le travail produit
-* 25 pages hors annexes
-:::
-
-### 1. Contexte de l'application
-
-* À quels besoins répond-elle ? Diagramme cas d’utilisation NON nécessaire
-* Quels sont les utilisateurs ?
-* Architecture « macro » de votre application
-    * IHM console, technologies utilisées, schéma d’architecture (couches)
-
-### 2. Architecture du code 
-
-* Diagramme de classe 
-    * Commenter le diagramme, explication des héritages/associations
-    * Présentation des objets métiers et comment ils sont utilisés
-    * Mise en avant d’une décomposition en couche, d’un découplage entre les objets
-* Fonctionnement du code
-    * Faire un Zoom sur une fonctionnalité centrale (en la détaillant complètement)
-        * Qu’est-ce que l’utilisateur fait ? Qu’est-ce que le code fait ? Comment interagit-il avec les autre composant ? Quelles sont les classes utilisées ?
-    * Explication rapide pour les autres fonctionnalités
-        * NE PAS faire un listing des fonctions pythons
-* Présentation du système de stockage (Base de Données)
-    * à quels moments il est utilisé dans votre application
-
-### 3. Parler des perspectives d'évolution
-
-trucs qu'on aurait aimé faire mais manque de temps...
-
-### Note individuelle
-
-* voir section 3f
-* Vous pouvez adopter un style moins formel que pour le rapport
-* > [color=blue] "faites-la sérieusement et honnêtement"
-* 1. Votre participation effective au projet (roles)
-* 2. Comment avez-vous vécu le projet avec votre groupe. Est-ce difficile ? Enrichissant ?
-* 3. Les enseignements que vous en tirez, ce que vous referiez, ce que vous changerez. En gros, quels conseils que vous donnez à vos successeurs ?
-
-
--------------------------------------------
-# :tada: Soutenance
--------------------------------------------
- 
-> [color=red] TODO (section 3g)
-
-:::info
-* IMPORTANT : 
-    * ne pas lister les fonctionnalités de l'application
-    * raconter une histoire, par exemple : 
-        * JF est Maitre du jeu et propose un scéanario
-        * Banruo veut participer à la conférence et va sur l'application
-        * Elle trouve le scéanario de JF génial et s'inscrit à sa table
-        * Mais la veille JF est malade et Hugo l'Admin désigne Jason pour remplacer JF
-        * ...
-
-:::
 
 -------------------------------------------
 # :construction: Todo 

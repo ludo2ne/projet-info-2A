@@ -11,9 +11,11 @@ from tabulate import tabulate
 
 from business_object.table_jeu import TableJeu
 from business_object.personnage import Personnage
+from business_object.maitre_jeu import MaitreJeu
 
 from dao.table_jeu_dao import TableJeuDao
 from dao.personnage_dao import PersonnageDao
+from dao.joueur_dao import JoueurDao
 
 
 class TableJeuService:
@@ -32,6 +34,7 @@ class TableJeuService:
     lister(joueur=None : Joueur, seance=None : int, complete=None : bool) : list[TableJeu]
     est_disponible(table) : bool
     affichage_liste(liste_tables : list[TableJeu]) : str
+    trouver_mj(table) : MaitreJeu
 
     '''
 
@@ -190,3 +193,21 @@ class TableJeuService:
         print("Service : Affichage liste de tables - Terminé")
 
         return resultat
+
+    def trouver_mj(self, table) -> MaitreJeu:
+        '''Service pour trouver le Maitre du Jeu d'une Table
+
+        Params
+        ------
+        * table : tableJeu
+            * la table sur laquelle on souhaite connaitre le MJ
+
+        Returns
+        -------
+        Le Maître du Jeu ou None s'il n'y a pas de Maître du Jeu à la Table
+        '''
+        print("Service : Trouver Maitre du Jeu de la Table")
+        id_maitre_jeu = TableJeuDao().trouver_mj(table)
+        maitre_jeu = JoueurDao().trouver_par_id(id_maitre_jeu)
+        print("Service : Trouver Maitre du Jeu de la Table - Terminé")
+        return maitre_jeu

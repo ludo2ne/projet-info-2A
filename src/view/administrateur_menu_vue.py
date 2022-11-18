@@ -29,7 +29,7 @@ class AdministrateurMenuVue(VueAbstraite):
                     "Lister les utilisateurs",
                     "Voir le programme complet",
                     "Déplacer un personnage",
-                    "Déplacer un Maitre du Jeu (TODO)",
+                    "Déplacer un Maitre du Jeu",
                     "Créer une Table de Jeu",
                     "Supprimer les tables sans joueur",
                     "Supprimer un joueur",
@@ -58,8 +58,8 @@ class AdministrateurMenuVue(VueAbstraite):
             from view.deplacer_personnage_vue import DeplacerPersonnageVue
             return DeplacerPersonnageVue()
         elif reponse["choix"] == "Déplacer un Maitre du Jeu":
-            # TODO
-            pass
+            from view.deplacer_maitre_jeu_vue import DeplacerMaitreJeuVue
+            return DeplacerMaitreJeuVue()
         elif reponse["choix"] == "Créer une Table de Jeu":
             from view.creer_table_vue import CreerTableVue
             return CreerTableVue()
