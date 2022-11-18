@@ -28,6 +28,21 @@ class InscriptionVue{
 class ConnexionVue{
 }
 
+class Creer_personnage_vue{
+}
+
+class Creer_table_vue{
+}
+
+class Gerer_table_vue{
+}
+
+class Supprimer_joueur_vue{
+}
+
+class Rejoindre_table_vue{
+}
+
 
 class Session{
 + pseudo : str
@@ -40,6 +55,11 @@ VueAbstraite <|-- AdministrateurMenuVue
 VueAbstraite <|-- MaîtreJeuMenuVue
 VueAbstraite <|-- InscriptionVue
 VueAbstraite <|-- ConnexionVue
+VueAbstraite <|-- Creer_personnage_vue
+VueAbstraite <|-- Creer_table_vue
+VueAbstraite <|-- Gerer_table_vue
+VueAbstraite <|-- Supprimer_joueur_vue
+VueAbstraite <|-- Rejoindre_table_vue
 
 Session -- JoueurMenuVue
 Session -- ConnexionVue
@@ -108,28 +128,25 @@ Joueur <|-- MaitreJeu
 package service {
 class AdministrateurService{
 + __init__()
-+ creer_table(seance : str) : TableJeu
-+ supprimer_table(TableJeu) : bool
-+ supprimer_joueur(Joueur) : bool
-+ deplacer_joueur(Joueur, TableJeu_avant, TableJeu_apres) : bool
-+ deplacer_mj(MaitreJeu, TableJeu_avant, TableJeu_apres) : bool
-+ voir_programme_complet() : None
++ creer_table_autorisee(seance : str) : bool
++ voir_programme_complet() : str
++ lister_tables_actives() : list([Tablejeu])
++ lister_joueur() : str
++ voir_messages() : str
 }
  
 
 class JoueurService{
 + __init__()
-+ creer(pseudo, nom, prenom, mail) : Joueur
-+ supprimer() : bool
-+ creer_personnage(nom, niveau, classe, race) : Personnage
-+ supprimer_personnage(Personnage) : bool
-+ lister_personnages() : list[Personnage]
-+ voir_tables_libres() : None
-+ rejoindre_table(TableJeu, Personnage) : bool
-+ quitter_table(TableJeu) : bool
-+ voir_son_programme() : None
-+ devenir_mj() : None
-+ afficher_messages() : None
++ creer(pseudo : str, nom : str, prenom : str, mail : str) : Joueur
++ supprimer(compte : Joueur) : None
++ lister_tous() : list[Joueur]
++ trouver_par_pseudo(pseudo : str) : Joueur
++ creation_personnage_autorisee() : bool
++ lister_personnages() : str
++ voir_son_programme() : str
++ voir_messages() : str
++ trouver_personnage_a_la_table(id_table : str) : Personnage
 }
 
 
