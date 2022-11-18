@@ -5,3 +5,4 @@ psycopg2-binary
 tabulate
 regex
 pyfiglet
+python-dotenv

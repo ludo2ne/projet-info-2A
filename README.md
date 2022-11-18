@@ -24,6 +24,7 @@ git clone git@github.com:ludo2ne/projet-info-2A.git
 * autopep8
 * pyfiglet
 * regex
+* python-dotenv
 
 ```bash
 pip install -r requirements.txt
@@ -38,7 +39,7 @@ Informations de connexion contenues dans le fichier `.env` à la racine du proje
 ```
 HOST_WEBSERVICE=https://www.dnd5eapi.co/api
 
-PASSWORD=id1xxxx
+PASSWORD=idxxxx
 HOST=sgbd-eleves.domensai.ecole
 PORT=5432
 DATABASE=idxxxx
