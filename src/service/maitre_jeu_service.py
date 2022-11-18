@@ -164,8 +164,9 @@ class MaitreJeuService:
             else:
                 # on prend la premiere table de la liste
                 table_jeu = liste_tables_jeu[0]
-            table_jeu.scenario = scenario
-            table_jeu.infos_complementaires = infos_complementaires
+
+        table_jeu.scenario = scenario
+        table_jeu.infos_complementaires = infos_complementaires
 
         # Mettre en place la gestion de table
         if TableJeuDao().gerer_par_mj(table_jeu, mj):

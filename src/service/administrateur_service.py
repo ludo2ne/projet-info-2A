@@ -100,6 +100,8 @@ class AdministrateurService():
                 table_txt += "Maître du jeu : " + t.maitre_jeu.prenom + " "
                 table_txt += t.maitre_jeu.nom + \
                     " (" + t.maitre_jeu.pseudo + ")\n"
+
+            if t.scenario:
                 table_txt += "Scénario : " + t.scenario + "\n"
 
             if t.personnages != []:
