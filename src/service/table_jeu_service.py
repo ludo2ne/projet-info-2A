@@ -56,7 +56,7 @@ class TableJeuService:
         print("Service : Création de la TableJeu - Terminé")
         return table
 
-    def supprimer(self) -> list:
+    def supprimer(self) -> bool:
         ''' Supprimer toutes les tables sans joueur ni MJ
         '''
 

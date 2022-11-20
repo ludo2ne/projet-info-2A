@@ -24,6 +24,7 @@ git clone git@github.com:ludo2ne/projet-info-2A.git
 * autopep8
 * pyfiglet
 * regex
+* mock
 
 ```bash
 pip install -r requirements.txt
