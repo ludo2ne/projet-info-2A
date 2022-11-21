@@ -32,6 +32,7 @@ class DeplacerPersonnageVue(VueAbstraite):
         table_list = AdministrateurService().lister_tables_actives()
 
         # Gros mic-mac pour replacer les tables dans l'ordre chronologique...
+
         liste_provisoire = []
         for t in table_list:
             listbid = t.as_list()

@@ -12,18 +12,27 @@ from service.maitre_jeu_service import MaitreJeuService
 from view.session import Session
 from view.maitre_jeu_menu_vue import MaitreJeuMenuVue
 from business_object.joueur import Joueur
+from dao.seance_dao import SeanceDao
 
 
 class ResilierTableVue(VueAbstraite):
     def __init__(self, message):
         joueur = Session().user
+
+        liste_seance = SeanceDao().lister_toutes()
+        dict_seance = {}
+        for el in liste_seance:
+            dict_seance[f"{el.id_seance}"] = el.description
+
         # Pour le choix de la table, afficher seulement la séance et le scenario
         # et son ordre d'apparition dans la liste de tables
         table_list = MaitreJeuService().lister_tables(joueur)
+        from operator import itemgetter
+        table_list.sort(key=itemgetter(1))
         choix_table = []
         i = 1
         for el in table_list:
-            choix_table.append(f"{i} {el[2]}")
+            choix_table.append(f"{i} {dict_seance[str(el[1])]} {el[2]}")
             i += 1
         self.nb_choix = i
 
@@ -34,8 +43,7 @@ class ResilierTableVue(VueAbstraite):
             {
                 "type": "list",
                 "name": "choix",
-                "message": "Choisissez une table à quitter:\n" +
-                "Séance   Scénario",
+                "message": "Choisissez une table à quitter:\n",
                 "choices": choix_table
             },
             {
