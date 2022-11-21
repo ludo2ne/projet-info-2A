@@ -109,9 +109,9 @@ class DeplacerPersonnageVue(VueAbstraite):
         table_arrivee_list = TableJeuService().lister(
             seance=table_origine.id_seance, complete=False)
 
-        # on retire de la liste la table d origine
+        # on retire de la liste la table d origine et les tables sans mj
         table_arrivee_list = [
-            t for t in table_arrivee_list if t.id_table != id_table_origine]
+            t for t in table_arrivee_list if t.id_table != id_table_origine and t.maitre_jeu is not None]
         table_arrivee_list_affichee = [
             t.id_table for t in table_arrivee_list]
         table_arrivee_list_affichee.append("Aucune table")
