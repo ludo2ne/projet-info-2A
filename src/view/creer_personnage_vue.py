@@ -73,6 +73,8 @@ class CreerPersonnageVue(VueAbstraite):
                                  + os.environ["NB_MAX_PERSONNAGES_PAR_JOUEUR"] +
                                  " personnages autorisés")
 
+        joueur = Session().user
+
         answers = prompt(self.questions)
         message = ""
 
@@ -85,6 +87,7 @@ class CreerPersonnageVue(VueAbstraite):
         if not personnage:
             message += "\nLa création du personnage a échoué. Vous en avez peut-être déjà un avec le même nom."
         else:
+            joueur.liste_personnages.append(personnage)
             message += "\nLe personnage {} a bien été créé".format(
                 personnage.nom)
 

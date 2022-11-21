@@ -6,7 +6,7 @@ Licence : Domaine public
 Version : 1.0
 '''
 
-
+import os
 from InquirerPy import prompt
 from view.vue_abstraite import VueAbstraite
 from service.joueur_service import JoueurService
@@ -66,7 +66,21 @@ class JoueurMenuVue(VueAbstraite):
         elif reponse["choix"] == "Rejoindre une table":
             from view.rejoindre_table_choisir_horaire_vue import RejoindreTableChoisirHoraireVue
             message = "Vous allez pouvoir choisir une table pour jouer"
-            return (RejoindreTableChoisirHoraireVue(message))
+            prochainevue = RejoindreTableChoisirHoraireVue(message)
+
+            # Vérification que le joueur dispose de personnage et est libre sur au moins une séance
+            error_message = ""
+            if len(utilisateur.liste_personnages) == 0:
+                error_message = "Vous devez avoir créé un personnage pour rejoindre une table!\n"
+                prochainevue = JoueurMenuVue(error_message)
+            from service.table_jeu_service import TableJeuService
+            liste_tables_jeu = TableJeuService().lister(joueur=utilisateur)
+            from service.maitre_jeu_service import MaitreJeuService
+            liste_tables_jeu_mj = MaitreJeuService().lister_tables(utilisateur)
+            if len(liste_tables_jeu)+len(liste_tables_jeu_mj) == int(os.environ["NB_SEANCES_MAX"]):
+                error_message += "Vous êtes occupé(e) à chaque séance, impossible de faire plus..."
+                prochainevue = JoueurMenuVue(error_message)
+            return (prochainevue)
         elif reponse["choix"] == "Supprimer un personnage":
             message = JoueurService().lister_personnages()
             if len(utilisateur.liste_personnages) > 0:

@@ -52,7 +52,7 @@ class PersonnageDao(metaclass=Singleton):
 
         created = False
         if res:
-            personnage.id = res['id_personnage']
+            personnage.id_personnage = res['id_personnage']
             created = True
 
         print("DAO : Création d'un personnage - Terminé")

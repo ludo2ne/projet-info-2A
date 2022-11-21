@@ -85,7 +85,7 @@ class Personnage:
         liste : list[str]
             information du personnage sous forme de str
         '''
-        return (f"Personnage: {self.nom}: \n" +
+        return (f"Personnage: {self.nom}   Id:{self.id_personnage} \n" +
                 f" {self.race} {self.classe} de niveau {self.niveau}\n" +
                 f"Compétences: {self.competence}\n" +
                 f"Langues parlées: {self.langues_parlees}")
