@@ -17,10 +17,17 @@ from service.message_service import MessageService
 
 from business_object.joueur import Joueur
 
+from dao.seance_dao import SeanceDao
+
 
 class DeplacerPersonnageVue(VueAbstraite):
     def __init__(self):
         joueur = Session().user
+
+        liste_seance = SeanceDao().lister_toutes()
+        dict_seance = {}
+        for el in liste_seance:
+            dict_seance[f"{el.id_seance}"] = el.description
 
         table_list = AdministrateurService().lister_tables_actives()
 
@@ -39,7 +46,8 @@ class DeplacerPersonnageVue(VueAbstraite):
         i = 1
         table_list_affichee = []
         for t in table_list:
-            table_list_affichee.append(str(i) + ". Séance " + str(t.id_seance) + " - Table " + str(t.id_table) + " - " +
+            table_list_affichee.append(str(i) + ". Séance " + str(t.id_seance) + ": " + dict_seance[str(t.id_seance)] +
+                                       " - Table " + str(t.id_table) + " - " +
                                        str(t.scenario))
             i += 1
 
@@ -74,7 +82,7 @@ class DeplacerPersonnageVue(VueAbstraite):
 
         # On recupere l id de la table d origine
         choix_fait = answers["table_origine"]
-        id_table_origine = int(choix_fait.split()[5])
+        id_table_origine = int(choix_fait.split()[7])
 
         # On recupere la liste des personnages de la table d origine et on les affiche
         table_origine = TableJeuService().trouver_par_id(id_table_origine)

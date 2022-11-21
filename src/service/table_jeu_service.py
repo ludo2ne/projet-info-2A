@@ -16,6 +16,7 @@ from business_object.maitre_jeu import MaitreJeu
 from dao.table_jeu_dao import TableJeuDao
 from dao.personnage_dao import PersonnageDao
 from dao.joueur_dao import JoueurDao
+from dao.seance_dao import SeanceDao
 
 
 class TableJeuService:
@@ -190,10 +191,17 @@ class TableJeuService:
 
         print("Service : Affichage liste de tables")
 
+        liste_seance = SeanceDao().lister_toutes()
+        dict_seance = {}
+        for el in liste_seance:
+            dict_seance[f"{el.id_seance}"] = el.description
+
         entetes = ["Séance", "Numéro", "Scénario",
                    "Maître du Jeu"]
 
         tables_as_list = [t.as_list() for t in liste_tables]
+        for el in tables_as_list:
+            el[0] = dict_seance[str(el[0])]
 
         resultat = "Liste des tables \n" + tabulate(tabular_data=tables_as_list,
                                                     headers=entetes,

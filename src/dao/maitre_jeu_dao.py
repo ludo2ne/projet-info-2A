@@ -38,7 +38,7 @@ class MaitreJeuDao(metaclass=Singleton):
                     # Supprimer le maitre du jeu de la table choisie
                     cursor.execute(
                         "UPDATE jdr.table_jeu                           "
-                        "   SET id_maitre_jeu = null                    "
+                        "   SET id_maitre_jeu = null,scenario = null    "
                         " WHERE id_maitre_jeu = %(id_maitre_jeu)s       "
                         "   AND id_seance = %(id_seance)s               ",
                         {"id_maitre_jeu": mj.id_joueur, "id_seance": seance})

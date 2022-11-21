@@ -25,6 +25,11 @@ class DeplacerMaitreJeuVue(VueAbstraite):
     def __init__(self):
         joueur = Session().user
 
+        liste_seance = SeanceDao().lister_toutes()
+        dict_seance = {}
+        for el in liste_seance:
+            dict_seance[f"{el.id_seance}"] = el.description
+
         # TODO lister les tables avec un mj
         table_list = AdministrateurService().lister_tables_actives()
 
@@ -41,7 +46,8 @@ class DeplacerMaitreJeuVue(VueAbstraite):
         i = 1
         table_list_affichee = []
         for t in table_list:
-            table_list_affichee.append(str(i) + ". Séance " + str(t.id_seance) + " - Table " + str(t.id_table) + " - " +
+            table_list_affichee.append(str(i) + ". Séance " + str(t.id_seance) + ": " + dict_seance[str(t.id_seance)] +
+                                       " - Table " + str(t.id_table) + " - " +
                                        str(t.scenario))
             i += 1
 
@@ -76,7 +82,7 @@ class DeplacerMaitreJeuVue(VueAbstraite):
 
         # On recupere l id de la table d origine
         choix_fait = answers["table_origine"]
-        id_table_origine = int(choix_fait.split()[5])
+        id_table_origine = int(choix_fait.split()[7])
 
         # On recupere la liste des personnages de la table d origine et on les affiche
         table_origine = TableJeuService().trouver_par_id(id_table_origine)
@@ -134,13 +140,15 @@ class DeplacerMaitreJeuVue(VueAbstraite):
                     " vers la table " + str(id_table_arrivee_choisie)
                 message_mj = "Vous avez été déplacé de la table " + str(table_origine.id_table) + " vers la table " + str(id_table_arrivee_choisie) + \
                     " en tant que MJ pour la séance de " + seance.description
+
             else:
                 message = "Maître du Jeu supprimé de la table " + \
                     str(table_origine.id_table)
-                message_mj = "Vous avez été démi de votre fonction de MJ pour la table " + \
+                message_mj = "Vous avez été démis de votre fonction de MJ pour la table " + \
                     str(table_origine.id_table) + \
                     " de la séance de " + seance.description
 
+            table_origine.scenario = None
             # Message pour prevenir le maitre du jeu
             MessageService().creer(maitre_jeu, message_mj)
 
