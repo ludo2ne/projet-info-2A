@@ -190,6 +190,11 @@ class MaitreJeuService:
 
         joueur = Session().user
 
+        liste_seance = SeanceDao().lister_toutes()
+        dict_seance = {}
+        for el in liste_seance:
+            dict_seance[f"{el.id_seance}"] = el.description
+
         table_jeu = TableJeuDao().lister(mj=joueur)
 
         entetes = ["séance", "id_table", "scénario", "Personnages"]
@@ -201,6 +206,8 @@ class MaitreJeuService:
         list_perso_des_tables = [t.liste_perso() for t in table_jeu]
 
         table_as_list = [t.as_list()[0:len(entetes)-1] for t in table_jeu]
+        for el in table_as_list:
+            el[0] = dict_seance[str(el[0])]
         print(table_as_list)
 
         i = 0
