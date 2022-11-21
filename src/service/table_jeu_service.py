@@ -144,15 +144,15 @@ class TableJeuService:
         '''
         print("Service : Lister tables")
         liste_tables = TableJeuDao().lister(joueur, seance)
-
         if complete is False:
-            for table in liste_tables:
+            # Parcourir la liste à l'envers pour ne pas avoir de conflit entre itération et suppression d'éléments
+            for table in liste_tables[::-1]:
                 if not self.est_disponible(table):
-                    liste_tables.pop(table)
+                    liste_tables.remove(table)
         elif complete:
-            for table in liste_tables:
+            for table in liste_tables[::-1]:
                 if self.est_disponible(table):
-                    liste_tables.pop(table)
+                    liste_tables.remove(table)
 
         print("Service : Lister tables - Terminé")
         return liste_tables

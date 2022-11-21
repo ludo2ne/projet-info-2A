@@ -144,8 +144,6 @@ class PersonnageDao(metaclass=Singleton):
             print(e)
             raise
 
-        print(res)
-
         personnage = None
         if res:
             personnage = Personnage(id_personnage=res["id_personnage"],
