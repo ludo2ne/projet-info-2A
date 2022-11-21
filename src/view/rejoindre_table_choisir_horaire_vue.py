@@ -12,6 +12,7 @@ from view.vue_abstraite import VueAbstraite
 from service.joueur_service import JoueurService
 
 from dao.seance_dao import SeanceDao
+from dao.table_jeu_dao import TableJeuDao
 
 from business_object.joueur import Joueur
 from business_object.table_jeu import TableJeu
@@ -23,12 +24,22 @@ class RejoindreTableChoisirHoraireVue(VueAbstraite):
 
         liste_seance = SeanceDao().lister_toutes()
 
+        # Déterminer les séances pour lesquelles le joueur-MJ est occupé
+        liste_table_joueur = TableJeuDao().lister(joueur=joueur)
+        liste_table_mj = TableJeuDao().lister(mj=joueur)
+        liste_seance_occupe = []
+        for el in liste_table_joueur:
+            liste_seance_occupe.append(el.id_seance)
+        for el in liste_table_mj:
+            liste_seance_occupe.append(el.id_seance)
+
         liste_seances_affichee = []
         i = 1
         for s in liste_seance:
-            liste_seances_affichee.append(
-                str(s.id_seance) + ". " + s.description)
-            i += 1
+            if not s.id_seance in liste_seance_occupe:
+                liste_seances_affichee.append(str(i)+". séance " +
+                                              str(s.id_seance) + " : " + s.description)
+                i += 1
         self.nb_choix = i
 
         # ajouter à la liste la possibilité de revenir en arriere
@@ -64,9 +75,10 @@ class RejoindreTableChoisirHoraireVue(VueAbstraite):
             from view.joueur_menu_vue import JoueurMenuVue
             prochainevue = JoueurMenuVue(message)
         else:
+            id_seance = int(answers["choix"].split()[2])
             # On vérifie que le joueur est disponible sur cette plage horaire
             from service.table_jeu_service import TableJeuService
-            liste_tables_jeu = TableJeuService().lister(seance=choix_fait, joueur=joueur)
+            liste_tables_jeu = TableJeuService().lister(seance=id_seance, joueur=joueur)
             statut_libre = True
             if len(liste_tables_jeu) > 0:
                 statut_libre = False
@@ -82,14 +94,14 @@ class RejoindreTableChoisirHoraireVue(VueAbstraite):
                 liste_tables_jeu_mj = MaitreJeuService().lister_tables(joueur)
                 if len(liste_tables_jeu_mj) > 0:
                     for el in liste_tables_jeu_mj:
-                        if el[1] == choix_fait:
+                        if el[1] == id_seance:
                             statut_libre = False
                             message = "Vous êtes déjà Maitre du Jeu à une table sur cette plage horaire."
                             from view.joueur_menu_vue import JoueurMenuVue
                             prochainevue = JoueurMenuVue(message)
 
             # On vérifie qu'il y a des tables libres sur cette plage horaire
-            liste_tables_plage = TableJeuService().lister(seance=choix_fait, complete=False)
+            liste_tables_plage = TableJeuService().lister(seance=id_seance, complete=False)
             if len(liste_tables_plage) == 0:
                 statut_libre = False
                 message = "Aucune table n'est disponible sur cette plage horaire. Réessayez plus tard."
@@ -100,6 +112,6 @@ class RejoindreTableChoisirHoraireVue(VueAbstraite):
                 from view.rejoindre_table_choisir_table_vue import RejoindreTableChoisirTableVue
                 message = "Vous pouvez maintenant choisir une table"
                 prochainevue = RejoindreTableChoisirTableVue(
-                    message, choix_fait)
+                    message, id_seance)
 
         return prochainevue
