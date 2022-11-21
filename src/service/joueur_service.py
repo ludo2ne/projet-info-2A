@@ -345,14 +345,37 @@ class JoueurService:
         entetes = ["id_message", "id_joueur", "Contenu", "Lu", "Date_création"]
         message_as_list = [msg.as_list() for msg in messages]
 
-        resultat = "Votre Messages \n" + tabulate(tabular_data=message_as_list,
-                                                  headers=entetes,
-                                                  tablefmt="psql",
-                                                  floatfmt=".2f") + "\n"
+        resultat = "Vos Messages \n" + tabulate(tabular_data=message_as_list,
+                                                headers=entetes,
+                                                tablefmt="psql",
+                                                floatfmt=".2f") + "\n"
 
         print("Service : voir les messages - Terminé")
 
         return resultat
+
+    def nb_messages_non_lus(self) -> int:
+        '''Afficher le nombre de messages non lus
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        resultat : int
+            renvoie le nombre de messages non lus
+        '''
+
+        print("Service : nombre de messages non lus")
+
+        joueur = Session().user
+
+        messages = MessageDao().lister_par_joueur(joueur, lu=False)
+
+        print("Service : nombre de messages non lus - Terminé")
+
+        return len(messages)
 
     def trouver_personnage_a_la_table(self, id_table) -> Personnage:
         '''Trouver le personnage d'un joueur à une Table de Jeu

@@ -13,6 +13,7 @@ import os
 
 from unittest import mock
 from unittest.mock import Mock
+from unittest.mock import create_autospec
 
 from service.table_jeu_service import TableJeuService
 
@@ -40,13 +41,12 @@ class TestTableJeuService(unittest.TestCase):
 
     def test_supprimer(self):
         # GIVEN
-        table_jeu = None
+        table_jeu = TableJeu(500, 3)
 
-        TableJeuDao = Mock()
-        TableJeuDao.supprimer.return_value = True
+        mock_function = create_autospec(supprimer, return_value=True)
 
         # WHEN
-        statut = TableJeuService().supprimer()
+        statut = TableJeuService().supprimer(table_jeu)
 
         # THEN
         self.assertTrue(statut)

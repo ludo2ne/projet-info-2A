@@ -83,19 +83,25 @@ class MessageDao(metaclass=Singleton):
 
         return res >= 0
 
-    def lister_par_joueur(self, joueur):
+    def lister_par_joueur(self, joueur, lu=True):
         '''lister les messages envoyés à un utilisateur
         '''
         print("DAO : lister les messages envoyés à un utilisateur")
 
+        variables = dict()
+        requete = "SELECT *                          "\
+            "  FROM jdr.message                "\
+            " WHERE id_joueur = %(id)s         "
+        variables["id"] = joueur.id_joueur
+
+        if lu == False:
+            requete += " AND lu = %(statut_lu)s                   "
+            variables["statut_lu"] = lu
+
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
-                    cursor.execute(
-                        "SELECT *                          "
-                        "  FROM jdr.message                "
-                        " WHERE id_joueur = %(id)s         ",
-                        {"id": joueur.id_joueur})
+                    cursor.execute(requete, variables)
                     res = cursor.fetchall()
         except Exception as e:
             print(e)
@@ -113,32 +119,39 @@ class MessageDao(metaclass=Singleton):
                 messages.append(msg)
             # print("recuperer data ok")
             # mettre a jour le statut de l'attribut lu des objets messages correspondants
-            with DBConnection().connection as connection:
-                with connection.cursor() as cursor:
-                    cursor.execute(
-                        "UPDATE jdr.message                     "
-                        "   SET lu = True                       "
-                        " WHERE id_joueur = %(id)s              ",
-                        {"id": joueur.id_joueur})
+            if lu == True:
+                with DBConnection().connection as connection:
+                    with connection.cursor() as cursor:
+                        cursor.execute(
+                            "UPDATE jdr.message                     "
+                            "   SET lu = True                       "
+                            " WHERE id_joueur = %(id)s              ",
+                            {"id": joueur.id_joueur})
             # print("mettre a jour ok")
 
         print("DAO : Voir les messages du joueur - Terminé")
 
         return messages
 
-    def lister_admin(self, admin):
+    def lister_admin(self, admin, lu=True):
         '''lister les messages envoyés à un utilisateur
         '''
         print("DAO : lister les messages envoyés à un utilisateur")
 
+        variables = dict()
+        requete = "SELECT *                          "\
+            "  FROM jdr.message                "\
+            " WHERE id_joueur = %(id)s         "
+        variables["id"] = admin.id_admin
+
+        if lu == False:
+            requete += " AND lu = %(statut_lu)s                   "
+            variables["statut_lu"] = lu
+
         try:
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
-                    cursor.execute(
-                        "SELECT *                        "
-                        "  FROM jdr.message              "
-                        " WHERE id_joueur = %(id)s       ",
-                        {"id": admin.id_admin})
+                    cursor.execute(requete, variables)
                     res = cursor.fetchall()
         except Exception as e:
             print(e)
@@ -156,13 +169,14 @@ class MessageDao(metaclass=Singleton):
                 messages.append(msg)
             # print("recuperer data ok")
             # mettre a jour le statut de l'attribut lu des objets messages correspondants
-            with DBConnection().connection as connection:
-                with connection.cursor() as cursor:
-                    cursor.execute(
-                        "UPDATE jdr.message               "
-                        "   SET lu = True                 "
-                        " WHERE id_joueur = %(id)s        ",
-                        {"id": admin.id_admin})
+            if lu == True:
+                with DBConnection().connection as connection:
+                    with connection.cursor() as cursor:
+                        cursor.execute(
+                            "UPDATE jdr.message               "
+                            "   SET lu = True                 "
+                            " WHERE id_joueur = %(id)s        ",
+                            {"id": admin.id_admin})
             # print("mettre a jour ok")
 
         print("DAO : Voir les messages du joueur - Terminé")

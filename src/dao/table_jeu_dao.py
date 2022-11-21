@@ -245,8 +245,6 @@ class TableJeuDao(metaclass=Singleton):
             print(e)
             raise
 
-        print(res)
-
         id_table_actuel = None
         id_sceance_actuel = None
         table_jeu = None

@@ -6,3 +6,4 @@ tabulate
 regex
 pyfiglet
 mock
+python-dotenv

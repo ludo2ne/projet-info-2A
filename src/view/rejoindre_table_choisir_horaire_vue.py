@@ -87,6 +87,15 @@ class RejoindreTableChoisirHoraireVue(VueAbstraite):
                             message = "Vous êtes déjà Maitre du Jeu à une table sur cette plage horaire."
                             from view.joueur_menu_vue import JoueurMenuVue
                             prochainevue = JoueurMenuVue(message)
+
+            # On vérifie qu'il y a des tables libres sur cette plage horaire
+            liste_tables_plage = TableJeuService().lister(seance=choix_fait, complete=False)
+            if len(liste_tables_plage) == 0:
+                statut_libre = False
+                message = "Aucune table n'est disponible sur cette plage horaire. Réessayez plus tard."
+                from view.joueur_menu_vue import JoueurMenuVue
+                prochainevue = JoueurMenuVue(message)
+
             if statut_libre:
                 from view.rejoindre_table_choisir_table_vue import RejoindreTableChoisirTableVue
                 message = "Vous pouvez maintenant choisir une table"

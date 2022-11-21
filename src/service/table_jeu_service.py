@@ -56,26 +56,36 @@ class TableJeuService:
         print("Service : Création de la TableJeu - Terminé")
         return table
 
-    def supprimer(self) -> bool:
-        ''' Supprimer toutes les tables sans joueur ni MJ
+    def lister_tables_vides(self) -> list:
+        ''' Lister toutes les tables sans joueur ni MJ
         '''
-
-        print("Service : Supprimer table")
+        print("Service : Lister Tables vides")
 
         liste_tables = TableJeuDao().lister()
         table_couple = []
-        statut_suppression_global = True
+        liste_tables_vides = []
         for k in range(len(liste_tables)):
             table_couple.append(
                 [TableJeuDao().nombre_joueurs_assis(liste_tables[k]), liste_tables[k]])
             if table_couple[k][0] == 0 and table_couple[k][1].maitre_jeu is None:
-                statut_suppression_table = TableJeuDao(
-                ).supprimer(table_couple[k][1])
-                statut_suppression_global = statut_suppression_table and statut_suppression_global
+                liste_tables_vides.append(liste_tables[k])
 
+        print("Service : Lister Tables Vides - Terminé")
+
+        return liste_tables_vides
+
+    def supprimer(self, table) -> bool:
+        ''' Supprimer une Table de Jeu
+
+        Params
+        ------
+        * table : TableJeu
+        '''
+
+        print("Service : Supprimer table")
+        statut_suppression_table = TableJeuDao().supprimer(table)
         print("Service : Supprimer table - Terminé")
-
-        return statut_suppression_global
+        return statut_suppression_table
 
     def trouver_par_id(self, id_table) -> TableJeu:
         '''Service pour trouver une Table de Jeu à partir de son id
