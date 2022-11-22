@@ -203,7 +203,7 @@ class TestTableJeuService(unittest.TestCase):
         self.assertEqual(dispo2, False)  # Table complète à 5 joueurs
         self.assertEqual(dispo3, True)  # Table à 1 joueur
 
-    """def test_affichage_liste(self):          pour l'instant, aucune idée"""
+    """def test_affichage_liste(self):          La sortie est un tableau à afficher, comment tester ça?"""
 
     def test_trouver_mj(self):
         # GIVEN
