@@ -29,6 +29,7 @@ class TableJeuService:
     Methods
     -------
     creer(id_seance : int) : TableJeu
+    lister_tables_vides(): list[TableJeu]
     supprimer() : list
     trouver_par_id(id_table : int) : TableJeu
     lister_personnages(table_jeu : TableJeu) : list[Personnage]

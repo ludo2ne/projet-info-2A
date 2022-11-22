@@ -48,7 +48,7 @@ class TableJeuDao(metaclass=Singleton):
             raise
 
         if res:
-            table.id = res['id_table']
+            table.id_table = res['id_table']
             created = True
 
         print("DAO : Création d'une TableJeu - Terminé")
