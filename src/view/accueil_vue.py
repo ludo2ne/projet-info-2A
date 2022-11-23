@@ -48,7 +48,7 @@ class AccueilVue(VueAbstraite):
         self.message = headers().print_header()+message
 
     def afficher(self) -> None:
-        '''Echappe un grans espace dans le terminal pour simuler le changement de page de l'application
+        '''Echappe un grand espace dans le terminal pour simuler le changement de page de l'application
         '''
         self.nettoyer_console()
         print(self.message)

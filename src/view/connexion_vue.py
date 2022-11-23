@@ -39,7 +39,7 @@ class ConnexionVue(VueAbstraite):
 
         # On récupère le mesage à afficher (succès ou échec)
         if answers["pseudo"] == "admin":
-            message = "Bienvenue " + answers["pseudo"]
+            message = "Bienvenue " + answers["pseudo"] + "\n"
             Session().user = Administrateur(1, "admin")
             msg = AdministrateurService().nb_messages_non_lus()
             if msg > 0:
