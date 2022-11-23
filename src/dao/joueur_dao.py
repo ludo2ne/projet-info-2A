@@ -59,8 +59,8 @@ class JoueurDao(metaclass=Singleton):
             with DBConnection().connection as connection:
                 with connection.cursor() as cursor:
                     cursor.execute(
-                        "INSERT INTO jdr.joueur(pseudo, nom, prenom, mail) VALUES "
-                        "(%(pseudo)s,%(nom)s,%(prenom)s,%(mail)s) RETURNING id_joueur;",
+                        "INSERT INTO jdr.joueur(pseudo, nom, prenom, mail, est_mj) VALUES "
+                        "(%(pseudo)s,%(nom)s,%(prenom)s,%(mail)s, false) RETURNING id_joueur;",
                         {"pseudo": joueur.pseudo,
                          "nom": joueur.nom,
                          "prenom": joueur.prenom,

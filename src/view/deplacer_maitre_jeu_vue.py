@@ -27,7 +27,6 @@ class DeplacerMaitreJeuVue(VueAbstraite):
 
         dict_seance = SeanceDao().lister_toutes(dict=True)
 
-        # TODO lister les tables avec un mj
         table_list = AdministrateurService().lister_tables_actives()
 
         # Gros mic-mac pour replacer les tables dans l'ordre chronologique...
@@ -86,8 +85,6 @@ class DeplacerMaitreJeuVue(VueAbstraite):
 
         # Recuperation du Maitre du Jeu de la Table
         maitre_jeu = TableJeuService().trouver_mj(table_origine)
-
-        # TODO lister les tables sans mj
 
         # On recupere la Seance
         seance = SeanceDao().trouver_par_id(table_origine.id_seance)

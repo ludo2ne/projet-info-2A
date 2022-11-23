@@ -29,8 +29,6 @@ if __name__ == '__main__':
     Session().competences_personnages = CompetenceClient().lister_competences()
     Session().langues_personnages = LangueClient().lister_langues()
 
-    # TODO prévoir solution de contournement si le webservice n'est pas accessible
-
     while vue_courante:
         if nb_erreurs > 100:
             print("Le programme recense trop d'erreurs et va s'arrêter")

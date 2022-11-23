@@ -106,7 +106,6 @@ class GererTableVue(VueAbstraite):
             from view.maitre_jeu_menu_vue import MaitreJeuMenuVue
             return MaitreJeuMenuVue(message)
         elif resultat == "OK":
-            # TODO ajouter à la table xxx
             message = "Vous êtes officiellement Maître du Jeu pour la séance : " + seance.description
             from view.maitre_jeu_menu_vue import MaitreJeuMenuVue
             return MaitreJeuMenuVue(message)

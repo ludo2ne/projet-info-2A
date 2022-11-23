@@ -21,7 +21,6 @@ from dao.db_connection import DBConnection
 from business_object.table_jeu import TableJeu
 from business_object.personnage import Personnage
 from business_object.maitre_jeu import MaitreJeu
-
 from business_object.joueur import Joueur
 
 

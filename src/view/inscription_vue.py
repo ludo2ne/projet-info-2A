@@ -74,7 +74,7 @@ class InscriptionVue(VueAbstraite):
             if not joueur:
                 message = "La création du joueur a échoué"
             else:
-                message = "Le joueur {} {} a bien été créé et veuillez vous souvenir de votre pseudo comme {} ".format(
+                message = "Le joueur {} {} a bien été. Pour vous connecter, utilisez votre pseudo : {} ".format(
                     joueur.prenom, joueur.nom, joueur.pseudo)
 
         from view.accueil_vue import AccueilVue
