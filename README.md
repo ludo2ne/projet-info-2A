@@ -18,7 +18,7 @@ git clone git@github.com:ludo2ne/projet-info-2A.git
 
 ## required packages to install
 
-The packages necessary for the proper functioning of the application are:
+The packages necessary for the proper functioning of the application are :
 * [inquirerPy](https://inquirerpy.readthedocs.io/en/latest/)
 * requests
 * psycopg2-binary
@@ -52,13 +52,13 @@ NB_TABLES_MAX_PAR_SEANCE=10
 NB_SEANCES_MAX=4
 ```
 
-## Create a PostgreeSQL database 
-Create the database and fill in the following attributes in the `.env` file:
--HOST
--PASSWORD
--USER
--DATABASE
--PORT
+## Create a PostgreSQL database 
+Create the database and fill in the following attributes in the `.env` file :
+- HOST
+- PASSWORD
+- USER
+- DATABASE
+- PORT
 
 ## How to launch the app
 
@@ -69,4 +69,11 @@ python src/run_all_tests.py              # to launch all of the tests
 python -m unittest
 ```
 
-At the very first launch of the application, choose ==initialiser la base de données== in the menu.
+At the very first launch of the application, choose **initialiser la base de données** in the menu to :
+- create schema and tables
+- pop tables with a data sample
+
+
+## How to log as an Administrator
+
+use pseudo : **admin**
