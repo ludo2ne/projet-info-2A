@@ -134,10 +134,7 @@ class JoueurService:
             err_message += statut_suppr_perso[1]
 
         # Enlever le joueur des tables où il est assis en tant que maitre du jeu
-        liste_seance = SeanceDao().lister_toutes()
-        dict_seance = {}
-        for el in liste_seance:
-            dict_seance[f"{el.id_seance}"] = el.description
+        dict_seance = SeanceDao().lister_toutes(dict=True)
 
         if type(compte) == MaitreJeu:
             table_list = MaitreJeuDao().lister_tables_mj(compte)

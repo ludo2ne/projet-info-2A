@@ -19,10 +19,7 @@ class ResilierTableVue(VueAbstraite):
     def __init__(self, message):
         joueur = Session().user
 
-        liste_seance = SeanceDao().lister_toutes()
-        dict_seance = {}
-        for el in liste_seance:
-            dict_seance[f"{el.id_seance}"] = el.description
+        dict_seance = SeanceDao().lister_toutes(dict=True)
 
         # Pour le choix de la table, afficher seulement la séance et le scenario
         # et son ordre d'apparition dans la liste de tables

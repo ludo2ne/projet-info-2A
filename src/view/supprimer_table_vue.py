@@ -18,10 +18,8 @@ from dao.seance_dao import SeanceDao
 class SupprimerTableVue(VueAbstraite):
     def __init__(self):
 
-        liste_seance = SeanceDao().lister_toutes()
-        dict_seance = {}
-        for s in liste_seance:
-            dict_seance[str(s.id_seance)] = s.description
+        dict_seance = SeanceDao().lister_toutes(dict=True)
+
         self.dict_seance = dict_seance
         liste_tables_vides = TableJeuService().lister_tables_vides()
         self.liste_tables_vides = liste_tables_vides

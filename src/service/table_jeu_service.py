@@ -192,10 +192,7 @@ class TableJeuService:
 
         print("Service : Affichage liste de tables")
 
-        liste_seance = SeanceDao().lister_toutes()
-        dict_seance = {}
-        for el in liste_seance:
-            dict_seance[f"{el.id_seance}"] = el.description
+        dict_seance = SeanceDao().lister_toutes(dict=True)
 
         entetes = ["Séance", "Numéro", "Scénario",
                    "Maître du Jeu"]

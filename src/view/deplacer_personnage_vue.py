@@ -24,10 +24,7 @@ class DeplacerPersonnageVue(VueAbstraite):
     def __init__(self):
         joueur = Session().user
 
-        liste_seance = SeanceDao().lister_toutes()
-        dict_seance = {}
-        for el in liste_seance:
-            dict_seance[f"{el.id_seance}"] = el.description
+        dict_seance = SeanceDao().lister_toutes(dict=True)
 
         table_list = AdministrateurService().lister_tables_actives()
 

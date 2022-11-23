@@ -80,10 +80,7 @@ class MaitreJeuService:
         print("Service : Résiliation de TableJeu du mj")
 
         # Creation d'un dictionnaire id_seance --> description_seance
-        liste_seance = SeanceDao().lister_toutes()
-        dict_seance = {}
-        for el in liste_seance:
-            dict_seance[f"{el.id_seance}"] = el.description
+        dict_seance = SeanceDao().lister_toutes(dict=True)
 
         # instanciation de la table à supprimer
         table_correspondante = TableJeuDao().lister(mj=mj, seance=id_seance)[0]
@@ -190,10 +187,7 @@ class MaitreJeuService:
 
         joueur = Session().user
 
-        liste_seance = SeanceDao().lister_toutes()
-        dict_seance = {}
-        for el in liste_seance:
-            dict_seance[f"{el.id_seance}"] = el.description
+        dict_seance = SeanceDao().lister_toutes(dict=True)
 
         table_jeu = TableJeuDao().lister(mj=joueur)
 

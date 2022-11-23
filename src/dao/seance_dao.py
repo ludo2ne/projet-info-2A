@@ -58,12 +58,13 @@ class SeanceDao(metaclass=Singleton):
 
         return seance
 
-    def lister_toutes(self) -> list[Seance]:
+    def lister_toutes(self, dict=None) -> list[Seance] or dict[Seance]:
         '''Lister toutes les Séances
 
         Returns
         -------
         list[Seance] : la liste de toutes les Séances
+        dict: booleen   la méthode renvoie un dictionnaire
         '''
         print("DAO : Lister toutes les Séances")
 
@@ -86,7 +87,14 @@ class SeanceDao(metaclass=Singleton):
                                 debut=row["debut"],
                                 fin=row["fin"])
                 liste_seances.append(seance)
+        output = liste_seances
+
+        if dict:
+            dict_seance = {}
+            for el in liste_seances:
+                dict_seance[f"{el.id_seance}"] = el.description
+            output = dict_seance
 
         print("DAO : Lister toutes les Séances - Terminé")
 
-        return liste_seances
+        return output
