@@ -101,38 +101,89 @@ L'organisation d'une convention est différente. En effet les intervenants ne so
 
 \section{Analyse du besoin}
 
-Pour cette partie reprendre les éléments du dossier d'analyse
 
 \subsection{Cahier des charges}
+L'objectif de ce projet est de développer une application qui permette de gérer l'organisation d'une convention. Cette application devra être utilisable aussi bien par les organisateurs que par les intervenants et le public.  \\
 
-\subsection{Fonctionnalités de l'application}
+Nous nous sommes basés sur le principe d'une convention se déroulant sur un week-end et comportant quatre plages horaires, chacune correspondant à une demi-journée. Cette convention est dédiée aux jeux de rôle, aussi les intervenants seront par la suite appelés «~Maîtres du Jeu~» ou MJ. Le public venant quant à lui pour jouer, ses membres seront appelés «~Joueurs~».\\ 
 
-\subsection{Organisation d'équipe}
+L'application permettra à quiconque le souhaite de s'inscrire en tant que Joueur. Les Joueurs auront accès à plusieurs fonctionnalités. La première d'entre elles sera la création de personnages, dans une limite de trois. Un appel à l'API suivante \textcolor{blue}{\href{https://www.dnd5eapi.co/}{https://www.dnd5eapi.co/}} permettra de compléter les informations sur les personnages. La détention de personnages permettra au Joueur de s'asseoir à une table par demi-journée. Afin de pouvoir faire un choix éclairé, les Joueurs pourront visualiser, pour chaque table ouverte et disponible, le scénario proposé et ainsi choisir le personnage adéquat. Les Joueurs pourront aussi visualiser un sommaire de leur participation et, le cas échéant, se désister d'une table, ce qui sera automatiquement notifié aux organisateurs.\\
 
+L'application permettra aux Joueurs le désirant de s'inscrire en tant que Maîtres du Jeu. Ceux-ci auront la possibilité, pour chaque demi-journée, de choisir une table.  Ils en définiront le scénario, offrant ainsi à cinq Joueurs la possibilité de s'y inscrire. Ils pourront aussi visualiser les profils des Joueurs inscrits à leur table, afin de mieux préparer leur intervention. En outre, ils auront la possibilité de voir un sommaire de leur participation. Enfin, si nécessaire, ils pourront se désister, entraînant une notification aux organisateurs. Les organisateurs auront alors la charge d'affecter les Joueurs à une autre table dans la mesure du possible, ou d'annuler leur participation à cette demi-journée si nécessaire.\\
 
-Exemple liste
-
-L'application sera découpée en trois couches :
+\indent Il a été envisagé de différencier totalement les profils Joueur et Maître du Jeu, en leur attribuant des comptes séparés pour une même personne physique. Cela présentait deux inconvénients:
 \begin{itemize}
-    \item \texttt{Couche de Vue} : elle contiendra les classes qui gèrent l'interface avec l'utilisateur,
-    \item \texttt{Couche de Service} : elle regroupe les classes qui contiennent les procédures métier,
-    \item \texttt{Couche DAO} : ensemble de classes permettant d'accéder à la base de données.
+\item{compliquer la gestion des erreurs humaines. En effet, une même personne ne peut pas physiquement participer à deux tables en même temps. Pour chaque compte nous pourrons avoir accès à une liste des tables auxquelles la personne participe. Avoir les comptes Joueur et Maître du Jeu joints signifie la présence d'une unique liste de tables à vérifier. Des comptes séparés auraient entraîné la création de deux listes séparées et, par conséquent, la nécessité de systématiquement vérifier si un compte Maître du Jeu est détenu par une personne ayant aussi un compte Joueur et vice-versa.}
+\item{compliquer l'utilisation de l'application pour une personne désirant être à la fois Maître du Jeu et Joueur. En effet, cette personne aurait dû systématiquement se déconnecter et s'authentifier pour passer d'un compte à l'autre.\\}
 \end{itemize}
+
+Enfin, les organisateurs de la convention auront un profil spécifique. Du point de vue de l'application, ils seront considérés comme Administrateurs et pourront visualiser un sommaire global de l'activité sur la convention. L'envoi automatique de notifications lors de désistements de Joueurs ou de Maîtres du Jeu leur permettra d'être toujours avertis des changements intervenus. Ils seront en mesure de modifier ou supprimer la participation d'un Maître du jeu ou d'un Joueur, entraînant une notification aux personnes concernées. Enfin, ils auront la possibilité de supprimer ou rajouter des tables selon les besoins.\\
+
+Un système sommaire d'accès par pseudo sera mis en place, par souci de simplicité. Il permettra à la fois de différencier les statuts des protagonistes et de cloisonner les profils individuels. Il sera toujours possible par la suite de mettre en place un système plus sécurisé avec mot de passe. \\
+
+\subsection{Fonctionnalités attendues de l'application}
+(\textcolor{red}{TODO}: décrire les fonctionnalités de base (sans faire de liste!!!))
+
+
+%-------------------------------------------------------------------------------
+% Section 2
+%-------------------------------------------------------------------------------
+
+\newpage
+\section{Diagramme de Gantt et organisation de l'équipe}
+Lors du démarrage de notre projet, nous avons évoqué plusieurs sujets importants pour une organisation d'équipe efficace et une bonne entente. Le premier sujet évoqué concerne les règles de vie dans notre équipe. Chacun des membres devra respecter les autres, communiquer, être solidaire, être force de proposition, anticiper et ne pas travailler à la dernière minute.
+
 
 \bigbreak
 
-Exemple image
+Ensuite nous avons parlé de la liste de nos compétences et appétences par rapport aux besoins sur ce projet (connaissances en informatique, python, base de données, organisation, rédaction...). Ainsi nous nous sommes répartis les rôles suivants:
+\begin{itemize}
+    \item{Chef de projet~: suivi du projet, organisation, vérification que chacun sait ce qu’il doit faire}
+    \item{Responsable de la communication~: s'occupe de la communication avec les intervenants externes}
+    \item{Maître du temps~: s’assure que les délais sont bien respectés}
+    \item{Expert technique~: assiste les développeurs en cas de problème technique}
+    \item{Rédacteur en chef~: Valide les rapports, s'occupe de la mise en forme, corrige les fautes}
+\end{itemize}
+
+Nous avons également convenu que tous les membres de l'équipe participeront au développement de l'application.
+
+\bigbreak
+
+Nous utiliserons les outils suivants pour répondre à des besoins concernant différents aspects de ce projet :
+\begin{itemize}
+    \item{Suivi et communication~: \href{https://hackmd.io/CMTCDVW6Spe2PHXOhdKTRQ}{HackMd}, Discord}
+    \item{Analyse et Rédaction~: PlantUML, LateX}
+    \item{Développement~: Python, Visual Studio Code, PostgreSQL, DBeaver}
+    \item{Gestion de version~: Git, GitHub}
+\end{itemize}
+
+
+\bigbreak
+
+Le diagramme de Gantt relatif à l'organisation de notre équipe est montré en figure \ref{UML_gantt}.\\
+
 
 \begin{figure}[H]
     \caption{\textbf{Diagramme de Gantt}}
     \label{UML_gantt}
     \centering
-    \includegraphics[height=0.55\textheight]{UML_diagrammes/diag_gantt.png}
+    \includegraphics[height=0.35\textheight]{UML_diagrammes/diag_gantt.png}
 \end{figure}
+
+Les deux premières strates listent les rendez-vous et les échéances importantes. \\
+
+La troisième strate illustre les différentes phases du projet. Les six premières semaines ont été consacrées à l'étude et à la conception du projet, incluant la réalisation des diagrammes présentés dans ce dossier et la documentation. Pendant ce temps, les cours et TP nécessaires à la réalisation concrète de l'application (Programmation Orientée Objet, Webservices, Git) ont pu avoir lieu. La phase de développement, incluant le codage de l'application et la mise en place de la base de données, s'est ensuite déroulée sur une période d'environ six semaines. \\
+
+La dernière strate montre les tâches concrètes à réaliser et est complétée au fur et à mesure.\\
+
+Lorsque la dernière phase ait été entamé, la rédaction du rapport a pu commencé. 
+En ce qui concerne l’implémentation du code, une répartition a été réalisée en fonction du niveau de chacun. Les classes les plus accessibles comme les classes de vue ont été réalisées par les membres du groupe les moins à l’aise. Tandis que les classes de service qui ont été bien plus difficiles à implémenter ont été coder par les membres les plus à l’aise du groupe.Les trois jours dédiés au projet ont permis d’aboutir à 90% du code final. \\
+
+Puis au retour des vacances, le plan du rapport final a été élaboré tous ensemble. Chaque proposition a été étudiée et prise en considération si le groupe la trouvait pertinente. Une concertation de quelques heures a permis d’aboutir au plan final du rapport. Concernant la rédaction de ce dernier, tous les membres ont eu à charge plusieurs sous-parties.
 
 
 %-------------------------------------------------------------------------------
-% Section 2
+% Section 3
 %-------------------------------------------------------------------------------
 
 \newpage
@@ -143,51 +194,277 @@ Exemple image
 
 \subsection{Les couches}
 
+Nous avons découpé l'application en trois couches principales : la couche de Vue, la couche de Service, et la couche DAO (Data Access Object), afin de garantir une structure claire pour le processus de création de l'application. Tout en regroupant les exigences de l'application en fonction des couches, nous avons également évité les fonctionnalités manquantes. De plus, cela nous permet également de diviser les tâches en unités plus petites lors de leur attribution afin de faciliter le travail en équipe.
+
+Lorsque l'application est en cours d'exécution, une fois que l'utilisateur a formulé une demande, celle-ci est prise en charge par la couche de Vue et transmise à la couche Service. La couche Service traite la demande du client et, lorsqu'un accès à la base de données est nécessaire, elle transmet la demande à la couche DAO. La couche DAO relie la base de données en envoyant la requête et renvoie le résultat à la couche Service, qui transmet à la couche de Vue, laquelle présente le résultat à l'utilisateur.
+
+
+\begin{itemize}
+    \item \texttt{la couche de Vue}~: elle contient le module qui gère l'interface avec l'utilisateur, qui implémente l'interface par laquelle l'utilisateur accède à l'application, permettant ainsi à l'utilisateur d'accéder à diverses fonctions. L'interface utilisateur de notre application est contenue dans un terminal.
+    \item \texttt{la couche de Service}~:  elle est le coeur de notre application, qui contient toutes les méthodes qui permettront ensuite de répondre aux besoins des utilisateurs.
+    \item \texttt{la couche DAO}~:  elle contient des modules qui peuvent accéder à la base de données. Pour la persistance des données, nous avons choisi de sauvegarder nos données sur une base de données. Nous utiliserons le système de gestion de base de données relationnelle PostgreSQL.
+
+    La couche DAO, disponible en annexe en figure \ref{UML_classes}, proposera donc diverses classes et méthodes qui permettront de communiquer avec la couche de persistance. Les classes de notre DAO s'appuieront sur les différentes opérations du \textbf{CRUD} (Create Read Update Delete) et proposeront une liste exhaustive de méthodes d'interactions avec la base de données. Parmi celles-ci, il y a la classe \textbf{DBconnection} qui se chargera de gerer les connexions à la base de données. Afin de ne pas nous retrouver avec des centaines de connections qui compromettraient l'efficacité de notre application, nous avons choisi de conceptualiser cette classe à partir du \textbf{design pattern} Singleton. La classe DBconnection héritera de la méta-classe \textbf{Singleton} qui assurera l'instanciation unique de cette classe.
+\end{itemize}
+
+Blabla général sur comment organiser les couches
+\textcolor{blue}{Banruo}
+
 \subsection{Les objets métier}
 
+La création d’objets métiers a été nécessaire dans la programmation en couche. Pour rappel, ces classes ne disposent que d’attributs et pas de méthodes. Elles permettent de créer les objets/utilisateurs de la séance qui seront utilisés dans la modération de la conférence. Ces objets représentent le cœur de la problématique de la conférence puisqu’ils seront utilisés par l’ensemble des autres couches de l’application. C’est pourquoi nous avons créé les sept objets suivants qui seront constamment appelés dans diverses classes du code:
 
-\subsection{Diagramme classe}
+\bigbreak
+
+\begin{itemize}
+    \item \texttt{Administrateur}~: c'est l'un des organisateurs de la convention, il n’est pas considéré comme Joueur. Cette classe possède les deux attributs suivants :
+    \begin{itemize}[label=\ding{109}, font=\small]
+        \item \texttt{id\_admin}~: int, un Administrateur dispose d'un identifiant unique.
+        \item \texttt{pseudo}~: str, comme tout membre de la convention de jeu de rôle, un Administrateur dispose d'un pseudo pour se connecter à son profil d'administrateur et accéder aux différentes vues et services dont il dispose.
+    \end{itemize}
+    
+    \item \texttt{Personnage}~: il s'agit d'un personnage fictif de jeu de rôle que crée un Joueur pour participer à une session de jeu. Cette classe possède les attributs suivants :
+    \begin{itemize}[label=\ding{109}, font=\small]
+        \item \texttt{id\_personnage}~: int, chaque personnage est associé à un identifiant unique.
+        \item \texttt{nom}~: str, nom du personnage.
+        \item \texttt{classe}~: str, classe du personnage (Guerrier, Druide, Magicien...)
+        \item \texttt{race}~: str, race du personnage (Humain, Elfe, Nain...).
+        \item \texttt{niveau}~: int, niveau du personnage.
+        \item \texttt{competences}~: list[str], liste des compétences dont le personnage dispose.
+        \item \texttt{langues\_parlées}~: list[str], liste des langues parlées par le personnage.
+    \end{itemize}
+
+    \item \texttt{Joueur}~: c'est une personne réelle qui participe à la convention de jeu de rôle en tant que joueur. Cette classe possède les six attributs suivants :
+    \begin{itemize}[label=\ding{109}, font=\small]
+        \item \texttt{id\_joueur}~: int, identifiant unique du Joueur
+        \item \texttt{pseudo}~: str, pseudo à l'aide duquel le Joueur se connecte afin d'accéder aux vues et services qui lui sont propres.
+        \item \texttt{nom}~: str, son nom propre, qu'il renseigne lors de l'inscription.
+        \item \texttt{prenom}~: str, son prénom, qu'il renseigne lors de l'inscription.
+        \item \texttt{mail}~: str, son adresse mail, qu'il renseigne lors de l'inscription.
+        \item \texttt{personnages}~: list[Personnage], il s'agit de la liste des personnages que le Joueur souhaite potentiellement utiliser lors de la convention. On limitera le nombre de personnages qu'il peut créer à trois.
+    \end{itemize}
+
+    \item \texttt{MaitreJeu}~: c'est une classe qui hérite des attributs de la classe Joueur. Ce qui différencie un Maître du Jeu d'un Joueur réside dans les fonctionnalités dont ils disposent et les vues de chacun (cf couches vues et services). Aucune différenciation n'est faite au niveau des attributs du Joueur et du Maître du Jeu.
+
+
+    \item \texttt{TableJeu}~: Une Table de Jeu est à distinguer d'une table réelle. Une même table correspondra à des Tables de Jeu différentes entre la séance du matin et celle de l'après-midi. De plus nous avons choisi de nommer cette classe ainsi plutôt que simplement «~Table~» car ce mot aurait pu poser des problèmes en SQL, où c'est un mot clé. Une Table de Jeu possède les cinq attributs suivants :
+    \begin{itemize}[label=\ding{109}, font=\small]
+        \item \texttt{id\_table}~: int, chaque table dispose d'un  identifiant unique.
+        \item \texttt{id\_seance}~: int, numéro de la séance sur laquelle la table est utilisée (1 pour le samedi matin, 2 pour le samedi après-midi, 3 pour le dimanche matin et 4 pour le dimanche après-midi).
+        \item \texttt{maitre\_jeu}~: MaîtreJeu, Maître du Jeu qui s'occupe de la Table de Jeu.
+        \item \texttt{scenario}~: str, scénario choisi par le Maître du Jeu pour animer la Table de Jeu.
+        \item \texttt{personnages}~: list[Personnages], liste des Personnages de la Table de Jeu.
+    \end{itemize}
+
+    \item \texttt{Seance}~: Une séance, se déroulant lors de la conférence, est une demi-journée durant laquelle différentes joueurs participent au jeu de rôle sur différentes tables. Une séance possède les quatre attributs suivants :
+    \begin{itemize}[label=\ding{109}, font=\small]
+        \item \texttt{id\_seance}~: int, identifiant unique de la séance.
+        \item \texttt{description}~: str, description de la séance.
+        \item \texttt{debut}~: date, date de début de la séance .
+        \item \texttt{fin}~: date, date de fin de la séance.
+    \end{itemize}
+    
+    \item \texttt{Message}~: Potentiel message reçu par un joueur  :
+    \begin{itemize}[label=\ding{109}, font=\small]
+        \item \texttt{id\_message}~: int, identifiant unique du message.
+        \item \texttt{id\_joueur}~: int, identifiant unique du joueur.
+        \item \texttt{date\_creation}~: time, date et heure de la création du message .
+        \item \texttt{contenu}~: str, contenu du message.
+        \item \texttt{lu}~: bool, indique si le joueur a lu le message.
+    \end{itemize}
+    
+\end{itemize}
+
+
+
+
+\subsection{Diagramme de classes}
+
+TODO mettre à jour \textcolor{red}{Jason} \\
+Expliquer au global et prendre un exemple (détailler le cheminement entre les classes d'une fonctionnalité) 
+\textcolor{red}{expliquer les héritages!!!}
+
+
+
 
 
 \subsection{Outils et technologies utilisées}
 
+Lors de ce projet, nous avons découvert et utilisé certains outils qui nous ont aidés pour la phase de réalisation. Nous allons ici détailler quelques-uns de ces outils et les bénéfices obtenus grâce à leur utilisation.
 
-%-------------------------------------------------------------------------------
-% Section 3
-%-------------------------------------------------------------------------------
+\bigbreak
 
-\newpage
-\section{Fonctionnalités de l'application}
-
-\subsection{Détailler une fonctionnalité de A à Z}
+Une des premières préoccupations avant de commencer à développer est que nous souhaitions avoir des outils configurés de la même manière pour chacun des membres de l'équipe. Cela est important, car si un code fonctionne sur la machine d'un membre et pas sur celle d'un autre, la perte de temps risque d'être importante.
 
 
-\subsection{Fonctionnalités Utilisateur}
+\bigbreak
 
-\subsection{Fonctionnalités Joueur}
+Nous voulions également éviter que pour l'indentation, certains utilisent des tabulations et d'autres des espaces. Cela serait gênant, si par exemple, nous souhaitions comparer deux versions d'un fichier avec Git, le résultat serait illisible, car pour git, une tabulation et quatre espaces ce n'est pas pareil. Pour pallier ce genre de problèmes, nous avons utilisé le package \texttt{autopep8}. Nous avons configuré Visual Studio Code, via le fichier \texttt{setting.json} pour que tous les membres de l'équipe formatent le code avec \texttt{autopep8} et cela à chaque sauvegarde.
+
+\bigbreak
+
+Ensuite, concernant les classes pour communiquer avec la base de données ou l'API, nous avons réutilisé et adapté celles qui nous ont été fournies lors des Travaux Pratiques. Après quelques ajustements, cela a très bien fonctionné et nous n'avons pas eu à les modifier par la suite.
+
+\bigbreak
+
+La question suivante était de savoir comment fonctionnait le package \texttt{inquirerPy} que nous devions utiliser pour notre interface avec l'utilisateur. Nous avons été agréablement surpris par la simplicité d'utilisation de cet outil et par toutes les possibilités qui étaient offertes. Nous avons utilisé certaines d'entre elles, par exemple pour vérifier qu'une entrée est non vide, que pour saisir le niveau d'un personnage, il faut que l'entrée soit numérique, ou encore que mis en place une expression régulière pour vérifier la validité de saisie d'une adresse mail.
+
+\bigbreak
+
+Un autre besoin était d'afficher des tableaux de manière lisible et ergonomique. Nous avions découvert lors d'un précédent projet un outil très intéressant : la package \texttt{tabulate} qui répond à ce besoin et nous l'avons donc réutilisé.
+
+\bigbreak
+
+Lors de la mise en place de la base de données, nous avons créé un schéma \texttt{jdr} (pour que tous les objets soient regroupés dans un même schéma), des tables, ainsi que d'un échantillon de données. Cet échantillon est principalement utile pour éviter d'avoir à saisir manuellement des joueurs, des personnages lorsque l'on veut tester notre code python. Nous avons pensé que ce serait utile d'avoir une fonctionnalité qui permet de réinitialiser la base de données et nous l'avons donc mis en place. 
+Ainsi, lorsque nous voulions réinitialiser les données, nous avions cette possibilité dans le menu de l'application, ce qui est beaucoup plus simple et rapide que relancer les scripts de création «~à la main~».
+
+\bigbreak
+
+Enfin, nous avons jugé intéressant d'utiliser des variables d'environnements globales pour fixer les valeurs de certaines variables qui sont relativement fixes. Nous avons par exemple, créé des variables d'environnement pour fixer le nombre maximum de personnages par joueur, le nombre maximum de joueurs par table et le nombre maximum de tables par séance. De cette manière, si les administrateurs décident de modifier l'un de ces paramètres, ils peuvent facilement le faire en modifiant le fichier \texttt{.env}.
 
 
-\subsection{Fonctionnalités MJ}
+\subsection{Persistance des données}
 
-
-\subsection{Fonctionnalités Administrateur}
-
-
-
-
+Parler un peu DAO et SGBD, quelles tables ont été créées et pourquoi
+\textcolor{red}{Jason}
 
 %-------------------------------------------------------------------------------
 % Section 4
 %-------------------------------------------------------------------------------
 
 \newpage
+\section{Fonctionnalités de l'application}
+
+Un utilisateur de l'application peut être soit un administrateur soit un joueur. Un administrateur se différencie des joueurs puisqu'il est l'organisateur de la conférence. Il a donc un rôle de modération et de planification des séances de jeu de rôle et dispose de fonctionnalités propres.
+
+Quant au joueur, il peut être à la fois joueur (disposant de ses personnages) sur une séance et maître du jeu sur une autre. Bien évidemment, un joueur ne peut pas être simple joueur et maître du jeu lors d’une même séance. Cet aspect permet au joueur d’une séance à l’autre de changer de statut sans avoir besoin de créer un nouveau compte (ainsi un utilisateur n’a besoin que d’un seul compte joueur. Le joueur dispose lui aussi de fonctionnalités qui lui sont propres.
+
+
+\subsection{Fonctionnalités Utilisateur}
+
+On désigne par «~Utilisateur~» toute personne lançant l'application. L'Utilisateur peut aussi bien être un acteur déclaré de la convention (Joueur, Maître du Jeu, Administrateur), qu'une personne intéressée ou un simple passant.\\
+
+L'acteur déclaré peut entrer dans l'application avec l'option "S"authentifier". Il accèdera alors aux fonctionnalités liées à son statut après avoir renseigné son identifiant.\\
+
+La personne intéressée peut s'inscrire à la convention avec l'option "S'inscrire". Après avoir renseigné quelques informations, son compte sera créé et elle pourra alors accéder à son profil en s'authentifiant.\\
+
+Enfin, l'option "Quitter" permet à quiconque de fermer l'application.\\
+
+\subsection{Fonctionnalités communes aux Joueur, Maître du Jeu et Administrateur}
+
+Toute personne s'étant identifiée sur l'application a la possibilité de consulter ses messages ou de se déconnecter.\\
+
+La consultation des messages permet aux Joueurs et Maîtres du Jeu de savoir si une modification est intervenue dans leur emploi du temps. Elle permet aussi à l'Administrateur de savoir si un changement du côté des Joueurs ou Maîtres du jeu a des conséquences sur le déroulement de la convention qui nécessitent son intervention. Pour faciliter l'organisation de chacun, le nombre de nouveaux messages est indiqué lors de la connexion à l'application.\\
+
+La déconnexion permet de sortir de l'application et de redevenir simple Utilisateur.
+
+\subsection{Fonctionnalités spécifiques à l'Administrateur} 
+
+Les fonctionnalités spécifiques à l'Administrateur concernent la gestion de la convention:
+\begin{itemize}
+\item{gestion des comptes}
+\item{gestion des tables\\}
+\end{itemize}
+
+La gestion des comptes consiste à avoir la possibilité de supprimer le compte d'un Joueur en cas de comportement inapproprié. Cela pourrait s'avérer utile par la suite si un système de chat ou de messagerie accessible aux participants devait être implémenté dans l'application (actuellement la messagerie est automatique).\\
+
+La gestion des tables consiste à ajouter/supprimer des tables en fonction de leur taux d'occupation et à intervenir sur la répartition des Joueurs et Maîtres du Jeu. Elle nécessite de pouvoir disposer d'un aperçu d'ensemble de la convention, i.e. de voir, pour chaque séance, l'ensemble des tables disponibles avec les Joueurs et Maîtres du jeu concernés. Si l'Administrateur constate qu'une séance a toutes ses tables suffisamment occupées, il a la possibilité d'ajouter une table pour permettre à davantage de personnes de s'inscrire sur la séance en question. A contrario, si les tables d'une séance sont peu occupées, il peut les réorganiser en déplaçant un personnage (et donc le joueur correspondant) ou un Maître du Jeu sur une autre table, voire supprimer une table vide. Les actions de l'Administrateur qui impactent l'emploi du temps d'un Joueur ou Maître du Jeu entrainent automatiquement l'envoi d'un message à la personne concernée.\\
+
+Chacune de ces fonctionnalités comporte plusieurs étapes. A titre d'exemple, nous allons voir le déplacement d'un personnage. Rappelons que l'Administrateur a au préalable visualisé l'aperçu d'ensemble de la convention et qu'il sait par conséquent quelles tables posent problème avant de lancer cette fonctionnalité. 
+\begin{itemize}
+    \item Etape 1: une liste des tables occupées s'affiche, mentionnant la séance et le scénario. L'Administrateur peut repérer la table problématique dans cette liste.
+    \item Etape 2: il voit la liste des personnages incarnés sur cette table et doit en choisir un.
+    \item Etape 3:la liste des tables de la même séance ayant des places disponibles s'affiche. L'Administrateur a le choix entre les tables de la liste et l'option "Aucune table", signifiant que le Joueur n'a plus de partie programmée sur la séance.
+    \item Etape 4: une confirmation est demandée pour lancer la procédure.
+\end{itemize}
+
+
+\subsection{Fonctionnalités spécifiques au Joueur} 
+
+Les fonctionnalités accessibles au Joueur doivent lui permettre d'organiser sa participation à la convention.\\
+
+Le Joueur qui le souhaite peut accéder au statut de Maître du Jeu grâce à l'option "Devenir Maître du Jeu". Après confirmation de son choix, l'option "Devenir Maître du Jeu" est remplacée par "Accéder au menu Maître du Jeu" qui lui donne l'accès aux fonctionnalités spécifiques du Maître du Jeu.\\
+
+L'option "Voir programme" lui permet de visualiser rapidement l'ensemble des tables sur lesquelles il est inscrit en tant que Joueur ou en tant que Maître du Jeu. Un Joueur ayant la double casquette a ainsi accès à son programme complet en un seul clic.\\
+
+Le Joueur peut gérer ses personnages, grâce aux options "Créer un personnage" (dans la limite de 3 personnages par Joueur), "Supprimer un personnage" et "Lister ses personnages", qui lui donne un résumé des caractéristiques de chaque personnage.\\
+
+Il peut aussi décider de "Rejoindre une table" pour y participer en tant que Joueur, "Quitter une table" s'il ne souhaite plus participer à une table en tant que Joueur, voire de "Supprimer son compte" s'il estime ne plus pouvoir ou vouloir participer à la convention.
+
+
+
+\subsection{Fonctionnalités spécifiques au MJ} 
+
+Un Joueur inscrit comme Maître du Jeu accède en premier lieu à la fonctionnalité lui permettant de "Gérer une table", en proposant un scénario, ce qui a pour effet de rendre la table disponible à l'inscription pour les Joueurs.\\
+
+Il peut par la suite à tout moment consulter l'occupation des tables qu'il gère grâce à l'option "voir les Tables gérées", lui procurant les caractéristiques de chaque personnage inscrit à ses tables.\\
+
+Enfin il peut, en cas de nécessité, décider de "Résilier une table". L'Administrateur en est averti par un message et doit agir pour proposer, dans la mesure du possible, une solution aux Joueurs qui s'étaient inscrits sur cette table.\\
+
+
+\subsection{Détailler une fonctionnalité de A à Z}
+Fonctionnalité de service (cf la classe de tests de table de jeu de \textcolor{blue}{Banruo})
+
+
+
+
+
+%-------------------------------------------------------------------------------
+% Section 5
+%-------------------------------------------------------------------------------
+
+\newpage
 \section{Guide d'utilisation}
 
+Notre application est utilisable par n'importe quel utilisateur (qu’il soit joueur ou administrateur). Il lui suffit de respecter certaines consignes, nécessaires au bon fonctionnement de l’application, que nous allons énoncer par la suite. 
+
 \subsection{Installation de l'application}
+Le lancement de l'application n'est pas immédiat, il faut au préalable suivre un protocole de mise en place et d’installation. \\
 
+Dans un premier temps l’utilisateur doit cloner le code de l’application afin qu’il puisse l’utiliser sur son ordinateur. Il s’agit de créer son dépôt local à partir du code existant sur un dépôt distant hébergé, dans notre cas, par github.
+Pour cela, il doit ouvrir un terminal dans VS Code dans lequel il renseignera l’instruction suivante : git clone git@github.com:ludo2ne/projet-info-2A.git \\
 
+Ensuite, de nombreux packages sont nécessaires à l’architecture du code et au bon fonctionnement de l’application. Il faut donc nécessairement les installer. Ainsi l'utilisateur doit créer un fichier nommée requirements.txt dans lequel il liste ligne par ligne tous les packages suivants: autopep8, inquirerPy, psycopg2-bina, ry, tabulate, regex, pyfiglet, mock, python-dotenv. Pour réaliser l’installation de tous ces packages, l’utilisateur doit ouvrir un terminal et lancer la commande suivante: pip install -r requirements.txt \\
+
+Par la suite il est indispensable aussi que l'utilisateur créait un fichier ‘.env’ contenant les informations suivantes: 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=9cm]{envfile.PNG}
+\caption{
+Contenu du fichier '.env'.}
+\end{figure}
+
+\newpage
 \subsection{Lancement de l'application}
 
+Après toutes les manipulations précédentes réalisées. Le lancement de l’application n’est plus qu’une formalité. L'utilisateur doit ouvrir un terminal et lancer l’instruction suivante: python src/main.py. S’il souhaite effectuer des tests, il peut lancer tous les tests à l'aide de la commande suivante:
+python src/run\_all\_tests.py. \\
+
+Après le temps de chargement, une page d’accueil apparaît, lors de la première utilisation il doit toujours choisir “initialiser la base de données”. Ensuite, il peut choisir de se créer un compte avec son pseudo, son pseudo et son mail. Ce pseudo lui servira d’authentification pour accéder à son menu de joueur où il pourra s’inscrire créer/supprimer des personnages et rejoindre/quitter des tables et bien d’autres fonctionnalités. Il peut aussi avec son compte joueur, devenir maître du jeu et accéder au menu maître du jeu, où il peut créer des scénarios et s’inscrire à des tables non plus en tant que joueur, mais en tant que maître du jeu. A chaque séance il peut décider de prendre l’un des deux rôles.\\
+
+Si l'utilisateur est un administrateur, il peut se connecter en tant qu’administrateur en renseignant le pseudo “admin”. Il accèdera alors à une grande liste de fonctionnalités de modération de la conférence du jeu de rôle. Il peut par exemple supprimer un joueur, supprimer/ajouter des tables.
+
+
+
+
+
+%-------------------------------------------------------------------------------
+% Section 6
+%-------------------------------------------------------------------------------
+
+\newpage
+\section{Perspectives d'amélioration de l'application}
+
+\subsection{Fonctionnalités et paramètres potentiellement améliorables dans l'application}
+nombre de séances (on s'est limité à 4)
+\textcolor{blue}{Banruo}
+
+
+\subsection{Fonctionnalités facultatives à ajouter pour une meilleure organisation}
+les joueurs peuvent modifier leurs données 
+\textcolor{green}{Ludo}\\
+les participants peuvent s'envoyer des messages \textcolor{red}{Jeff}
 
 
 
@@ -199,9 +476,53 @@ Exemple image
 \section*{Conclusion}
 \addcontentsline{toc}{section}{Conclusion}
 
+L'objectif de ce projet était de réaliser une application de gestion des tables pour une conférence de jeux de rôles. Il nous a permis de voir les différentes étapes de conception et de réalisation d'une application. Nous avons pu, à travers ce projet, mettre en œuvre les connaissances acquises pendant les cours en les travaux pratiques (modélisation, développement, programmation en couches...). Le sujet était à la fois intéressant, simple et pédagogique. Durant la phase d'analyse, nous sommes rapidement arrivés à un consensus sur la manière de modéliser notre future application. Cette phase a été très importante, car elle nous a permis, à la fois d'avoir tous le même niveau de connaissance de l'application, et elle nous a également permis de clarifier la manière dont nous allions coder. L’application ressemble en très grande partie à ce que nous avions conçu durant cette phase d’analyse. Nous avons tout de même intégré quelques ajustements et modifications mineures.
+
+\bigbreak
+
+La phase de développement s’est faite principalement en deux étapes. Une première version « bêta zéro » comprenant une unique fonctionnalité a été développée. Le but était de réaliser une preuve de concept (POC) pour vérifier que nous avions une application qui fonctionne pour cet unique service. Nous avons ainsi dans un premier temps codé cette version, incluant toute l’architecture de l’application (base de données, interface…). Cela nous a été très utile par la suite, car à partir de cette première version, le développement des autres fonctionnalités a été beaucoup plus rapide. De plus, nous avons pu facilement paralléliser et nous répartir les développements. Ainsi, la phase de développement a été assez rapide pendant les trois jours dédiés et nous avons pu atteindre nos objectifs.
+
+\bigbreak
+
+L'application finale est opérationnelle et utilisable. Nous avons essayé de la rendre aussi intuitive et ergonomique que possible. Cependant, nous avons conscience que des améliorations peuvent être apportées, mais les délais très courts de ce projet nous ont incités à nous concentrer sur l'essentiel. Nous avons donc le plaisir de vous laisser découvrir notre application.
 
 
 
+
+
+\newpage
+
+\section{Notes personnelles}
+
+\textbf{\Large Note de Hugo Wispelaere}
+
+Le projet d’informatique a été une véritable découverte pour moi à la différence de celui de première année ; en effet il m’a permis de davantage coder et d’acquérir de nouvelles compétences en programmation et de découvrir un autre schéma de structure de code : la programmation en couches, alors que l’année précédente j’étais davantage chargé de la rédaction des rapports.
+
+\bigbreak
+\textbf{ Ma participation effective au projet : }
+
+Lors de l’analyse des besoins et la conception de l’architecture de notre projet, je n’ai pas été très utile dans la conception des diagrammes, car d'autre membres étaient bien plus expérimentés et efficaces. En revanche, je proposais quelques alternatives qui me semblaient pertinentes et judicieuses quant aux choix de certaines classes.  J’avais donc un rôle plus en retrait d’analyse, de questionnement de ce que les autres membres du groupe avaient imaginés. J'essayais aussi avec les autres membres de concilier les avis de tout le monde quand il y avait des avis différents. Il s’agissait de peser le pour et le contre de chaque idée des membres du groupe et de prendre la meilleure solution (et souvent la plus simple à mettre en place). \\ 
+
+Lors de la programmation, j’étais au début très peu à l’aise mais ayant eu un exemple de classe de vue concret de Ludovic, j’ai pu moi-même coder de nombreuses classes de vue (et donc en même temps des méthodes de classes plus compliquées). \\ 
+
+Enfin, lors de la rédaction du rapport, nous avons séparé la rédaction à part égale. Je me suis donc occupé de la rédaction de plusieurs sous-parties comme le lancement de l’application ou encore la description des objets métiers.
+
+\bigbreak
+\textbf{ Mon ressenti sur le projet, comment je l’ai vécu :  }
+
+Le projet me semblait au premier abord très compliqué. J’étais un peu perdu avec le schéma logique des choses. Lorsque j’ai vu les classes s’accumuler dans le diagramme de classes et le nombre de fonctionnalités à implémenter je me suis vite remis en question. Je me demandais si j’allais réussir à comprendre comment articuler le code. Par ailleurs, l’implémentation du code devait se faire avec une structure en couche que je ne connaissais absolument pas avant le cours dédié à cette architecture. Cependant, les membres les plus expérimentés dans le domaine m’ont expliqué pas à pas comment faire. Par exemple, je n'avais aucune idée de comment l’application allait pouvoir s’afficher dans le terminal de VS Code. Mais avec le temps et les exemples déjà mis en place j’ai compris l’architecture de l’application. J’ai donc finalement compris le système de vue, de services et de persistance de données au fur et à mesure. Au final le projet a été très enrichissant en termes d’expérience et de compétences en programmation orientée objet. En effet le groupe de 5 a permis de découvrir la manière de réaliser une tâche et prendre exemple sur eux si je trouvais leur manière de faire plus optimisée que la mienne. 
+
+\bigbreak
+\textbf{ Ce que je retiens du projet :   }
+
+\newpage
+\textbf{\Large Note de Ludovic Deneuville}
+\newpage
+\textbf{\Large Note de Jean-François Parriaud}
+\newpage
+\textbf{\Large Note de Banruo Zhang}
+\newpage
+\textbf{\Large Note de Jason Torres}
 
 %-------------------------------------------------------------------------------
 % Annexes
@@ -230,15 +551,6 @@ Exemple image
 
 
 \restoregeometry
-
-\section*{Annexe 1 - Diagramme de classe UML}
-
-\begin{figure}[H]
-    \label{UML_classes}
-    \centering
-    \includegraphics[angle=90,height=0.9\textheight]{UML_diagrammes/diag_classes.png}
-\end{figure}
-
 
 
 \restoregeometry
