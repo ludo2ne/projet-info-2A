@@ -84,12 +84,13 @@ class TestTableJeuService(unittest.TestCase):
         table_jeu = TableJeu(id_table, id_seance)
 
         # WHEN
+        # Demander la suppression de la table dans la BDD
         statut = TableJeuService().supprimer(table_jeu)
 
         # THEN
-        # vérification de la suppression de la table_jeu
+        # vérification du statut de la requête de suppression de la table_jeu
         self.assertTrue(statut)
-        # On peut vérifier qu'on ne peut pas la trouver dans la base de données
+        # On peut vérifier qu'on ne peut plus la trouver dans la base de données
         self.assertTrue(TableJeuService().trouver_par_id(id_table) is None)
         # Alors qu'on trouve bien la table 1000
         self.assertTrue(TableJeuService().trouver_par_id(1000) is not None)
@@ -107,6 +108,7 @@ class TestTableJeuService(unittest.TestCase):
         infos_complementaires = 'joueurs de niveau 5 minimum'
 
         # WHEN
+        # Recupération des informations sur les tables dans la BDD et instanciation des tables
         t2 = TableJeuService().trouver_par_id(id_table)
         t3 = TableJeuService().trouver_par_id(1099)
 
@@ -132,7 +134,9 @@ class TestTableJeuService(unittest.TestCase):
                             classe="Fighter", race="Dwarf", niveau=1)
 
         # WHEN
+        # On récupère les personnages de la table dans la BDD
         liste_personnages = TableJeuService().lister_personnages(table_jeu)
+        # On transforme les informations des personnages en listes
         liste_perso_as_list = [p.as_list() for p in liste_personnages]
         # Trions les personnages par identifiant croissant.
         liste_perso_as_list.sort(key=lambda perso: perso[0])
@@ -174,13 +178,15 @@ class TestTableJeuService(unittest.TestCase):
                          liste_id_tables_vides_recuperees)
 
     def test_lister(self):
-        # La méthode lister prend 3 paramètres optionnels, nous allons tester les différentes combinaisons
+        # La méthode lister prend 3 paramètres optionnels : joueur, séance, tables complètes
+        #  nous allons tester les différentes combinaisons
         # GIVEN
+        # Nous utiliserons deux joueurs inscrits dans notre base de données pour faire le test
         pseudo1 = "apzoei"
         pseudo2 = "qmsldk"
-        # on utilise des joueurs inscrits dans notre base de données pour faire le test
         joueur1 = JoueurService().trouver_par_pseudo(pseudo1)
         joueur2 = JoueurService().trouver_par_pseudo(pseudo2)
+        # Et deux séances
         seance1 = 1000
         seance2 = 1001
         # Test 1: aucun paramètre, on doit obtenir toutes les tables test (id > 1000)
@@ -258,30 +264,34 @@ class TestTableJeuService(unittest.TestCase):
     def test_est_disponible(self):
         # GIVEN
         # Une table est disponible si elle a moins de 5 joueurs inscrits
-        # Table vide donc disponible
+        # Table vide donc disponible:
         table_jeu1 = TableJeu(id_table=1001, id_seance=1000)
-        table_jeu2 = TableJeu(id_table=1000, id_seance=1000)  # Table complète
-        # Table avec 2 joueurs donc disponible
+        # Table complète:
+        table_jeu2 = TableJeu(id_table=1000, id_seance=1000)
+        # Table avec 2 joueurs donc disponible:
         table_jeu3 = TableJeu(id_table=1004, id_seance=1001)
 
         # WHEN
+        # On demande de vérifier la disponible de chaque table
         dispo1 = TableJeuService().est_disponible(table_jeu1)
         dispo2 = TableJeuService().est_disponible(table_jeu2)
         dispo3 = TableJeuService().est_disponible(table_jeu3)
 
         # THEN
-        self.assertTrue(dispo1)  # Table sans joueur
-        self.assertFalse(dispo2)  # Table complète à 5 joueurs
-        self.assertTrue(dispo3)  # Table à 2 joueurs
+        self.assertTrue(dispo1)  # Table sans joueur: disponible
+        self.assertFalse(dispo2)  # Table complète à 5 joueurs: non disponible
+        self.assertTrue(dispo3)  # Table à 2 joueurs: disponible
 
     """def test_affichage_liste(self):          La sortie est un tableau à afficher, comment tester ça?"""
 
     def test_trouver_mj(self):
         # GIVEN
+        # On instancie deux joueurs
         joueur1 = JoueurService().trouver_par_pseudo("mlkjhg")
         mj1 = MaitreJeu(joueur1)
         joueur2 = JoueurService().trouver_par_pseudo("qpsodd")
         mj2 = MaitreJeu(joueur2)
+        # On instancie trois tables
         id_table1 = 1000  # Cette table a mj1 pour mj
         id_table2 = 1004  # Cette table a mj2 pour mj
         id_table3 = 1002  # Cette table n'a pas de mj
@@ -290,6 +300,7 @@ class TestTableJeuService(unittest.TestCase):
         table_jeu3 = TableJeuService().trouver_par_id(id_table3)
 
         # WHEN
+        # On récupère le mj de chaque table dans la BDD
         mj1r = TableJeuService().trouver_mj(table_jeu1)
         mj2r = TableJeuService().trouver_mj(table_jeu2)
         mj3r = TableJeuService().trouver_mj(table_jeu3)

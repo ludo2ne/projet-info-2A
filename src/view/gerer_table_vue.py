@@ -35,6 +35,7 @@ class GererTableVue(VueAbstraite):
         for el in liste_table_mj:
             liste_seance_occupe.append(el.id_seance)
 
+        # Création de la liste des séances à afficher
         liste_seances_affichee = []
         i = 1
         for s in liste_seance:
@@ -87,25 +88,28 @@ class GererTableVue(VueAbstraite):
         else:
             id_seance = int(reponse["seance"].split()[2])
 
+        # On vérifie s'il reste des tables libres sur la séance
+        seance = SeanceDao().trouver_par_id(id_seance)
+        liste_tables_jeu = TableJeuDao().tables_sans_maitre_du_jeu(seance)
+        if len(liste_tables_jeu) == 0:
+            message = "Désolé, il n'y a plus de table disponible pour la séance sélectionnée, vous pouvez choisir une autre séance"
+            from view.maitre_jeu_menu_vue import MaitreJeuMenuVue
+            return MaitreJeuMenuVue(message)
+
+        # On demande le scenario et les infos complémentaires
         reponse = prompt(self.questions[1])
         scenario = reponse["scenario"]
         reponse = prompt(self.questions[2])
         info_complementaire = reponse["info_comple"]
 
-        seance = SeanceDao().trouver_par_id(id_seance)
-
+        # On appelle le service de gestion de table
         resultat = MaitreJeuService().gerer_table(
             seance, scenario, info_complementaire)
-        # verifier si MJ est libre pour la sceance
-        if resultat == "mj non libre":  # MJ n'est pas libre
-            message = "Vous êtes déjà inscrit sur une autre table pour cette séance"
-            from view.maitre_jeu_menu_vue import MaitreJeuMenuVue
-            return MaitreJeuMenuVue(message)
-        elif resultat == "non table libre":
-            message = "Désolé, il n'y a plus de table disponible pour la séance sélectionnée, vous pouvez choisir une autre séance"
-            from view.maitre_jeu_menu_vue import MaitreJeuMenuVue
-            return MaitreJeuMenuVue(message)
-        elif resultat == "OK":
+
+        if resultat == "OK":
             message = "Vous êtes officiellement Maître du Jeu pour la séance : " + seance.description
-            from view.maitre_jeu_menu_vue import MaitreJeuMenuVue
-            return MaitreJeuMenuVue(message)
+        else:
+            message = "oups, il y a eu un petit souci..."
+
+        from view.maitre_jeu_menu_vue import MaitreJeuMenuVue
+        return MaitreJeuMenuVue(message)
