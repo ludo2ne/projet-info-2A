@@ -18,7 +18,7 @@ git clone git@github.com:ludo2ne/projet-info-2A.git
 * File > Open Folder > **projet-info-2A**
 
 
-## required packages to install
+## Required packages to install
 
 The packages necessary for the proper functioning of the application are :
 * [inquirerPy](https://inquirerpy.readthedocs.io/en/latest/)
@@ -83,7 +83,6 @@ In a git bash terminal write the following instruction to launch the app or to r
 python src/main.py                       # to launch the app
 python src/run_all_tests.py              # to launch all of the tests
 python -m unittest
-python src/utils/reset_database.py       # to create schema and tables and then pop tables with a data sample
 ```
 
 
