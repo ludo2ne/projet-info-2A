@@ -104,7 +104,6 @@ class MaitreJeuService:
             for player in joueur_list:
                 message = f"Le Maitre du Jeu {mj.pseudo} a quitté la table {table_correspondante.id_table} du {dict_seance[str(table_correspondante.id_seance)]}."
                 statut_notif_joueur = MessageDao().creer(player, message)
-                print(f"Message au joueur {player.pseudo}")
                 if not statut_notif_joueur:
                     err_message += f"Le joueur {player.pseudo} n'a pas pu être notifié.\n"
 
@@ -133,34 +132,14 @@ class MaitreJeuService:
         if not mj:
             mj = Session().user
 
-        # Vérification de la disponibilité d'un mj pour voir si le mj peut gérer une table
-        # voir si le mj a deja inscrit pour une meme seance en tant que mj
-        table_list_mj = []
-        table_list_mj = MaitreJeuDao().lister_tables_mj(mj)
-        for i in range(len(table_list_mj)):
-            if table_list_mj[i][1] == seance.id_seance:
-                resultat = "mj non libre"
-                return resultat
-        # voir si le mj a deja inscrit pour une meme seance en tant que joueur
-        table_list_j = TableJeuDao().lister(joueur=mj, seance=None)
-        for table_jeu in table_list_j:
-            if table_jeu.id_seance == seance.id_seance:
-                resultat = "mj non libre"
-                return resultat
-
         if table:
-            # Si un table a ete donnee en parametre
+            # Si une table a ete donnee en parametre
             table_jeu = table
         else:
             # Sinon on cherche une table libre pour la seance
             liste_tables_jeu = TableJeuDao().tables_sans_maitre_du_jeu(seance)
-            table_jeu = None
-            if liste_tables_jeu == []:
-                resultat = "non table libre"
-                return resultat
-            else:
-                # on prend la premiere table de la liste
-                table_jeu = liste_tables_jeu[0]
+            # on prend la premiere table de la liste
+            table_jeu = liste_tables_jeu[0]
 
         table_jeu.scenario = scenario
         table_jeu.infos_complementaires = infos_complementaires
@@ -189,6 +168,7 @@ class MaitreJeuService:
 
         dict_seance = SeanceDao().lister_toutes(dict=True)
 
+        # Liste des tables avec joueur comme mj
         table_jeu = TableJeuDao().lister(mj=joueur)
 
         entetes = ["séance", "id_table", "scénario", "Personnages"]
@@ -199,11 +179,12 @@ class MaitreJeuService:
         # liste de liste des persos de chaque table
         list_perso_des_tables = [t.liste_perso() for t in table_jeu]
 
+        # Préparation de l'affichage
         table_as_list = [t.as_list()[0:len(entetes)-1] for t in table_jeu]
         for el in table_as_list:
             el[0] = dict_seance[str(el[0])]
-        print(table_as_list)
 
+        # Affichage des personnages sur chaque table
         i = 0
         for table in table_jeu:
             perso_as_list = [p.as_list()[1:len(entetes_perso)+1]
@@ -212,7 +193,7 @@ class MaitreJeuService:
                                       headers=entetes_perso,
                                       tablefmt="psql",
                                       floatfmt=".2f") + "\n"
-
+            # Affichage de la table (tableaux imbriqués)
             table_as_list[i].append(resultat_perso)
             i += 1
 
