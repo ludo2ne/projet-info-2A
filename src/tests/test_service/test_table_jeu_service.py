@@ -274,8 +274,6 @@ class TestTableJeuService(unittest.TestCase):
         self.assertFalse(dispo2)  # Table complète à 5 joueurs
         self.assertTrue(dispo3)  # Table à 2 joueurs
 
-    """def test_affichage_liste(self):          La sortie est un tableau à afficher, comment tester ça?"""
-
     def test_trouver_mj(self):
         # GIVEN
         joueur1 = JoueurService().trouver_par_pseudo("mlkjhg")

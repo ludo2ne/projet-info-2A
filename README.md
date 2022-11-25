@@ -2,7 +2,7 @@
 
 ## Description
 
-
+An application to manage tables, players and game masters at a role-playing conference
 
 
 ## Creation of the local repository
@@ -12,9 +12,11 @@ In a git bash terminal fill the following link to clone the project:
 git clone git@github.com:ludo2ne/projet-info-2A.git
 ```
 
+
 ## Visual Studio Code 
 
 * File > Open Folder > **projet-info-2A**
+
 
 ## required packages to install
 
@@ -52,6 +54,7 @@ NB_TABLES_MAX_PAR_SEANCE=10
 NB_SEANCES_MAX=4
 ```
 
+
 ## Create a PostgreSQL database 
 Create the database and fill in the following attributes in the `.env` file :
 - HOST
@@ -60,6 +63,19 @@ Create the database and fill in the following attributes in the `.env` file :
 - DATABASE
 - PORT
 
+
+## How to create and pop the database
+
+You will find the following files in the **data** folder :
+* `init_db.sql` to create schema and tables
+* `pop_db.sql` to pop tables with a data sample
+
+You can also use this command to call those above scripts
+```bash
+python src/utils/reset_database.py       # to create schema and tables and then pop tables with a data sample
+```
+
+
 ## How to launch the app
 
 In a git bash terminal write the following instruction to launch the app or to run all of the tests
@@ -67,11 +83,8 @@ In a git bash terminal write the following instruction to launch the app or to r
 python src/main.py                       # to launch the app
 python src/run_all_tests.py              # to launch all of the tests
 python -m unittest
+python src/utils/reset_database.py       # to create schema and tables and then pop tables with a data sample
 ```
-
-At the very first launch of the application, choose **initialiser la base de données** in the menu to :
-- create schema and tables
-- pop tables with a data sample
 
 
 ## How to log as an Administrator

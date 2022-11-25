@@ -176,10 +176,10 @@ La troisième strate illustre les différentes phases du projet. Les six premiè
 
 La dernière strate montre les tâches concrètes à réaliser et est complétée au fur et à mesure.\\
 
-Lorsque la dernière phase ait été entamé, la rédaction du rapport a pu commencé. 
-En ce qui concerne l’implémentation du code, une répartition a été réalisée en fonction du niveau de chacun. Les classes les plus accessibles comme les classes de vue ont été réalisées par les membres du groupe les moins à l’aise. Tandis que les classes de service qui ont été bien plus difficiles à implémenter ont été coder par les membres les plus à l’aise du groupe.Les trois jours dédiés au projet ont permis d’aboutir à 90% du code final. \\
+Lorsque la dernière phase a été entamée, la rédaction du rapport a pu commencer. 
+En ce qui concerne l’implémentation du code, une répartition a été réalisée en fonction du niveau de chacun. Les classes les plus accessibles comme les classes de vue ont été réalisées par les membres du groupe les moins à l’aise. Tandis que les classes de service qui ont été bien plus difficiles à implémenter ont été codées par les membres les plus à l’aise du groupe. Les trois jours dédiés au projet ont permis d’aboutir à 90\% du code final. \\
 
-Puis au retour des vacances, le plan du rapport final a été élaboré tous ensemble. Chaque proposition a été étudiée et prise en considération si le groupe la trouvait pertinente. Une concertation de quelques heures a permis d’aboutir au plan final du rapport. Concernant la rédaction de ce dernier, tous les membres ont eu à charge plusieurs sous-parties.
+Puis au retour des vacances, le plan du rapport final a été élaboré coinointement. Chaque proposition a été étudiée et prise en considération si le groupe la trouvait pertinente. Une concertation de quelques heures a permis d’aboutir au plan final du rapport. Concernant la rédaction de ce dernier, tous les membres ont eu à charge plusieurs sous-parties.
 
 
 %-------------------------------------------------------------------------------
@@ -307,7 +307,7 @@ Ensuite, concernant les classes pour communiquer avec la base de données ou l'A
 
 \bigbreak
 
-La question suivante était de savoir comment fonctionnait le package \texttt{inquirerPy} que nous devions utiliser pour notre interface avec l'utilisateur. Nous avons été agréablement surpris par la simplicité d'utilisation de cet outil et par toutes les possibilités qui étaient offertes. Nous avons utilisé certaines d'entre elles, par exemple pour vérifier qu'une entrée est non vide, que pour saisir le niveau d'un personnage, il faut que l'entrée soit numérique, ou encore que mis en place une expression régulière pour vérifier la validité de saisie d'une adresse mail.
+La question suivante était de savoir comment fonctionnait le package \texttt{inquirerPy} que nous devions utiliser pour notre interface avec l'utilisateur. Nous avons été agréablement surpris par la simplicité d'utilisation de cet outil et par toutes les possibilités qui étaient offertes. Nous avons utilisé certaines d'entre elles pour vérifier que les entrées de l'utilisateur correspondaient à nos attentes (entrée non vide, entrée numérique pour le niveau d'un personnage, entrée avec arobase pour une adresse mail).
 
 \bigbreak
 
@@ -315,8 +315,8 @@ Un autre besoin était d'afficher des tableaux de manière lisible et ergonomiqu
 
 \bigbreak
 
-Lors de la mise en place de la base de données, nous avons créé un schéma \texttt{jdr} (pour que tous les objets soient regroupés dans un même schéma), des tables, ainsi que d'un échantillon de données. Cet échantillon est principalement utile pour éviter d'avoir à saisir manuellement des joueurs, des personnages lorsque l'on veut tester notre code python. Nous avons pensé que ce serait utile d'avoir une fonctionnalité qui permet de réinitialiser la base de données et nous l'avons donc mis en place. 
-Ainsi, lorsque nous voulions réinitialiser les données, nous avions cette possibilité dans le menu de l'application, ce qui est beaucoup plus simple et rapide que relancer les scripts de création «~à la main~».
+Lors de la mise en place de la base de données, nous avons créé un schéma \texttt{jdr} (pour que tous les objets soient regroupés dans un même schéma), des tables, ainsi que d'un échantillon de données. Cet échantillon est principalement utile pour éviter d'avoir à saisir manuellement des joueurs, des personnages lorsque l'on veut tester notre code python. Nous avons pensé que ce serait utile d'avoir une fonctionnalité qui permet de réinitialiser la base de données et nous l'avons donc mise en place. 
+Ainsi, lorsque nous voulions réinitialiser les données, nous avions cette possibilité dans le menu de l'application, ce qui est beaucoup plus simple et rapide que de relancer les scripts de création «~à la main~».
 
 \bigbreak
 
@@ -403,10 +403,17 @@ Enfin il peut, en cas de nécessité, décider de "Résilier une table". L'Admin
 
 
 \subsection{Détailler une fonctionnalité de A à Z}
-Fonctionnalité de service (cf la classe de tests de table de jeu de \textcolor{blue}{Banruo})
+Toutes les fonctionnalités ci-dessus doivent être coordonnées entre les fonctions des différentes couches pour être complètes. Voici un exemple du flux de travail de l'application lors du lancement de la fonctionnalité "Résilier une table" du Maître du Jeu.\\
 
+Lorsque le Maître du Jeu sélectionne "Résilier une table", l'application commence par se diriger vers la vue ResilierTableVue. Aussitôt l'application appelle la méthode "service" lister\_tables du module MaitreJeuService de la couche Service pour trouver toutes les tables sur lesquelles l'utilisateur s'est enregistré comme MJ. Cette méthode "service" appelle la méthode "dao" lister\_tables\_mj du module MaitreJeuDao pour obtenir la liste via la base de données. Les tables sont ensuite rangées dans l'ordre chronologique grâce au numéro de séance qui fait partie de leurs attributs (1 pour Samedi matin, etc). Pour que l'affichage soit clair, nous avons préféré afficher le descriptif de la séance et le scénario. L'obtention du descriptif se fait grâce à un dictionnaire importé via la méthode "dao" lister\_toutes du module SéanceDao.\\
 
+Si le Maître du Jeu n'a pas de tables qui peuvent être résiliées, aucune liste ne s'affiche, il obtient le message "Vous ne gérez pas de table actuellement" et revient à la vue MaitreJeuMenuVue.\\
 
+S'il a des tables à gérer, la liste s'affiche. Le Maître du Jeu peut changer d'avis et sélectionner "Non, finalement j'ai changé d'avis": aucune table n'est résiliée et il revient à la vue MaitreJeuMenuVue.\\
+
+Il peut aussi choisir une table dans la liste et confirmer son choix. Une fois que le Maître du Jeu a confirmé la résiliation, l'application appelle la méthode "service" resilier\_table du module MaitreJeuService, où resilier\_table est programmée pour terminer la résiliation de la table de jeu et pour envoyer une notification à l'administrateur et aux joueurs de la table. Cette méthode "service" appelle les méthodes "dao" lister du module TableJeuDao pour localiser et instancier la table à supprimer et joueurs\_assis du module TableJeuDao pour trouver les joueurs à la table. Ensuite elle appelle la méthode "dao" resilier\_table du module MaitreJeuDao pour supprimer la table dans la base de données. Enfin, la méthode "dao" creer du module MessageDao inscrit dans la base de données un message de résiliation à l'administrateur et aux joueurs concernés, qu'ils pourront lire par la suite.\\
+
+Une fois la résiliation effectuée, le maître du jeu revient à la vue MaitreJeuMenuVue et reçoit un message confirmant son départ de la table.
 
 
 %-------------------------------------------------------------------------------
@@ -426,7 +433,7 @@ Pour cela, il doit ouvrir un terminal dans VS Code dans lequel il renseignera l�
 
 Ensuite, de nombreux packages sont nécessaires à l’architecture du code et au bon fonctionnement de l’application. Il faut donc nécessairement les installer. Ainsi l'utilisateur doit créer un fichier nommée requirements.txt dans lequel il liste ligne par ligne tous les packages suivants: autopep8, inquirerPy, psycopg2-bina, ry, tabulate, regex, pyfiglet, mock, python-dotenv. Pour réaliser l’installation de tous ces packages, l’utilisateur doit ouvrir un terminal et lancer la commande suivante: pip install -r requirements.txt \\
 
-Par la suite il est indispensable aussi que l'utilisateur créait un fichier ‘.env’ contenant les informations suivantes: 
+Par la suite il est indispensable aussi que l'utilisateur crée un fichier ‘.env’ contenant les informations suivantes: 
 
 \begin{figure}[h]
 \centering
@@ -443,7 +450,7 @@ python src/run\_all\_tests.py. \\
 
 Après le temps de chargement, une page d’accueil apparaît, lors de la première utilisation il doit toujours choisir “initialiser la base de données”. Ensuite, il peut choisir de se créer un compte avec son pseudo, son pseudo et son mail. Ce pseudo lui servira d’authentification pour accéder à son menu de joueur où il pourra s’inscrire créer/supprimer des personnages et rejoindre/quitter des tables et bien d’autres fonctionnalités. Il peut aussi avec son compte joueur, devenir maître du jeu et accéder au menu maître du jeu, où il peut créer des scénarios et s’inscrire à des tables non plus en tant que joueur, mais en tant que maître du jeu. A chaque séance il peut décider de prendre l’un des deux rôles.\\
 
-Si l'utilisateur est un administrateur, il peut se connecter en tant qu’administrateur en renseignant le pseudo “admin”. Il accèdera alors à une grande liste de fonctionnalités de modération de la conférence du jeu de rôle. Il peut par exemple supprimer un joueur, supprimer/ajouter des tables.
+Si l'utilisateur est un administrateur, il peut se connecter en tant qu’administrateur en renseignant le pseudo “admin”. Il accèdera alors à une grande liste de fonctionnalités de modération de la conférence de jeu de rôle. Il peut par exemple supprimer un joueur, supprimer/ajouter des tables.
 
 
 
@@ -458,14 +465,31 @@ Si l'utilisateur est un administrateur, il peut se connecter en tant qu’admini
 
 \subsection{Fonctionnalités et paramètres potentiellement améliorables dans l'application}
 nombre de séances (on s'est limité à 4)
+* connexion avec mot de passe
 \textcolor{blue}{Banruo}
 
 
 \subsection{Fonctionnalités facultatives à ajouter pour une meilleure organisation}
-les joueurs peuvent modifier leurs données 
-\textcolor{green}{Ludo}\\
-les participants peuvent s'envoyer des messages \textcolor{red}{Jeff}
 
+Au fur et à mesure que nous avancions dans le code de l'application, nous nous rendions compte que certaines fonctionnalités pourraient être intéressantes et également utiles. Nous n'avons pas eu le temps de mettre en place ces fonctionnalités additionnelles, mais nous pensons qu'elles pourraient faire l'objet de demandes d'évolution sur notre application.
+
+\bigbreak
+
+Une des premières possibilités à laquelle nous avons pensé serait d'autoriser l'utilisateur à modifier ses informations personnelles. Actuellement, le joueur saisit ses informations lors de l'inscription et ne peut plus les modifier. Il peut cependant supprimer son compte et le recréer s'il en a la volonté. Ainsi, nous aurions pu ajouter une fonctionnalité pour autoriser le joueur à modifier ses informations personnelles.
+
+\bigbreak
+
+Lorsqu'un joueur souhaite rejoindre une table de jeu, on lui demande de choisir un personnage parmi ceux qu'il a créé pour jouer. Par contre, il ne peut pas voir quels sont les autres personnages déjà présents à la table et cela pourrait avoir un impact sur son choix. Imaginons qu'à une table de jeu, il y ait déjà deux Magiciens, et que le joueur souhaite rejoindre cette table avec son personnage qui est également de type Magicien. Peut-être qu'en sachant les personnages déjà présents à la table, notre joueur aurait choisi un autre personnage.
+
+\bigbreak
+
+Dans notre application, nous avons utilisé des messages pour avertir les joueurs ou administrateurs de certaines actions les impactant. Nous pourrions imaginer étendre ce système de message pour autoriser les administrateurs à communiquer à tout le monde, les Maîtres du jeu à envoyer des messages aux joueurs de leurs tables et éventuellement de donner la possibilité à tous les joueurs d'échanger des messages. Même si ce dernier point commencerait à complexifier sérieusement notre application.
+
+\bigbreak
+
+Une des fonctionnalités les plus compliquées à développer fut le déplacement des Maîtres du jeu. Nous avons pris le parti de n'autoriser un déplacement de Maître du jeu que vers une table de la même séance. De plus, le Maître du jeu «~emporte~» son scénario avec lui. En perfectionnant cette fonctionnalité, nous pourrions imaginer que le Maître du jeu puisse être déplacé vers une autre séance, ainsi que le scénario de sa table puisse être modifié par l'administrateur.
+
+\bigbreak
 
 
 %-------------------------------------------------------------------------------
@@ -476,7 +500,7 @@ les participants peuvent s'envoyer des messages \textcolor{red}{Jeff}
 \section*{Conclusion}
 \addcontentsline{toc}{section}{Conclusion}
 
-L'objectif de ce projet était de réaliser une application de gestion des tables pour une conférence de jeux de rôles. Il nous a permis de voir les différentes étapes de conception et de réalisation d'une application. Nous avons pu, à travers ce projet, mettre en œuvre les connaissances acquises pendant les cours en les travaux pratiques (modélisation, développement, programmation en couches...). Le sujet était à la fois intéressant, simple et pédagogique. Durant la phase d'analyse, nous sommes rapidement arrivés à un consensus sur la manière de modéliser notre future application. Cette phase a été très importante, car elle nous a permis, à la fois d'avoir tous le même niveau de connaissance de l'application, et elle nous a également permis de clarifier la manière dont nous allions coder. L’application ressemble en très grande partie à ce que nous avions conçu durant cette phase d’analyse. Nous avons tout de même intégré quelques ajustements et modifications mineures.
+L'objectif de ce projet était de réaliser une application de gestion des tables pour une conférence de jeux de rôles. Il nous a permis de voir les différentes étapes de conception et de réalisation d'une application. Nous avons pu, à travers ce projet, mettre en œuvre les connaissances acquises pendant les cours et les travaux pratiques (modélisation, développement, programmation en couches...). Le sujet était à la fois intéressant, simple et pédagogique. Durant la phase d'analyse, nous sommes rapidement arrivés à un consensus sur la manière de modéliser notre future application. Cette phase a été très importante, car elle nous a permis, à la fois d'avoir tous le même niveau de connaissance de l'application, et elle nous a également permis de clarifier la manière dont nous allions coder. L’application ressemble en très grande partie à ce que nous avions conçu durant cette phase d’analyse. Nous avons tout de même intégré quelques ajustements et modifications mineures.
 
 \bigbreak
 
@@ -515,12 +539,80 @@ Le projet me semblait au premier abord très compliqué. J’étais un peu perdu
 \bigbreak
 \textbf{ Ce que je retiens du projet :   }
 
+Ce que je retiens de ce projet de 3 mois, c’est qu’il ne faut pas commencer avec des à priori. Je suis parti du principe que je ne serais pas capable de participer au code de l’application. Et pourtant j’ai bien contribué au développement de ce dernier. Je retiens aussi qu’il ne faut pas chercher à avoir la perfection tout de suite, que ça soit pour le diagramme de classe ou encore le code. En effet, l'amélioration de ces derniers se fait au fur et à mesure, on ne peut pas penser à tout instantanément, il faut un temps d'adaptation et de manipulation du sujet. Enfin une chose que je retiens à la fin de ce projet réside dans le fait qu’il existe toujours des améliorations possibles dans un projet. Il est toujours possible d’ajouter des fonctionnalités facultatives qui sont plus ou moins intéressantes pour un joueur, mais aussi des améliorations en ce qui concerne l’optimisation du code (afin que l’application tourne plus vite par exemple).
+
 \newpage
+
 \textbf{\Large Note de Ludovic Deneuville}
+
+\bigbreak
+
+J'ai abordé ce projet avec un certain enthousiasme, car j'aime beaucoup les projets informatiques. À notre première session, j'étais assez rassuré quant à la composition de notre équipe. L'année précédente, j'avais vécu une expérience compliquée lors du projet stat de 1A, et je souhaitais éviter que cela se reproduise. Après un bref tour de table des compétences et appétences de chacun, tout le monde était motivé pour développer, c'était une excellente nouvelle.
+
+\bigbreak
+
+Lors de la répartition des rôles, j'ai vite compris que personne ne serait candidat pour être chef de projet et que ce rôle allait me revenir. Ayant déjà expérimenté ce rôle dans ma vie professionnelle, et lors de chacun de mes projets ENSAI, ce n'était pas un rôle que je souhaitais particulièrement, mais après tout pourquoi pas, chaque projet est différent et toute nouvelle expérience est bonne à prendre.
+
+\bigbreak
+
+Mon point fort en tant que chef de projet est l'organisation. Je sais très bien gérer, lister les tâches, suivre l'avancement... C'est vraiment une partie que je fais avec plaisir. Mon point faible, c'est le management. Même si je ne me considère pas comme le grand chef, mon rôle implique inévitablement de motiver l'équipe pour que le projet avance bien, ce que je pense n'avoir réussi que partiellement. De toute façon ce n'est pas facile d'avancer tous ensemble alors que nous avons une charge de travail très importante à côté.
+
+\bigbreak
+
+Concernant la partie analyse, ça faisait partie de mon métier avant de venir à l'ENSAI. J'ai essayé de laisser tout le monde participer, ce qui a été le cas. Après, parfois, j'ai dû mettre un veto sur certains choix qui me paraissaient trop compliqués à mettre en œuvre. Parfois aussi, pour essayer d'éviter d'être trop directif, j'ai su laisser les autres décider lorsque je n'étais pas assez convaincant, même si j'étais sûr que lors de la mise en pratique cela allait coincer. Après cela concernait généralement des choix mineurs qui ne nous ont pas fait perdre beaucoup de temps par la suite. En-tout-cas, je pense que nous avions fourni un travail sérieux d'analyse.
+
+\bigbreak
+
+Ensuite pour la partie programmation, comme dit plus haut, dans l'équipe, tout le monde veut développer. C'est une très bonne chose, par contre, je souhaitais faire en sorte que tout le monde aille dans la même direction. La première étape qui m'a paru indispensable et que je conseille plus que fortement à nos successeurs est de coder une fonctionnalité basique utilisant toutes les couches. Aussi, ayant mis un certain temps à comprendre l'intérêt de la programmation en couches, je me doutais que cela ne serait pas simple pour mes coéquipiers et que je me devais de débroussailler le terrain. De plus, ne pratiquant le Python que depuis peu, cela m'a pris un peu de temps, car cela implique de mettre en place de nombreuses choses, par exemple créer et remplir une base de données. Même si ce ne fut pas simple, j'étais satisfait d'avoir assez vite une v0 qui tourne.
+
+\bigbreak
+
+Lors de la phase de développement, tout est allé assez vite. J'ai passé un peu de temps à faire du pair programming et tout a bien avancé, en particulier lors des trois jours dédiés. La période suivante fut plus compliquée car rythmée par des examens et donc c'était compliqué de remotiver l'équipe pour terminer le projet. Actuellement, nous sommes en pleine rédaction du rapport et soyons honnêtes, ce n'est pas la partie qui nous plaît le plus. En-tout-cas, je suis assez satisfait de la manière dont s'est déroulé ce projet, merci à toute l'équipe !
+
+
+
 \newpage
-\textbf{\Large Note de Jean-François Parriaud}
+
+\textbf{\Large Note de Jean-François Parriaud}\\
+
+J'ai commencé à apprendre le langage Python pour les besoins de mon précédent métier il y a deux ou trois ans. Le projet d’informatique était pour moi à la fois source d'appréhension et d'excitation. Mon excitation venait du fait que j'aime coder, et qu'un projet consistant n'était pas pour me déplaire. L'appréhension venait du fait que la programmation orientée objet était nouvelle pour moi, ainsi que les logiciels utilisés à l'ENSAI, et que j'ai toujours programmé seul jusqu'ici.
+
+\bigbreak
+\textbf{ Ma participation effective au projet : }
+
+Lors de la phase de conception de l’architecture de notre projet,
+j'ai réfléchi de mon côté au diagramme de classes et au diagramme de base de données pour pouvoir participer à la discussion. C'était l'occasion de réinvestir des notions que j'estimais avoir assez bien comprises et j'ai pu participer activement à la discussion. La position du Maître du Jeu est vite apparue comme problématique.\\
+Lorsque la notion de couches a été abordée en TP et qu'il fallait voir comment l'implémenter dans le projet, j'étais plus en retrait: je n'étais pas à l'aise avec cette notion. Lorsque notre tutrice nous a par la suite parlé de répartition des tâches pour la programmation, je pensais être insuffisamment préparé pour les vues et la DAO, et plutôt me rabattre sur les services.\\
+
+Cependant Ludovic avait dans l'idée que chacun code au moins une fonctionnalité de A à Z, c-à-d de la couche vue à la couche dao. Il a ainsi attribué une fonctionnalité à chacun. La mienne était "Supprimer un personnage". Ludovic avait déjà créé toute l'architecture et codé une fonctionnalité complète. Dans un premier temps, j'ai navigué dans le code afin de comprendre son fonctionnement, puis je me suis lancé en m'inspirant de son travail. Ca a été laborieux, mais en y allant pas à pas, j'ai pu aller au bout de la fonctionnalité et j'étais rassuré. Par la suite, je n'ai plus eu d'appréhension à l'idée de coder une fonctionnalité de bout en bout et je me suis spécialisé dans les suppressions et les affichages.\\
+
+Lors de la rédaction du rapport, je me suis occupé de la partie fonctionnalités et suis membre du comité de relecture. En parallèle j'ai continué de tester l'application pour détecter des bugs ou des problèmes d'ergonomie.\\
+
+\bigbreak
+\textbf{ Mon ressenti sur le projet, comment je l’ai vécu :  }
+
+Les premières semaines après mon arrivée à l'ENSAI, j'avais l'impression d'avoir toujours un train de retard: messages non lus, fonctionnement du réseau à comprendre, des applications et des langages nouveaux (R, SAS). Je craignais en plus d'avoir du mal à m'intégrer dans un travail d'équipe avec des élèves qui se connaissaient déjà depuis un an. Finalement l'intégration s'est bien passée, l'ambiance dans l'équipe était bonne, chacun s'est investi à sa façon.\\
+Nous avons alterné le travail individuel et les phases de concertation, échangé sur Discord pour nous tenir au courant du travail de chacun. Cela permettait d'être bien concentré sur sa tâche, tout en sachant pouvoir compter sur les autres en cas de besoin, et de pouvoir suivre l'avancement global des travaux. De plus les entretiens réguliers avec notre tutrice nous ont permis de savoir si nos idées tenaient la route et si nous étions dans le bon tempo.\\
+
+\bigbreak
+\textbf{ Ce que je retiens du projet :   }
+
+Un projet complexe est moins linéaire qu'un programme individuel. Le fait d'être plusieurs sur le projet a été très utile, pour confronter les points de vue et utiliser au mieux les appétences de chacun. Nous avons parfois dû remettre en cause des idées trop simplistes, rajouter des classes, des méthodes non prévues initialement. Avoir une personne qui teste différente de celle qui code permet aussi d'apporter des améliorations notables sur l'ergonomie. Avec le recul de cette première expérience, j'ai conscience qu'avec une équipe soudée, on peut se permettre de prendre en charge un projet qui serait inenvisageable seul.\\
+
+A titre personnel, j'ai pris davantage confiance en mes capacités d'adaptation à un nouvel environnement et j'ai pu confirmer mon goût pour le code.
+
 \newpage
 \textbf{\Large Note de Banruo Zhang}
+
+
+
+
+
+
+
+
+
+
 \newpage
 \textbf{\Large Note de Jason Torres}
 

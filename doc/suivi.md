@@ -57,8 +57,8 @@ gantt
     Conception                   :active,      2022-09-05, 25d
     Rapport d'Analyse            :active,      2022-09-20, 20d
     v0 appli                     :active,      2022-09-15, 10d
-    Développement                :active,      2022-10-01, 45d
-    Rapport Final                :active,      2022-11-01, 20d
+    Développement                :active,      2022-10-01, 50d
+    Rapport Final                :active,      2022-11-01, 26d
     Présentation                 :active,      2022-11-20, 15d
     
     
@@ -76,6 +76,32 @@ gantt
 | 08 oct. | ~~[Dossier d'analyse](https://www.overleaf.com/7459989917xsmkkjbfvdqs)~~ 
 | 26 nov. | [Rapport final](https://www.overleaf.com/2118446326mqvrspgxdcnj) (:hammer_and_wrench:  [correcteur orthographe et grammaire](https://www.scribens.fr/)) | 
 |  6 déc. | PPT soutenance                                               |
+
+-------------------------------------------
+# :checkered_flag: Dernière ligne droite (ou presque)
+-------------------------------------------
+
+TOUT LE MONDE est concerné par les tâches suivantes : 
+
+* Tester l'application de fond en comble "manuellement" :clock1: <iframe src="https://free.timeanddate.com/countdown/i83zdl7u/n1264/cf11/cm0/cu2/ct4/cs0/ca0/co0/cr0/ss0/cac009/cpcf00/pcfff/tcfff/fs100/szw256/szh108/iso2022-11-23T23:59:00" allowtransparency="true" frameborder="0" width="130" height="16"></iframe>
+    * [x] [color=green][name=Ludo] 
+    * [ ] [color=purple][name=Hugo] 
+    * [ ] [color=blue][name=Banruo] 
+    * [ ] [color=orange][name=Jason] 
+    * [ ] [color=red][name=JF]
+    * et rapporter les bugs s'ils sont trop compliqués à corriger
+* [ ] Tests unitaires classe **table_jeu_service** :clock1: <iframe src="https://free.timeanddate.com/countdown/i83zdl7u/n1264/cf11/cm0/cu2/ct4/cs0/ca0/co0/cr0/ss0/cac009/cpcf00/pcfff/tcfff/fs100/szw256/szh108/iso2022-11-24T23:59:00" allowtransparency="true" frameborder="0" width="130" height="16"></iframe>
+    *  [color=green][name=Ludo] : "J'ai commencé, je vous laisse terminer"
+* Rédaction rapport :clock1: <iframe src="https://free.timeanddate.com/countdown/i83zdl7u/n1264/cf11/cm0/cu2/ct4/cs0/ca0/co0/cr0/ss0/cac009/cpcf00/pcfff/tcfff/fs100/szw256/szh108/iso2022-11-25T23:59:00" allowtransparency="true" frameborder="0" width="130" height="16"></iframe>
+    * [ ] Relire parties 1 et 2 et éventuellement les mettre à jour
+* Relecture rapport :clock1: <iframe src="https://free.timeanddate.com/countdown/i83zdl7u/n1264/cf11/cm0/cu2/ct4/cs0/ca0/co0/cr0/ss0/cac009/cpcf00/pcfff/tcfff/fs100/szw256/szh108/iso2022-11-26T23:59:00" allowtransparency="true" frameborder="0" width="130" height="16"></iframe>
+    * [ ] [color=green][name=Ludo] 
+    * [ ] [color=purple][name=Hugo] 
+    * [ ] [color=blue][name=Banruo] 
+    * [ ] [color=orange][name=Jason] 
+    * [ ] [color=red][name=JF]
+
+
 
 -------------------------------------------
 # :bulb: Reste à faire 
@@ -96,7 +122,7 @@ gantt
     * cas d'erreurs
 * [ ] Documenter les classes et méthodes [color=orange][name=Jason]
     * principalement service et dao
-    * [ ] Puis [générer la doc sous format html avec pydoc](https://docs.python.org/fr/3/library/pydoc.html)
+    * [ ] Puis [générer la doc sous format html avec pydoc](https://docs.python.org/fr/3/library/pydoc.html) (optionnel)
 * [ ] `admin` dans la table joueur -> essayer de vite fait mettre au propre
 * [ ] Rechercher et "Résoudre" les TODO
 * [x] Renommer `lancement_appli.py` en `main.py`
@@ -110,11 +136,6 @@ gantt
     * ajouter mot de passe
     * créer une api simple pour exposer des données (par exemple, le programme complet)
 * Tester l'appli de fond en comble 
-    * [ ] [color=green][name=Ludo] 
-    * [ ] [color=purple][name=Hugo] 
-    * [ ] [color=blue][name=Banruo] 
-    * [ ] [color=orange][name=Jason] 
-    * [ ] [color=red][name=JF]
     * si vous trouvez un bug, 2 possibilités (corriger ou répertorier ci-dessous)
     * erreurs dans l'interface ou manque d'ergonomie, idem corriger ou répertorier 
     * si 2 méthodes font presque la meme chose :arrow_right: bug
@@ -125,29 +146,18 @@ gantt
 ### :ant: Bugs 
 
 * [x] Admin > Supprimer un joueur `'list' object has no attribute 'pseudo'`
-* [x] Admin > Supprimer une Table de Jeu
-* [x] Admin > Liste Utilisateurs
-* [x] MaitreJeu > Gerer table `erreur si pas de table dispo à la séance`
-* [x] MaitreJeu > Resilier table
-    * ça supprime la table alors qu'il faut juste retirer le MJ
-    * MaitreJeuDao.quitter_table -> faire un UPDATE SET mj=null au lieu d'un DELETE
+
 
 ### :rainbow: Ergonomie à améliorer
 
-* [x] Joueur > Quitter une table
-* MaitreJeu > Resilier Table 
-    * [x] `Vous avez bien quitté la table [11, 1, 'la vie de toto'] .`
-    * [x] Ne pas rentrer dans le Menu si le MJ ne gère aucune table
-* [ ] MaitreJeu > Gerer Table 
+* [x] MaitreJeu > Gerer Table 
     * [x] `Vous ne pouvez pas jouer à tables en même temps`
     * [x] Ajouter possibilité "J'ai changé d'avis"
-    * [ ] Si non libre pour une séance
+    * [x] Si non libre pour une séance
         * soit dire tout de suite après sélecion de la séance
         * soit ne pas afficher les séances non disponibles
-* [x] Admin > Déplacer joueur
 * [ ] Admin > Voir programme complet (léger)
-* [x] Admin > Créer une Table de Jeu
-* [ ] Admin > Supprimer les tables sans joueurs, proposer un choix contenant : 
+* [x] Admin > Supprimer les tables sans joueurs, proposer un choix contenant : 
     * la liste des tables vides
     * toutes (pour supprimer toutes les tables vides)
 
@@ -166,8 +176,8 @@ gantt
 * [ ] **Mettre à jour diagramme de classes**
     * Inutile de mettre toutes les vues (dixit la tutrice)
     * Se concentrer sur Service, DAO et business_objets
-* [ ] Initialiser les sections à rédiger [color=green][name=Ludo] 
-* [ ] se répartir les sections
+* [x] Initialiser les sections à rédiger [color=green][name=Ludo] 
+* [x] se répartir les sections
 * :arrow_right: à torcher dès que les partiels sont terminés
 
 
@@ -420,18 +430,19 @@ trucs qu'on aurait aimé faire mais manque de temps...
         * [x] choisir table et séance origine
         * [x] choisir personnage
         * [x] choisir table et séance destination
-        * [ ] PersonnageService().**quitter_table()**
+        * [x] PersonnageService().**quitter_table()**
         * [x] PersonnageService().**rejoindre_table()**
     * [x] Notifier joueur
     * [x] ajouter possibilité que table destination soit vide
     * [ ] à tester de fond en comble
-* :fire: ==Déplacer un Maitre du Jeu==
+* :fire: ==Déplacer un Maitre du Jeu== [color=green][name=Ludo]
     * il est possible de s'inspirer de **Déplacer un Personnage**
-    * [ ] Basculer vers DeplacerMaitreJeuVue
-        * [ ] lister tables
-        * [ ] choisir le MJ à déplacer
-        * [ ] lister autres tables de la même séance
-        * [ ] choisir table destination
+    * [x] Basculer vers DeplacerMaitreJeuVue
+        * [x] lister tables
+        * [x] choisir le MJ à déplacer
+        * [x] lister autres tables de la même séance
+        * [x] choisir table destination
+        * [ ] message au MJ
 
 
 
