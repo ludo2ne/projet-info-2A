@@ -104,8 +104,8 @@ class PersonnageService:
         if perso_non_utilise:
             statut_suppression = [
                 PersonnageDao().supprimer(perso_a_supprimer), ""]
+
             # Supprimer le personnage de la liste du joueur
-            print(f"suppression de {perso_a_supprimer.nom}")
             for el in joueur.liste_personnages:
                 print(el.nom)
             joueur.liste_personnages.remove(perso_a_supprimer)

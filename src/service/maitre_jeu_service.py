@@ -104,7 +104,6 @@ class MaitreJeuService:
             for player in joueur_list:
                 message = f"Le Maitre du Jeu {mj.pseudo} a quitté la table {table_correspondante.id_table} du {dict_seance[str(table_correspondante.id_seance)]}."
                 statut_notif_joueur = MessageDao().creer(player, message)
-                print(f"Message au joueur {player.pseudo}")
                 if not statut_notif_joueur:
                     err_message += f"Le joueur {player.pseudo} n'a pas pu être notifié.\n"
 

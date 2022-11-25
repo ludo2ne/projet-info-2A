@@ -304,11 +304,9 @@ class JoueurService:
                 for perso_joueur in joueur.liste_personnages:
                     if perso_joueur.id_personnage == perso.id_personnage:
                         table_as_list[i].append(perso_joueur.nom)
-                        print(table.id_table, i, "joueur")
                         i += 1
             # ou s'il y officie en tant que MJ
             if table.maitre_jeu.id_joueur == joueur.id_joueur:
-                print(table.id_table, i, "mj")
                 i += 1
 
         resultat = "Liste des tables \n" + tabulate(tabular_data=table_as_list,

@@ -48,7 +48,6 @@ class MaitreJeuDao(metaclass=Singleton):
         except Exception as e:
             print(e)
             raise
-        print("DAO : Maitre du jeu enlevé de " + str(res) + " table(s)")
 
         print("DAO : Suppression de la présence d'un maitre du jeu à une table - Terminé")
 
@@ -79,8 +78,6 @@ class MaitreJeuDao(metaclass=Singleton):
             print(e)
             raise
 
-        print("DAO : " + str(len(res)) +
-              f" tables avec le maitre du jeu {mj.prenom} {mj.nom}")
         table_list = []
         if res:
             for el in res:

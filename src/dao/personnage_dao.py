@@ -117,7 +117,7 @@ class PersonnageDao(metaclass=Singleton):
         except Exception as e:
             print(e)
             raise
-        print("DAO : " + str(res) + " Personnage supprimé")
+#        print("DAO : " + str(res) + " Personnage supprimé")
 
         print("DAO : Suppression d'un personnage - Terminé")
 
@@ -216,8 +216,8 @@ class PersonnageDao(metaclass=Singleton):
             print(e)
             raise
 
-        print("DAO : " + str(len(res)) +
-              f" tables avec le personnage {personnage.nom}")
+#        print("DAO : " + str(len(res)) +
+#              f" tables avec le personnage {personnage.nom}")
 
         print("DAO : Listing des tables d'un personnage - Terminé")
 
