@@ -16,7 +16,7 @@ from utils.singleton import Singleton
 class CompetenceClient(metaclass=Singleton):
 
     def __init__(self) -> None:
-        self.HOST = "https://www.dnd5eapi.co/api"
+        self.HOST = os.environ["HOST_WEBSERVICE"]
         self.END_POINT = "/skills"
 
     def lister_competences(self) -> List[str]:

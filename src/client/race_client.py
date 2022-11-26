@@ -16,7 +16,7 @@ from utils.singleton import Singleton
 class RaceClient(metaclass=Singleton):
 
     def __init__(self) -> None:
-        self.HOST = "https://www.dnd5eapi.co/api"
+        self.HOST = os.environ["HOST_WEBSERVICE"]
         self.END_POINT = "/races"
 
     def lister_races(self) -> List[str]:

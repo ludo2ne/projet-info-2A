@@ -96,6 +96,8 @@ class GererTableVue(VueAbstraite):
             from view.maitre_jeu_menu_vue import MaitreJeuMenuVue
             return MaitreJeuMenuVue(message)
 
+        self.nettoyer_console()
+
         # On demande le scenario et les infos complémentaires
         reponse = prompt(self.questions[1])
         scenario = reponse["scenario"]

@@ -107,9 +107,19 @@ L'objectif de ce projet est de développer une application qui permette de gére
 
 Nous nous sommes basés sur le principe d'une convention se déroulant sur un week-end et comportant quatre plages horaires, chacune correspondant à une demi-journée. Cette convention est dédiée aux jeux de rôle, aussi les intervenants seront par la suite appelés «~Maîtres du Jeu~» ou MJ. Le public venant quant à lui pour jouer, ses membres seront appelés «~Joueurs~».\\ 
 
-L'application permettra à quiconque le souhaite de s'inscrire en tant que Joueur. Les Joueurs auront accès à plusieurs fonctionnalités. La première d'entre elles sera la création de personnages, dans une limite de trois. Un appel à l'API suivante \textcolor{blue}{\href{https://www.dnd5eapi.co/}{https://www.dnd5eapi.co/}} permettra de compléter les informations sur les personnages. La détention de personnages permettra au Joueur de s'asseoir à une table par demi-journée. Afin de pouvoir faire un choix éclairé, les Joueurs pourront visualiser, pour chaque table ouverte et disponible, le scénario proposé et ainsi choisir le personnage adéquat. Les Joueurs pourront aussi visualiser un sommaire de leur participation et, le cas échéant, se désister d'une table, ce qui sera automatiquement notifié aux organisateurs.\\
+L'application doit permettre aux Joueurs de planifier leur week-end en participant à un jeu par séance au maximum. De même les Maîtres du Jeu doivent pouvoir planifier leur intervention. Il devra être possible de participer à la fois en tant que Joueur et en tant que Maître du Jeu sur des séances différentes puisqu'il est impossible de jouer à une table et de gérer une autre table en même temps.\\
 
-L'application permettra aux Joueurs le désirant de s'inscrire en tant que Maîtres du Jeu. Ceux-ci auront la possibilité, pour chaque demi-journée, de choisir une table.  Ils en définiront le scénario, offrant ainsi à cinq Joueurs la possibilité de s'y inscrire. Ils pourront aussi visualiser les profils des Joueurs inscrits à leur table, afin de mieux préparer leur intervention. En outre, ils auront la possibilité de voir un sommaire de leur participation. Enfin, si nécessaire, ils pourront se désister, entraînant une notification aux organisateurs. Les organisateurs auront alors la charge d'affecter les Joueurs à une autre table dans la mesure du possible, ou d'annuler leur participation à cette demi-journée si nécessaire.\\
+Enfin les organisateurs doivent pouvoir gérer l'organisation de la convention, que ce soit en termes de matériels ou de ressources humaines, ce qui nécessite de disposer d'informations au moindre problème.\\
+
+
+
+
+\subsection{Fonctionnalités attendues de l'application}
+
+
+L'application permettra à tout utilisateur de s'inscrire en tant que Joueur. Lorsqu'il joue, le Joueur incarne un personnage de sa composition. Aussi la première fonctionnalité disponible pour un Joueur sera la création de personnages, dans une limite de trois. Un appel à l'API suivante \textcolor{blue}{\href{https://www.dnd5eapi.co/}{https://www.dnd5eapi.co/}} permettra de compléter les informations sur les personnages. La détention de personnages permettra au Joueur de s'asseoir à une table par demi-journée. C'est là qu'intervient la deuxième fonctionnalité: l'inscription à une table. Afin de pouvoir faire un choix éclairé, les Joueurs pourront visualiser, pour chaque table ouverte et disponible, le scénario proposé et ainsi choisir le personnage adéquat. Les Joueurs pourront aussi visualiser un sommaire de leur participation et, le cas échéant, se désister d'une table, ce qui sera automatiquement notifié aux organisateurs.\\
+
+L'application permettra aux Joueurs le désirant de s'inscrire en tant que Maîtres du Jeu et d'accéder ainsi à des fonctionnalités spécifiques. Les Maîtres du Jeu auront en premier lieu la possibilité, pour chaque demi-journée, de choisir une table à gérer et d'en définir le scénario. Ce faisant, ils offriront à cinq Joueurs la possibilité de s'inscrire à leur table. En second lieu, ils pourront visualiser un sommaire de leur participation avec les profils des Joueurs inscrits à leur table, afin de peaufiner leur intervention. Enfin, si nécessaire, ils pourront se désister, entraînant une notification aux organisateurs. Les organisateurs auront alors la charge d'affecter les Joueurs à une autre table dans la mesure du possible, ou d'annuler leur participation à cette demi-journée si nécessaire.\\
 
 \indent Il a été envisagé de différencier totalement les profils Joueur et Maître du Jeu, en leur attribuant des comptes séparés pour une même personne physique. Cela présentait deux inconvénients:
 \begin{itemize}
@@ -117,14 +127,9 @@ L'application permettra aux Joueurs le désirant de s'inscrire en tant que Maît
 \item{compliquer l'utilisation de l'application pour une personne désirant être à la fois Maître du Jeu et Joueur. En effet, cette personne aurait dû systématiquement se déconnecter et s'authentifier pour passer d'un compte à l'autre.\\}
 \end{itemize}
 
-Enfin, les organisateurs de la convention auront un profil spécifique. Du point de vue de l'application, ils seront considérés comme Administrateurs et pourront visualiser un sommaire global de l'activité sur la convention. L'envoi automatique de notifications lors de désistements de Joueurs ou de Maîtres du Jeu leur permettra d'être toujours avertis des changements intervenus. Ils seront en mesure de modifier ou supprimer la participation d'un Maître du jeu ou d'un Joueur, entraînant une notification aux personnes concernées. Enfin, ils auront la possibilité de supprimer ou rajouter des tables selon les besoins.\\
+Enfin, les organisateurs de la convention auront un profil spécifique. Du point de vue de l'application, ils seront considérés comme Administrateurs et pourront visualiser un sommaire global de l'activité sur la convention. L'envoi automatique de notifications lors de désistements de Joueurs ou de Maîtres du Jeu et la possibilité de les consulter dans leur messagerie leur permettra d'être toujours avertis des changements intervenus. Ils seront en mesure de modifier ou supprimer la participation d'un Maître du jeu ou d'un Joueur, entraînant une notification aux personnes concernées. Enfin, ils auront la possibilité de supprimer ou rajouter des tables selon les besoins.\\
 
 Un système sommaire d'accès par pseudo sera mis en place, par souci de simplicité. Il permettra à la fois de différencier les statuts des protagonistes et de cloisonner les profils individuels. Il sera toujours possible par la suite de mettre en place un système plus sécurisé avec mot de passe. \\
-
-\subsection{Fonctionnalités attendues de l'application}
-(\textcolor{red}{TODO}: décrire les fonctionnalités de base (sans faire de liste!!!))
-
-
 %-------------------------------------------------------------------------------
 % Section 2
 %-------------------------------------------------------------------------------
@@ -179,7 +184,7 @@ La dernière strate montre les tâches concrètes à réaliser et est complété
 Lorsque la dernière phase a été entamée, la rédaction du rapport a pu commencer. 
 En ce qui concerne l’implémentation du code, une répartition a été réalisée en fonction du niveau de chacun. Les classes les plus accessibles comme les classes de vue ont été réalisées par les membres du groupe les moins à l’aise. Tandis que les classes de service qui ont été bien plus difficiles à implémenter ont été codées par les membres les plus à l’aise du groupe. Les trois jours dédiés au projet ont permis d’aboutir à 90\% du code final. \\
 
-Puis au retour des vacances, le plan du rapport final a été élaboré coinointement. Chaque proposition a été étudiée et prise en considération si le groupe la trouvait pertinente. Une concertation de quelques heures a permis d’aboutir au plan final du rapport. Concernant la rédaction de ce dernier, tous les membres ont eu à charge plusieurs sous-parties.
+Puis au retour des vacances, le plan du rapport final a été élaboré conjointement. Chaque proposition a été étudiée et prise en considération si le groupe la trouvait pertinente. Une concertation de quelques heures a permis d’aboutir au plan final du rapport. Concernant la rédaction de ce dernier, tous les membres ont eu à charge plusieurs sous-parties.
 
 
 %-------------------------------------------------------------------------------
@@ -188,9 +193,6 @@ Puis au retour des vacances, le plan du rapport final a été élaboré coinoint
 
 \newpage
 \section{Modélisation}
-
-
-
 
 \subsection{Les couches}
 
@@ -204,11 +206,9 @@ Lorsque l'application est en cours d'exécution, une fois que l'utilisateur a fo
     \item \texttt{la couche de Service}~:  elle est le coeur de notre application, qui contient toutes les méthodes qui permettront ensuite de répondre aux besoins des utilisateurs.
     \item \texttt{la couche DAO}~:  elle contient des modules qui peuvent accéder à la base de données. Pour la persistance des données, nous avons choisi de sauvegarder nos données sur une base de données. Nous utiliserons le système de gestion de base de données relationnelle PostgreSQL.
 
-    La couche DAO, disponible en annexe en figure \ref{UML_classes}, proposera donc diverses classes et méthodes qui permettront de communiquer avec la couche de persistance. Les classes de notre DAO s'appuieront sur les différentes opérations du \textbf{CRUD} (Create Read Update Delete) et proposeront une liste exhaustive de méthodes d'interactions avec la base de données. Parmi celles-ci, il y a la classe \textbf{DBconnection} qui se chargera de gerer les connexions à la base de données. Afin de ne pas nous retrouver avec des centaines de connections qui compromettraient l'efficacité de notre application, nous avons choisi de conceptualiser cette classe à partir du \textbf{design pattern} Singleton. La classe DBconnection héritera de la méta-classe \textbf{Singleton} qui assurera l'instanciation unique de cette classe.
+    La couche DAO, disponible en annexe en figure \ref{UML_classes}, proposera donc diverses classes et méthodes qui permettront de communiquer avec la base de données. Les classes de notre DAO s'appuieront sur les différentes opérations du \textbf{CRUD} (Create Read Update Delete) et proposeront une liste exhaustive de méthodes d'interactions avec la base de données. Parmi celles-ci, il y a la classe \textbf{DBconnection} qui se chargera de gérer les connexions à la base de données. Afin de ne pas nous retrouver avec des centaines de connections qui compromettraient l'efficacité de notre application, nous avons choisi de conceptualiser cette classe à partir du \textbf{design pattern} Singleton. La classe DBconnection héritera de la méta-classe \textbf{Singleton} qui assurera l'instanciation unique de cette classe.
 \end{itemize}
 
-Blabla général sur comment organiser les couches
-\textcolor{blue}{Banruo}
 
 \subsection{Les objets métier}
 
@@ -230,8 +230,8 @@ La création d’objets métiers a été nécessaire dans la programmation en co
         \item \texttt{classe}~: str, classe du personnage (Guerrier, Druide, Magicien...)
         \item \texttt{race}~: str, race du personnage (Humain, Elfe, Nain...).
         \item \texttt{niveau}~: int, niveau du personnage.
-        \item \texttt{competences}~: list[str], liste des compétences dont le personnage dispose.
-        \item \texttt{langues\_parlées}~: list[str], liste des langues parlées par le personnage.
+        \item \texttt{competence}~: str, compétence dont le personnage dispose.
+        \item \texttt{langue\_parlée}~: str, langues parlée par le personnage.
     \end{itemize}
 
     \item \texttt{Joueur}~: c'est une personne réelle qui participe à la convention de jeu de rôle en tant que joueur. Cette classe possède les six attributs suivants :
@@ -268,7 +268,7 @@ La création d’objets métiers a été nécessaire dans la programmation en co
     \begin{itemize}[label=\ding{109}, font=\small]
         \item \texttt{id\_message}~: int, identifiant unique du message.
         \item \texttt{id\_joueur}~: int, identifiant unique du joueur.
-        \item \texttt{date\_creation}~: time, date et heure de la création du message .
+        \item \texttt{date\_creation}~: time, date et heure de la création du message.
         \item \texttt{contenu}~: str, contenu du message.
         \item \texttt{lu}~: bool, indique si le joueur a lu le message.
     \end{itemize}
@@ -299,7 +299,11 @@ Une des premières préoccupations avant de commencer à développer est que nou
 
 \bigbreak
 
-Nous voulions également éviter que pour l'indentation, certains utilisent des tabulations et d'autres des espaces. Cela serait gênant, si par exemple, nous souhaitions comparer deux versions d'un fichier avec Git, le résultat serait illisible, car pour git, une tabulation et quatre espaces ce n'est pas pareil. Pour pallier ce genre de problèmes, nous avons utilisé le package \texttt{autopep8}. Nous avons configuré Visual Studio Code, via le fichier \texttt{setting.json} pour que tous les membres de l'équipe formatent le code avec \texttt{autopep8} et cela à chaque sauvegarde.
+Nous voulions également éviter que pour l'indentation, certains utilisent des tabulations et d'autres des espaces. Cela serait gênant, si par exemple, nous souhaitions comparer deux versions d'un fichier avec Git, le résultat serait illisible. En effet, pour git une tabulation et quatre espaces ce n'est pas pareil. Pour pallier ce genre de problèmes, nous avons utilisé le package \texttt{autopep8}. Nous avons configuré Visual Studio Code, via le fichier \texttt{setting.json} pour que tous les membres de l'équipe formatent le code avec \texttt{autopep8} et cela à chaque sauvegarde.
+
+\bigbreak
+
+Un autre sujet qui nous est rapidement apparu essentiel est d'éviter de perdre trop de temps à déboguer. Nous avons donc décidé de créer des logs dans la console à chaque entrée et sortie d'une méthode. En cas de bug, cela nous permet d'identifier rapidement la méthode qui pose un souci et de la corriger. Nous aurions pu chercher à mettre en place un système de log plus perfectionné, mais celui utilisé nous convenait parfaitement.
 
 \bigbreak
 
@@ -316,11 +320,12 @@ Un autre besoin était d'afficher des tableaux de manière lisible et ergonomiqu
 \bigbreak
 
 Lors de la mise en place de la base de données, nous avons créé un schéma \texttt{jdr} (pour que tous les objets soient regroupés dans un même schéma), des tables, ainsi que d'un échantillon de données. Cet échantillon est principalement utile pour éviter d'avoir à saisir manuellement des joueurs, des personnages lorsque l'on veut tester notre code python. Nous avons pensé que ce serait utile d'avoir une fonctionnalité qui permet de réinitialiser la base de données et nous l'avons donc mise en place. 
-Ainsi, lorsque nous voulions réinitialiser les données, nous avions cette possibilité dans le menu de l'application, ce qui est beaucoup plus simple et rapide que de relancer les scripts de création «~à la main~».
+Ainsi, lorsque nous voulions réinitialiser les données, nous avions cette possibilité dans le menu de l'application, ce qui est beaucoup plus simple et rapide que de relancer les scripts de création «~à la main~». Cependant nous avons enlevé cette possibilité dans le livrable final car l'utilisateur ne doit pas avoir accès à cette fonctionnalité.
 
 \bigbreak
 
 Enfin, nous avons jugé intéressant d'utiliser des variables d'environnements globales pour fixer les valeurs de certaines variables qui sont relativement fixes. Nous avons par exemple, créé des variables d'environnement pour fixer le nombre maximum de personnages par joueur, le nombre maximum de joueurs par table et le nombre maximum de tables par séance. De cette manière, si les administrateurs décident de modifier l'un de ces paramètres, ils peuvent facilement le faire en modifiant le fichier \texttt{.env}.
+
 
 
 \subsection{Persistance des données}
@@ -340,15 +345,18 @@ Un utilisateur de l'application peut être soit un administrateur soit un joueur
 Quant au joueur, il peut être à la fois joueur (disposant de ses personnages) sur une séance et maître du jeu sur une autre. Bien évidemment, un joueur ne peut pas être simple joueur et maître du jeu lors d’une même séance. Cet aspect permet au joueur d’une séance à l’autre de changer de statut sans avoir besoin de créer un nouveau compte (ainsi un utilisateur n’a besoin que d’un seul compte joueur. Le joueur dispose lui aussi de fonctionnalités qui lui sont propres.
 
 
+
 \subsection{Fonctionnalités Utilisateur}
 
 On désigne par «~Utilisateur~» toute personne lançant l'application. L'Utilisateur peut aussi bien être un acteur déclaré de la convention (Joueur, Maître du Jeu, Administrateur), qu'une personne intéressée ou un simple passant.\\
 
-L'acteur déclaré peut entrer dans l'application avec l'option "S"authentifier". Il accèdera alors aux fonctionnalités liées à son statut après avoir renseigné son identifiant.\\
+L'acteur déclaré peut entrer dans l'application avec l'option «~S'authentifier~». Il accèdera alors aux fonctionnalités liées à son statut après avoir renseigné son identifiant.\\
 
-La personne intéressée peut s'inscrire à la convention avec l'option "S'inscrire". Après avoir renseigné quelques informations, son compte sera créé et elle pourra alors accéder à son profil en s'authentifiant.\\
+La personne intéressée peut s'inscrire à la convention avec l'option «~S'inscrire~». Après avoir renseigné quelques informations, son compte sera créé et elle pourra alors accéder à son profil en s'authentifiant.\\
 
-Enfin, l'option "Quitter" permet à quiconque de fermer l'application.\\
+Enfin, l'option «~Quitter~» permet à quiconque de fermer l'application.\\
+
+
 
 \subsection{Fonctionnalités communes aux Joueur, Maître du Jeu et Administrateur}
 
@@ -357,6 +365,8 @@ Toute personne s'étant identifiée sur l'application a la possibilité de consu
 La consultation des messages permet aux Joueurs et Maîtres du Jeu de savoir si une modification est intervenue dans leur emploi du temps. Elle permet aussi à l'Administrateur de savoir si un changement du côté des Joueurs ou Maîtres du jeu a des conséquences sur le déroulement de la convention qui nécessitent son intervention. Pour faciliter l'organisation de chacun, le nombre de nouveaux messages est indiqué lors de la connexion à l'application.\\
 
 La déconnexion permet de sortir de l'application et de redevenir simple Utilisateur.
+
+
 
 \subsection{Fonctionnalités spécifiques à l'Administrateur} 
 
@@ -372,48 +382,52 @@ La gestion des tables consiste à ajouter/supprimer des tables en fonction de le
 
 Chacune de ces fonctionnalités comporte plusieurs étapes. A titre d'exemple, nous allons voir le déplacement d'un personnage. Rappelons que l'Administrateur a au préalable visualisé l'aperçu d'ensemble de la convention et qu'il sait par conséquent quelles tables posent problème avant de lancer cette fonctionnalité. 
 \begin{itemize}
-    \item Etape 1: une liste des tables occupées s'affiche, mentionnant la séance et le scénario. L'Administrateur peut repérer la table problématique dans cette liste.
-    \item Etape 2: il voit la liste des personnages incarnés sur cette table et doit en choisir un.
-    \item Etape 3:la liste des tables de la même séance ayant des places disponibles s'affiche. L'Administrateur a le choix entre les tables de la liste et l'option "Aucune table", signifiant que le Joueur n'a plus de partie programmée sur la séance.
-    \item Etape 4: une confirmation est demandée pour lancer la procédure.
+    \item Etape 1~: une liste des tables occupées s'affiche, mentionnant la séance et le scénario. L'Administrateur peut repérer la table problématique dans cette liste.
+    \item Etape 2~: il voit la liste des personnages incarnés sur cette table et doit en choisir un.
+    \item Etape 3~: la liste des tables de la même séance ayant des places disponibles s'affiche. L'Administrateur a le choix entre les tables de la liste et l'option «~Aucune table~», signifiant que le Joueur n'a plus de partie programmée sur la séance.
+    \item Etape 4~: une confirmation est demandée pour lancer la procédure.
 \end{itemize}
+
 
 
 \subsection{Fonctionnalités spécifiques au Joueur} 
 
 Les fonctionnalités accessibles au Joueur doivent lui permettre d'organiser sa participation à la convention.\\
 
-Le Joueur qui le souhaite peut accéder au statut de Maître du Jeu grâce à l'option "Devenir Maître du Jeu". Après confirmation de son choix, l'option "Devenir Maître du Jeu" est remplacée par "Accéder au menu Maître du Jeu" qui lui donne l'accès aux fonctionnalités spécifiques du Maître du Jeu.\\
+Le Joueur qui le souhaite peut accéder au statut de Maître du Jeu grâce à l'option \texttt{Devenir Maître du Jeu}. Après confirmation de son choix, l'option \texttt{Devenir Maître du Jeu} est remplacée par \texttt{Accéder au menu Maître du Jeu} qui lui donne l'accès aux fonctionnalités spécifiques du Maître du Jeu.\\
 
-L'option "Voir programme" lui permet de visualiser rapidement l'ensemble des tables sur lesquelles il est inscrit en tant que Joueur ou en tant que Maître du Jeu. Un Joueur ayant la double casquette a ainsi accès à son programme complet en un seul clic.\\
+L'option \texttt{Voir programme} lui permet de visualiser rapidement l'ensemble des tables sur lesquelles il est inscrit en tant que Joueur ou en tant que Maître du Jeu. Un Joueur ayant la double casquette a ainsi accès à son programme complet en un seul clic.\\
 
-Le Joueur peut gérer ses personnages, grâce aux options "Créer un personnage" (dans la limite de 3 personnages par Joueur), "Supprimer un personnage" et "Lister ses personnages", qui lui donne un résumé des caractéristiques de chaque personnage.\\
+Le Joueur peut gérer ses personnages, grâce aux options \texttt{Créer un personnage} (dans la limite de 3 personnages par Joueur), \texttt{Supprimer un personnage} et \texttt{Lister ses personnages}, qui lui donne un résumé des caractéristiques de chaque personnage.\\
 
-Il peut aussi décider de "Rejoindre une table" pour y participer en tant que Joueur, "Quitter une table" s'il ne souhaite plus participer à une table en tant que Joueur, voire de "Supprimer son compte" s'il estime ne plus pouvoir ou vouloir participer à la convention.
+Il peut aussi décider de \texttt{Rejoindre une table} pour y participer en tant que Joueur, \texttt{Quitter une table} s'il ne souhaite plus participer à une table en tant que Joueur, voire de \texttt{Supprimer son compte} s'il estime ne plus pouvoir ou vouloir participer à la convention.
 
 
 
 \subsection{Fonctionnalités spécifiques au MJ} 
 
-Un Joueur inscrit comme Maître du Jeu accède en premier lieu à la fonctionnalité lui permettant de "Gérer une table", en proposant un scénario, ce qui a pour effet de rendre la table disponible à l'inscription pour les Joueurs.\\
+Un Joueur inscrit comme Maître du Jeu accède en premier lieu à la fonctionnalité lui permettant de \texttt{Gérer une table}, en proposant un scénario, ce qui a pour effet de rendre la table disponible à l'inscription pour les Joueurs.\\
 
-Il peut par la suite à tout moment consulter l'occupation des tables qu'il gère grâce à l'option "voir les Tables gérées", lui procurant les caractéristiques de chaque personnage inscrit à ses tables.\\
+Il peut par la suite à tout moment consulter l'occupation des tables qu'il gère grâce à l'option \texttt{voir les Tables gérées}, lui procurant les caractéristiques de chaque personnage inscrit à ses tables.\\
 
-Enfin il peut, en cas de nécessité, décider de "Résilier une table". L'Administrateur en est averti par un message et doit agir pour proposer, dans la mesure du possible, une solution aux Joueurs qui s'étaient inscrits sur cette table.\\
+Enfin il peut, en cas de nécessité, décider de \texttt{Résilier une table}. L'Administrateur en est averti par un message et doit agir pour proposer, dans la mesure du possible, une solution aux Joueurs qui s'étaient inscrits sur cette table.\\
 
 
-\subsection{Détailler une fonctionnalité de A à Z}
-Toutes les fonctionnalités ci-dessus doivent être coordonnées entre les fonctions des différentes couches pour être complètes. Voici un exemple du flux de travail de l'application lors du lancement de la fonctionnalité "Résilier une table" du Maître du Jeu.\\
 
-Lorsque le Maître du Jeu sélectionne "Résilier une table", l'application commence par se diriger vers la vue ResilierTableVue. Aussitôt l'application appelle la méthode "service" lister\_tables du module MaitreJeuService de la couche Service pour trouver toutes les tables sur lesquelles l'utilisateur s'est enregistré comme MJ. Cette méthode "service" appelle la méthode "dao" lister\_tables\_mj du module MaitreJeuDao pour obtenir la liste via la base de données. Les tables sont ensuite rangées dans l'ordre chronologique grâce au numéro de séance qui fait partie de leurs attributs (1 pour Samedi matin, etc). Pour que l'affichage soit clair, nous avons préféré afficher le descriptif de la séance et le scénario. L'obtention du descriptif se fait grâce à un dictionnaire importé via la méthode "dao" lister\_toutes du module SéanceDao.\\
 
-Si le Maître du Jeu n'a pas de tables qui peuvent être résiliées, aucune liste ne s'affiche, il obtient le message "Vous ne gérez pas de table actuellement" et revient à la vue MaitreJeuMenuVue.\\
+\subsection{Focus sur une fonctionnalité : Résilier une table}
 
-S'il a des tables à gérer, la liste s'affiche. Le Maître du Jeu peut changer d'avis et sélectionner "Non, finalement j'ai changé d'avis": aucune table n'est résiliée et il revient à la vue MaitreJeuMenuVue.\\
+Toutes les fonctionnalités ci-dessus doivent être coordonnées entre les fonctions des différentes couches pour être complètes. Voici un exemple du flux de travail de l'application lors du lancement de la fonctionnalité \texttt{Résilier une table} du Maître du Jeu.\\
 
-Il peut aussi choisir une table dans la liste et confirmer son choix. Une fois que le Maître du Jeu a confirmé la résiliation, l'application appelle la méthode "service" resilier\_table du module MaitreJeuService, où resilier\_table est programmée pour terminer la résiliation de la table de jeu et pour envoyer une notification à l'administrateur et aux joueurs de la table. Cette méthode "service" appelle les méthodes "dao" lister du module TableJeuDao pour localiser et instancier la table à supprimer et joueurs\_assis du module TableJeuDao pour trouver les joueurs à la table. Ensuite elle appelle la méthode "dao" resilier\_table du module MaitreJeuDao pour supprimer la table dans la base de données. Enfin, la méthode "dao" creer du module MessageDao inscrit dans la base de données un message de résiliation à l'administrateur et aux joueurs concernés, qu'ils pourront lire par la suite.\\
+Lorsque le Maître du Jeu sélectionne \texttt{Résilier une table}, l'application commence par se diriger vers la vue \texttt{ResilierTableVue}. Aussitôt l'application appelle la méthode «~service~» \texttt{lister\_tables()} du module \texttt{MaitreJeuService} de la couche Service pour trouver toutes les tables sur lesquelles l'utilisateur s'est enregistré comme MJ. Cette méthode «~service~» appelle la méthode «~dao~» \texttt{lister\_tables\_mj()} du module \texttt{MaitreJeuDao} pour obtenir la liste via la base de données. Les tables sont ensuite rangées dans l'ordre chronologique grâce au numéro de séance qui fait partie de leurs attributs (1 pour Samedi matin, etc). Pour que l'affichage soit clair, nous avons préféré afficher le descriptif de la séance et le scénario. L'obtention du descriptif se fait grâce à un dictionnaire importé via la méthode «~dao~» \texttt{lister\_toutes()} du module \texttt{SeanceDao}.\\
 
-Une fois la résiliation effectuée, le maître du jeu revient à la vue MaitreJeuMenuVue et reçoit un message confirmant son départ de la table.
+Si le Maître du Jeu n'a pas de tables qui peuvent être résiliées, aucune liste ne s'affiche, il obtient le message «~Vous ne gérez pas de table actuellement~» et revient à la vue \texttt{MaitreJeuMenuVue}.\\
+
+S'il a des tables à gérer, la liste s'affiche. Le Maître du Jeu peut changer d'avis et sélectionner «~Non, finalement j'ai changé d'avis~»~: aucune table n'est résiliée et il revient à la vue \texttt{MaitreJeuMenuVue}.\\
+
+Il peut aussi choisir une table dans la liste et confirmer son choix. Une fois que le Maître du Jeu a confirmé la résiliation, l'application appelle la méthode «~service~» \texttt{resilier\_table()} du module \texttt{MaitreJeuService}, où \texttt{resilier\_table()} est programmée pour terminer la résiliation de la table de jeu et pour envoyer une notification à l'administrateur et aux joueurs de la table. Cette méthode «~service~» appelle les méthodes «~dao~» \texttt{lister()} du module \texttt{TableJeuDao} pour localiser et instancier la table à supprimer et \texttt{joueurs\_assis()} du module \texttt{TableJeuDao} pour trouver les joueurs à la table. Ensuite elle appelle la méthode «~dao~» resilier\_table du module \texttt{MaitreJeuDao} pour supprimer la table dans la base de données. Enfin, la méthode «~dao~» \texttt{creer()} du module \texttt{MessageDao} inscrit dans la base de données un message de résiliation à l'administrateur et aux joueurs concernés, qu'ils pourront lire par la suite.\\
+
+Une fois la résiliation effectuée, le maître du jeu revient à la vue \texttt{MaitreJeuMenuVue} et reçoit un message confirmant son départ de la table.
 
 
 %-------------------------------------------------------------------------------
@@ -429,28 +443,33 @@ Notre application est utilisable par n'importe quel utilisateur (qu’il soit jo
 Le lancement de l'application n'est pas immédiat, il faut au préalable suivre un protocole de mise en place et d’installation. \\
 
 Dans un premier temps l’utilisateur doit cloner le code de l’application afin qu’il puisse l’utiliser sur son ordinateur. Il s’agit de créer son dépôt local à partir du code existant sur un dépôt distant hébergé, dans notre cas, par github.
-Pour cela, il doit ouvrir un terminal dans VS Code dans lequel il renseignera l’instruction suivante : git clone git@github.com:ludo2ne/projet-info-2A.git \\
+Pour cela, il doit ouvrir un terminal dans VS Code dans lequel il renseignera l’instruction suivante : \texttt{git clone git@github.com:ludo2ne/projet-info-2A.git} \\
 
-Ensuite, de nombreux packages sont nécessaires à l’architecture du code et au bon fonctionnement de l’application. Il faut donc nécessairement les installer. Ainsi l'utilisateur doit créer un fichier nommée requirements.txt dans lequel il liste ligne par ligne tous les packages suivants: autopep8, inquirerPy, psycopg2-bina, ry, tabulate, regex, pyfiglet, mock, python-dotenv. Pour réaliser l’installation de tous ces packages, l’utilisateur doit ouvrir un terminal et lancer la commande suivante: pip install -r requirements.txt \\
+Ensuite, de nombreux packages sont nécessaires à l’architecture du code et au bon fonctionnement de l’application. Il faut donc nécessairement les installer. Ainsi l'utilisateur doit installer les packages contenus dans le fichier requirements.txt. Il liste ligne par ligne les packages suivants~: \texttt{autopep8, inquirerPy, psycopg2-bina, ry, tabulate, regex, pyfiglet, mock, python-dotenv}. Pour réaliser l’installation de tous ces packages, l’utilisateur doit ouvrir un terminal et lancer la commande suivante~: \texttt{pip install -r requirements.txt} \\
 
-Par la suite il est indispensable aussi que l'utilisateur crée un fichier ‘.env’ contenant les informations suivantes: 
+Pour utiliser l'application il faut également créer une base de données afin de sauvegarder les contenus dans des tables. Une fois la base de données créée, un script SQL nommé \texttt{init\_db.sql} permet de créer le schéma ainsi que les tables. Un second script nommé \texttt{pop\_db.sql} insére un échantillon de données dans les tables. \\
+
+Enfin il est également nécessaire que l'utilisateur crée un fichier \texttt{.env} contenant les informations suivantes~: 
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=9cm]{envfile.PNG}
 \caption{
-Contenu du fichier '.env'.}
+Contenu du fichier \texttt{.env}}
 \end{figure}
 
+
+
 \newpage
+
 \subsection{Lancement de l'application}
 
-Après toutes les manipulations précédentes réalisées. Le lancement de l’application n’est plus qu’une formalité. L'utilisateur doit ouvrir un terminal et lancer l’instruction suivante: python src/main.py. S’il souhaite effectuer des tests, il peut lancer tous les tests à l'aide de la commande suivante:
-python src/run\_all\_tests.py. \\
+Une fois les manipulations précédentes réalisées, l'application pourra être lancée. L'utilisateur doit ouvrir un terminal et lancer l’instruction suivante~: \texttt{python src/main.py}. S’il souhaite vérifier que les tests unitaires sont valides, il peut lancer tous les tests à l'aide de la commande suivante~:
+\texttt{python src/run\_all\_tests.py} \\
 
-Après le temps de chargement, une page d’accueil apparaît, lors de la première utilisation il doit toujours choisir “initialiser la base de données”. Ensuite, il peut choisir de se créer un compte avec son pseudo, son pseudo et son mail. Ce pseudo lui servira d’authentification pour accéder à son menu de joueur où il pourra s’inscrire créer/supprimer des personnages et rejoindre/quitter des tables et bien d’autres fonctionnalités. Il peut aussi avec son compte joueur, devenir maître du jeu et accéder au menu maître du jeu, où il peut créer des scénarios et s’inscrire à des tables non plus en tant que joueur, mais en tant que maître du jeu. A chaque séance il peut décider de prendre l’un des deux rôles.\\
+Lors du lancement de l'application, l'utilisateur peut choisir de se créer un compte avec son pseudo, son pseudo et son mail. Ce pseudo lui servira d’authentification pour accéder à son menu de Joueur où il pourra s’inscrire créer/supprimer des personnages et rejoindre/quitter des tables et bien d’autres fonctionnalités. Il peut aussi avec son compte Joueur, devenir Maître du jeu et accéder au menu Maître du jeu, où il peut créer des scénarios et s’inscrire à des tables non plus en tant que Joueur, mais en tant que Maître du jeu. A chaque séance il peut décider de prendre l’un des deux rôles.\\
 
-Si l'utilisateur est un administrateur, il peut se connecter en tant qu’administrateur en renseignant le pseudo “admin”. Il accèdera alors à une grande liste de fonctionnalités de modération de la conférence de jeu de rôle. Il peut par exemple supprimer un joueur, supprimer/ajouter des tables.
+Si l'utilisateur est un Administrateur, il peut se connecter en tant qu’Administrateur en renseignant le pseudo \texttt{admin}. Il accédera alors à une grande liste de fonctionnalités de modération de la conférence de jeu de rôle. Il peut par exemple supprimer un joueur, supprimer/ajouter des tables.
 
 
 
@@ -464,12 +483,19 @@ Si l'utilisateur est un administrateur, il peut se connecter en tant qu’admini
 \section{Perspectives d'amélioration de l'application}
 
 \subsection{Fonctionnalités et paramètres potentiellement améliorables dans l'application}
-nombre de séances (on s'est limité à 4)
-* connexion avec mot de passe
-\textcolor{blue}{Banruo}
+
+Lors de l'examen du code, nous avons envisagé la possibilité d'optimiser les fonctionnalités pour rendre l'application plus fluide et plus agréable pour l'utilisateur, mais en raison des contraintes de temps, nous n'avons pas été en mesure de les améliorer.\\
+
+Tout d'abord, en ce qui concerne le nombre de tables, nous n'en avons actuellement que 4, étant donné que les jeux ne se déroulent que le matin et l'après-midi du week-end. Cependant, vu la nécessité pour les joueurs de s'inscrire à l'avance, par exemple, si quelqu'un veut s'inscrire en tant que MJ pour la table du samedi suivant ce samedi, cela n'est pas possible. Il faut donc optimiser la fonctionnalité “créer une table jeu” de l'administrateur, la fonctionnalité “gérer une table” de maître du jeu et la fonctionnalité “rejoindre une table” de joueur.\\
+
+De plus, actuellement, les utilisateurs se connectent directement en utilisant leur pseudo et il n'existe pas de mot de passe. Néanmoins, l'ajout d'un mot de passe pour compléter l'identification est particulièrement important pour l'administrateur du jeu, dont le pseudo est connu pour être «~admin~», ce qui ne fournit pas une sécurité suffisante, nous avons besoin donc d'améliorer la fonction «~S'authentifier~» en ajoutant un mot de passe.
 
 
-\subsection{Fonctionnalités facultatives à ajouter pour une meilleure organisation}
+
+
+
+
+\subsection{Fonctionnalités facultatives pour une meilleure organisation}
 
 Au fur et à mesure que nous avancions dans le code de l'application, nous nous rendions compte que certaines fonctionnalités pourraient être intéressantes et également utiles. Nous n'avons pas eu le temps de mettre en place ces fonctionnalités additionnelles, mais nous pensons qu'elles pourraient faire l'objet de demandes d'évolution sur notre application.
 
@@ -485,11 +511,6 @@ Lorsqu'un joueur souhaite rejoindre une table de jeu, on lui demande de choisir 
 
 Dans notre application, nous avons utilisé des messages pour avertir les joueurs ou administrateurs de certaines actions les impactant. Nous pourrions imaginer étendre ce système de message pour autoriser les administrateurs à communiquer à tout le monde, les Maîtres du jeu à envoyer des messages aux joueurs de leurs tables et éventuellement de donner la possibilité à tous les joueurs d'échanger des messages. Même si ce dernier point commencerait à complexifier sérieusement notre application.
 
-\bigbreak
-
-Une des fonctionnalités les plus compliquées à développer fut le déplacement des Maîtres du jeu. Nous avons pris le parti de n'autoriser un déplacement de Maître du jeu que vers une table de la même séance. De plus, le Maître du jeu «~emporte~» son scénario avec lui. En perfectionnant cette fonctionnalité, nous pourrions imaginer que le Maître du jeu puisse être déplacé vers une autre séance, ainsi que le scénario de sa table puisse être modifié par l'administrateur.
-
-\bigbreak
 
 
 %-------------------------------------------------------------------------------
@@ -543,6 +564,8 @@ Ce que je retiens de ce projet de 3 mois, c’est qu’il ne faut pas commencer 
 
 \newpage
 
+
+
 \textbf{\Large Note de Ludovic Deneuville}
 
 \bigbreak
@@ -582,9 +605,10 @@ J'ai commencé à apprendre le langage Python pour les besoins de mon précéden
 
 Lors de la phase de conception de l’architecture de notre projet,
 j'ai réfléchi de mon côté au diagramme de classes et au diagramme de base de données pour pouvoir participer à la discussion. C'était l'occasion de réinvestir des notions que j'estimais avoir assez bien comprises et j'ai pu participer activement à la discussion. La position du Maître du Jeu est vite apparue comme problématique.\\
-Lorsque la notion de couches a été abordée en TP et qu'il fallait voir comment l'implémenter dans le projet, j'étais plus en retrait: je n'étais pas à l'aise avec cette notion. Lorsque notre tutrice nous a par la suite parlé de répartition des tâches pour la programmation, je pensais être insuffisamment préparé pour les vues et la DAO, et plutôt me rabattre sur les services.\\
 
-Cependant Ludovic avait dans l'idée que chacun code au moins une fonctionnalité de A à Z, c-à-d de la couche vue à la couche dao. Il a ainsi attribué une fonctionnalité à chacun. La mienne était "Supprimer un personnage". Ludovic avait déjà créé toute l'architecture et codé une fonctionnalité complète. Dans un premier temps, j'ai navigué dans le code afin de comprendre son fonctionnement, puis je me suis lancé en m'inspirant de son travail. Ca a été laborieux, mais en y allant pas à pas, j'ai pu aller au bout de la fonctionnalité et j'étais rassuré. Par la suite, je n'ai plus eu d'appréhension à l'idée de coder une fonctionnalité de bout en bout et je me suis spécialisé dans les suppressions et les affichages.\\
+Lorsque la notion de couches a été abordée en TP et qu'il fallait voir comment l'implémenter dans le projet, j'étais plus en retrait: je n'étais pas à l'aise avec cette notion. Lorsque notre tutrice nous a par la suite parlé de répartition horizontale ou verticale des tâches pour la programmation, je pensais être insuffisamment préparé pour les vues et la DAO, et plutôt me rabattre sur les services. Autant dire que j'excluais la répartition verticale...\\
+
+Cependant Ludovic avait dans l'idée que chacun code au moins une fonctionnalité de A à Z, c-à-d de la couche vue à la couche dao. Il a ainsi attribué une fonctionnalité à chacun. La mienne était "Supprimer un personnage". Ludovic avait déjà créé toute l'architecture et codé une fonctionnalité complète. Dans un premier temps, j'ai navigué dans le code afin de comprendre son fonctionnement, puis je me suis lancé en m'inspirant de son travail. Ca a été laborieux, mais en y allant pas à pas, j'ai pu aller seul au bout de la fonctionnalité et j'étais rassuré. Par la suite, je n'ai plus eu d'appréhension à l'idée de coder une fonctionnalité de bout en bout et je me suis spécialisé dans les suppressions et les affichages.\\
 
 Lors de la rédaction du rapport, je me suis occupé de la partie fonctionnalités et suis membre du comité de relecture. En parallèle j'ai continué de tester l'application pour détecter des bugs ou des problèmes d'ergonomie.\\
 
@@ -601,8 +625,31 @@ Un projet complexe est moins linéaire qu'un programme individuel. Le fait d'êt
 
 A titre personnel, j'ai pris davantage confiance en mes capacités d'adaptation à un nouvel environnement et j'ai pu confirmer mon goût pour le code.
 
+
+
 \newpage
 \textbf{\Large Note de Banruo Zhang}
+
+Je suis maintenant dans ma deuxième année d'étude à l'ENSAI et après la première année d'étude et l'affinement de mes compétences sur des projets, j'avais déjà une compréhension de la création d'applications. Puis, avec l'ajout du cours Compléments d'informatique, nous avons introduit le concept de nouvelle architecture d'application dans notre projet et avons commencé un nouveau voyage de programmation.
+
+\bigbreak
+\textbf{ Ma participation effective au projet : }
+
+Tout d'abord, au début du projet, étant donné le manque de familiarité avec la nouvelle idée de l'architecture d'application et l'écart entre les vacances d'été, j'ai eu un sentiment de déconnexion. Consciente que je devais éventuellement quitter ma zone de confort, j'ai passé plus de temps au début à revoir les connaissances et à comprendre le nouveau concept. Ce décalage a également signifié que je n'ai pas beaucoup contribué au processus de création de diagrammes et de classes. Mais grâce à la patience des membres du groupe qui m'ont aidé à comprendre rapidement, j'ai pu prendre en charge la section couche Vue lors de la rédaction du dossier d'analyse.\\
+
+Comme je l'ai mentionné précédemment, le nouveau concept d'architecture, où nous avons différentes couches, et en particulier le concept de couche Vue et les classes correspondant , m'a fait hésiter dans le développement du code, et la nécessité de revoir les connaissances théoriques à plusieurs reprises. Toutefois, j'ai heureusement pu terminer la rédaction des fonctionnalités pour les différents couches après discussion et avec l'aide des membres d'équipe.\\
+
+Quant à la rédaction du rapport final, nous avons chacun choisi certaines parties pour en être les auteurs principaux, selon nos propres souhaits, tout en relisant et en éditant les autres. Ma tâche principale consistait à décrire les couches, une fonctionnalité détaillée de A à Z, etc.\\
+
+\bigbreak
+\textbf{ Mon ressenti sur le projet, comment je l’ai vécu :  }\\
+J'ai eu l'impression que l'ensemble du projet avançait de manière lâche et serrée. Bien que j'aie pris plus de temps au début du projet pour comprendre la nouvelle structure, je ne me suis pas sentie trop sous pression ni complètement détendue. En même temps, les membres de mon équipe étaient si actifs, en particulier notre chef de projet, que j'avais moins l'occasion de jouer le rôle de Maître du temps. Dans l'ensemble, je pense que c'était l'un des projets les mieux rythmés auxquels j'ai participé.\\
+
+\bigbreak
+\textbf{ Ce que je retiens du projet :   }\\
+Premièrement, en ce qui concerne le suivi du projet, notre chef de projet, Ludovic, nous a fait découvrir une nouvelle façon de faire : la création d'un fichier HackMD qui recense les tâches à effectuer et celles qui ont été réalisées à chaque étape du projet. Nous marquons les tâches dont chaque membre est responsable, ce qui permet d'éviter les doublons et de motiver les membres à travailler sur ces tâches. C'était un moyen efficace et flexible de suivre le processus et je l'essaierai sur d'autres projets à l'avenir. D'autre part, le projet a également mis l'accent sur le développement de la pensée divergente, car tant dans la mise en place de l'application que dans la relecture du code, je trouvais toujours des idées auxquelles il était difficile de penser, et c'est la première fois que j'ai appris que la programmation est en fait un sujet complet qui nécessite non seulement une pensée logique mais aussi une pensée divergente pour parvenir à une structure. 
+
+
 
 
 
@@ -616,6 +663,10 @@ A titre personnel, j'ai pris davantage confiance en mes capacités d'adaptation 
 \newpage
 \textbf{\Large Note de Jason Torres}
 
+
+
+
+
 %-------------------------------------------------------------------------------
 % Annexes
 %-------------------------------------------------------------------------------
@@ -625,14 +676,7 @@ A titre personnel, j'ai pris davantage confiance en mes capacités d'adaptation 
 \addcontentsline{toc}{section}{Annexes}
 \appendix  % On passe aux annexes
 
-
-\section*{Annexe 1 - Notes individuelles}
-
-
-%-----------------------------
-%-----------------------------
-
-\section*{Annexe 2 - Diagramme de classe UML}
+\section*{Annexe 1 - Diagramme de classe UML}
 
 \begin{figure}[H]
     \label{UML_classes}

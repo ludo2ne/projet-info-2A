@@ -16,7 +16,7 @@ from utils.singleton import Singleton
 class LangueClient(metaclass=Singleton):
 
     def __init__(self) -> None:
-        self.HOST = "https://www.dnd5eapi.co/api"
+        self.HOST = os.environ["HOST_WEBSERVICE"]
         self.END_POINT = "/languages"
 
     def lister_langues(self) -> List[str]:

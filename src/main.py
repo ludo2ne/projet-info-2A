@@ -6,6 +6,8 @@ Licence : Domaine public
 Version : 1.0
 '''
 
+import dotenv
+
 from view.session import Session
 from view.accueil_vue import AccueilVue
 
@@ -19,6 +21,9 @@ from client.langue_client import LangueClient
 Classe de lancement de l'application
 '''
 if __name__ == '__main__':
+
+    # On charge les variables d'envionnement
+    dotenv.load_dotenv(override=True)
 
     vue_courante = AccueilVue("Bienvenue à la conférence de JDR")
     nb_erreurs = 0

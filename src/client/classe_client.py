@@ -16,7 +16,7 @@ from utils.singleton import Singleton
 class ClasseClient(metaclass=Singleton):
 
     def __init__(self) -> None:
-        self.HOST = "https://www.dnd5eapi.co/api"
+        self.HOST = os.environ["HOST_WEBSERVICE"]
         self.END_POINT = "/classes"
 
     def lister_classes(self) -> List[str]:
