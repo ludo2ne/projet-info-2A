@@ -77,6 +77,25 @@ gantt
 | 26 nov. | [Rapport final](https://www.overleaf.com/2118446326mqvrspgxdcnj) (:hammer_and_wrench:  [correcteur orthographe et grammaire](https://www.scribens.fr/)) | 
 |  6 déc. | PPT soutenance                                               |
 
+
+# :truck: Livraison du 26/11 à 20:00
+
+### Code
+
+* Supprimer les dossiers `__pycache__`
+    * `find . -type d -name __pycache__ -exec rm -r {} \+`
+* Supprimer .env
+* Supprimer fichier `Utilisation Git sur un projet`
+* ZIP
+    * Nom de l'archive : ==code_equipe_24.zip==
+
+
+### Rapport
+
+* Nom du fichier : ==rapport_final_equipe_24.pdf==
+
+
+
 -------------------------------------------
 # :checkered_flag: Dernière ligne droite (ou presque)
 -------------------------------------------
@@ -90,16 +109,16 @@ TOUT LE MONDE est concerné par les tâches suivantes :
     * [ ] [color=orange][name=Jason] 
     * [ ] [color=red][name=JF]
     * et rapporter les bugs s'ils sont trop compliqués à corriger
-* [ ] Tests unitaires classe **table_jeu_service** :clock1: <iframe src="https://free.timeanddate.com/countdown/i83zdl7u/n1264/cf11/cm0/cu2/ct4/cs0/ca0/co0/cr0/ss0/cac009/cpcf00/pcfff/tcfff/fs100/szw256/szh108/iso2022-11-24T23:59:00" allowtransparency="true" frameborder="0" width="130" height="16"></iframe>
+* [x] Tests unitaires classe **table_jeu_service** :clock1: <iframe src="https://free.timeanddate.com/countdown/i83zdl7u/n1264/cf11/cm0/cu2/ct4/cs0/ca0/co0/cr0/ss0/cac009/cpcf00/pcfff/tcfff/fs100/szw256/szh108/iso2022-11-24T23:59:00" allowtransparency="true" frameborder="0" width="130" height="16"></iframe>
     *  [color=green][name=Ludo] : "J'ai commencé, je vous laisse terminer"
 * Rédaction rapport :clock1: <iframe src="https://free.timeanddate.com/countdown/i83zdl7u/n1264/cf11/cm0/cu2/ct4/cs0/ca0/co0/cr0/ss0/cac009/cpcf00/pcfff/tcfff/fs100/szw256/szh108/iso2022-11-25T23:59:00" allowtransparency="true" frameborder="0" width="130" height="16"></iframe>
-    * [ ] Relire parties 1 et 2 et éventuellement les mettre à jour
+    * [x] Relire parties 1 et 2 et éventuellement les mettre à jour
 * Relecture rapport :clock1: <iframe src="https://free.timeanddate.com/countdown/i83zdl7u/n1264/cf11/cm0/cu2/ct4/cs0/ca0/co0/cr0/ss0/cac009/cpcf00/pcfff/tcfff/fs100/szw256/szh108/iso2022-11-26T23:59:00" allowtransparency="true" frameborder="0" width="130" height="16"></iframe>
-    * [ ] [color=green][name=Ludo] 
+    * [x] [color=green][name=Ludo] 
     * [ ] [color=purple][name=Hugo] 
     * [ ] [color=blue][name=Banruo] 
     * [ ] [color=orange][name=Jason] 
-    * [ ] [color=red][name=JF]
+    * [x] [color=red][name=JF]
 
 
 

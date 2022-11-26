@@ -184,7 +184,7 @@ La dernière strate montre les tâches concrètes à réaliser et est complété
 Lorsque la dernière phase a été entamée, la rédaction du rapport a pu commencer. 
 En ce qui concerne l’implémentation du code, une répartition a été réalisée en fonction du niveau de chacun. Les classes les plus accessibles comme les classes de vue ont été réalisées par les membres du groupe les moins à l’aise. Tandis que les classes de service qui ont été bien plus difficiles à implémenter ont été codées par les membres les plus à l’aise du groupe. Les trois jours dédiés au projet ont permis d’aboutir à 90\% du code final. \\
 
-Puis au retour des vacances, le plan du rapport final a été élaboré conjointement. Chaque proposition a été étudiée et prise en considération si le groupe la trouvait pertinente. Une concertation de quelques heures a permis d’aboutir au plan final du rapport. Concernant la rédaction de ce dernier, tous les membres ont eu à charge plusieurs sous-parties.
+Puis au retour des vacances, le plan du rapport final a été élaboré conjointement. Chaque proposition a été étudiée et prise en considération si le groupe la trouvait pertinente. Une concertation de quelques heures a permis d’aboutir au plan final du rapport. Concernant la rédaction de ce dernier, tous les membres ont pris en charge plusieurs sous-parties.
 
 
 %-------------------------------------------------------------------------------
@@ -198,16 +198,16 @@ Puis au retour des vacances, le plan du rapport final a été élaboré conjoint
 
 Nous avons découpé l'application en trois couches principales : la couche de Vue, la couche de Service, et la couche DAO (Data Access Object), afin de garantir une structure claire pour le processus de création de l'application. Tout en regroupant les exigences de l'application en fonction des couches, nous avons également évité les fonctionnalités manquantes. De plus, cela nous permet également de diviser les tâches en unités plus petites lors de leur attribution afin de faciliter le travail en équipe.
 
-Lorsque l'application est en cours d'exécution, une fois que l'utilisateur a formulé une demande, celle-ci est prise en charge par la couche de Vue et transmise à la couche Service. La couche Service traite la demande du client et, lorsqu'un accès à la base de données est nécessaire, elle transmet la demande à la couche DAO. La couche DAO relie la base de données en envoyant la requête et renvoie le résultat à la couche Service, qui transmet à la couche de Vue, laquelle présente le résultat à l'utilisateur.
-
-
 \begin{itemize}
-    \item \texttt{la couche de Vue}~: elle contient le module qui gère l'interface avec l'utilisateur, qui implémente l'interface par laquelle l'utilisateur accède à l'application, permettant ainsi à l'utilisateur d'accéder à diverses fonctions. L'interface utilisateur de notre application est contenue dans un terminal.
+    \item \texttt{la couche de Vue}~: elle contient le module qui implémente l'interface par laquelle l'utilisateur accède à l'application, permettant ainsi à l'utilisateur d'accéder à diverses fonctionnalités. L'interface utilisateur de notre application est contenue dans un terminal.
     \item \texttt{la couche de Service}~:  elle est le coeur de notre application, qui contient toutes les méthodes qui permettront ensuite de répondre aux besoins des utilisateurs.
-    \item \texttt{la couche DAO}~:  elle contient des modules qui peuvent accéder à la base de données. Pour la persistance des données, nous avons choisi de sauvegarder nos données sur une base de données. Nous utiliserons le système de gestion de base de données relationnelle PostgreSQL.
-
-    La couche DAO, disponible en annexe en figure \ref{UML_classes}, proposera donc diverses classes et méthodes qui permettront de communiquer avec la base de données. Les classes de notre DAO s'appuieront sur les différentes opérations du \textbf{CRUD} (Create Read Update Delete) et proposeront une liste exhaustive de méthodes d'interactions avec la base de données. Parmi celles-ci, il y a la classe \textbf{DBconnection} qui se chargera de gérer les connexions à la base de données. Afin de ne pas nous retrouver avec des centaines de connections qui compromettraient l'efficacité de notre application, nous avons choisi de conceptualiser cette classe à partir du \textbf{design pattern} Singleton. La classe DBconnection héritera de la méta-classe \textbf{Singleton} qui assurera l'instanciation unique de cette classe.
+    \item \texttt{la couche DAO}~:  elle contient des modules qui peuvent accéder à la base de données. Pour la persistance des données, nous avons choisi de sauvegarder nos données sur une base de données. Nous utiliserons le système de gestion de base de données relationnelle PostgreSQL.\\
 \end{itemize}
+
+Lorsque l'application est en cours d'exécution, une fois que l'utilisateur a formulé une demande, celle-ci est prise en charge par la couche de Vue et transmise à la couche Service. La couche Service traite la demande du client et, lorsqu'un accès à la base de données est nécessaire, elle transmet la demande à la couche DAO. La couche DAO relie la base de données en envoyant la requête et renvoie le résultat à la couche Service, qui transmet à la couche de Vue, laquelle présente le résultat à l'utilisateur.\\
+
+La couche DAO, disponible en annexe en figure \ref{UML_classes}, proposera diverses classes et méthodes qui permettront de communiquer avec la base de données. Les classes de notre DAO s'appuieront sur les différentes opérations du \textbf{CRUD} (Create Read Update Delete) et proposeront une liste exhaustive de méthodes d'interactions avec la base de données. Parmi celles-ci, il y a la classe \textbf{DBconnection} qui se chargera de gérer les connexions à la base de données. Afin de ne pas nous retrouver avec des centaines de connexions qui compromettraient l'efficacité de notre application, nous avons choisi de conceptualiser cette classe à partir du \textbf{design pattern} Singleton. La classe DBconnection héritera de la méta-classe \textbf{Singleton} qui assurera l'instanciation unique de cette classe.
+
 
 
 \subsection{Les objets métier}
@@ -231,7 +231,7 @@ La création d’objets métiers a été nécessaire dans la programmation en co
         \item \texttt{race}~: str, race du personnage (Humain, Elfe, Nain...).
         \item \texttt{niveau}~: int, niveau du personnage.
         \item \texttt{competence}~: str, compétence dont le personnage dispose.
-        \item \texttt{langue\_parlée}~: str, langues parlée par le personnage.
+        \item \texttt{langue\_parlée}~: str, langue parlée par le personnage.
     \end{itemize}
 
     \item \texttt{Joueur}~: c'est une personne réelle qui participe à la convention de jeu de rôle en tant que joueur. Cette classe possède les six attributs suivants :
@@ -256,7 +256,7 @@ La création d’objets métiers a été nécessaire dans la programmation en co
         \item \texttt{personnages}~: list[Personnages], liste des Personnages de la Table de Jeu.
     \end{itemize}
 
-    \item \texttt{Seance}~: Une séance, se déroulant lors de la conférence, est une demi-journée durant laquelle différentes joueurs participent au jeu de rôle sur différentes tables. Une séance possède les quatre attributs suivants :
+    \item \texttt{Seance}~: Une séance, se déroulant lors de la conférence, est une demi-journée durant laquelle différents joueurs participent au jeu de rôle sur différentes tables. Une séance possède les quatre attributs suivants :
     \begin{itemize}[label=\ding{109}, font=\small]
         \item \texttt{id\_seance}~: int, identifiant unique de la séance.
         \item \texttt{description}~: str, description de la séance.
@@ -282,9 +282,28 @@ La création d’objets métiers a été nécessaire dans la programmation en co
 
 TODO mettre à jour \textcolor{red}{Jason} \\
 Expliquer au global et prendre un exemple (détailler le cheminement entre les classes d'une fonctionnalité) 
-\textcolor{red}{expliquer les héritages!!!}
+\textcolor{red}{expliquer les héritages!!!} \\
 
+Lors de la conception de notre application, nous devions en amont réfléchir à une structure globale du système qui nous permettrait de mettre en exergue les différentes relations et rôles des classes mais aussi de pouvoir avoir une vision globale de la structure du code que nous aurions à produire.  La tâche qui nous incombait naturellement fut avant tout celle de distinguer les différentes classes et fonctionnalités dont nous avions besoin. Nous devions notamment isoler les différents groupes de classes répondant à un rôle précis. Ces différent groupes ont été mis en évidence dans la section précédente.\\
 
+Cela a abouti à la création du diagramme de classe UML présenté en annexe, figure \ref{UML_classes} \\
+Finalement nous avons distingué cinq groupes de classes :
+
+\begin{itemize}
+    \item \textbf{business\_objects} \\
+    Celle-ci regroupe les classes relatives aux objets métiers présentés à la section précédente.
+    \item \textbf{client} \\
+    Permet de communiquer avec l'API D\&D 5th Edition  : \href{https://www.dnd5eapi.co/}{https://www.dnd5eapi.co/} et ainsi de récupérer une panoplie de données de variable utilisables pour compléter les attributs des personnages.
+    \item \textbf{vue} \\
+    Notre groupe de classe \textit{vue} présenté sur le diagramme UML présente un ensemble non exhaustif de classes que nous avons eu à implémenter. Chaque classe permet, entre autres, la gestion des affichages au sein de l'interface utilisateur. Nous avons choisi d'utiliser une commande de vue interactive sur le terminal gérée par le package InquirePy.
+    Nous avons choisi de créer une classe abstraite parent \textit{VueAbstraite} dont hériteront toutes les autres classes de Vue, selon le modèle du Bridge Pattern.
+    \item \textbf{service} \\
+    Celle-ci regroupe l'ensemble des classes permettant l'exécution des différentes fonctionnalités mises à disposition pour l'utilisateur, dépendant de son statut et rôle au sein du système.
+    \item \textbf{dao} \\
+    Celle-ci finalement réunit l'ensemble des classes permettant d'entrer en interaction avec la base de donnée selon les actions réalisées par les utilisateurs.
+\end{itemize}
+
+Voyons en détail la manière dont communiquent les différents groupes de classe de notre système. \textbf{Nous prendrons ici l'exemple d'un joueur souhaitant créer un personnage}. Lors du lancement de l'application, un singleton Session est instancié. Lors de la connexion de l'utilisateur, un objet correspondant à son profil est instancié et placé en attribut de la Session, afin d'avoir accès à l'identité de l'utilisateur à tout moment. Ainsi un joueur est représenté par la classe business object \textit{Joueur}. Le joueur est invité à choisir, parmi les différentes fonctionnalités qui lui sont proposées, celle qu'il souhaite exécuter. Ces fonctionnalités lui sont affichées à travers la classe \textit{JoueurMenuVue}. Après avoir choisi la fonctionnalité \textit{Créer un personnage}, le joueur est redirigé vers la vue \textit{CreerPersonnageVue}. Cette vue demande au joueur de saisir les informations relatives à la création de son personnage. Pour certaines informations (classe, race, compétence et langue), l'application a interrogé une API pour en obtenir la liste. Le joueur en sélectionne une puis l'application se charge d'appeler le service de création de personnage via la méthode \textit{Creer} de la classe \textit{PersonnageService}. Par la suite, cette même méthode fera appel aux services de persistance des données contenu dans la couche DAO, afin d'enregistrer le personnage créé dans la base de données. Le système de persistance est davantage expliqué dans la section qui lui est dédiée.
 
 
 
@@ -330,8 +349,64 @@ Enfin, nous avons jugé intéressant d'utiliser des variables d'environnements g
 
 \subsection{Persistance des données}
 
-Parler un peu DAO et SGBD, quelles tables ont été créées et pourquoi
-\textcolor{red}{Jason}
+
+La \textbf{méthode de persistance} que nous avons choisie est la sauvegarde de nos données dans une base de données. Le système de gestion de base de données relationnelles (SGBD) que nous avons utilisé dans notre projet est PostgreSQL.\\
+
+La couche \textbf{DAO} (Data Access Object), présenté sur le diagramme UML figure \ref{UML_dao} regroupe l'ensemble des classes et méthodes directement liées à la gestion de la persistance de nos données. Elle est lié à la couche de service de notre application. En effet, les fonctionnalités choisies et exécutées par l'utilisateur auront des répercussions plus ou moins significatives sur la modification des données. Cette couche est également indirectement liée aux objets métiers, en effet c'est à partir des attributs des classes de nos objets metiers que les données sont extraites afin d'être communiquées à notre SGBD.
+Les spécificités et propriétés des classes de la DAO notamment son héritage avec la classe DBconnection et le patron de conception choisie dans l'implémentation de cette classe sont explicités dans la section précédentes 3.1.
+
+La couche DAO sera constituée des classes suivantes :
+
+\begin{itemize}
+    \item \texttt{JoueurDao}~: Celle-ci se chargera de la gestion des données liées aux joueurs.
+    
+    \item \texttt{PersonnageDao}~: Celle-ci se chargera de la gestion des données liées aux personnages.
+    
+    \item \texttt{MessageDao}~: Celle-ci chargera de la gestion des données liées à la messagerie des joueurs.
+ 
+    \item \texttt{TableJeuDao}~: Celle-ci se chargera de la gestion des données liées aux tables de jeu.
+    
+    \item \texttt{MaitreJeuDao}~: Celle-ci se chargera de la gestion des données liées au joueur particulier qu'est le maître du jeu.
+    
+    \item \texttt{SeanceDao}~: Celle-ci se chargera de la gestion des données liées à la séance.
+
+\end{itemize}
+
+\begin{figure}[H]
+    \label{UML_dao}
+    \centering
+    \includegraphics[angle=90,height=0.88\textheight]{UML_diagrammes/dao.png}
+\end{figure}
+
+Le diagramme de base de données est présenté dans la figure \ref{UML_bdd}. Celui-ci s'accorde rigoureusement avec les classes de la couche DAO. Nous avons cependant omis de rajouter la table de données relative aux informations de l'administrateur car non réellement pertinente, l'application ne permet aucune modification des données de l'administateur. Notre base de données se compose des tables et relations suivantes (cf \ref{UML_bdd} pour les relations) :  
+
+\begin{itemize}
+    \item \texttt{table\_jeu}~: Cette table de données représente une table de jeu. Clé primaire~: (\texttt{id\_table})
+    
+    \item \texttt{table\_personnage}~: Elle fait le lien entre les tables \texttt{personnage} et \texttt{table\_jeu}. Clé primaire~: (\texttt{id\_table, id\_personnage}). Cela permet de dire quels personnages sont joués à une Table de Jeu.
+    
+    \item \texttt{joueur}~: Cette table de données se chargera de la gestion des données liées aux joueurs. Clé primaire~: \texttt{id\_joueur}
+ 
+    \item \texttt{message}~: Cette table contient les messages de notification reçus par les joueurs ou les administrateurs. Clé primaire~: \texttt{id\_message}
+    
+    \item \texttt{personnage}~: Elle regroupe les personnages joués par les joueurs. Clé primaire~: \texttt{id\_personnage}
+    
+    \item \texttt{seance}~: Cette table contient les données concernant les séances. Clé primaire~: \texttt{id\_seance}
+
+\end{itemize}
+
+
+\begin{figure}[H]
+    \caption{\textbf{Diagramme de Base de données}}
+    \label{UML_bdd}
+    \centering
+    \includegraphics[height=0.4\textheight]{UML_diagrammes/bdd.png}
+\end{figure}
+
+
+Chaque table se définit par sa clé primaire qui peut être un singleton, ou un couple d'attributs. Cette clé permet d'identifier de manière unique chaque enregistrement (observation) d'une table. Nos tables peuvent comporter une ou plusieurs clés étrangères afin d'établir des relations entre les tables comportant des attributs communs.
+
+
 
 %-------------------------------------------------------------------------------
 % Section 4
@@ -350,11 +425,11 @@ Quant au joueur, il peut être à la fois joueur (disposant de ses personnages) 
 
 On désigne par «~Utilisateur~» toute personne lançant l'application. L'Utilisateur peut aussi bien être un acteur déclaré de la convention (Joueur, Maître du Jeu, Administrateur), qu'une personne intéressée ou un simple passant.\\
 
-L'acteur déclaré peut entrer dans l'application avec l'option «~S'authentifier~». Il accèdera alors aux fonctionnalités liées à son statut après avoir renseigné son identifiant.\\
+L'acteur déclaré peut entrer dans l'application avec l'option \texttt{S'authentifier}. Il accèdera alors aux fonctionnalités liées à son statut après avoir renseigné son identifiant.\\
 
-La personne intéressée peut s'inscrire à la convention avec l'option «~S'inscrire~». Après avoir renseigné quelques informations, son compte sera créé et elle pourra alors accéder à son profil en s'authentifiant.\\
+La personne intéressée peut s'inscrire à la convention avec l'option \texttt{S'inscrire}. Après avoir renseigné quelques informations, son compte sera créé et elle pourra alors accéder à son profil en s'authentifiant.\\
 
-Enfin, l'option «~Quitter~» permet à quiconque de fermer l'application.\\
+Enfin, l'option \texttt{Quitter} permet à quiconque de fermer l'application.\\
 
 
 
@@ -486,7 +561,7 @@ Si l'utilisateur est un Administrateur, il peut se connecter en tant qu’Admini
 
 Lors de l'examen du code, nous avons envisagé la possibilité d'optimiser les fonctionnalités pour rendre l'application plus fluide et plus agréable pour l'utilisateur, mais en raison des contraintes de temps, nous n'avons pas été en mesure de les améliorer.\\
 
-Tout d'abord, en ce qui concerne le nombre de tables, nous n'en avons actuellement que 4, étant donné que les jeux ne se déroulent que le matin et l'après-midi du week-end. Cependant, vu la nécessité pour les joueurs de s'inscrire à l'avance, par exemple, si quelqu'un veut s'inscrire en tant que MJ pour la table du samedi suivant ce samedi, cela n'est pas possible. Il faut donc optimiser la fonctionnalité “créer une table jeu” de l'administrateur, la fonctionnalité “gérer une table” de maître du jeu et la fonctionnalité “rejoindre une table” de joueur.\\
+Tout d'abord, en ce qui concerne le nombre de séances, nous n'en avons actuellement que 4, étant donné que les jeux ne se déroulent que le matin et l'après-midi du week-end. Si nous voulions permettre à notre application dé gérer des événements hebdomadaires, cela pourrait se faire en modifiant le nombre maximal de séances.\\
 
 De plus, actuellement, les utilisateurs se connectent directement en utilisant leur pseudo et il n'existe pas de mot de passe. Néanmoins, l'ajout d'un mot de passe pour compléter l'identification est particulièrement important pour l'administrateur du jeu, dont le pseudo est connu pour être «~admin~», ce qui ne fournit pas une sécurité suffisante, nous avons besoin donc d'améliorer la fonction «~S'authentifier~» en ajoutant un mot de passe.
 
@@ -663,10 +738,17 @@ Premièrement, en ce qui concerne le suivi du projet, notre chef de projet, Ludo
 \newpage
 \textbf{\Large Note de Jason Torres}
 
+Bien que l'informatique ne m'a pas systématiquement réussi au cours de mon parcours scolaire, j'ai toujours possédé une certaine appétence pour cette discipline. J'avais particulièrement bien apprécié le projet informatique de première année, projet au sein duquel je me suis énormément investi avoir eu le succès escompté. J'ai donc abordé ce projet informatique avec énormément d'engouement. Je l'ai perçu comme une réelle opportunité de progresser de façon significative en programmation mais également d'élargir ma culture en informatique.
 
+\textbf{ Ma participation effective au projet : }
+Dès le premier jour ou nous nous sommes réunis pour réfléchir ensemble à l'architecture de notre application, je me suis empressé de traduire nos idées en réalisant des diagrammes correspondant afin d'avoir une perspective et un recul plus intéressants sur notre application. En effet, il me semblait important d'avoir au premier abord une représentation visuelle et physique traduisant l'ensemble de nos idées par des diagrammes afin de nous rendre compte plus facilement des avantages et limites de ceux-ci. 
+Je m'investissais beaucoup plus et mettais le maximum de mes efforts lorsque nous décidions de travailler en groupe. À titre personnelle, il m'a semblé bien plus intéressant d'organiser des créneaux de travail en groupe, car cela nous permettait une bien meilleure ergonomie de travail, nous pouvions communiquer et interagir directement avec les autres membres du groupe et leur communiqué nos inquiétudes, problèmes et questionnement.
+J'ai pu apporter et communiquer à mes camarades mes idées et propositions concernant le développement de l'application. J'ai également partiellement contribué à la production du code, mais dans une quantité moindre en comparaison à l'apport des cadres du groupe qui avaient déjà un excellent recule et une bonne intuition concernant les concepts informatiques en jeu.
 
+\textbf{ Mon ressenti sur le projet, comment je l’ai vécu :  }
+Je me suis fixé l'objectif de pouvoir maîtriser l'intégralité des sujets et concepts informatiques abordés dans ce projet informatique. Malheureusement, en raison d
 
-
+\textbf{ Ce que je retiens du projet :   }
 %-------------------------------------------------------------------------------
 % Annexes
 %-------------------------------------------------------------------------------
@@ -681,7 +763,7 @@ Premièrement, en ce qui concerne le suivi du projet, notre chef de projet, Ludo
 \begin{figure}[H]
     \label{UML_classes}
     \centering
-    \includegraphics[angle=90,height=0.9\textheight]{UML_diagrammes/diag_classes.png}
+    \includegraphics[angle=90,height=0.9\textheight]{UML_diagrammes/diagramme_classe_final.png}
 \end{figure}
 
 
