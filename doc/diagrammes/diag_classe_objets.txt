@@ -60,7 +60,7 @@ class Personnage{
 
 TableJeu o-- Joueur
 TableJeu -- MaitreJeu
-TableJeu -- Séance
+TableJeu -- Seance
 Personnage --* Joueur
 
 Joueur <|-- MaitreJeu
