@@ -1,6 +1,17 @@
 @startuml
 'à coller ici : https://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000
 
+left to right direction
+
+together {
+class message{
++ {static} id_message : int
++ #id_joueur : int
++ date_creation : time
++ contenu : str
++ lu : bool
+}
+
 
 class joueur{
 + {static} id_joueur : int
@@ -11,6 +22,10 @@ class joueur{
 + est_mj : bool
 }
 
+}
+
+
+together {
 
 class personnage{
 + {static} id_personnage : int
@@ -19,39 +34,45 @@ class personnage{
 + classe : str
 + race : str
 + niveau : int
++ competences : str
++langues_parlees : str
 }
 
 
-
-
-class table_jeu{
-+ {static}id_table : int
-+ {static}séance : int
-+ id_mj : int
-+ scenario : str
-+ description : str
-}
 
 
 class table_personnage{
 + {static} #id_table : int
-+ {static} #séance : int
 + {static} #id_personnage : int
 }
 
 
+}
 
-class message{
-+ {static} id_message : int
-+ #id_joueur : int
-+ date_creation : time
-+ message : str
-+ lu : bool
+together {
+
+class table_jeu{
++ {static}id_table : int
++ #id_seance : int
++ id_maitrejeu : int
++ scenario : str
++ infos_complementaires : str
 }
 
 
-joueur "1" -- "1,2,3" personnage : possède >
-table_jeu "1" -- "*" table_personnage
-table_personnage "*" -- "1" personnage
+
+class seance{
++ {static} id_seance : int
++ description : str
++ debut : time
++ fin : time
+}
+
+}
+
 joueur "1" -- "*" message
+joueur "1" -- "1,2,3" personnage : possède >
+table_personnage "*" -- "1" personnage
+table_jeu "1" -- "*" table_personnage
+seance "1" -- "*" table_jeu
 @enduml
