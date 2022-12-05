@@ -29,7 +29,12 @@ INSERT INTO jdr.joueur(pseudo, nom, prenom, mail, est_mj) VALUES
 ('oo',        'Ochon',        'Paul',   'polochon@mail.fr',         false),
 ('tt',        'Kiki',         'Terry',  'terry@mail.fr',            false),
 ('yy',        'Atrovite',     'Yves',   'atrovite@mail.fr',         false),
-('tex',       'Agère',        'Tex',    'texagere@mail.fr',         true);
+('tex',       'Agère',        'Tex',    'texagere@mail.fr',         true),
+('ludo',      'Deneuville',   'Ludo',   'ludo@mail.fr',             false),
+('jf',        'Parriaud',     'JF',     'jf@mail.fr',               true),
+('banruo',    'Zhang',        'Banruo', 'banruo@mail.fr',           false),
+('jason',     'Torres',       'Jason',  'jason@mail.fr',            true),
+('hugo',      'Wispelaere',   'Hugo',   'hugo@mail.fr',             false);
 
  
 INSERT INTO jdr.personnage(id_joueur, nom, classe,race,niveau,competence,langues_parlees) VALUES
